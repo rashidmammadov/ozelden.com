@@ -1,1 +1,0 @@
-<?php echo "ozelden.com server side" ?>
