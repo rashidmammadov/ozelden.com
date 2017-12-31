@@ -8,7 +8,7 @@
   },
   "installed_plugins": {
     "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "com.example.ozelden"
+      "PACKAGE_NAME": "com.exapmle.ozelden"
     }
   },
   "dependent_plugins": {}
