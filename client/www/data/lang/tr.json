@@ -1,3 +1,21 @@
 {
-  "TEST": "Türkçe"
+  "DATE_OF_BIRTH": "Doğum Tarihi",
+  "EMAIL": "Email",
+  "FEMALE": "Kadın",
+  "FORGOT_PASSWORD": "Şifremi Unuttum",
+  "LOGIN": "Giriş",
+  "NAME": "İsim",
+  "MALE": "Erkek",
+  "PASSWORD": "Şifre",
+  "PASSWORD_CONFIRM": "Şifre Onayı",
+  "PASSWORDS_DO_NOT_MATCH": "Şifreler Uyuşmuyor",
+  "REGISTRATION": "Kayıt",
+  "SURNAME": "Soyisim",
+  "SIGN_IN": "Giriş Yap",
+  "SIGN_UP": "Kaydol",
+  "SOMETHING_WENT_WRONG": "Maalesef, bir şeyler ters gitti.",
+  "TELEPHONE": "Telefon",
+  "THIS_EMAIL_ALREADY_REGISTERED": "Bu e-mail zaten kayıtlı.",
+  "TUTOR": "Öğretmen",
+  "TUTOR_LOGIN": "Öğretmen Girişi"
 }

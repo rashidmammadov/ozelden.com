@@ -19,7 +19,12 @@
             $translate.use(lang);
         }
 
+        function register() {
+
+        }
+
         this.changeLanguage = changeLanguage;
+        this.register = register;
     }
 
     angular.module('ozelden.controllers').controller('MainCtrl', MainCtrl);

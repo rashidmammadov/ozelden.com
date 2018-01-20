@@ -1,3 +1,21 @@
 {
-  "TEST": "Azərbaycan Dili"
+  "DATE_OF_BIRTH": "Doğum Tarixi",
+  "EMAIL": "Email",
+  "FEMALE": "Qadın",
+  "FORGOT_PASSWORD": "Şifrəmi Unutdum",
+  "LOGIN": "Giriş",
+  "NAME": "Ad",
+  "MALE": "Kişi",
+  "PASSWORD": "Şifrə",
+  "PASSWORD_CONFIRM": "Şifrə Təsdiqi",
+  "PASSWORDS_DO_NOT_MATCH": "Şifrələr Fərqlidir",
+  "REGISTRATION": "Qeydiyyat",
+  "SIGN_IN": "Daxil Ol",
+  "SIGN_UP": "Qeydiyyatdan Keç",
+  "SOMETHING_WENT_WRONG": "Bağışlayın, bir şey səhv oldu.",
+  "SURNAME": "Soyad",
+  "TELEPHONE": "Telefon",
+  "THIS_EMAIL_ALREADY_REGISTERED": "Bu e-mail daha öncə qeydiyyatdan keçmişdir.",
+  "TUTOR": "Müəllim",
+  "TUTOR_LOGIN": "Müəllim Girişi"
 }
