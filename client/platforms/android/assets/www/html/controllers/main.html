@@ -1,3 +1,8 @@
+    <md-button class="md-raised" ng-click="Main.changeLanguage('az')">az</md-button>
+    <md-button class="md-raised" ng-click="Main.changeLanguage('en')">en</md-button>
+    <md-button class="md-raised" ng-click="Main.changeLanguage('tr')">tr</md-button>
 
-    <p>welcome to {{Main.test}}</p>
-    <md-button class="md-raised md-primary" ng-click="Main.change()">Test</md-button>
+    <md-button class="md-raised" ui-sref="ozelden.tutorLogin" ui-sref-active="active">{{'TUTOR_LOGIN' | translate}}</md-button>
+    <md-button class="md-raised" ng-click="Main.register()">Register</md-button>
+
+    <ui-view></ui-view>
