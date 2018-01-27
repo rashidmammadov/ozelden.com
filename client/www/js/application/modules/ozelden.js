@@ -4,6 +4,9 @@
     var ozelden = angular.module('ozelden',['ozelden.controllers','ozelden.directives','ozelden.filters','ozelden.services',
         'ngAnimate', 'ngAria', 'ngMaterial', 'ngMessages', 'pascalprecht.translate', 'ui.router']);
 
+    ozelden.run(function ($rootScope) {
+        $rootScope.user = {}
+    });
     ozelden.config(function ($stateProvider, $urlRouterProvider, $translateProvider, $mdIconProvider) {
 
         // load application language.
