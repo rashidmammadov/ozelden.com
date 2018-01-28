@@ -8,6 +8,7 @@
      */
     function MainCtrl($scope, $translate) {
         var self = this;
+        this.selectedLanguage = $translate.preferredLanguage();
 
         /**
          * @ngdoc method

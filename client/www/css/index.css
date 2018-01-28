@@ -9,3 +9,17 @@ body{
 }
 
 .hint{color: #D0D0D0;}
+
+#ozelden-menu-bar{
+    background-color: #FFFFFF;
+    height: 54px;
+    padding: 8px;
+    width: 100%;
+    position: fixed;
+    z-index: 99;
+}
+
+#ozelden-content{
+    height: 100%;
+    padding-top: 64px;
+}

@@ -27,14 +27,25 @@
             controllerAs: 'Main'
         }).state('ozelden.tutorLogin',{
             url: 'tutor/login',
-            templateUrl: 'html/controllers/tutorLogin.html',
+            templateUrl: 'html/controllers/tutor/login.html',
             controller: 'TutorLoginCtrl',
             controllerAs: 'tutor'
+        }).state('ozelden.tutorDashboard',{
+            url: 'tutor/dashboard/{tutorId}',
+            templateUrl: 'html/controllers/tutor/dashboard.html',
+            controller: 'TutorDashboardCtrl',
+            controllerAs: 'dashboard',
+            params: {
+                tutorId: null
+            }
         });
 
         // define icons.
         $mdIconProvider.icon('briefcase', 'img/icon/briefcase.svg');
         $mdIconProvider.icon('female', 'img/icon/female.svg');
         $mdIconProvider.icon('male', 'img/icon/male.svg');
+        $mdIconProvider.icon('lang-az', 'img/icon/lang-az.svg');
+        $mdIconProvider.icon('lang-en', 'img/icon/lang-en.svg');
+        $mdIconProvider.icon('lang-tr', 'img/icon/lang-tr.svg');
     })
 }());
