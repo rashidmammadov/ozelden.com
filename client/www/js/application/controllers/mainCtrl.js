@@ -6,10 +6,16 @@
      * @name ozelden.controllers.controllers:MainCtrl
      * @description Controller for the main page view.
      */
-    function MainCtrl($scope, $translate) {
+    function MainCtrl($scope, $translate, $mdSidenav) {
         var self = this;
         this.selectedLanguage = $translate.preferredLanguage();
+        $scope.toggleLeft = buildToggler('left');
 
+        function buildToggler(componentId) {
+            return function() {
+                $mdSidenav(componentId).toggle();
+            };
+        }
         /**
          * @ngdoc method
          * @name ozelden.controllers.controllers:MainCtrl#changeLangugage
@@ -20,12 +26,7 @@
             $translate.use(lang);
         }
 
-        function register() {
-
-        }
-
         this.changeLanguage = changeLanguage;
-        this.register = register;
     }
 
     angular.module('ozelden.controllers').controller('MainCtrl', MainCtrl);

@@ -1,5 +1,9 @@
 <md-whiteframe id="ozelden-menu-bar" class="md-whiteframe-2dp" layout="row" layout-align="space-between center">
-    <img style="height: 50px;" src="img/logo/logo.png" />
+    <img style="height: 50px;" hide show-gt-sm src="img/logo/logo.png" />
+    <img style="height: 40px;" hide-gt-sm src="img/logo/logo-min.png" />
+    <md-button ng-click="toggleLeft()" class="md-raised">
+        Toggle Sidenav
+    </md-button>
 
     <div layout="row" layout-align="end center">
         <md-button ui-sref="ozelden.tutorDashboard" ui-sref-active="active">{{'TUTOR_DASHBOARD' | translate}}</md-button>

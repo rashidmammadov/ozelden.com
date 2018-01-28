@@ -20,6 +20,14 @@ body{
 }
 
 #ozelden-content{
-    height: 100%;
-    padding-top: 64px;
+
+}
+
+#container{
+    padding-top: 54px;
+}
+
+.md-sidenav-left{
+    padding-top: 54px;
+    overflow-y: scroll;
 }
