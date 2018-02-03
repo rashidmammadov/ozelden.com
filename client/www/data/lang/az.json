@@ -1,5 +1,6 @@
 {
   "ACCEPT_TERMS_OF_USE": "İstifadə şərtlərini qəbul edirəm",
+  "DASHBOARD": "Alət Paneli",
   "DATE_OF_BIRTH": "Doğum Tarixi",
   "EMAIL": "Email",
   "FEMALE": "Qadın",
@@ -10,6 +11,7 @@
   "PASSWORD": "Şifrə",
   "PASSWORD_CONFIRM": "Şifrə Təsdiqi",
   "PASSWORDS_DO_NOT_MATCH": "Şifrələr Fərqlidir",
+  "PERSONAL": "Şəxsi",
   "REGISTRATION": "Qeydiyyat",
   "SIGN_IN": "Daxil Ol",
   "SIGN_UP": "Qeydiyyatdan Keç",

@@ -30,22 +30,26 @@
             templateUrl: 'html/controllers/tutor/login.html',
             controller: 'TutorLoginCtrl',
             controllerAs: 'tutor'
-        }).state('ozelden.tutorDashboard',{
-            url: 'tutor/dashboard/{tutorId}',
+        }).state('ozelden.tutor',{
+            url: 'tutor',
+            templateUrl: 'html/controllers/tutor/side.html',
+            controller: 'TutorSideCtrl',
+            controllerAs: 'tutor'
+        }).state('ozelden.tutor.dashboard',{
+            url: '/dashboard',
             templateUrl: 'html/controllers/tutor/dashboard.html',
             controller: 'TutorDashboardCtrl',
-            controllerAs: 'dashboard',
-            params: {
-                tutorId: null
-            }
+            controllerAs: 'dashboard'
         });
 
         // define icons.
         $mdIconProvider.icon('briefcase', 'img/icon/briefcase.svg');
+        $mdIconProvider.icon('dashboard', 'img/icon/dashboard.svg');
         $mdIconProvider.icon('female', 'img/icon/female.svg');
         $mdIconProvider.icon('male', 'img/icon/male.svg');
         $mdIconProvider.icon('lang-az', 'img/icon/lang-az.svg');
         $mdIconProvider.icon('lang-en', 'img/icon/lang-en.svg');
         $mdIconProvider.icon('lang-tr', 'img/icon/lang-tr.svg');
+        $mdIconProvider.icon('side-nav', 'img/icon/side-nav.svg');
     })
 }());

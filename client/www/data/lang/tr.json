@@ -1,5 +1,6 @@
 {
   "ACCEPT_TERMS_OF_USE": "Kullanım şartlarını kabul ediyorum",
+  "DASHBOARD": "Gösterge Tablosu",
   "DATE_OF_BIRTH": "Doğum Tarihi",
   "EMAIL": "Email",
   "FEMALE": "Kadın",
@@ -10,6 +11,7 @@
   "PASSWORD": "Şifre",
   "PASSWORD_CONFIRM": "Şifre Onayı",
   "PASSWORDS_DO_NOT_MATCH": "Şifreler Uyuşmuyor",
+  "PERSONAL": "Kişisel",
   "REGISTRATION": "Kayıt",
   "SURNAME": "Soyisim",
   "SIGN_IN": "Giriş Yap",
