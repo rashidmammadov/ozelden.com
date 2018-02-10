@@ -4,8 +4,20 @@
     var ozelden = angular.module('ozelden',['ozelden.controllers','ozelden.directives','ozelden.filters','ozelden.services',
         'ngAnimate', 'ngAria', 'ngMaterial', 'ngMessages', 'pascalprecht.translate', 'ui.router']);
 
-    ozelden.run(function ($rootScope) {
-        $rootScope.user = {}
+    ozelden.run(function ($rootScope, $http, VocabularyService) {
+        $http({
+            method: 'GET',
+            url: VocabularyService.getUserSession()
+        }).then(function (response) {
+            var result = response.data;
+            if(result.status === 'success') {
+                $rootScope.user = result.user;
+            } else {
+                $rootScope.user = {};
+            }
+        }, function(){
+            $rootScope.user = {};
+        })
     });
     ozelden.config(function ($stateProvider, $urlRouterProvider, $translateProvider, $mdIconProvider) {
 

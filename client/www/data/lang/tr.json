@@ -20,5 +20,6 @@
   "TELEPHONE": "Telefon",
   "THIS_EMAIL_ALREADY_REGISTERED": "Bu e-mail zaten kayıtlı.",
   "TUTOR": "Öğretmen",
-  "TUTOR_LOGIN": "Öğretmen Girişi"
+  "TUTOR_LOGIN": "Öğretmen Girişi",
+  "WRONG_EMAIL_OR_PASSWORD": "Yanlış email veya şifre"
 }

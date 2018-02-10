@@ -20,5 +20,6 @@
   "TELEPHONE": "Telephone",
   "THIS_EMAIL_ALREADY_REGISTERED": "This e-mail already registered.",
   "TUTOR": "Tutor",
-  "TUTOR_LOGIN": "Tutor Login"
+  "TUTOR_LOGIN": "Tutor Login",
+  "WRONG_EMAIL_OR_PASSWORD": "Wrong e-mail or password."
 }
