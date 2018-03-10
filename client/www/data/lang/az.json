@@ -1,7 +1,10 @@
 {
   "ACCEPT_TERMS_OF_USE": "İstifadə şərtlərini qəbul edirəm",
+  "ADD": "Əlavə Et",
+  "CITY": "Şəhər",
   "DASHBOARD": "Alət Paneli",
   "DATE_OF_BIRTH": "Doğum Tarixi",
+  "DISCTRICT": "Rayon",
   "EMAIL": "Email",
   "FEMALE": "Qadın",
   "FORGOT_PASSWORD": "Şifrəmi Unutdum",
@@ -16,10 +19,18 @@
   "SIGN_IN": "Daxil Ol",
   "SIGN_UP": "Qeydiyyatdan Keç",
   "SOMETHING_WENT_WRONG": "Bağışlayın, bir şey səhv oldu.",
+  "SUITABILITY_SCHEDULE": "Uyğunluq Cədvəli",
   "SURNAME": "Soyad",
   "TELEPHONE": "Telefon",
   "THIS_EMAIL_ALREADY_REGISTERED": "Bu e-mail daha öncə qeydiyyatdan keçmişdir.",
   "TUTOR": "Müəllim",
   "TUTOR_LOGIN": "Müəllim Girişi",
-  "WRONG_EMAIL_OR_PASSWORD": "Yanlış e-mail və ya şifrə."
+  "WRONG_EMAIL_OR_PASSWORD": "Yanlış e-mail və ya şifrə.",
+  "MONDAY": "B.E",
+  "TUESDAY": "Ç.A",
+  "WEDNESDAY": "Çər",
+  "THURSDAY": "C.A",
+  "FRIDAY": "Cüm",
+  "SATURDAY": "Şən",
+  "SUNDAY": "Baz"
 }

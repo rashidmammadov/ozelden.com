@@ -17,7 +17,7 @@
             }
         }, function(){
             $rootScope.user = {};
-        })
+        });
     });
     ozelden.config(function ($stateProvider, $urlRouterProvider, $translateProvider, $mdIconProvider) {
 
@@ -52,9 +52,15 @@
             templateUrl: 'html/controllers/tutor/dashboard.html',
             controller: 'TutorDashboardCtrl',
             controllerAs: 'dashboard'
+        }).state('ozelden.tutor.suitabilitySchedule',{
+            url: '/suitability-schedule',
+            templateUrl: 'html/controllers/tutor/suitabilitySchedule.html',
+            controller: 'TutorSuitabilityScheduleCtrl',
+            controllerAs: 'suitability'
         });
 
         // define icons.
+        $mdIconProvider.icon('add-button', 'img/icon/add-button.svg');
         $mdIconProvider.icon('briefcase', 'img/icon/briefcase.svg');
         $mdIconProvider.icon('dashboard', 'img/icon/dashboard.svg');
         $mdIconProvider.icon('female', 'img/icon/female.svg');
@@ -63,5 +69,6 @@
         $mdIconProvider.icon('lang-en', 'img/icon/lang-en.svg');
         $mdIconProvider.icon('lang-tr', 'img/icon/lang-tr.svg');
         $mdIconProvider.icon('side-nav', 'img/icon/side-nav.svg');
+        $mdIconProvider.icon('suitability-schedule', 'img/icon/suitability-schedule.svg');
     })
-}());
+})();
