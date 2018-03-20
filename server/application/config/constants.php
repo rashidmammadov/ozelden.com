@@ -83,3 +83,34 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+/*
+ * CUSTOM DEFINE
+ * */
+define('ACT', 'act');
+define('COLUMN', 'column');
+define('DATA', 'data');
+define('IDENTIFIER', 'id');
+define('NAME', 'name');
+define('SUITABILITY_SCHEDULE', 'suitabilitySchedule');
+define('TUTOR', 'tutor');
+define('TUTOR_MODEL', 'TutorModel');
+define('USER', 'user');
+define('USER_TYPE', 'userType');
+
+
+/* Suitability Schedule Values */
+define('STUDENT_HOME', 'studentHome');
+define('TUTOR_HOME', 'tutorHome');
+define('ETUDE', 'etude');
+define('COURSE', 'course');
+define('LIBRARY', 'library');
+define('OVER_INTERNET', 'overInternet');
+
+define('INDIVIDUAL', 'individual');
+define('GROUP', 'group');
+define('CLASS_', 'class');
+
+define('DEMO', 'demo');
+define('GROUP_DISCOUNT', 'groupDiscount');
+define('PACKAGE_DISCOUNT', 'packageDiscount');

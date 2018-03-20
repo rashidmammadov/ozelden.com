@@ -45,4 +45,28 @@ body{
 
 md-card.oz-setting-card md-card-title{
     padding: 16px;
+    max-height: 16px;
+}
+
+.md-chips md-chip{
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    border: 1px solid #D1A377;
+    font-size: 11px;
+    height: 32px;
+}
+
+.md-switch.md-default-theme.md-checked .md-thumb, md-switch.md-checked .md-thumb{
+    background-color: #D1A377;
+}
+md-switch.md-default-theme.md-checked .md-bar, md-switch.md-checked .md-bar{
+    background-color: #D1A377;
+    opacity: 0.5;
+}
+
+md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar{
+    background-color: #721C47;
+}
+md-progress-linear.md-default-theme .md-container, md-progress-linear .md-container{
+    background-color: #FFC6E2;
 }
