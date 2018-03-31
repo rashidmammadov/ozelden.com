@@ -68,6 +68,7 @@
         $mdIconProvider.icon('lang-az', 'img/icon/lang-az.svg');
         $mdIconProvider.icon('lang-en', 'img/icon/lang-en.svg');
         $mdIconProvider.icon('lang-tr', 'img/icon/lang-tr.svg');
+        $mdIconProvider.icon('save', 'img/icon/save.svg');
         $mdIconProvider.icon('side-nav', 'img/icon/side-nav.svg');
         $mdIconProvider.icon('suitability-schedule', 'img/icon/suitability-schedule.svg');
     })

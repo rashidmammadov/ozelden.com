@@ -19,12 +19,21 @@ body{
     z-index: 90;
 }
 
-#ozelden-content{
-
-}
-
 #container{
     padding-top: 40px;
+}
+
+.md-button.md-default-theme.md-fab, .md-button.md-fab{
+    background-color: #D1A377;
+}
+.md-button.md-fab:not([disabled]):hover{
+    background-color: #BC936B;
+}
+
+.float-button{
+    position: fixed;
+    top: 64px;
+    right: 32px;
 }
 
 .md-sidenav-left{
