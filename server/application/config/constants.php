@@ -95,6 +95,7 @@ define('NAME', 'name');
 define('SUITABILITY_SCHEDULE', 'suitabilitySchedule');
 define('TUTOR', 'tutor');
 define('TUTOR_MODEL', 'TutorModel');
+define('TUTOR_LIBRARY', 'TutorLibrary');
 define('USER', 'user');
 define('USER_TYPE', 'userType');
 

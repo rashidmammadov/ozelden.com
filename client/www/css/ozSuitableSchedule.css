@@ -1,0 +1,7 @@
+oz-suitability-schedule{
+    font-size: 12px;
+}
+
+oz-suitability-schedule .oz-setting-card md-card-title{
+    max-height: 32px;
+}
