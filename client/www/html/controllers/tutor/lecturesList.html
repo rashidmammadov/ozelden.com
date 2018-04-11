@@ -1,0 +1,26 @@
+<div layout="column" flex>
+    <md-card class="oz-setting-card md-whiteframe-1dp" flex>
+        <md-card-title>{{'ADD_LECTURE' | translate}}</md-card-title>
+        <md-divider></md-divider>
+        <md-card-content>
+            <div layout="row" flex>
+                <md-input-container flex>
+                    <label>{{'CITY' | translate}}</label>
+                    <md-select ng-model="suitability.selectedCity">
+                        <md-option ng-repeat="(city, index) in suitability.cities" ng-value="city">
+                            {{city}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>{{'CITY' | translate}}</label>
+                    <md-select ng-model="suitability.selectedCity">
+                        <md-option ng-repeat="(city, index) in suitability.cities" ng-value="city">
+                            {{city}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+        </md-card-content>
+    </md-card>
+</div>

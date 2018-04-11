@@ -1,6 +1,7 @@
 {
   "ACCEPT_TERMS_OF_USE": "Kullanım şartlarını kabul ediyorum",
   "ADD": "Ekle",
+  "ADD_LECTURE": "Ders Ekle",
   "CHANGES_UPDATED_SUCCESSFULLY": "Değişiklikler başarıyla güncellendi",
   "CITY": "Şehir",
   "COURSE_TYPE": "Ders Tipi",
@@ -12,6 +13,7 @@
   "FEMALE": "Kadın",
   "FORGOT_PASSWORD": "Şifremi Unuttum",
   "INVALID_TUTOR_ID": "Hatalı Öğretmen ID`si",
+  "LECTURES_LIST": "Dersler Listesi",
   "LOCATIONS": "Mekanlar",
   "LOGIN": "Giriş",
   "NAME": "İsim",

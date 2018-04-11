@@ -1,6 +1,7 @@
 {
   "ACCEPT_TERMS_OF_USE": "Accept Ters of Use",
   "ADD": "Add",
+  "ADD_LECTURE": "Add Lecture",
   "CHANGES_UPDATED_SUCCESSFULLY": "Changes updated successfully",
   "CITY": "City",
   "COURSE_TYPE": "Course Type",
@@ -12,6 +13,7 @@
   "FEMALE": "Female",
   "FORGOT_PASSWORD": "Forgot Password",
   "INVALID_TUTOR_ID": "Invalid Tutor Id",
+  "LECTURES_LIST": "Lectures List",
   "LOCATIONS": "Locations",
   "LOGIN": "Login",
   "NAME": "Name",

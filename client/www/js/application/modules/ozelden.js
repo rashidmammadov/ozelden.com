@@ -52,6 +52,11 @@
             templateUrl: 'html/controllers/tutor/dashboard.html',
             controller: 'TutorDashboardCtrl',
             controllerAs: 'dashboard'
+        }).state('ozelden.tutor.lecturesList',{
+            url: '/lectures-list',
+            templateUrl: 'html/controllers/tutor/lecturesList.html',
+            controller: 'TutorLecturesListCtrl',
+            controllerAs: 'lectures'
         }).state('ozelden.tutor.suitabilitySchedule',{
             url: '/suitability-schedule',
             templateUrl: 'html/controllers/tutor/suitabilitySchedule.html',
@@ -68,6 +73,7 @@
         $mdIconProvider.icon('lang-az', 'img/icon/lang-az.svg');
         $mdIconProvider.icon('lang-en', 'img/icon/lang-en.svg');
         $mdIconProvider.icon('lang-tr', 'img/icon/lang-tr.svg');
+        $mdIconProvider.icon('lectures-list', 'img/icon/list.svg');
         $mdIconProvider.icon('save', 'img/icon/save.svg');
         $mdIconProvider.icon('side-nav', 'img/icon/side-nav.svg');
         $mdIconProvider.icon('suitability-schedule', 'img/icon/suitability-schedule.svg');
