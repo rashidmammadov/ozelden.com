@@ -6,6 +6,38 @@
 
         /**
          * @ngdoc method
+         * @name ozelden.services.TutorService#addTutorLecture
+         * @methodOf ozelden.services.TutorService
+         *
+         * @description add selected lecture to the tutor list.
+         * @param {Object} data - holds the tutor`s lecture info.
+         */
+        function addTutorLecture(data) {
+            var deferred = $q.defer();
+
+            $http({
+                url: VocabularyService.updateTutorInfo(),
+                method: 'POST',
+                data: {
+                    act: 'addLecture',
+                    data: data
+                }
+            }).then(function(response){
+                var result = response.data;
+                if (result.success) {
+                    deferred.resolve(result.message);
+                } else {
+                    deferred.reject(result.failure);
+                }
+            }, function (rejection) {
+                deferred.reject(rejection);
+            });
+
+            return deferred.promise;
+        }
+
+        /**
+         * @ngdoc method
          * @name ozelden.services.TutorService#getTutorInfo
          * @methodOf ozelden.services.TutorService
          *
@@ -21,12 +53,12 @@
                 params: {
                     act: act
                 }
-            }).then(function (result) {
-                var response = result.data;
-                if (response.success) {
-                    deferred.resolve(response.data);
+            }).then(function (response) {
+                var result = response.data;
+                if (result.success) {
+                    deferred.resolve(result.data);
                 } else {
-                    deferred.reject(response.failure);
+                    deferred.reject(result.failure);
                 }
             }, function (rejection) {
                 deferred.reject(rejection);
@@ -54,12 +86,12 @@
                     act: act,
                     data: data
                 }
-            }).then(function (result) {
-                var response = result.data;
-                if (response.success) {
-                    deferred.resolve(response.message);
+            }).then(function (response) {
+                var result = response.data;
+                if (result.success) {
+                    deferred.resolve(result.message);
                 } else {
-                    deferred.reject(response.failure);
+                    deferred.reject(result.failure);
                 }
             }, function (rejection) {
                 deferred.reject(rejection);
@@ -68,6 +100,7 @@
             return deferred.promise;
         }
 
+        this.addTutorLecture = addTutorLecture;
         this.getTutorInfo = getTutorInfo;
         this.updateTutorInfo = updateTutorInfo;
         return this;

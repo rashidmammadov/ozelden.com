@@ -88,9 +88,11 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
  * CUSTOM DEFINE
  * */
 define('ACT', 'act');
+define('ADD_LECTURE', 'addLecture');
 define('COLUMN', 'column');
 define('DATA', 'data');
 define('IDENTIFIER', 'id');
+define('LECTURES_LIST', 'lecturesList');
 define('NAME', 'name');
 define('SUITABILITY_SCHEDULE', 'suitabilitySchedule');
 define('TUTOR', 'tutor');

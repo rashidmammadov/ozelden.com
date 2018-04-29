@@ -7,7 +7,12 @@
             return DirectionService.serverUri() + 'location/getCities'
         }
 
+        function getLectures() {
+            return DirectionService.serverUri() + 'location/getLectures'
+        }
+
         this.getCities = getCities;
+        this.getLectures = getLectures;
         return this;
     }
 

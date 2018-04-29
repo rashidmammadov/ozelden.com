@@ -6,6 +6,19 @@ class TutorModel extends CI_Model{
         parent::__construct();
     }
 
+    public function addLecture($tutorId, $data){
+        $lecture = array(
+            'tutorId' => $tutorId,
+            'lectureArea' => $data['lectureArea'],
+            'lectureTheme' => $data['lectureTheme'],
+            'experience' => $data['experience'],
+            'price' => $data['price']
+        );
+
+        $result = $this->db->insert('tutor_lectures_list', $lecture);
+        return $result ? true : false;
+    }
+
     public function addTutor($data){
         $this->db->insert('tutor', $data);
     }
@@ -18,6 +31,12 @@ class TutorModel extends CI_Model{
     public function createTutorSuitabilitySchedule($tutorId){
         $sql = "INSERT INTO tutor_suitability_schedule (tutorId)  VALUES (".$tutorId.")";
         $this->db->query($sql);
+    }
+
+    public function getLecturesList($tutorId){
+        $sql = "SELECT * FROM tutor_lectures_list AS TLL WHERE TLL.tutorId = '".$tutorId."'";
+        $query = $this->db->query($sql);
+        return $query->result_array();
     }
 
     public function getSuitabilitySchedule($tutorId){

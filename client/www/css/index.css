@@ -70,6 +70,10 @@ md-card.oz-setting-card md-card-title{
     height: 32px;
 }
 
+md-input-container{
+    margin: 8px 0px 0px 0px;
+}
+
 md-switch{
     margin: 8px 0px;
 }

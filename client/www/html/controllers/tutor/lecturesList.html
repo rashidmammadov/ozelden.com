@@ -5,22 +5,74 @@
         <md-card-content>
             <div layout="row" flex>
                 <md-input-container flex>
-                    <label>{{'CITY' | translate}}</label>
-                    <md-select ng-model="suitability.selectedCity">
-                        <md-option ng-repeat="(city, index) in suitability.cities" ng-value="city">
-                            {{city}}
+                    <label>{{'LECTURE_AREA' | translate}}</label>
+                    <md-select ng-model="lectures.selectedLectureArea">
+                        <md-option ng-repeat="area in lectures.lectures" ng-value="area" ng-selected="$index==0">
+                            {{area.base | translate}}
                         </md-option>
                     </md-select>
                 </md-input-container>
                 <md-input-container flex>
-                    <label>{{'CITY' | translate}}</label>
-                    <md-select ng-model="suitability.selectedCity">
-                        <md-option ng-repeat="(city, index) in suitability.cities" ng-value="city">
-                            {{city}}
+                    <label>{{'LECTURE_THEME' | translate}}</label>
+                    <md-select ng-model="lectures.selectedLectureTheme">
+                        <md-option ng-repeat="theme in lectures.selectedLectureArea.link" ng-value="theme" ng-selected="$index==0">
+                            {{theme.base | translate}}
                         </md-option>
                     </md-select>
                 </md-input-container>
+                <md-input-container flex>
+                    <label>{{'EXPERIENCE' | translate}}</label>
+                    <md-select ng-model="lectures.selectedExperience">
+                        <md-option ng-repeat="year in lectures.experienceList" ng-value="year" ng-selected="$index==0">
+                            {{year}} {{'YEAR' | translate}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>{{'PRICE' | translate}} (₺)</label>
+                    <input type="number" step="any" min="1" max="99999" ng-model="lectures.selectedPrice">
+                </md-input-container>
+                <md-button class="md-icon-button" ng-click="lectures.addLecture()" ng-disabled="!lectures.selectedPrice">
+                    <md-tooltip md-direction="top">{{'ADD' | translate}}</md-tooltip>
+                    <md-icon md-svg-icon="add-button"></md-icon>
+                </md-button>
             </div>
+        </md-card-content>
+    </md-card>
+
+    <md-card class="oz-setting-card md-whiteframe-1dp" flex>
+        <md-card-title>{{'LECTURES_LIST' | translate}}</md-card-title>
+        <md-divider></md-divider>
+        <div style="height: 5px;">
+            <md-progress-linear md-mode="indeterminate" ng-if="lectures.loading"></md-progress-linear>
+        </div>
+        <md-card-content>
+            <md-list flex>
+                <md-list-item style="border-bottom: 1px solid lightgray;">
+                    <p style="width:256px">{{'LECTURE_AREA' | translate}}</p>
+                    <p style="width:256px">{{'LECTURE_THEME' | translate}}</p>
+                    <p style="width:64px">{{'EXPERIENCE' | translate}}</p>
+                    <p style="width:64px" align="right">{{'PRICE' | translate}}</p>
+                    <p style="width:64px" align="center">{{'DIFF' | translate}}</p>
+                    <p style="width:64px" align="left">{{'AVERAGE' | translate}}</p>
+                    <p style="width:64px" align="center">{{'OPERATION' | translate}}</p>
+                </md-list-item>
+                <div  style="height: 240px; overflow-y: scroll;">
+                    <md-list-item style="border-bottom: 1px solid lightgray;" ng-repeat="lecture in lectures.tutorLecturesList">
+                        <p style="width:256px">{{lecture.lectureArea | translate}}</p>
+                        <p style="width:256px">{{lecture.lectureTheme | translate}}</p>
+                        <p style="width:64px">{{lecture.experience}} {{'YEAR' | translate}}</p>
+                        <p style="width:64px" align="right">{{lecture.price}} {{lecture.currency | translate}}</p>
+                        <p style="width:64px" align="center"><md-icon style="fill: darkgreen;" md-svg-icon="math-approximately-equal"></md-icon></p>
+                        <p style="width:64px" align="left">50 {{lecture.currency | translate}}</p>
+                        <p style="width:64px" align="center">
+                            <md-button class="md-icon-button">
+                                <md-icon md-svg-icon="add-button"></md-icon>
+                            </md-button>
+                        </p>
+                    </md-list-item>
+                </div>
+            </md-list>
         </md-card-content>
     </md-card>
 </div>

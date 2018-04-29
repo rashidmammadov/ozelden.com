@@ -21,7 +21,7 @@
                             </md-select>
                         </md-input-container>
                         <md-input-container flex>
-                            <label>{{'DISCTRICT' | translate}}</label>
+                            <label>{{'DISTRICT' | translate}}</label>
                             <md-select ng-model="suitability.selectedDistrict" ng-disabled="!suitability.cities[suitability.selectedCity]">
                                 <md-option ng-repeat="district in suitability.cities[suitability.selectedCity]"
                                            ng-value="district" ng-selected="$index == 0 ? true : false">
@@ -29,7 +29,7 @@
                                 </md-option>
                             </md-select>
                         </md-input-container>
-                        <md-button class="md-icon-button" ng-click="suitability.addRegion()" style="margin-top: 16px;"
+                        <md-button class="md-icon-button" ng-click="suitability.addRegion()"
                                    ng-disabled="!suitability.cities[suitability.selectedCity]">
                             <md-tooltip md-direction="top">{{'ADD' | translate}}</md-tooltip>
                             <md-icon md-svg-icon="add-button"></md-icon>
