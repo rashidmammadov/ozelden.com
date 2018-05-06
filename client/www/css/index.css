@@ -20,6 +20,10 @@ body{
     z-index: 90;
 }
 
+#ozelden-content{
+    height: 100%;
+}
+
 #container{
     padding-top: 40px;
 }
@@ -90,4 +94,29 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar{
 }
 md-progress-linear.md-default-theme .md-container, md-progress-linear .md-container{
     background-color: rgba(209, 163, 119, 0.3);
+}
+
+.ozelden-list.header{
+    border-bottom: 1px solid lightgray;
+}
+.ozelden-list.header p{
+    font-weight: bold;
+    color: #555555;
+}
+.ozelden-list.body{
+    height: 240px;
+    overflow-y: scroll;
+}
+.ozelden-list.body .average-icon md-icon{
+    height: 18px;
+    width: 18px;
+    min-height: 0px;
+    min-width: 0px;
+}
+
+.no-data{
+    position: relative;
+    bottom: 128px;
+    text-align: center;
+    color: #721C47;
 }

@@ -48,29 +48,42 @@
         </div>
         <md-card-content>
             <md-list flex>
-                <md-list-item style="border-bottom: 1px solid lightgray;">
-                    <p style="width:256px">{{'LECTURE_AREA' | translate}}</p>
-                    <p style="width:256px">{{'LECTURE_THEME' | translate}}</p>
-                    <p style="width:64px">{{'EXPERIENCE' | translate}}</p>
-                    <p style="width:64px" align="right">{{'PRICE' | translate}}</p>
-                    <p style="width:64px" align="center">{{'DIFF' | translate}}</p>
-                    <p style="width:64px" align="left">{{'AVERAGE' | translate}}</p>
-                    <p style="width:64px" align="center">{{'OPERATION' | translate}}</p>
+                <md-list-item class="ozelden-list header">
+                    <p style="width:25%">{{'LECTURE_AREA' | translate}}</p>
+                    <p style="width:25%">{{'LECTURE_THEME' | translate}}</p>
+                    <p style="width:10%">{{'EXPERIENCE' | translate}}</p>
+                    <p style="width:10%" align="right">{{'PRICE' | translate}}</p>
+                    <p style="width:10%" align="center">{{'DIFF' | translate}}</p>
+                    <p style="width:10%" align="left">{{'AVERAGE' | translate}}</p>
+                    <p style="width:10%" align="center">{{'OPERATION' | translate}}</p>
                 </md-list-item>
-                <div  style="height: 240px; overflow-y: scroll;">
+                <div class="ozelden-list body" ng-if="lectures.tutorLecturesList">
                     <md-list-item style="border-bottom: 1px solid lightgray;" ng-repeat="lecture in lectures.tutorLecturesList">
-                        <p style="width:256px">{{lecture.lectureArea | translate}}</p>
-                        <p style="width:256px">{{lecture.lectureTheme | translate}}</p>
-                        <p style="width:64px">{{lecture.experience}} {{'YEAR' | translate}}</p>
-                        <p style="width:64px" align="right">{{lecture.price}} {{lecture.currency | translate}}</p>
-                        <p style="width:64px" align="center"><md-icon style="fill: darkgreen;" md-svg-icon="math-approximately-equal"></md-icon></p>
-                        <p style="width:64px" align="left">50 {{lecture.currency | translate}}</p>
-                        <p style="width:64px" align="center">
-                            <md-button class="md-icon-button">
-                                <md-icon md-svg-icon="add-button"></md-icon>
+                        <p style="width:25%">{{lecture.lectureArea | translate}}</p>
+                        <p style="width:25%">{{lecture.lectureTheme | translate}}</p>
+                        <p style="width:10%">{{lecture.experience}} {{'YEAR' | translate}}</p>
+                        <p style="width:10%" align="right">{{lecture.price}} {{lecture.currency | translate}}</p>
+                        <p style="width:10%" align="center" class="average-icon">
+                            <md-icon ng-if="(lecture.average-lecture.experience*5) <= lecture.price && (lecture.average-(-lecture.experience*5)) >= lecture.price && lecture.average>0"
+                                     style="fill: darkgreen;" md-svg-icon="math-approximately-equal"></md-icon>
+                            <md-icon ng-if="(lecture.average - lecture.experience*5) > lecture.price && lecture.average>0"
+                                     style="fill: #D1A377;" md-svg-icon="math-less-than"></md-icon>
+                            <md-icon ng-if="(lecture.average + lecture.experience*5) < lecture.price && lecture.average>0"
+                                     style="fill: darkred;" md-svg-icon="math-greater-than"></md-icon>
+                            <md-icon ng-if="lecture.average == 0"
+                                     style="fill: #555555;" md-svg-icon="math-infinity"></md-icon>
+                        </p>
+                        <p style="width:10%" align="left">{{lecture.average}} {{lecture.currency | translate}}</p>
+                        <p style="width:10%" align="center">
+                            <md-button class="md-icon-button" ng-click="lectures.removeLecture($event, lecture)">
+                                <md-tooltip md-direction="top">{{'REMOVE' | translate}}</md-tooltip>
+                                <md-icon md-svg-icon="remove-button"></md-icon>
                             </md-button>
                         </p>
                     </md-list-item>
+                </div>
+                <div class="no-data" ng-if="lectures.tutorLecturesList.length == 0 && !lectures.loading">
+                    {{'NO_DATA' | translate}}
                 </div>
             </md-list>
         </md-card-content>

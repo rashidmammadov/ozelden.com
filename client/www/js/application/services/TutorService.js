@@ -2,7 +2,6 @@
     'use strict';
     
     function TutorService($http, $q, VocabularyService) {
-        var self = this;
 
         /**
          * @ngdoc method
@@ -69,6 +68,38 @@
 
         /**
          * @ngdoc method
+         * @name ozelden.services.TutorService#removeTutorLecture
+         * @methodOf ozelden.services.TutorService
+         *
+         * @description remove tutor`s selected lecture from lecture list.
+         * @param {Object} data - holds the tutor`s given lecture info.
+         */
+        function removeTutorLecture(data) {
+            var deferred = $q.defer();
+
+            $http({
+                url: VocabularyService.updateTutorInfo(),
+                method: 'POST',
+                data: {
+                    act: 'removeLecture',
+                    data: data
+                }
+            }).then(function (response) {
+                var result = response.data;
+                if (result.success) {
+                    deferred.resolve(result.message);
+                } else {
+                    deferred.reject(result.failure);
+                }
+            }, function (rejection) {
+                deferred.reject(rejection);
+            });
+
+            return deferred.promise;
+        }
+
+        /**
+         * @ngdoc method
          * @name ozelden.services.TutorService#updateTutorInfo
          * @methodOf ozelden.services.TutorService
          *
@@ -102,6 +133,7 @@
 
         this.addTutorLecture = addTutorLecture;
         this.getTutorInfo = getTutorInfo;
+        this.removeTutorLecture = removeTutorLecture;
         this.updateTutorInfo = updateTutorInfo;
         return this;
     }

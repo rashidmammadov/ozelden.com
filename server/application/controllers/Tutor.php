@@ -5,51 +5,50 @@ class Tutor extends CI_Controller{
     function __construct(){
         parent::__construct();
         $this->load->model(TUTOR_MODEL);
+        $this->load->library(DATA_LIBRARY);
         $this->load->library(TUTOR_LIBRARY);
     }
 
-    public function getTutorInfo(){
+    public function get(){
         $tutorId = $this->getTutorId();
+        $result = array();
         if($tutorId){
             $actName = $_GET[ACT];
-            switch ($actName){
-                case LECTURES_LIST:
-                    $this->getLecturesList($tutorId);
-                    break;
-                case SUITABILITY_SCHEDULE:
-                    $this->getSuitabilitySchedule($tutorId);
-                    break;
+            if ($actName == LECTURES_LIST) {
+                $result = $this->getLecturesList($tutorId);
+            } else if ($actName == SUITABILITY_SCHEDULE) {
+                $result = $this->getSuitabilitySchedule($tutorId);
             }
         }else{
             $result = array(
-                'failure' => "INVALID_TUTOR_ID"
+                FAILURE => "INVALID_TUTOR_ID"
             );
-            echo json_encode($result);
         }
+        echo json_encode($result);
     }
 
-    public function updateTutorInfo(){
+    public function post(){
         $tutorId = $this->getTutorId();
+        $result = array();
         if($tutorId){
             $request = file_get_contents("php://input");
             $post = json_decode($request, true);
             $actName = $post[ACT];
             $data = $post[DATA];
 
-            switch ($actName){
-                case SUITABILITY_SCHEDULE:
-                    $this->updateSuitabilitySchedule($tutorId, $data);
-                    break;
-                case ADD_LECTURE:
-                    $this->addLecture($tutorId, $data);
-                    break;
+            if ($actName == ADD_LECTURE) {
+                $result = $this->addLecture($tutorId, $data);
+            } else if($actName == REMOVE_LECTURE) {
+                $result = $this->removeLecture($tutorId, $data);
+            } else if ($actName == SUITABILITY_SCHEDULE) {
+                $result = $this->updateSuitabilitySchedule($tutorId, $data);
             }
         }else{
             $result = array(
-                'failure' => "INVALID_TUTOR_ID"
+                FAILURE => "INVALID_TUTOR_ID"
             );
-            echo json_encode($result);
         }
+        echo json_encode($result);
     }
 
     private function addLecture($tutorId, $data){
@@ -57,39 +56,52 @@ class Tutor extends CI_Controller{
 
         if ($dbRequest){
             $result = array(
-                'success' => true,
-                'message' => 'LECTURE_ADDED_SUCCESSFULLY'
+                SUCCESS => true,
+                MESSAGE => 'LECTURE_ADDED_SUCCESSFULLY'
             );
         } else {
             $result = array(
-                'failure' => 'SOMETHING_WHEN_WRONG_WHILE_ADDING_LECTURE'
+                FAILURE => 'SOMETHING_WHEN_WRONG_WHILE_ADDING_LECTURE'
             );
         }
-        echo json_encode($result);
+        return $result;
     }
 
     private function getLecturesList($tutorId){
         $dbRequest = $this->TutorModel->getLecturesList($tutorId);
+        $lecturesData = $this->datalibrary->getLectures();
 
         $lecturesList = array();
         foreach($dbRequest as $row){
+            $average = 0;
+            for ($i=0; $i<count($lecturesData); $i++){
+                $lecture = $lecturesData[$i];
+                if($row[LECTURE_AREA] == $lecture->base){
+                    for ($j=0; $j<count($lecture->link); $j++){
+                        $theme = $lecture->link[$j];
+                        if($row[LECTURE_THEME] == $theme->base){
+                            $average = $theme->average->TRY;
+                            break;
+                        }
+                    }
+                }
+            }
             $list = array(
-                'lectureArea' => $row['lectureArea'],
-                'lectureTheme' => $row['lectureTheme'],
-                'experience' => $row['experience'],
-                'price' => $row['price'],
-                'currency' => $row['currency']
+                LECTURE_AREA => $row[LECTURE_AREA],
+                LECTURE_THEME => $row[LECTURE_THEME],
+                EXPERIENCE => $row[EXPERIENCE],
+                PRICE => $row[PRICE],
+                CURRENCY => $row[CURRENCY],
+                AVERAGE => $average
             );
             array_push($lecturesList, $list);
         }
 
-        if($lecturesList){
-            $result = array(
-                'success' => true,
-                'data' => $lecturesList
-            );
-        }
-        echo json_encode($result);
+        $result = array(
+            SUCCESS => true,
+            DATA => $lecturesList
+        );
+        return $result;
     }
 
     private function getSuitabilitySchedule($tutorId){
@@ -97,10 +109,10 @@ class Tutor extends CI_Controller{
         $resultData = $this->tutorlibrary->prepareSuitabilitySchedule($data);
 
         $result = array(
-            'success' => true,
-            'data' => $resultData
+            SUCCESS => true,
+            DATA => $resultData
         );
-        echo json_encode($result);
+        return $result;
     }
 
     private function getTutorId(){
@@ -113,20 +125,36 @@ class Tutor extends CI_Controller{
         return $tutorId;
     }
 
+    private function removeLecture($tutorId, $data){
+        $dbRequest = $this->TutorModel->removeTutorLecture($tutorId, $data);
+
+        if ($dbRequest) {
+            $result = array(
+                SUCCESS => true,
+                MESSAGE => 'LECTURE_REMOVED_SUCCESSFULLY'
+            );
+        } else {
+            $result = array(
+                FAILURE => 'SOMETHING_WENT_WRONG_WHILE_REMOVING_LECTURE'
+            );
+        }
+        return $result;
+    }
+
     private function updateSuitabilitySchedule($tutorId, $data){
         $dbRequest = $this->TutorModel->updateSuitabilitySchedule($tutorId, $data);
 
         if ($dbRequest){
             $result = array(
-                'success' => true,
-                'message' => 'CHANGES_UPDATED_SUCCESSFULLY'
+                SUCCESS => true,
+                MESSAGE => 'CHANGES_UPDATED_SUCCESSFULLY'
             );
         } else {
             $result = array(
-                'failure' => 'SOMETHING_WENT_WRONG_WHILE_SAVING_CHANGES'
+                FAILURE => 'SOMETHING_WENT_WRONG_WHILE_SAVING_CHANGES'
             );
         }
-        echo json_encode($result);
+        return $result;
     }
 }
 ?>

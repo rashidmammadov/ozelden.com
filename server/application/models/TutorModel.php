@@ -8,11 +8,11 @@ class TutorModel extends CI_Model{
 
     public function addLecture($tutorId, $data){
         $lecture = array(
-            'tutorId' => $tutorId,
-            'lectureArea' => $data['lectureArea'],
-            'lectureTheme' => $data['lectureTheme'],
-            'experience' => $data['experience'],
-            'price' => $data['price']
+            TUTOR_ID => $tutorId,
+            LECTURE_AREA => $data[LECTURE_AREA],
+            LECTURE_THEME => $data[LECTURE_THEME],
+            EXPERIENCE => $data[EXPERIENCE],
+            PRICE => $data[PRICE]
         );
 
         $result = $this->db->insert('tutor_lectures_list', $lecture);
@@ -36,6 +36,7 @@ class TutorModel extends CI_Model{
     public function getLecturesList($tutorId){
         $sql = "SELECT * FROM tutor_lectures_list AS TLL WHERE TLL.tutorId = '".$tutorId."'";
         $query = $this->db->query($sql);
+
         return $query->result_array();
     }
 
@@ -50,18 +51,35 @@ class TutorModel extends CI_Model{
         return $query->result();
     }
 
+    public function removeTutorLecture($tutorId, $data){
+        $query = $this->db->simple_query("DELETE FROM tutor_lectures_list WHERE tutorId = '".$tutorId."' AND 
+            lectureArea = '".$data[LECTURE_AREA]."' AND lectureTheme = '".$data[LECTURE_THEME]."'");
+
+        if(!$query){
+            $this->exception_handler($this->db->error());
+        }
+        return $query;
+    }
+
     public function updateSuitabilitySchedule($tutorId, $data){
-        $region = json_encode($data['region'], JSON_UNESCAPED_UNICODE);
-        $location = json_encode($data['location'], JSON_UNESCAPED_UNICODE);
-        $courseType = json_encode($data['courseType'], JSON_UNESCAPED_UNICODE);
-        $facility = json_encode($data['facility'], JSON_UNESCAPED_UNICODE);
-        $dayHourTable = json_encode($data['dayHourTable'], JSON_UNESCAPED_UNICODE);
+        $region = json_encode($data[REGION], JSON_UNESCAPED_UNICODE);
+        $location = json_encode($data[LOCATION], JSON_UNESCAPED_UNICODE);
+        $courseType = json_encode($data[COURSE_TYPE], JSON_UNESCAPED_UNICODE);
+        $facility = json_encode($data[FACILITY], JSON_UNESCAPED_UNICODE);
+        $dayHourTable = json_encode($data[DAY_HOUR_TABLE], JSON_UNESCAPED_UNICODE);
 
         $sql = "UPDATE tutor_suitability_schedule SET region = '".$region."', location = '".$location."', courseType = '".$courseType."', 
             facility = '".$facility."', dayHourTable = '".$dayHourTable."' WHERE tutorId = ".$tutorId." ";
 
-        $result = $this->db->query($sql);
-        return $result ? true : false;
+        $query = $this->db->simple_query($sql);
+        if(!$query){
+            $this->exception_handler($this->db->error());
+        }
+        return $query;
+    }
+
+    private function exception_handler($error){
+        //TODO
     }
 }
 ?>

@@ -1,7 +1,8 @@
 (function () {
     'use strict';
 
-    function TutorLecturesListCtrl($scope, $filter, $http, LocationService, NotificationService, TutorService) {
+    function TutorLecturesListCtrl($scope, $filter, $http, $mdDialog, LocationService,
+             NotificationService, TutorService) {
         var self = this;
 
         this.loading = true;
@@ -31,6 +32,11 @@
             self.loading = false;
         });
 
+        /**
+         * @ngdoc method
+         * @name ozelden.controllers.controllers:TutorLecturesListCtrl#addLecture
+         * @description Add created lecture to lectures list if not exist.
+         */
         function addLecture(){
             self.loading = true;
             var lectureObject = {
@@ -38,7 +44,8 @@
                 lectureTheme: self.selectedLectureTheme.base,
                 experience: self.selectedExperience,
                 price: self.selectedPrice,
-                currency: "TRY"
+                currency: "TRY",
+                average: self.selectedLectureTheme.average.TRY
             };
 
             var result = self.tutorLecturesList.find(function(lecture){
@@ -61,7 +68,40 @@
             }
         }
 
+        /**
+         * @ngdoc method
+         * @name ozelden.controllers.controllers:TutorLecturesListCtrl#removeLecture
+         * @description Remove selected lecture from lectures list.
+         */
+        function removeLecture(event, lecture) {
+            self.loading = true;
+            var confirm = $mdDialog.confirm()
+                .title($filter('translate')('REMOVE_LECTURE_TITLE'))
+                .textContent($filter('translate')('REMOVE_LECTURE_CONTENT'))
+                .ariaLabel('Remove Lecture')
+                .targetEvent(event)
+                .ok($filter('translate')('CONFIRM'))
+                .cancel($filter('translate')('CANCEL'));
+
+            $mdDialog.show(confirm).then(function() {
+                TutorService.removeTutorLecture(lecture).then(function(result){
+                    self.tutorLecturesList = self.tutorLecturesList.filter(function (value) {
+                        return !(value.lectureArea === lecture.lectureArea &&
+                            value.lectureTheme === lecture.lectureTheme);
+                    });
+                    self.loading = false;
+                    NotificationService.showMessage($filter('translate')(result));
+                },function (failure) {
+                    self.loading = false;
+                    NotificationService.showMessage($filter('translate')(failure));
+                });
+            }, function() {
+                self.loading = false;
+            });
+        }
+
         this.addLecture = addLecture;
+        this.removeLecture = removeLecture;
     }
 
     angular.module('ozelden.controllers').controller('TutorLecturesListCtrl', TutorLecturesListCtrl);

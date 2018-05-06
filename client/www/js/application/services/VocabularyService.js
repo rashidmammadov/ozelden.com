@@ -7,7 +7,7 @@
             return DirectionService.serverUri() + 'usersession/getUserSession';
         }
         function getTutorInfo() {
-            return DirectionService.serverUri() + 'tutor/getTutorInfo';
+            return DirectionService.serverUri() + 'tutor/get';
         }
         function tutorLogin() {
             return DirectionService.serverUri() + 'login/tutorLogin';
@@ -16,7 +16,7 @@
             return DirectionService.serverUri() + 'registration/tutorRegistration';
         }
         function updateTutorInfo() {
-            return DirectionService.serverUri() + 'tutor/updateTutorInfo';
+            return DirectionService.serverUri() + 'tutor/post';
         }
 
         this.getUserSession = getUserSession;

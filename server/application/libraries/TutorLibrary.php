@@ -60,7 +60,6 @@ class TutorLibrary {
         }else{
             $data->dayHourTable = json_decode($data->dayHourTable);
         }
-
         return $data;
     }
 }

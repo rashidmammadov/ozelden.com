@@ -2,6 +2,12 @@
 
 Class Location extends CI_Controller{
 
+    function __construct(){
+        parent::__construct();
+        $this->load->library(DATA_LIBRARY);
+        $this->load->library(TUTOR_LIBRARY);
+    }
+
     public function getCities() {
         $file = fopen("data/citiesTurkey.json", "r") or die("Unable to open file!");
         $cities = fread($file,filesize("data/citiesTurkey.json"));
@@ -16,16 +22,13 @@ Class Location extends CI_Controller{
     }
 
     public function getLectures() {
-        $file = fopen("data/lecturesTurkey.json", "r") or die("Unable to open file!");
-        $lectures = fread($file,filesize("data/lecturesTurkey.json"));
+        $lectures = $this->datalibrary->getLectures();
 
         $result = array(
             'status' => 'success',
-            'lectures' => json_decode($lectures)
+            'lectures' => $lectures
         );
-
         echo json_encode($result);
-        fclose($file);
     }
 }
 ?>
