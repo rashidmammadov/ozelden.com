@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function TutorDashboardCtrl($rootScope) {
+    function TutorDashboardCtrl($scope, $rootScope) {
 
     }
 

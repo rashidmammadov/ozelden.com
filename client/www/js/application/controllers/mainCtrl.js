@@ -6,8 +6,9 @@
      * @name ozelden.controllers.controllers:MainCtrl
      * @description Controller for the main page view.
      */
-    function MainCtrl($scope, $translate, $mdSidenav) {
+    function MainCtrl($scope, $state, $translate, $mdSidenav, user) {
         var self = this;
+
         this.selectedLanguage = $translate.preferredLanguage();
         $scope.toggleLeft = buildToggler('left');
 
