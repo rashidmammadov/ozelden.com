@@ -4,21 +4,8 @@
     var ozelden = angular.module('ozelden',['ozelden.controllers','ozelden.directives','ozelden.filters','ozelden.services',
         'ngAnimate', 'ngAria', 'ngMaterial', 'ngMessages', 'pascalprecht.translate', 'ui.router']);
 
-    ozelden.run(function ($rootScope, $http, VocabularyService) {
-        $http({
-            method: 'GET',
-            url: VocabularyService.getUserSession()
-        }).then(function (response) {
-            var result = response.data;
-            if(result.status === 'success') {
-                $rootScope.user = result.user;
-            } else {
-                $rootScope.user = {};
-            }
-        }, function(){
-            $rootScope.user = {};
-        });
-    });
+    ozelden.run(function ($rootScope, $http, VocabularyService) {});
+
     ozelden.config(function ($stateProvider, $urlRouterProvider, $translateProvider, $mdIconProvider) {
 
         // load application language.
@@ -28,6 +15,22 @@
         });
         $translateProvider.registerAvailableLanguageKeys(['az', 'en', 'tr']);
         $translateProvider.preferredLanguage('tr');
+        
+        function getUserData($rootScope, $http, $timeout, VocabularyService) {
+            return ($http({
+                method: 'GET',
+                url: VocabularyService.getUserSession()
+            }).then(function (response) {
+                var result = response.data;
+                if(result.status === 'success') {
+                    return $rootScope.user = result.user;
+                } else {
+                    return $rootScope.user = {};
+                }
+            }, function(){
+                return $rootScope.user = {};
+            }))
+        }
 
         // define states for router.
         $urlRouterProvider.otherwise("/");
@@ -36,7 +39,10 @@
             url: '/',
             templateUrl: 'html/controllers/main.html',
             controller: 'MainCtrl',
-            controllerAs: 'Main'
+            controllerAs: 'Main',
+            resolve: {
+                user: getUserData
+            }
         }).state('ozelden.tutorLogin',{
             url: 'tutor/login',
             templateUrl: 'html/controllers/tutor/login.html',
@@ -82,5 +88,6 @@
         $mdIconProvider.icon('save', 'img/icon/save.svg');
         $mdIconProvider.icon('side-nav', 'img/icon/side-nav.svg');
         $mdIconProvider.icon('suitability-schedule', 'img/icon/suitability-schedule.svg');
-    })
+    });
+
 })();
