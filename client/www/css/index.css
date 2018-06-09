@@ -1,0 +1,122 @@
+@font-face { font-family: PhenomenaLight; src: url(../data/font/Phenomena-Light.otf);}
+
+body{
+    font-family: Calibri;
+    font-size: 15px;
+}
+
+.md-datepicker-input.md-input{
+    width: 205px;
+}
+
+.hint{color: #D0D0D0;}
+
+#ozelden-menu-bar{
+    background-color: #FFFFFF;
+    height: 54px;
+    padding: 8px;
+    width: 100%;
+    position: fixed;
+    z-index: 90;
+}
+
+#ozelden-content{
+    height: 100%;
+}
+
+#container{
+    padding-top: 40px;
+}
+
+.md-button.md-default-theme.md-fab, .md-button.md-fab{
+    background-color: #D1A377;
+}
+.md-button.md-fab:not([disabled]):hover{
+    background-color: #BC936B;
+}
+
+.float-button{
+    position: fixed;
+    top: 64px;
+    right: 32px;
+}
+
+.md-sidenav-left{
+    width: 256px;
+    padding-top: 50px;
+    overflow-y: scroll;
+    color: #707070;
+}
+.md-sidenav-left md-icon{color: #555555;}
+.md-sidenav-left .active md-icon{color: #D1A377;}
+.md-sidenav-left .active{color: #D1A377;}
+.md-sidenav-left md-list{height: 32px;}
+.md-sidenav-left #icon{margin-right: 8px;}
+
+::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 0 rgba(0,0,0,0.3);background-color: #f0f0f0;}
+::-webkit-scrollbar{width: 4px; height: 4px; background-color: #f0f0f0;}
+::-webkit-scrollbar-thumb{background-color: #b3b3b3;border: 1px solid #555555;border-radius: 4px;}
+
+md-card.oz-setting-card md-card-title{
+    padding: 16px;
+    max-height: 16px;
+    min-height: 16px;
+    font-weight: 500;
+    color: #707070;
+    font-size: 16px;
+}
+
+.md-chips md-chip{
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    border: 1px solid #D1A377;
+    font-size: 11px;
+    height: 32px;
+}
+
+md-input-container{
+    margin: 8px 0px 0px 0px;
+}
+
+md-switch{
+    margin: 8px 0px;
+}
+.md-switch.md-default-theme.md-checked .md-thumb, md-switch.md-checked .md-thumb{
+    background-color: #D1A377;
+}
+md-switch.md-default-theme.md-checked .md-bar, md-switch.md-checked .md-bar{
+    background-color: #D1A377;
+    opacity: 0.5;
+}
+
+md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar{
+    background-color: #D1A377;
+}
+md-progress-linear.md-default-theme .md-container, md-progress-linear .md-container{
+    background-color: rgba(209, 163, 119, 0.3);
+}
+
+.ozelden-list.header{
+    border-bottom: 1px solid lightgray;
+}
+.ozelden-list.header p{
+    font-weight: bold;
+    color: #555555;
+}
+.ozelden-list.body{
+    height: 240px;
+    overflow-y: scroll;
+}
+.ozelden-list.body .average-icon md-icon{
+    height: 18px;
+    width: 18px;
+    min-height: 0px;
+    min-width: 0px;
+}
+
+.no-data{
+    position: relative;
+    bottom: 128px;
+    text-align: center;
+    color: #721C47;
+}

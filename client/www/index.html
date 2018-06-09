@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="ozelden">
+    <head>
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="bower_components/angular-material/angular-material.css">
+        <link rel="stylesheet" type="text/css" href="css/ozSuitableSchedule.css">
+        <link rel="stylesheet" type="text/css" href="css/ozUserCard.css">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>ozelden</title>
+    </head>
+    <body>
+        <ui-view style="height: 100%"></ui-view>
+        <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+        <!-- cordova defualt files -->
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <!-- ozelden modules -->
+        <script type="text/javascript" src="js/application/modules/ozelden.js"></script>
+        <script type="text/javascript" src="js/application/modules/ozelden-controllers.js"></script>
+        <script type="text/javascript" src="js/application/modules/ozelden-directives.js"></script>
+        <script type="text/javascript" src="js/application/modules/ozelden-filters.js"></script>
+        <script type="text/javascript" src="js/application/modules/ozelden-services.js"></script>
+        <!-- ozelden controllers -->
+        <script type="text/javascript" src="js/application/controllers/mainCtrl.js"></script>
+        <script type="text/javascript" src="js/application/controllers/tutorDashboardCtrl.js"></script>
+        <script type="text/javascript" src="js/application/controllers/tutorLecturesListCtrl.js"></script>
+        <script type="text/javascript" src="js/application/controllers/tutorLoginCtrl.js"></script>
+        <script type="text/javascript" src="js/application/controllers/tutorSideCtrl.js"></script>
+        <script type="text/javascript" src="js/application/controllers/tutorSuitabilityScheduleCtrl.js"></script>
+        <!-- ozelden directives -->
+        <script type="text/javascript" src="js/application/directives/ozSearchResultDirective.js"></script>
+        <script type="text/javascript" src="js/application/directives/ozSuitabilityScheduleDirective.js"></script>
+        <!-- ozelden services-->
+        <script type="text/javascript" src="js/application/services/DirectionService.js"></script>
+        <script type="text/javascript" src="js/application/services/LocationService.js"></script>
+        <script type="text/javascript" src="js/application/services/NotificationService.js"></script>
+        <script type="text/javascript" src="js/application/services/SearchService.js"></script>
+        <script type="text/javascript" src="js/application/services/TutorService.js"></script>
+        <script type="text/javascript" src="js/application/services/VocabularyService.js"></script>
+        <!-- bower library -->
+        <script type="text/javascript" src="bower_components/angular-animate/angular-animate.js"></script>
+        <script type="text/javascript" src="bower_components/angular-aria/angular-aria.js"></script>
+        <script type="text/javascript" src="bower_components/angular-material/angular-material.js"></script>
+        <script type="text/javascript" src="bower_components/angular-messages/angular-messages.js"></script>
+        <script type="text/javascript" src="bower_components/angular-mocks/angular-mocks.js"></script>
+        <script type="text/javascript" src="bower_components/angular-translate/angular-translate.js"></script>
+        <script type="text/javascript" src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+        <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+        <script type="text/javascript" src="bower_components/d3/d3.min.js"></script>
+    </body>
+</html>

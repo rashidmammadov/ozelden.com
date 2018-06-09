@@ -1,0 +1,107 @@
+.oz-user-card{
+    border-radius: 4px;
+}
+
+.oz-user-card .oz-user-card-header{
+    border-radius: 4px 4px 0px 0px;
+    background-color: #721C47;
+    padding: 8px 16px 40px 8px;
+}
+
+.oz-user-card .oz-user-card-header .name{
+    color: white;
+    margin-left: 8px;
+}
+
+.oz-user-card .oz-user-card-header .name h3{
+    font-size: 20px;
+    font-weight: 100;
+    margin: 4px 0px;
+}
+
+.oz-user-card .oz-user-card-header .name p{
+    font-size: 12px;
+    font-weight: 100;
+    margin: 4px 0px;
+}
+
+.oz-user-card .oz-user-card-header .float{
+    bottom: -64px;
+    right: -8px;
+}
+
+.oz-user-card .oz-user-card-info .image{
+    background-color: #D1A377;
+    height: 64px;
+    width: 64px;
+    border-radius: 100%;
+    border: 2px solid white;
+    margin: -32px 16px 4px 16px;
+}
+
+.oz-user-card .oz-user-card-info .general{
+    margin: 8px;
+    width: 64px;
+}
+
+.oz-user-card .oz-user-card-info .general p{
+    font-size: 12px;
+    margin: 4px 0px;
+    font-weight: 500;
+}
+
+.oz-user-card .oz-user-card-content {
+    height: 176px;
+}
+
+.oz-user-card .oz-user-card-content .overall .size{
+    font-size: 18px;
+    fill: #707070;
+    font-weight: 700;
+}
+
+.oz-user-card .oz-user-card-content .overall p{
+    color: #707070;
+    font-size: 14px;
+}
+
+.oz-user-card .oz-user-card-content .courses {
+    margin: 0px 16px;
+    padding: 0px;
+}
+
+.oz-user-card .oz-user-card-content .courses md-list{
+    height: 144px;
+    padding: 0px;
+    margin: 16px 0px;
+    overflow-y: scroll;
+}
+
+.oz-user-card .oz-user-card-content .courses md-list-item{
+    min-height: 32px;
+    height: 36px;
+    padding: 0px 8px;
+    margin: 0px;
+    color: #707070;
+    font-size: 13px;
+}
+
+.oz-user-card .oz-user-card-content .courses md-list-item md-icon{
+    height: 16px;
+    width: 16px;
+    min-height: 16px;
+    min-width: 16px;
+}
+
+.oz-user-card .oz-user-card-content .courses md-list-item:nth-child(2n+1){
+    background-color: #f6f2f2;
+}
+
+.oz-user-card .oz-user-card-action .md-button{
+    margin: 0px;
+    width: 33%;
+}
+.oz-user-card .oz-user-card-action .md-button.active{
+    background-color: #721C47;
+    color: white;
+}
