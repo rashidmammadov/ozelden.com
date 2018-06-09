@@ -62,4 +62,34 @@ class TutorLibrary {
         }
         return $data;
     }
+
+    public function getLecturesList($allLectures, $lecturesData) {
+        $lecturesList = array();
+        foreach($allLectures as $lecture){
+            $average = 0;
+            for ($i=0; $i<count($lecturesData); $i++){
+                $lectureArea = $lecturesData[$i];
+                if($lecture[LECTURE_AREA] == $lectureArea->base){
+                    for ($j=0; $j<count($lectureArea->link); $j++){
+                        $lectureTheme = $lectureArea->link[$j];
+                        if($lecture[LECTURE_THEME] == $lectureTheme->base){
+                            $average = $lectureTheme->average->TRY;
+                            break;
+                        }
+                    }
+                }
+            }
+            $list = array(
+                LECTURE_AREA => $lecture[LECTURE_AREA],
+                LECTURE_THEME => $lecture[LECTURE_THEME],
+                EXPERIENCE => $lecture[EXPERIENCE],
+                PRICE => $lecture[PRICE],
+                CURRENCY => $lecture[CURRENCY],
+                AVERAGE => $average
+            );
+            array_push($lecturesList, $list);
+        }
+
+        return $lecturesList;
+    }
 }

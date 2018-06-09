@@ -70,32 +70,7 @@ class Tutor extends CI_Controller{
     private function getLecturesList($tutorId){
         $dbRequest = $this->TutorModel->getLecturesList($tutorId);
         $lecturesData = $this->datalibrary->getLectures();
-
-        $lecturesList = array();
-        foreach($dbRequest as $row){
-            $average = 0;
-            for ($i=0; $i<count($lecturesData); $i++){
-                $lecture = $lecturesData[$i];
-                if($row[LECTURE_AREA] == $lecture->base){
-                    for ($j=0; $j<count($lecture->link); $j++){
-                        $theme = $lecture->link[$j];
-                        if($row[LECTURE_THEME] == $theme->base){
-                            $average = $theme->average->TRY;
-                            break;
-                        }
-                    }
-                }
-            }
-            $list = array(
-                LECTURE_AREA => $row[LECTURE_AREA],
-                LECTURE_THEME => $row[LECTURE_THEME],
-                EXPERIENCE => $row[EXPERIENCE],
-                PRICE => $row[PRICE],
-                CURRENCY => $row[CURRENCY],
-                AVERAGE => $average
-            );
-            array_push($lecturesList, $list);
-        }
+        $lecturesList = $this->tutorlibrary->getLecturesList($dbRequest, $lecturesData);
 
         $result = array(
             SUCCESS => true,

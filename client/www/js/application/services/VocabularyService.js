@@ -9,6 +9,9 @@
         function getTutorInfo() {
             return DirectionService.serverUri() + 'tutor/get';
         }
+        function search() {
+            return DirectionService.serverUri() + 'search/get';
+        }
         function tutorLogin() {
             return DirectionService.serverUri() + 'login/tutorLogin';
         }
@@ -21,6 +24,7 @@
 
         this.getUserSession = getUserSession;
         this.getTutorInfo = getTutorInfo;
+        this.search = search;
         this.tutorLogin = tutorLogin;
         this.tutorRegister = tutorRegister;
         this.updateTutorInfo = updateTutorInfo;

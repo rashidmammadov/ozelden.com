@@ -72,6 +72,7 @@
 
         // define icons.
         $mdIconProvider.icon('add-button', 'img/icon/add-button.svg');
+        $mdIconProvider.icon('birthday-cake', 'img/icon/birthday-cake.svg');
         $mdIconProvider.icon('briefcase', 'img/icon/briefcase.svg');
         $mdIconProvider.icon('dashboard', 'img/icon/dashboard.svg');
         $mdIconProvider.icon('female', 'img/icon/female.svg');
@@ -79,11 +80,13 @@
         $mdIconProvider.icon('lang-en', 'img/icon/lang-en.svg');
         $mdIconProvider.icon('lang-tr', 'img/icon/lang-tr.svg');
         $mdIconProvider.icon('lectures-list', 'img/icon/list.svg');
+        $mdIconProvider.icon('location', 'img/icon/location.svg');
         $mdIconProvider.icon('male', 'img/icon/male.svg');
         $mdIconProvider.icon('math-approximately-equal', 'img/icon/math-approximately-equal.svg');
         $mdIconProvider.icon('math-greater-than', 'img/icon/math-greater-than.svg');
         $mdIconProvider.icon('math-infinity', 'img/icon/math-infinity.svg');
         $mdIconProvider.icon('math-less-than', 'img/icon/math-less-than.svg');
+        $mdIconProvider.icon('quality', 'img/icon/quality.svg');
         $mdIconProvider.icon('remove-button', 'img/icon/remove-button.svg');
         $mdIconProvider.icon('save', 'img/icon/save.svg');
         $mdIconProvider.icon('side-nav', 'img/icon/side-nav.svg');

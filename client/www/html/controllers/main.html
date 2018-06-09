@@ -11,7 +11,7 @@
         <md-button ng-if="user.userType=='tutor'" ui-sref="ozelden.tutor.dashboard" ui-sref-active="active">{{user.name}} {{user.surname | limitTo: 1}}.</md-button>
         <md-button ng-if="!user.userType" ui-sref="ozelden.tutorLogin" ui-sref-active="active">{{'TUTOR_LOGIN' | translate}}</md-button>
 
-        <md-select ng-model="Main.selectedLanguage" class="md-no-underline">
+        <md-select aria-label="Languages" ng-model="Main.selectedLanguage" class="md-no-underline">
             <md-option value="az" ng-click="Main.changeLanguage('az')"><md-icon md-svg-icon="lang-az"></md-icon></md-option>
             <md-option value="en" ng-click="Main.changeLanguage('en')"><md-icon md-svg-icon="lang-en"></md-icon></md-option>
             <md-option value="tr" ng-click="Main.changeLanguage('tr')"><md-icon md-svg-icon="lang-tr"></md-icon></md-option>
@@ -20,4 +20,6 @@
 </md-whiteframe>
 <div id="ozelden-content">
     <ui-view></ui-view>
+    <div style="padding-top: 64px;"></div>
+    <oz-search-result style="padding-top: 64px;" ng-data="Main.searchResult"></oz-search-result>
 </div>

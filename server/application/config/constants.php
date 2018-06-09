@@ -109,6 +109,7 @@ define('NAME', 'name');
 define('PRICE', 'price');
 define('REGION', 'region');
 define('REMOVE_LECTURE', 'removeLecture');
+define('SEARCH_MODEL', 'SearchModel');
 define('SUCCESS', 'success');
 define('SUITABILITY_SCHEDULE', 'suitabilitySchedule');
 define('TUTOR', 'tutor');

@@ -6,11 +6,18 @@
      * @name ozelden.controllers.controllers:MainCtrl
      * @description Controller for the main page view.
      */
-    function MainCtrl($scope, $state, $translate, $mdSidenav, user) {
+    function MainCtrl($scope, $state, $translate, $mdSidenav, user, SearchService) {
         var self = this;
 
+        this.searchResult;
         this.selectedLanguage = $translate.preferredLanguage();
         $scope.toggleLeft = buildToggler('left');
+
+        SearchService.tutorSearch().then(function(result){
+            self.searchResult = result;
+        }, function(failure){
+
+        });
 
         function buildToggler(componentId) {
             return function() {
