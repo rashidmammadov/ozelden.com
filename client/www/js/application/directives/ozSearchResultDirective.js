@@ -64,7 +64,7 @@
                         .attr('width', width - margin.left - margin.right).attr('height', height)
                         .attr('transform', 'translate(' + margin.left + ',' + 0 + ')')
                         .selectAll('.pie-chart').data(function(d){
-                            return [d.knowledge, d.expression, d.attention];
+                            return [d.expression, d.attention, d.contact];
                         });
 
                     var overallDiv = overall.enter().append('g')

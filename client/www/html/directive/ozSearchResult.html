@@ -57,6 +57,14 @@
                         </md-list-item>
                     </md-list>
                 </div>
+                <div class="tab regions">
+                    <md-list>
+                        <md-list-item ng-repeat="region in user.regions">
+                            <p style="width: 50%">{{region.city}}</p>
+                            <p style="width: 50%">{{region.district}}</p>
+                        </md-list-item>
+                    </md-list>
+                </div>
             </div>
             <md-divider></md-divider>
             <div class="oz-user-card-action" layout="row" layout-align="space-between center">

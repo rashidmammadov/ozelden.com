@@ -21,12 +21,13 @@ class Search extends CI_Controller{
 
     private function getTutorSearchResult(){
         $dbRequest = $this->SearchModel->tutorSearch();
+		$lecturesData = $this->datalibrary->getLectures();
 
         $userList = array();
         foreach ($dbRequest as $user){
             $lecturesRequest = $this->TutorModel->getLecturesList($user[TUTOR_ID]);
-            $lecturesData = $this->datalibrary->getLectures();
             $lecturesList = $this->tutorlibrary->getLecturesList($lecturesRequest, $lecturesData);
+            $suitableData = $this->TutorModel->getSuitabilitySchedule($user[TUTOR_ID]);
             $userData = array(
                 'id' => $user[TUTOR_ID],
                 'name' => $user['tutorName'],
@@ -38,10 +39,11 @@ class Search extends CI_Controller{
                 'image' => $user['tutorImage'],
                 'registerDate' => strtotime($user['tutorRegisterDate'])*1000,
                 'average' => 9,
-                'knowledge' => 8.5,
                 'expression' => 9.1,
                 'attention' => 7.3,
-                LECTURES_LIST => $lecturesList
+                'contact' => 8.5,
+                LECTURES_LIST => $lecturesList,
+				'regions' => json_decode($suitableData->region)
             );
 
             array_push($userList, $userData);

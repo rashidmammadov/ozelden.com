@@ -65,19 +65,20 @@
     font-size: 14px;
 }
 
-.oz-user-card .oz-user-card-content .courses {
+.oz-user-card .oz-user-card-content .courses,
+.oz-user-card .oz-user-card-content .regions{
     margin: 0px 16px;
     padding: 0px;
 }
 
-.oz-user-card .oz-user-card-content .courses md-list{
+.oz-user-card .oz-user-card-content md-list{
     height: 144px;
     padding: 0px;
     margin: 16px 0px;
     overflow-y: scroll;
 }
 
-.oz-user-card .oz-user-card-content .courses md-list-item{
+.oz-user-card .oz-user-card-content md-list-item{
     min-height: 32px;
     height: 36px;
     padding: 0px 8px;
@@ -86,14 +87,14 @@
     font-size: 13px;
 }
 
-.oz-user-card .oz-user-card-content .courses md-list-item md-icon{
+.oz-user-card .oz-user-card-content md-list-item md-icon{
     height: 16px;
     width: 16px;
     min-height: 16px;
     min-width: 16px;
 }
 
-.oz-user-card .oz-user-card-content .courses md-list-item:nth-child(2n+1){
+.oz-user-card .oz-user-card-content md-list-item:nth-child(2n+1){
     background-color: #f6f2f2;
 }
 
