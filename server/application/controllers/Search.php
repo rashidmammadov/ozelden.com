@@ -14,13 +14,16 @@ class Search extends CI_Controller{
         $actName = $_GET[ACT];
         $result = array();
         if($actName == 'tutorSearch'){
-            $result = $this->getTutorSearchResult();
+        	$params = array(
+        		'offset' => $_GET['offset']
+			);
+            $result = $this->getTutorSearchResult($params);
         }
         echo json_encode($result);
     }
 
-    private function getTutorSearchResult(){
-        $dbRequest = $this->SearchModel->tutorSearch();
+    private function getTutorSearchResult($params){
+        $dbRequest = $this->SearchModel->tutorSearch($params);
 		$lecturesData = $this->datalibrary->getLectures();
 
         $userList = array();

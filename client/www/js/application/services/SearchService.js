@@ -18,7 +18,9 @@
                 url: VocabularyService.search(),
                 method: 'GET',
                 params: {
-                    act: 'tutorSearch'
+                    act: 'tutorSearch',
+                    offset: params.offset,
+                    limit: 2
                 }
             }).then(function (response) {
                 var result = response.data;

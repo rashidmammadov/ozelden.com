@@ -90,7 +90,9 @@
         $mdIconProvider.icon('remove-button', 'img/icon/remove-button.svg');
         $mdIconProvider.icon('save', 'img/icon/save.svg');
         $mdIconProvider.icon('side-nav', 'img/icon/side-nav.svg');
+        $mdIconProvider.icon('star', 'img/icon/star.svg');
         $mdIconProvider.icon('suitability-schedule', 'img/icon/suitability-schedule.svg');
+        $mdIconProvider.icon('total-user', 'img/icon/total-user.svg');
     });
 
 })();

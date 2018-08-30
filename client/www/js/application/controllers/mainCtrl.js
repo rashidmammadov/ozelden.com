@@ -13,7 +13,7 @@
         this.selectedLanguage = $translate.preferredLanguage();
         $scope.toggleLeft = buildToggler('left');
 
-        SearchService.tutorSearch().then(function(result){
+        SearchService.tutorSearch({offset: 0}).then(function(result){
             self.searchResult = result;
         }, function(failure){
 
