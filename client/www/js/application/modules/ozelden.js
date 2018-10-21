@@ -2,7 +2,7 @@
     'use strict';
 
     var ozelden = angular.module('ozelden',['ozelden.controllers','ozelden.directives','ozelden.filters','ozelden.services',
-        'ngAnimate', 'ngAria', 'ngMaterial', 'ngMessages', 'pascalprecht.translate', 'ui.router']);
+        'ngAnimate', 'ngAria', 'ngMaterial', 'ngMessages', 'pascalprecht.translate', 'ui.router', 'ngCookies']);
 
     ozelden.run(function ($rootScope, $http, VocabularyService) {});
 
@@ -15,21 +15,24 @@
         });
         $translateProvider.registerAvailableLanguageKeys(['az', 'en', 'tr']);
         $translateProvider.preferredLanguage('tr');
+        $translateProvider.useSanitizeValueStrategy('escape');
         
-        function getUserData($rootScope, $http, $timeout, VocabularyService) {
-            return ($http({
-                method: 'GET',
-                url: VocabularyService.getUserSession()
-            }).then(function (response) {
-                var result = response.data;
-                if(result.status === 'success') {
-                    return $rootScope.user = result.user;
-                } else {
+        function getUserData($rootScope, $timeout, SignService, CookieService) {
+            var user = CookieService.getUser();
+            if (user) {
+                return (SignService.myUser(user.remember_token).then(function(result){
+                    if (result.status === "success") {
+                        CookieService.setUser(result.data, "3-m");
+                        return $rootScope.user = result.data;
+                    } else {
+                        CookieService.removeUser();
+                        return $rootScope.user = {};
+                    }
+                }, function(){
+                    CookieService.removeUser();
                     return $rootScope.user = {};
-                }
-            }, function(){
-                return $rootScope.user = {};
-            }))
+                }))
+            }
         }
 
         // define states for router.
@@ -43,21 +46,26 @@
             resolve: {
                 user: getUserData
             }
-        }).state('ozelden.tutorLogin',{
-            url: 'tutor/login',
-            templateUrl: 'html/controllers/tutor/login.html',
-            controller: 'TutorLoginCtrl',
-            controllerAs: 'tutor'
-        }).state('ozelden.tutor',{
-            url: 'tutor',
-            templateUrl: 'html/controllers/tutor/side.html',
-            controller: 'TutorSideCtrl',
-            controllerAs: 'tutor'
-        }).state('ozelden.tutor.dashboard',{
+        }).state('ozelden.user',{
+            url: 'user',
+            templateUrl: 'html/controllers/user/index.html',
+            controller: 'UserCtrl',
+            controllerAs: 'User'
+        }).state('ozelden.user.dashboard',{
             url: '/dashboard',
-            templateUrl: 'html/controllers/tutor/dashboard.html',
-            controller: 'TutorDashboardCtrl',
-            controllerAs: 'dashboard'
+            templateUrl: 'html/controllers/user/dashboard.html',
+            controller: 'UserDashboardCtrl',
+            controllerAs: 'Dashboard'
+        }).state('ozelden.user.search',{
+            url: '/search',
+            templateUrl: 'html/controllers/user/search.html',
+            controller: 'UserSearchCtrl',
+            controllerAs: 'Search'
+        }).state('ozelden.user.sign',{
+            url: '/sign',
+            templateUrl: 'html/controllers/user/sign.html',
+            controller: 'UserSignCtrl',
+            controllerAs: 'Sign'
         }).state('ozelden.tutor.lecturesList',{
             url: '/lectures-list',
             templateUrl: 'html/controllers/tutor/lecturesList.html',
@@ -81,6 +89,8 @@
         $mdIconProvider.icon('lang-tr', 'img/icon/lang-tr.svg');
         $mdIconProvider.icon('lectures-list', 'img/icon/list.svg');
         $mdIconProvider.icon('location', 'img/icon/location.svg');
+        $mdIconProvider.icon('logout', 'img/icon/logout.svg');
+        $mdIconProvider.icon('logo', 'img/logo/logo.svg');
         $mdIconProvider.icon('male', 'img/icon/male.svg');
         $mdIconProvider.icon('math-approximately-equal', 'img/icon/math-approximately-equal.svg');
         $mdIconProvider.icon('math-greater-than', 'img/icon/math-greater-than.svg');
@@ -93,6 +103,7 @@
         $mdIconProvider.icon('star', 'img/icon/star.svg');
         $mdIconProvider.icon('suitability-schedule', 'img/icon/suitability-schedule.svg');
         $mdIconProvider.icon('total-user', 'img/icon/total-user.svg');
+        $mdIconProvider.icon('user-search', 'img/icon/user-search.svg');
     });
 
 })();

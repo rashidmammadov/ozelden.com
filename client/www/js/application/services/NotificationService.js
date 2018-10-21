@@ -21,7 +21,7 @@
          */
         function showMessage(msg) {
             if (!!msg && typeof msg === 'string') {
-                var temp = "<md-toast><span style='font-weight:bold; font-size: 12pt;' flex>"
+                var temp = "<md-toast><span style='font-weight:400; font-size: 12pt;' flex>"
                     + msg + "</span></md-toast>";
                 $mdToast.show({
                     template: temp,

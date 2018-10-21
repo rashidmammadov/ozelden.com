@@ -2,32 +2,25 @@
     'use strict';
 
     function VocabularyService(DirectionService) {
+        var self = this;
 
-        function getUserSession() {
-            return DirectionService.serverUri() + 'usersession/getUserSession';
-        }
-        function getTutorInfo() {
-            return DirectionService.serverUri() + 'tutor/get';
-        }
-        function search() {
-            return DirectionService.serverUri() + 'search/get';
-        }
-        function tutorLogin() {
-            return DirectionService.serverUri() + 'login/tutorLogin';
-        }
-        function tutorRegister() {
-            return DirectionService.serverUri() + 'registration/tutorRegistration';
-        }
-        function updateTutorInfo() {
-            return DirectionService.serverUri() + 'tutor/post';
-        }
+        this.api = DirectionService.apiUri();
 
-        this.getUserSession = getUserSession;
-        this.getTutorInfo = getTutorInfo;
+        function data() { return self.api + 'data'; }
+        function myUser() { return  self.api + 'myUser' }
+        function search() { return self.api + 'search/get'; }
+        function updateTutorInfo() { return self.api + 'tutor/post'; }
+        function userLogin() { return self.api + 'login'; }
+        function userLogout() { return self.api + 'logout'; }
+        function userRegister() { return self.api + 'register'; }
+
+        this.data = data;
+        this.myUser = myUser;
         this.search = search;
-        this.tutorLogin = tutorLogin;
-        this.tutorRegister = tutorRegister;
         this.updateTutorInfo = updateTutorInfo;
+        this.userLogin = userLogin;
+        this.userLogout = userLogout;
+        this.userRegister = userRegister;
         return this;
     }
 

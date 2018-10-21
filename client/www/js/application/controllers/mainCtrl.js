@@ -6,24 +6,26 @@
      * @name ozelden.controllers.controllers:MainCtrl
      * @description Controller for the main page view.
      */
-    function MainCtrl($scope, $state, $translate, $mdSidenav, user, SearchService) {
+    function MainCtrl($scope, $rootScope, $state, $translate, $mdSidenav, CookieService, user, SignService) {
         var self = this;
 
-        this.searchResult;
+        //this.searchResult;
         this.selectedLanguage = $translate.preferredLanguage();
         $scope.toggleLeft = buildToggler('left');
 
-        SearchService.tutorSearch({offset: 0}).then(function(result){
-            self.searchResult = result;
-        }, function(failure){
+        // TODO
+        //SearchService.tutorSearch({offset: 0}).then(function(result){
+        // self.searchResult = result;
+        //}, function(failure){
 
-        });
+        //});
 
         function buildToggler(componentId) {
             return function() {
                 $mdSidenav(componentId).toggle();
             };
         }
+
         /**
          * @ngdoc method
          * @name ozelden.controllers.controllers:MainCtrl#changeLangugage
@@ -34,7 +36,23 @@
             $translate.use(lang);
         }
 
+        /**
+         * @ngdoc method
+         * @name ozelden.controllers.controllers:MainCtrl#logut
+         * @description Logout user from application.
+         */
+        function logout() {
+            SignService.out({remember_token: CookieService.getUser().remember_token}).then(function (response) {
+                if (response.status === 'success') {
+                    CookieService.removeUser();
+                    $rootScope.user = {};
+                    $state.go('ozelden.user.sign');
+                }
+            })
+        }
+
         this.changeLanguage = changeLanguage;
+        this.logout = logout;
     }
 
     angular.module('ozelden.controllers').controller('MainCtrl', MainCtrl);

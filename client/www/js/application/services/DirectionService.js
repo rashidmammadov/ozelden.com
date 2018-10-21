@@ -2,13 +2,12 @@
     'use strict';
 
     function DirectionService($rootScope) {
-        var self = this;
 
-        function serverUri() {
-            return "http://localhost/ozelden.com/server/index.php/";
+        function apiUri() {
+            return "http://localhost:8000/api/v1/";
         }
 
-        this.serverUri = serverUri;
+        this.apiUri = apiUri;
 
         return this;
     }

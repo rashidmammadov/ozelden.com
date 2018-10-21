@@ -23,6 +23,7 @@
     "angular-translate-loader-static-files": "^2.17.0"
   },
   "dependencies": {
-    "d3": "^4.13.0"
+    "d3": "^4.13.0",
+    "angular-cookies": "^1.7.5"
   }
 }
