@@ -1,0 +1,31 @@
+<section layout="row" flex style="height: 100%;">
+    <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')"
+                md-disable-backdrop md-whiteframe="4" ng-show="user.id">
+        <md-list ng-cloak>
+            <md-list-item ui-sref="ozelden.user.search" ui-sref-active="active">
+                <md-icon md-svg-icon="user-search" id="icon"></md-icon>
+                <p> {{'SEARCH' | translate}} </p>
+            </md-list-item>
+            <md-subheader class="md-no-sticky">{{'PERSONAL' | translate}}</md-subheader>
+            <md-list-item ui-sref="ozelden.user.dashboard" ui-sref-active="active">
+                <md-icon md-svg-icon="dashboard" id="icon"></md-icon>
+                <p> {{'DASHBOARD' | translate}} </p>
+            </md-list-item>
+            <md-divider ></md-divider>
+            <md-list-item ui-sref="ozelden.tutor.lecturesList" ui-sref-active="active">
+                <md-icon md-svg-icon="lectures-list" id="icon"></md-icon>
+                <p> {{'LECTURES_LIST' | translate}} </p>
+            </md-list-item>
+            <md-divider ></md-divider>
+            <md-list-item ui-sref="ozelden.tutor.suitabilitySchedule" ui-sref-active="active">
+                <md-icon md-svg-icon="suitability-schedule" id="icon"></md-icon>
+                <p> {{'SUITABILITY_SCHEDULE' | translate}} </p>
+            </md-list-item>
+            <md-divider ></md-divider>
+        </md-list>
+    </md-sidenav>
+
+    <md-content flex layout-padding>
+        <ui-view></ui-view>
+    </md-content>
+</section>
