@@ -50,6 +50,8 @@ h2{font-weight: 500;}
     overflow-y: scroll;
     color: #707070;
 }
+
+md-list{padding: 0px;}
 .md-sidenav-left md-icon{color: #555555;}
 .md-sidenav-left .active md-icon{color: #D1A377;}
 .md-sidenav-left .active{color: #D1A377;}
@@ -70,8 +72,15 @@ md-checkbox.md-checked .md-icon{background-color: #721C47;}
 
 .md-button{text-transform: capitalize;}
 
+card-label{
+    margin: 8px 8px 4px 8px;
+    font-size: 14px;
+    color: rgba(112, 112, 112, 0.75);
+}
+
 md-card.oz-setting-card{
     margin: 8px;
+    border-radius: 8px;
 }
 
 md-card.oz-setting-card md-card-title{
@@ -83,6 +92,10 @@ md-card.oz-setting-card md-card-title{
     font-size: 16px;
 }
 
+.md-button.md-icon-button{
+    padding: 8px;
+}
+
 .md-chips md-chip{
     background-color: #FFFFFF;
     border-radius: 4px;
@@ -92,7 +105,7 @@ md-card.oz-setting-card md-card-title{
 }
 
 md-input-container{
-    margin: 8px 0px 0px 0px;
+    margin: 16px 0px 0px 0px;
 }
 
 md-switch{

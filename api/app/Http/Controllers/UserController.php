@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Http\Controllers\SuitabilityScheduleController as SuitabilitySchedule;
+use App\Http\Controllers\SuitabilityScheduleController;
 use JWTAuth;
 use Response;
 use App\Repository\Transformers\UserTransformer;
 use \Illuminate\Http\Response as Res;
 use Validator;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 class UserController extends ApiController
@@ -19,26 +20,35 @@ class UserController extends ApiController
      * @var \App\Repository\Transformers\UserTransformer
      * */
     protected $userTransformer;
+    protected $suitabilitySchedule;
 
     /**
      * UserController constructor.
      * @param UserTransformer $userTransformer
+     * @param SuitabilityScheduleController $suitabilityScheduleController
      */
-    public function __construct(userTransformer $userTransformer) {
+    public function __construct(userTransformer $userTransformer, suitabilityScheduleController $suitabilityScheduleController) {
         $this->userTransformer = $userTransformer;
+        $this->suitabilitySchedule = $suitabilityScheduleController;
     }
 
     /**
      * @description: Get own info by token
-     * @param Request $request
      * @return json: User info
      */
-    public function myUser(Request $request) {
+    public function refreshUser() {
         try {
-            $user = JWTAuth::toUser($request['remember_token']);
-            return $this->respondCreated("USER_INFO", $this->userTransformer->transform($user));
+            $user = JWTAuth::parseToken()->authenticate();
+            return $this->respondCreated("Get User", $this->userTransformer->transform($user));
+        } catch (TokenExpiredException $e){
+            $refreshedToken = JWTAuth::refresh(JWTAuth::getToken());
+            $user = JWTAuth::setToken($refreshedToken)->toUser();
+            $user->remember_token = $refreshedToken;
+            $user->save();
+            return $this->respondCreated("Token Refreshed", $this->userTransformer->transform($user));
         } catch (JWTException $e) {
-            return $this->respondValidationError("INTERNAL_ERROR", $e);
+            $this->setStatusCode($e->getStatusCode());
+            return $this->respondWithError($e->getMessage());
         }
     }
 
@@ -72,7 +82,8 @@ class UserController extends ApiController
                 } catch (JWTException $e) {
                     $user->remember_token = NULL;
                     $user->save();
-                    return $this->respondValidationError("INTERNAL_ERROR", $e);
+                    $this->setStatusCode($e->getStatusCode());
+                    return $this->respondWithError($e->getMessage());
                 }
             } else {
                 return $this->respondWithError("INVALID_EMAIL_OR_PASSWORD");
@@ -116,19 +127,20 @@ class UserController extends ApiController
 
     /**
      * @description: Api user logout method
-     * @param Request $request
      * @return json : Json String response
      */
-    public function logout(Request $request) {
+    public function logout() {
         try {
-            $user = JWTAuth::toUser($request['remember_token']);
+            $user = JWTAuth::parseToken()->authenticate();
+            $token = JWTAuth::getToken();
             $user->remember_token = NULL;
             $user->save();
-            JWTAuth::setToken($request['remember_token'])->invalidate();
+            JWTAuth::setToken($token)->invalidate();
             $this->setStatusCode(Res::HTTP_OK);
             return $this->respondCreated("LOGGED_OUT_SUCCESSFULLY", null);
         } catch(JWTException $e) {
-            return $this->respondValidationError("INTERNAL_ERROR", $e);
+            $this->setStatusCode($e->getStatusCode());
+            return $this->respondWithError($e->getMessage());
         }
     }
 
@@ -151,8 +163,7 @@ class UserController extends ApiController
         $user->save();
 
         if ($newUser) {
-            $suitabilitySchedule = new SuitabilitySchedule;
-            $suitabilitySchedule->create($user->id);
+            $this->suitabilitySchedule->create($user->id);
         }
 
         return $this->respondCreated("USER_LOGGED_IN_SUCCESSFULLY", $this->userTransformer->transform($user));

@@ -42,7 +42,7 @@
          * @description Logout user from application.
          */
         function logout() {
-            SignService.out({remember_token: CookieService.getUser().remember_token}).then(function (response) {
+            SignService.out().then(function (response) {
                 if (response.status === 'success') {
                     CookieService.removeUser();
                     $rootScope.user = {};

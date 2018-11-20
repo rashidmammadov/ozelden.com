@@ -21,8 +21,13 @@ header('Access-Control-Allow-Methods:*');
 
 Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
     Route::get('/data', 'DataController@get');
-    Route::get('/myUser', 'UserController@myUser');
 
+    Route::get('/suitabilitySchedule', 'SuitabilityScheduleController@getSuitabilitySchedule');
+    Route::put('/suitabilitySchedule', 'SuitabilityScheduleController@updateSuitabilitySchedule');
+
+    Route::post('/lecturesList', 'LectureController@addToUserLectureList');
+
+    Route::get('/refreshUser', 'UserController@refreshUser');
     Route::post('/login', 'UserController@auth');
     Route::post('/logout', 'UserController@logout');
     Route::post('/register', 'UserController@register');

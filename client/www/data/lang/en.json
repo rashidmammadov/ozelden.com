@@ -1,5 +1,5 @@
 {
-  "ACCEPT_TERMS_OF_USE": "Accept Ters of Use",
+  "ACCEPT_TERMS_OF_USE": "Accept Terms of Use",
   "ADD": "Add",
   "ADD_LECTURE": "Add Lecture",
   "AGE": "Age",
@@ -78,6 +78,7 @@
   "REMOVE_LECTURE_TITLE": "Are you sure to remove lecture?",
   "REQUIRED": "Required",
   "SEARCH": "Search",
+  "SETTINGS": "Settings",
   "SCIENCE": "Science",
   "SCIENCE_AND_TECHNOLOGY": "Science and Technology",
   "SIGN_IN": "Sign In",

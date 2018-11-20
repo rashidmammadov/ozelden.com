@@ -1,0 +1,112 @@
+<md-button class="md-fab float-button" ng-click="Suitability.updateSuitabilitySchedule()" ng-disabled="!saveChangesButton">
+    <md-icon md-svg-src="save"></md-icon>
+</md-button>
+<div layout-gt-sm="row" layout="column" flex>
+    <div layout="column" flex>
+        <div layout-gt-sm="row" layout="column" flex>
+            <div flex layout="column">
+                <card-label>{{'REGIONS' | translate}}</card-label>
+                <md-card class="oz-setting-card md-whiteframe-1dp" flex>
+                    <md-card-content>
+                        <div layout="row" flex>
+                            <md-input-container flex>
+                                <label>{{'CITY' | translate}}</label>
+                                <md-select ng-model="Suitability.selectedCity">
+                                    <md-option ng-repeat="(city, index) in Suitability.cities" ng-value="city">
+                                        {{city}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                            <md-input-container flex>
+                                <label>{{'DISTRICT' | translate}}</label>
+                                <md-select ng-model="Suitability.selectedDistrict" ng-disabled="!Suitability.cities[Suitability.selectedCity]">
+                                    <md-option ng-repeat="district in Suitability.cities[Suitability.selectedCity]"
+                                               ng-value="district" ng-selected="$index == 0 ? true : false">
+                                        {{district}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                            <md-button class="md-icon-button" ng-click="Suitability.addRegion()"
+                                       ng-disabled="!Suitability.cities[Suitability.selectedCity]">
+                                <md-tooltip md-direction="top">{{'ADD' | translate}}</md-tooltip>
+                                <md-icon md-svg-icon="add-button"></md-icon>
+                            </md-button>
+                        </div>
+                        <div layout="row">
+                            <md-chips ng-model="Suitability.region" name="region" readonly="true" md-removable="true">
+                                <md-chip-template>
+                                    <b>{{$chip.city}}</b> - {{$chip.district}}
+                                </md-chip-template>
+                            </md-chips>
+                        </div>
+                    </md-card-content>
+                </md-card>
+            </div>
+
+            <div flex layout="column">
+                <card-label>{{'LOCATIONS' | translate}}</card-label>
+                <md-card class="oz-setting-card md-whiteframe-1dp" flex>
+                    <md-card-content layout="row" layout-align="space-between center">
+                        <div layout="column">
+                        <div ng-repeat="(option, value) in Suitability.location">
+                            <md-switch ng-model="Suitability.location[option]" aria-label="option" ng-if="$index<3" ng-change="Suitability.activateSaveButton()">
+                                {{option | translate}}
+                            </md-switch>
+                        </div>
+                        </div>
+                        <div layout="column">
+                        <div ng-repeat="(option, value) in Suitability.location">
+                            <md-switch ng-model="Suitability.location[option]" aria-label="option" ng-if="$index>2" ng-change="Suitability.activateSaveButton()">
+                                {{option | translate}}
+                            </md-switch>
+                        </div>
+                        </div>
+                    </md-card-content>
+                </md-card>
+            </div>
+        </div>
+
+        <div layout-gt-sm="row" layout="column" flex>
+            <div flex layout="column">
+                <card-label>{{'COURSE_TYPE' | translate}}</card-label>
+                <md-card class="oz-setting-card md-whiteframe-1dp" flex>
+                    <md-card-content>
+                        <div layout="column">
+                            <div ng-repeat="(option, value) in Suitability.courseType">
+                                <md-switch ng-model="Suitability.courseType[option]" aria-label="option" ng-change="Suitability.activateSaveButton()">
+                                    {{option | translate}}
+                                </md-switch>
+                            </div>
+                        </div>
+                    </md-card-content>
+                </md-card>
+            </div>
+
+            <div flex layout="column">
+                <card-label>{{'FACILITIES' | translate}}</card-label>
+                <md-card class="oz-setting-card md-whiteframe-1dp" flex>
+                    <md-card-content>
+                        <div layout="column">
+                            <div ng-repeat="(option, value) in Suitability.facility">
+                                <md-switch ng-model="Suitability.facility[option]" aria-label="option" ng-change="Suitability.activateSaveButton()">
+                                    {{option | translate}}
+                                </md-switch>
+                            </div>
+                        </div>
+                    </md-card-content>
+                </md-card>
+            </div>
+        </div>
+    </div>
+
+    <div layout="row">
+        <div flex layout="column">
+            <card-label>{{'SUITABILITY_SCHEDULE' | translate}}</card-label>
+            <md-card class="oz-setting-card md-whiteframe-1dp" flex>
+                <md-card-content>
+                    <oz-Suitability-schedule on-click="Suitability.updateDayHourTableData"></oz-Suitability-schedule>
+                </md-card-content>
+            </md-card>
+        </div>
+    </div>
+</div>

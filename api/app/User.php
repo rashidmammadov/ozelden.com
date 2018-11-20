@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+
 class User extends Authenticatable {
 
     use Notifiable;
@@ -29,5 +30,9 @@ class User extends Authenticatable {
 
     public function suitability_schedule() {
         return $this->hasOne('App\SuitabilitySchedule');
+    }
+
+    public function user_lectures_list() {
+        return $this->hasMany('App\UserLecturesList');
     }
 }

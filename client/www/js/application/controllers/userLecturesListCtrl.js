@@ -1,44 +1,42 @@
 (function () {
     'use strict';
 
-    function TutorLecturesListCtrl($scope, $filter, $http, $mdDialog, LocationService,
-             NotificationService, TutorService) {
+    function UserLecturesListCtrl($rootScope, $scope, $filter, $http, $mdDialog, DataService, NotificationService, UserSettingService) {
         var self = this;
 
-        this.loading = true;
+        $rootScope.loadingOperation = true;
         this.lectures;
-        this.tutorLecturesList = [];
+        this.lecturesList = [];
 
         this.experienceList = [];
-        for(var i=0; i<=50; i++){
-            self.experienceList.push(i);
-        }
-
-        $http({
-            method: 'GET',
-            url: LocationService.getLectures()
-        }).then(function (response) {
-            var result = response.data.lectures;
-            self.lectures = result;
-        }, function(){
-            console.log('did not get lectures');
-        });
-
-        TutorService.getTutorInfo('lecturesList').then(function(result){
-            self.tutorLecturesList = result;
-            self.loading = false;
-        }, function(rejection){
-            NotificationService.showMessage(rejection);
-            self.loading = false;
-        });
+        for (var i=0; i<=60; i++) { self.experienceList.push(i); }
 
         /**
          * @ngdoc method
-         * @name ozelden.controllers.controllers:TutorLecturesListCtrl#addLecture
+         * @description Get default data.
+         */
+        DataService.get({lectures: true}).then(function (result) {
+            result.lectures && (self.lectures = result.lectures);
+            $rootScope.loadingOperation = false;
+        }, function() {
+            $rootScope.loadingOperation = false;
+        });
+
+       // TutorService.getTutorInfo('lecturesList').then(function(result){
+          //  self.lecturesList = result;
+           // $rootScope.loadingOperation = false;
+       // }, function(rejection){
+          //  NotificationService.showMessage(rejection);
+         //   $rootScope.loadingOperation = false;
+        //});
+
+        /**
+         * @ngdoc method
+         * @name ozelden.controllers.controllers:UserLecturesListCtrl#addLecture
          * @description Add created lecture to lectures list if not exist.
          */
         function addLecture(){
-            self.loading = true;
+            $rootScope.loadingOperation = true;
             var lectureObject = {
                 lectureArea: self.selectedLectureArea.base,
                 lectureTheme: self.selectedLectureTheme.base,
@@ -48,33 +46,33 @@
                 average: self.selectedLectureTheme.average.TRY
             };
 
-            var result = self.tutorLecturesList.find(function(lecture){
+            var result = self.lecturesList.find(function(lecture){
                 return lecture.lectureArea === lectureObject.lectureArea &&
                         lecture.lectureTheme === lectureObject.lectureTheme;
             });
 
             if (!result){
-                TutorService.addTutorLecture(lectureObject).then(function(result){
-                    self.tutorLecturesList.push(lectureObject);
-                    self.loading = false;
-                    NotificationService.showMessage($filter('translate')(result));
+                UserSettingService.addToUserLectureList(lectureObject).then(function(result){
+                    self.lecturesList.push(lectureObject);
+                    $rootScope.loadingOperation = false;
+                    NotificationService.showMessage($filter('translate')(result.message));
                 },function () {
-                    self.loading = false;
+                    $rootScope.loadingOperation = false;
                     NotificationService.showMessage($filter('translate')('SOMETHING_WHEN_WRONG_WHILE_ADDING_LECTURE'));
                 });
             } else {
-                self.loading = false;
+                $rootScope.loadingOperation = false;
                 NotificationService.showMessage($filter('translate')('THIS_LECTURE_ALREADY_ADDED'));
             }
         }
 
         /**
          * @ngdoc method
-         * @name ozelden.controllers.controllers:TutorLecturesListCtrl#removeLecture
+         * @name ozelden.controllers.controllers:UserLecturesListCtrl#removeLecture
          * @description Remove selected lecture from lectures list.
          */
         function removeLecture(event, lecture) {
-            self.loading = true;
+            $rootScope.loadingOperation = true;
             var confirm = $mdDialog.confirm()
                 .title($filter('translate')('REMOVE_LECTURE_TITLE'))
                 .textContent($filter('translate')('REMOVE_LECTURE_CONTENT'))
@@ -85,18 +83,18 @@
 
             $mdDialog.show(confirm).then(function() {
                 TutorService.removeTutorLecture(lecture).then(function(result){
-                    self.tutorLecturesList = self.tutorLecturesList.filter(function (value) {
+                    self.lecturesList = self.lecturesList.filter(function (value) {
                         return !(value.lectureArea === lecture.lectureArea &&
                             value.lectureTheme === lecture.lectureTheme);
                     });
-                    self.loading = false;
+                    $rootScope.loadingOperation = false;
                     NotificationService.showMessage($filter('translate')(result));
                 },function (failure) {
-                    self.loading = false;
+                    $rootScope.loadingOperation = false;
                     NotificationService.showMessage($filter('translate')(failure));
                 });
             }, function() {
-                self.loading = false;
+                $rootScope.loadingOperation = false;
             });
         }
 
@@ -104,5 +102,5 @@
         this.removeLecture = removeLecture;
     }
 
-    angular.module('ozelden.controllers').controller('TutorLecturesListCtrl', TutorLecturesListCtrl);
+    angular.module('ozelden.controllers').controller('UserLecturesListCtrl', UserLecturesListCtrl);
 })();

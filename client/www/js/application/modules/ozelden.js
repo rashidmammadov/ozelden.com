@@ -20,9 +20,9 @@
         function getUserData($rootScope, $timeout, SignService, CookieService) {
             var user = CookieService.getUser();
             if (user) {
-                return (SignService.myUser(user.remember_token).then(function(result){
+                return (SignService.refreshUser(user.remember_token).then(function(result){
                     if (result.status === "success") {
-                        CookieService.setUser(result.data, "3-m");
+                        CookieService.setUser(result.data, "14-d");
                         return $rootScope.user = result.data;
                     } else {
                         CookieService.removeUser();
@@ -66,16 +66,16 @@
             templateUrl: 'html/controllers/user/sign.html',
             controller: 'UserSignCtrl',
             controllerAs: 'Sign'
-        }).state('ozelden.tutor.lecturesList',{
+        }).state('ozelden.user.lecturesList',{
             url: '/lectures-list',
-            templateUrl: 'html/controllers/tutor/lecturesList.html',
-            controller: 'TutorLecturesListCtrl',
-            controllerAs: 'lectures'
-        }).state('ozelden.tutor.suitabilitySchedule',{
+            templateUrl: 'html/controllers/user/lecturesList.html',
+            controller: 'UserLecturesListCtrl',
+            controllerAs: 'Lectures'
+        }).state('ozelden.user.suitabilitySchedule',{
             url: '/suitability-schedule',
-            templateUrl: 'html/controllers/tutor/suitabilitySchedule.html',
-            controller: 'TutorSuitabilityScheduleCtrl',
-            controllerAs: 'suitability'
+            templateUrl: 'html/controllers/user/suitabilitySchedule.html',
+            controller: 'UserSuitabilityScheduleCtrl',
+            controllerAs: 'Suitability'
         });
 
         // define icons.

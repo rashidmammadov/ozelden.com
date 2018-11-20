@@ -1,7 +1,6 @@
 <div layout="column" flex>
-    <md-card class="oz-setting-card md-whiteframe-2dp" flex>
-        <md-card-title>{{'FILTERS' | translate}}</md-card-title>
-        <md-divider></md-divider>
+    <card-label>{{'FILTERS' | translate}}</card-label>
+    <md-card class="oz-setting-card md-whiteframe-1dp" flex>
         <md-card-content>
             <div layout="row">
                 <md-input-container flex>
@@ -40,9 +39,6 @@
                 </md-input-container>
             </div>
         </md-card-content>
-        <div style="height: 5px;">
-            <md-progress-linear md-mode="indeterminate" ng-if="Search.loading"></md-progress-linear>
-        </div>
     </md-card>
 
     <oz-search-result ng-data="Search.searchResult"></oz-search-result>

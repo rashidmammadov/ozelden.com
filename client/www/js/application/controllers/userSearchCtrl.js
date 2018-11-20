@@ -6,10 +6,10 @@
      * @name ozelden.controllers.controllers:UserSearchCtrl
      * @description Controller for the main page view.
      */
-    function UserSearchCtrl($scope, $state, $translate, CookieService, DataService) {
+    function UserSearchCtrl($rootScope, $scope, $state, $translate, CookieService, DataService) {
         var self = this;
 
-        this.loading = true;
+        $rootScope.loadingOperation = true;
         this.lectures;
         this.regions;
 
@@ -17,12 +17,12 @@
          * @ngdoc method
          * @description Get default data.
          */
-        DataService.get({regions: true, lectures: true}).then(function (response){
-            response.lectures && (self.lectures = response.lectures);
-            response.regions && (self.regions = response.regions);
-            self.loading = false;
+        DataService.get({regions: true, lectures: true}).then(function (result){
+            result.lectures && (self.lectures = result.lectures);
+            result.regions && (self.regions = result.regions);
+            $rootScope.loadingOperation = false;
         },function(rejection){
-            self.loading = false;
+            $rootScope.loadingOperation = false;
         });
 
         this.searchResult = [{

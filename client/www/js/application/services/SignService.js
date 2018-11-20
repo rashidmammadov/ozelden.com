@@ -1,25 +1,25 @@
 (function () {
     'use strict';
 
-    function SignService($http, $q, VocabularyService) {
+    function SignService($http, $q, VocabularyService, CookieService) {
 
         /**
          * @ngdoc method
-         * @name ozelden.services.SignService#myUser
+         * @name ozelden.services.SignService#refreshUser
          * @methodOf ozelden.services.TutorService
          *
          * @description get current user`s info by token.
          * @param {String} token - holds the user token.
          */
-        function myUser(token) {
+        function refreshUser(token) {
             var deferred = $q.defer();
 
             $http({
                 method: 'GET',
-                url: VocabularyService.myUser(),
-                headers: { 'Content-Type': 'application/json' },
-                params: {
-                    remember_token: token
+                url: VocabularyService.refreshUser(),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + CookieService.getUser().remember_token
                 }
             }).then(function (response) {
                 var result = response.data;
@@ -100,16 +100,17 @@
          * @methodOf ozelden.services.TutorService
          *
          * @description send request to logout user from application.
-         * @param {String} token - holds the user token.
          */
-        function out(token) {
+        function out() {
             var deferred = $q.defer();
 
             $http({
                 method: 'POST',
                 url: VocabularyService.userLogout(),
-                headers: { 'Content-Type': 'application/json' },
-                data: token
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + CookieService.getUser().remember_token
+                }
             }).then(function (response) {
                 var result = response.data;
                 if (result.status === "success") {
@@ -124,7 +125,7 @@
             return deferred.promise;
         }
 
-        this.myUser = myUser;
+        this.refreshUser = refreshUser;
         this._in = _in;
         this.up = up;
         this.out = out;

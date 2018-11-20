@@ -10,7 +10,6 @@
                     {{'LOGIN' | translate}}
                 </md-tab-label>
                 <md-tab-body>
-                    <md-progress-linear md-mode="indeterminate" ng-if="Sign.loading"></md-progress-linear>
                     <form name="SignInForm" class="md-margin md-padding">
                         <md-input-container class="md-block">
                             <label>{{'EMAIL' | translate}}</label>
@@ -33,7 +32,7 @@
                             </div>
                         </md-input-container>
                         <md-button type="submit" ng-click="Sign._in()" class="sign-button md-raised"
-                                   ng-disabled="Sign.loading">{{'LOGIN' | translate}}</md-button>
+                                   ng-disabled="loadingOperation">{{'LOGIN' | translate}}</md-button>
                     </form>
                 </md-tab-body>
             </md-tab>
@@ -42,7 +41,6 @@
                     {{'REGISTRATION' | translate}}
                 </md-tab-label>
                 <md-tab-body>
-                    <md-progress-linear md-mode="indeterminate" ng-if="Sign.loading"></md-progress-linear>
                     <form name="SignUpForm" class="md-margin md-padding">
                         <md-radio-group ng-model="Sign.type" layout="row" style="margin-top: 24px; margin-bottom: 24px;">
                             <md-radio-button value="tutor">
@@ -113,7 +111,7 @@
                             </div>
                         </md-input-container>
                         <md-checkbox ng-model="Sign.terms">{{'ACCEPT_TERMS_OF_USE' | translate}}</md-checkbox><br/>
-                        <md-button type="sumbit" class="sign-button md-ranpmised" ng-disabled="Sign.checkValidInput() || Sign.loading"
+                        <md-button type="sumbit" class="sign-button md-ranpmised" ng-disabled="Sign.checkValidInput() || loadingOperation"
                             ng-click="Sign.up()">{{'LOGIN' | translate}}</md-button>
                     </form>
                 </md-tab-body>

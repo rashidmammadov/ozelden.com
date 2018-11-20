@@ -9,7 +9,7 @@
         }
 
         $scope.tabindex = 0;
-        this.loading = false;
+        $rootScope.loadingOperation = false;
 
         this.signInEmail = "";
         this.signInPassword = "";
@@ -44,7 +44,7 @@
          * @description Send request for log in user.
          */
         function _in() {
-            self.loading = true;
+            $rootScope.loadingOperation = true;
             var data = {
                 email: self.signInEmail,
                 password: self.signInPassword
@@ -54,15 +54,15 @@
                 if (result.status === 'success'){
                     NotificationService.showMessage($filter("translate")(result.message));
                     $rootScope.user = result.data;
-                    CookieService.setUser($rootScope.user, "3-m");
+                    CookieService.setUser($rootScope.user, "14-d");
                     $state.go("ozelden.user.dashboard");
                 } else {
                     NotificationService.showMessage($filter("translate")(result.message));
                 }
-                self.loading = false;
+                $rootScope.loadingOperation = false;
             }, function ($rejection) {
                 NotificationService.showMessage($filter("translate")("SOMETHING_WENT_WRONG"));
-                self.loading = false;
+                $rootScope.loadingOperation = false;
             })
         }
 
@@ -72,7 +72,7 @@
          * @description Send request for register user.
          */
         function up() {
-            self.loading = true;
+            $rootScope.loadingOperation = true;
             var data= {
                 type: self.type,
                 name: self.name,
@@ -88,15 +88,15 @@
                 if (result.status === 'success'){
                     NotificationService.showMessage($filter("translate")(result.message));
                     $rootScope.user = result.data;
-                    CookieService.setUser($rootScope.user, "3-m");
+                    CookieService.setUser($rootScope.user, "14-d");
                     $state.go("ozelden.user.dashboard");
                 } else {
                     NotificationService.showMessage($filter("translate")(result.message));
                 }
-                self.loading = false;
+                $rootScope.loadingOperation = false;
             }, function () {
                 NotificationService.showMessage($filter("translate")("SOMETHING_WENT_WRONG"));
-                self.loading = false;
+                $rootScope.loadingOperation = false;
             });
         }
 

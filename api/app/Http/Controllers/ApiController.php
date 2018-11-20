@@ -34,7 +34,7 @@ class ApiController extends Controller {
 
     /**
      * @param $statusCode
-     * @return json response
+     * @return ApiController response
      */
     public function setStatusCode($statusCode) {
         $this->statusCode = $statusCode;

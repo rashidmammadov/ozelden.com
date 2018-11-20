@@ -24,8 +24,9 @@
         </div>
     </md-whiteframe>
     <div class="ozelden-content" layout="column" flex>
-        <ui-view style="height: 100%;"> </ui-view>
-        <!-- <div style="padding-top: 64px;"></div>
-        <oz-search-result style="padding-top: 64px;" ng-data="Main.searchResult"></oz-search-result> -->
+        <div style="height: 5px; z-index: 9;">
+            <md-progress-linear md-mode="indeterminate" ng-if="loadingOperation"></md-progress-linear>
+        </div>
+        <ui-view style="margin-top: -5px; height: 100%;"> </ui-view>
     </div>
 </div>

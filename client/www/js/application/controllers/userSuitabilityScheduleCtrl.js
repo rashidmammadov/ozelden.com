@@ -1,13 +1,14 @@
 (function () {
     'use strict';
 
-    function TutorSuitabilityScheduleCtrl($scope, $http, $filter, TutorService, LocationService, NotificationService){
+    function UserSuitabilityScheduleCtrl($rootScope, $scope, $filter, CookieService, DataService, UserSettingService, NotificationService){
         var self = this;
 
         $scope.disableRegionButton = true;
         $scope.saveChangesButton = false;
-        this.loading = true;
+        $rootScope.loadingOperation = true;
 
+        this.currentUserId = CookieService.getUser().id;
         this.cities = [];
         this.selectedCity;
         this.selectedDistrict;
@@ -18,26 +19,27 @@
         this.facility;
         this.dayHourTable;
 
-        $http({
-            method: 'GET',
-            url: LocationService.getCities()
-        }).then(function (response) {
-            var result = response.data.cities;
-            self.cities = result;
-        }, function(){
-            console.log('did not get cities');
+        /**
+         * @ngdoc method
+         * @description Get default data.
+         */
+        DataService.get({regions: true}).then(function (result){
+            result.regions && (self.cities = result.regions);
+            $rootScope.loadingOperation = false;
+        },function(rejection){
+            $rootScope.loadingOperation = false;
         });
 
-        TutorService.getTutorInfo('suitabilitySchedule').then(function(result){
-            $scope.region = self.region = result.region;
-            self.location = result.location;
-            self.courseType = result.courseType;
-            self.facility = result.facility;
-            self.dayHourTable = result.dayHourTable;
+        UserSettingService.getSuitabilitySchedule(self.currentUserId).then(function(result){
+            $scope.region = self.region = result.data.region;
+            self.location = result.data.location;
+            self.courseType = result.data.courseType;
+            self.facility = result.data.facility;
+            self.dayHourTable = result.data.dayHourTable;
             self.$$setDayHourTableData();
         }, function(rejection){
             NotificationService.showMessage(rejection);
-            self.loading = false;
+            $rootScope.loadingOperation = false;
         });
 
         /**
@@ -85,20 +87,21 @@
          * @description Update tutor`s suitability schedule by send request.
          */
         function updateSuitabilitySchedule(){
-            self.loading = true;
+            $rootScope.loadingOperation = true;
             var data = {
+                userId: self.currentUserId,
                 region: self.region,
                 location: self.location,
                 courseType: self.courseType,
                 facility: self.facility,
                 dayHourTable: self.dayHourTable
             }
-            TutorService.updateTutorInfo('suitabilitySchedule', data).then(function(result){
-                self.loading = false;
-                NotificationService.showMessage($filter('translate')(result));
+            UserSettingService.updateSuitabilitySchedule(data).then(function(result){
+                $rootScope.loadingOperation = false;
+                NotificationService.showMessage($filter('translate')(result.message));
                 $scope.saveChangesButton = false;
             },function(rejection){
-                self.loading = false;
+                $rootScope.loadingOperation = false;
                 NotificationService.showMessage($filter('translate')(rejection));
                 $scope.saveChangesButton = false;
             });
@@ -121,7 +124,7 @@
                 });
             });
             $scope.$broadcast('$drawDayHourTable', data);
-            self.loading = false;
+            $rootScope.loadingOperation = false;
         }
 
         function activateSaveButton(){
@@ -142,5 +145,5 @@
         this.$$setDayHourTableData = $$setDayHourTableData;
     }
 
-    angular.module('ozelden.controllers').controller('TutorSuitabilityScheduleCtrl', TutorSuitabilityScheduleCtrl);
+    angular.module('ozelden.controllers').controller('UserSuitabilityScheduleCtrl', UserSuitabilityScheduleCtrl);
 })();

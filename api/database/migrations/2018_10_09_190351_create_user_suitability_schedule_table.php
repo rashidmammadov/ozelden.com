@@ -19,7 +19,7 @@ class CreateUserSuitabilityScheduleTable extends Migration
             $table->string('location')->nullable();
             $table->string('courseType')->nullable();
             $table->string('facility')->nullable();
-            $table->string('dayHourTable')->nullable();
+            $table->text('dayHourTable', 999)->nullable();
             $table->timestamps();
         });
     }
