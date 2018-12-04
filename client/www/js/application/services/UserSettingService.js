@@ -12,7 +12,7 @@
          * @name ozelden.services.UserSettingService#addToUserLectureList
          * @methodOf ozelden.services.UserSettingService
          *
-         * @description add given leture object to user2s lecture list.
+         * @description add given leture object to user`s lecture list.
          * @param {Object} lectureObject - holds the lecture.
          */
         function addToUserLectureList(lectureObject) {
@@ -26,6 +26,30 @@
                     'Authorization': 'Bearer ' + CookieService.getUser().remember_token
                 },
                 data: lectureObject
+            }).then($$fetchSuccessResponse, $$fetchFailureResponse);
+
+            return self.deferred.promise;
+        }
+
+        /**
+         * @ngdoc method
+         * @name ozelden.services.UserSettingService#getUserLectureList
+         * @methodOf ozelden.services.UserSettingService
+         *
+         * @description get selected user`s lecture list.
+         * @param {Object} params - holds the user id and response type.
+         */
+        function getUserLectureList(params) {
+            self.deferred = $q.defer();
+
+            $http({
+                method: 'GET',
+                url: VocabularyService.lecturesList(),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + CookieService.getUser().remember_token
+                },
+                params: params
             }).then($$fetchSuccessResponse, $$fetchFailureResponse);
 
             return self.deferred.promise;
@@ -93,6 +117,7 @@
         }
 
         this.addToUserLectureList = addToUserLectureList;
+        this.getUserLectureList = getUserLectureList;
         this.getSuitabilitySchedule = getSuitabilitySchedule;
         this.updateSuitabilitySchedule = updateSuitabilitySchedule;
         return this;
