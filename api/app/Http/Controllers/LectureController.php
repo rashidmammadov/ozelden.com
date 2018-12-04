@@ -49,4 +49,48 @@ class LectureController extends ApiController {
             return $this->respondWithError($e->getMessage());
         }
     }
+
+    /**
+     * @description Get user`s lectures list
+     * @param Request $request
+     * @return json
+     */
+    public function getUserLectureList(Request $request) {
+        try {
+            JWTAuth::getToken();
+            $rules = array('id' => 'required');
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return $this->respondValidationError("FIELDS_VALIDATION_FAILED", $validator->errors());
+            } else {
+                $userId = $request['id'];
+                if ($request['average'] == true) {
+                    return $this->userLecturesListWithAverage($userId);                  
+                } else {
+                    return $this->userLecturesListWithoutAverage($userId);
+                }
+            }
+        } catch (JWTException $e) {
+            $this->setStatusCode($e->getStatusCode());
+            return $this->respondWithError($e->getMessage());
+        }
+    }
+
+    /**
+     * @description Get user`s lectures list with lecture average.
+     * @param Request $request
+     * @return json
+     */
+    public function userLecturesListWithAverage($userId) {
+        $userLecturesList = UserLecturesList::where('userId', $userId);
+    }
+
+    /**
+     * @description Get user`s lectures list without lecture average.
+     * @param Request $request
+     * @return json
+     */
+    public function userLecturesListWithoutAverage($userId) {
+        $userLecturesList = UserLecturesList::where('userId', $userId);
+    }
 }
