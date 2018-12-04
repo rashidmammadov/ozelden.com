@@ -1,9 +1,11 @@
 (function () {
     'use strict';
 
-    function UserLecturesListCtrl($rootScope, $scope, $filter, $http, $mdDialog, DataService, NotificationService, UserSettingService) {
+    function UserLecturesListCtrl($rootScope, $scope, $filter, $http, $mdDialog, CookieService, DataService, 
+            NotificationService, UserSettingService) {
         var self = this;
 
+        var userId = CookieService.getUser() && CookieService.getUser().id;
         $rootScope.loadingOperation = true;
         this.lectures;
         this.lecturesList = [];
@@ -12,7 +14,7 @@
         for (var i=0; i<=60; i++) { self.experienceList.push(i); }
 
         /**
-         * @ngdoc method
+         * @ngdoc request
          * @description Get default data.
          */
         DataService.get({lectures: true}).then(function (result) {
@@ -22,13 +24,17 @@
             $rootScope.loadingOperation = false;
         });
 
-       // TutorService.getTutorInfo('lecturesList').then(function(result){
-          //  self.lecturesList = result;
-           // $rootScope.loadingOperation = false;
-       // }, function(rejection){
-          //  NotificationService.showMessage(rejection);
-         //   $rootScope.loadingOperation = false;
-        //});
+        /**
+         * @ngdoc request
+         * @description Get user`s lectures list.
+         */
+        UserSettingService.getUserLectureList({id: userId, average: true}).then(function(result) {
+            self.lecturesList = result;
+            $rootScope.loadingOperation = false;
+        }, function() {
+            $rootScope.loadingOperation = false;
+            NotificationService.showMessage($filter('translate')('SOMETHING_WHEN_WRONG_WHILE_ADDING_LECTURE'));
+        });
 
         /**
          * @ngdoc method
