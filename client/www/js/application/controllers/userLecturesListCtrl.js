@@ -28,7 +28,7 @@
          * @ngdoc request
          * @description Get user`s lectures list.
          */
-        UserSettingService.getUserLectureList({id: userId, average: true}).then(function(result) {
+        UserSettingService.getUserLectureList({userId: userId, average: true}).then(function(result) {
             self.lecturesList = result;
             $rootScope.loadingOperation = false;
         }, function() {
