@@ -58,17 +58,48 @@ class LectureController extends ApiController {
     public function getUserLectureList(Request $request) {
         try {
             JWTAuth::getToken();
-            $rules = array('id' => 'required');
+            $rules = array('userId' => 'required');
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
                 return $this->respondValidationError("FIELDS_VALIDATION_FAILED", $validator->errors());
             } else {
-                $userId = $request['id'];
+                $userId = $request['userId'];
                 if ($request['average'] == true) {
                     return $this->userLecturesListWithAverage($userId);                  
                 } else {
                     return $this->userLecturesListWithoutAverage($userId);
                 }
+            }
+        } catch (JWTException $e) {
+            $this->setStatusCode($e->getStatusCode());
+            return $this->respondWithError($e->getMessage());
+        }
+    }
+
+    /**
+     * @description Remove selected lecture from user`s lectures list.
+     * @param Request $request
+     * @return json
+     */
+    public function removeLectureFromUserLectureList(Request $request) {
+        try {
+            JWTAuth::getToken();
+            $rules = array(
+                'userId' => 'required',
+                'lectureArea' => 'required',
+                'lectureTheme' => 'required'
+            );
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return $this->respondValidationError("FIELDS_VALIDATION_FAILED", $validator->errors());
+            } else {
+                UserLecturesList::where([
+                    ['userId', '=', $request['userId']], 
+                    ['lectureArea', '=', $request['lectureArea']], 
+                    ['lectureTheme', '=', $request['lectureTheme']]
+                ])->delete();
+
+                return $this->respondCreated("LECTURE_REMOVED_SUCCESSFULLY");
             }
         } catch (JWTException $e) {
             $this->setStatusCode($e->getStatusCode());
