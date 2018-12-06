@@ -122,6 +122,8 @@ class LectureController extends ApiController {
      * @return json
      */
     public function userLecturesListWithAverage($userId) {
+        // TODO: create request and call function.
+        $request->request->add(['variable', 'value']);
         $userLecturesList = UserLecturesList::where('userId', $userId);
     }
 
