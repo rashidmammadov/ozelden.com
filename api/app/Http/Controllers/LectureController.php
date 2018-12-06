@@ -32,17 +32,26 @@ class LectureController extends ApiController {
 
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
-                return $this->respondValidationError("FIELDS_VALIDATION_FAILED", $validator->errors());
+                return $this->respondValidationError('FIELDS_VALIDATION_FAILED', $validator->errors());
             } else {
-                UserLecturesList::create([
-                    'userId' => $userId,
-                    'lectureArea' => $request['lectureArea'],
-                    'lectureTheme' => $request['lectureTheme'],
-                    'experience' => $request['experience'],
-                    'price' => $request['price']
-                ]);
+                $existLecture = UserLecturesList::where([
+                    ['userId', '=', $userId], 
+                    ['lectureArea', '=', $request['lectureArea']], 
+                    ['lectureTheme', '=', $request['lectureTheme']]
+                ])->first();
 
-                return $this->respondCreated("LECTURE_ADDED_SUCCESSFULLY");
+                if ($existLecture) {
+                    return $this->respondWithError('THIS_LECTURE_ALREADY_ADDED');
+                } else {
+                    UserLecturesList::create([
+                        'userId' => $userId,
+                        'lectureArea' => $request['lectureArea'],
+                        'lectureTheme' => $request['lectureTheme'],
+                        'experience' => $request['experience'],
+                        'price' => $request['price']
+                    ]);
+                    return $this->respondCreated("LECTURE_ADDED_SUCCESSFULLY");
+                }
             }
         } catch (JWTException $e) {
             $this->setStatusCode($e->getStatusCode());
