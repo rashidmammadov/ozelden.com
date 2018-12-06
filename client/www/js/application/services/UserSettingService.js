@@ -5,6 +5,11 @@
 
         var self = this;
 
+        var headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + CookieService.getUser().remember_token
+        };
+
         this.deferred;
 
         /**
@@ -21,10 +26,7 @@
             $http({
                 method: 'POST',
                 url: VocabularyService.lecturesList(),
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + CookieService.getUser().remember_token
-                },
+                headers: headers,
                 data: lectureObject
             }).then($$fetchSuccessResponse, $$fetchFailureResponse);
 
@@ -45,10 +47,7 @@
             $http({
                 method: 'GET',
                 url: VocabularyService.lecturesList(),
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + CookieService.getUser().remember_token
-                },
+                headers: headers,
                 params: params
             }).then($$fetchSuccessResponse, $$fetchFailureResponse);
 
@@ -69,10 +68,7 @@
             $http({
                 method: 'GET',
                 url: VocabularyService.suitabilitySchedule(),
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + CookieService.getUser().remember_token
-                },
+                headers: headers,
                 params: { id: id }
             }).then($$fetchSuccessResponse, $$fetchFailureResponse);
 
@@ -93,10 +89,7 @@
             $http({
                 method: 'PUT',
                 url: VocabularyService.suitabilitySchedule(),
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + CookieService.getUser().remember_token
-                },
+                headers: headers,
                 data: data
             }).then($$fetchSuccessResponse, $$fetchFailureResponse);
 
@@ -117,16 +110,19 @@
             $http({
                 method: 'DELETE',
                 url: VocabularyService.lecturesList(),
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + CookieService.getUser().remember_token
-                },
+                headers: headers,
                 data: data
             }).then($$fetchSuccessResponse, $$fetchFailureResponse);
 
             return self.deferred.promise;
         }
 
+        /**
+         * @ngdoc method
+         * @name ozelden.services.UserSettingService#$$fetchSuccessResponse
+         * @methodOf ozelden.services.UserSettingService
+         * @description call when response is success.
+         */
         function $$fetchSuccessResponse(response) {
             var result = response.data;
             if (result.status === "success") {
@@ -136,6 +132,12 @@
             }
         }
 
+        /**
+         * @ngdoc method
+         * @name ozelden.services.UserSettingService#$$fetchFailureResponse
+         * @methodOf ozelden.services.UserSettingService
+         * @description call when response is failure.
+         */
         function $$fetchFailureResponse(rejection) {
             self.deferred.reject(rejection);
         }
