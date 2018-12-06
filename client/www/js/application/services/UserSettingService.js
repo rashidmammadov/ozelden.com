@@ -25,7 +25,7 @@
 
             $http({
                 method: 'POST',
-                url: VocabularyService.lecturesList(),
+                url: VocabularyService.userLecturesList(),
                 headers: headers,
                 data: lectureObject
             }).then($$fetchSuccessResponse, $$fetchFailureResponse);
@@ -46,7 +46,7 @@
 
             $http({
                 method: 'GET',
-                url: VocabularyService.lecturesList(),
+                url: VocabularyService.userLecturesList(),
                 headers: headers,
                 params: params
             }).then($$fetchSuccessResponse, $$fetchFailureResponse);
@@ -109,7 +109,7 @@
 
             $http({
                 method: 'DELETE',
-                url: VocabularyService.lecturesList(),
+                url: VocabularyService.userLecturesList(),
                 headers: headers,
                 data: data
             }).then($$fetchSuccessResponse, $$fetchFailureResponse);
