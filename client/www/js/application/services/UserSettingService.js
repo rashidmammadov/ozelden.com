@@ -103,6 +103,30 @@
             return self.deferred.promise;
         }
 
+        /**
+         * @ngdoc method
+         * @name ozelden.services.UserSettingService#removeLectureFromUserLectureList
+         * @methodOf ozelden.services.UserSettingService
+         *
+         * @description remove selected lecture from user`s lecture list.
+         * @param {Object} data - holds the selected lecture`s data.
+         */
+        function removeLectureFromUserLectureList(data) {
+            self.deferred = $q.defer();
+
+            $http({
+                method: 'DELETE',
+                url: VocabularyService.lecturesList(),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + CookieService.getUser().remember_token
+                },
+                data: data
+            }).then($$fetchSuccessResponse, $$fetchFailureResponse);
+
+            return self.deferred.promise;
+        }
+
         function $$fetchSuccessResponse(response) {
             var result = response.data;
             if (result.status === "success") {
@@ -120,6 +144,7 @@
         this.getUserLectureList = getUserLectureList;
         this.getSuitabilitySchedule = getSuitabilitySchedule;
         this.updateSuitabilitySchedule = updateSuitabilitySchedule;
+        this.removeLectureFromUserLectureList = removeLectureFromUserLectureList;
         return this;
     }
 
