@@ -83,9 +83,9 @@ class LectureController extends ApiController {
      */
     public function removeLectureFromUserLectureList(Request $request) {
         try {
-            JWTAuth::getToken();
+            $user = JWTAuth::parseToken()->authenticate();
+            $userId = $user->id;
             $rules = array(
-                'userId' => 'required',
                 'lectureArea' => 'required',
                 'lectureTheme' => 'required'
             );
@@ -94,7 +94,7 @@ class LectureController extends ApiController {
                 return $this->respondValidationError("FIELDS_VALIDATION_FAILED", $validator->errors());
             } else {
                 UserLecturesList::where([
-                    ['userId', '=', $request['userId']], 
+                    ['userId', '=', $userId], 
                     ['lectureArea', '=', $request['lectureArea']], 
                     ['lectureTheme', '=', $request['lectureTheme']]
                 ])->delete();
