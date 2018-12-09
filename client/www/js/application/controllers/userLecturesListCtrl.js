@@ -19,7 +19,6 @@
          */
         DataService.get({lectures: true}).then(function (result) {
             result.lectures && (self.lectures = result.lectures);
-            $rootScope.loadingOperation = false;
         }, function() {
             $rootScope.loadingOperation = false;
         });
@@ -29,11 +28,13 @@
          * @description Get user`s lectures list.
          */
         UserSettingService.getUserLectureList({userId: userId, average: true}).then(function(result) {
-            self.lecturesList = result;
+            if (result.status === 'success') {
+                self.lecturesList = result.data;
+            }
             $rootScope.loadingOperation = false;
         }, function() {
             $rootScope.loadingOperation = false;
-            NotificationService.showMessage($filter('translate')('SOMETHING_WHEN_WRONG_WHILE_ADDING_LECTURE'));
+            NotificationService.showMessage($filter('translate')('SOMETHING_WENT_WRONG_WHILE_GETTING_LECTURES_LIST'));
         });
 
         /**
@@ -93,12 +94,12 @@
          * @param {Object} lecture - Holds the selected lecture data.
          */
         function $$confirmToRemoveLecture(lecture) {
-            TutorService.removeLectureFromUserLectureList(lecture).then(function(result) {
+            UserSettingService.removeLectureFromUserLectureList(lecture).then(function(result) {
                 self.lecturesList = self.lecturesList.filter(function (value) {
                     return !$$isEqualLectures(value, lecture);
                 });
                 $rootScope.loadingOperation = false;
-                NotificationService.showMessage($filter('translate')(result));
+                NotificationService.showMessage($filter('translate')(result.message));
             },function (failure) {
                 $rootScope.loadingOperation = false;
                 NotificationService.showMessage($filter('translate')(failure));

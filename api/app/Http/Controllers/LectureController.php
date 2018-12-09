@@ -7,11 +7,17 @@ use JWTAuth;
 use Validator;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Http\Controllers\DataController;
+use App\Repository\Transformers\UserLectureTransformer;
 
 class LectureController extends ApiController {
 
-    public function __construct() {
-        // TODO:
+    private $dataController;
+    private $userLectureTransformer;
+
+    public function __construct(dataController $dataController, userLectureTransformer $userLectureTransformer) {
+        $this->dataController = $dataController;
+        $this->userLectureTransformer = $userLectureTransformer;
     }
 
     /**
@@ -35,8 +41,8 @@ class LectureController extends ApiController {
                 return $this->respondValidationError('FIELDS_VALIDATION_FAILED', $validator->errors());
             } else {
                 $existLecture = UserLecturesList::where([
-                    ['userId', '=', $userId], 
-                    ['lectureArea', '=', $request['lectureArea']], 
+                    ['userId', '=', $userId],
+                    ['lectureArea', '=', $request['lectureArea']],
                     ['lectureTheme', '=', $request['lectureTheme']]
                 ])->first();
 
@@ -74,7 +80,7 @@ class LectureController extends ApiController {
             } else {
                 $userId = $request['userId'];
                 if ($request['average'] == true) {
-                    return $this->userLecturesListWithAverage($userId);                  
+                    return $this->userLecturesListWithAverage($userId);
                 } else {
                     return $this->userLecturesListWithoutAverage($userId);
                 }
@@ -103,8 +109,8 @@ class LectureController extends ApiController {
                 return $this->respondValidationError("FIELDS_VALIDATION_FAILED", $validator->errors());
             } else {
                 UserLecturesList::where([
-                    ['userId', '=', $userId], 
-                    ['lectureArea', '=', $request['lectureArea']], 
+                    ['userId', '=', $userId],
+                    ['lectureArea', '=', $request['lectureArea']],
                     ['lectureTheme', '=', $request['lectureTheme']]
                 ])->delete();
 
@@ -118,13 +124,30 @@ class LectureController extends ApiController {
 
     /**
      * @description Get user`s lectures list with lecture average.
-     * @param Request $request
+     * @param $userId int - holds the user id.
      * @return json
      */
     public function userLecturesListWithAverage($userId) {
-        // TODO: create request and call function.
-        $request->request->add(['variable', 'value']);
-        $userLecturesList = UserLecturesList::where('userId', $userId);
+        $lecturesData = $this->getAllLecturesData();
+        $userLecturesList = UserLecturesList::where('userId', $userId)->get();
+        $responseList = array();
+        foreach ($userLecturesList as $lecture) {
+            for ($i = 0; $i < count($lecturesData); $i++) {
+                $lectureArea = $lecturesData[$i];
+                if ($lectureArea->base == $lecture['lectureArea']) {
+                    for ($j = 0; $j < count($lectureArea->link); $j++) {
+                        $lectureTheme = $lectureArea->link[$j];
+                        if ($lectureTheme->base == $lecture['lectureTheme']) {
+                            $average = $lectureTheme->average->TRY;
+                            $lecture['currency'] = 'TRY';
+                            $r = $this->userLectureTransformer->lectureArrayWithAverage($lecture, $average);
+                            array_push($responseList, $r);
+                        }
+                    }
+                }
+            }
+        }
+        return $this->respondCreated('SUCCESS', $responseList);
     }
 
     /**
@@ -134,5 +157,17 @@ class LectureController extends ApiController {
      */
     public function userLecturesListWithoutAverage($userId) {
         $userLecturesList = UserLecturesList::where('userId', $userId);
+    }
+
+    /**
+     * @description get all registered lectures data.
+     * @return json
+     */
+    private function getAllLecturesData() {
+        $request = new Request();
+        $request->setMethod('GET');
+        $request->replace(['lectures' => true]);
+        $response =  $this->dataController->get($request);
+        return $response->original['data']->lectures;
     }
 }
