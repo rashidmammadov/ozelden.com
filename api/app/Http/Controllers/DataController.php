@@ -35,7 +35,7 @@ class DataController extends ApiController
      * @return mixed
      */
     private function _readLectures() {
-        $path = storage_path().'\lecturesTurkey.json';
+        $path = storage_path().'/lecturesTurkey.json';
         return File::get($path);
     }
 
@@ -44,7 +44,7 @@ class DataController extends ApiController
      * @return mixed
      */
     private function _readRegions() {
-        $path = storage_path().'\citiesTurkey.json';
+        $path = storage_path().'/citiesTurkey.json';
         return File::get($path);
     }
 }
