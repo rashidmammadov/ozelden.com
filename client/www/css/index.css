@@ -83,6 +83,13 @@ md-card.oz-setting-card{
     border-radius: 8px;
 }
 
+md-card.oz-setting-card md-card-header{
+    padding: 0px 16px;
+    background-color: #721C47;
+    border-radius: 8px 8px 0px 0px;
+    color: #fff;
+}
+
 md-card.oz-setting-card md-card-title{
     padding: 16px;
     max-height: 16px;
@@ -148,6 +155,13 @@ ui-view{
     min-width: 0px;
 }
 
+.large-icon {
+    height: 48px;
+    width: 48px;
+    min-height: 48px;
+    min-width: 48px;
+}
+
 .no-data{
     position: relative;
     bottom: 128px;
@@ -165,5 +179,18 @@ ui-view{
 .sign-card md-tabs .md-tab{color: #721C47; text-transform: capitalize; }
 .sign-card md-tabs .md-tab.md-active{color: #D1A377; background-color: #721C47;}
 .sign-card md-tabs md-ink-bar{color: #D1A377; background-color: #D1A377;}
-.sign-card .sign-button{width: calc(100% - 16px); background-color: rgb(114, 28, 71, 0.9); color: #D1A377;}
+.sign-card .sign-button{width: calc(100% - 16px); background-color: rgba(114, 28, 71, 0.9); color: #D1A377;}
 .sign-card .sign-button.md-button.md-raised:not([disabled]):hover{background-color: #721C47;}
+
+.agenda-item {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 8px;
+    padding: 4px;
+    border-radius: 16px;
+    font-size: 13px;
+}
+.agenda-item.active{
+    background-color: #fff;
+    color: #721C47;
+}

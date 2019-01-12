@@ -76,12 +76,18 @@
             templateUrl: 'html/controllers/user/suitabilitySchedule.html',
             controller: 'UserSuitabilityScheduleCtrl',
             controllerAs: 'Suitability'
+        }).state('ozelden.user.class',{
+            url: '/class',
+            templateUrl: 'html/controllers/user/class.html',
+            controller: 'ClassCtrl',
+            controllerAs: 'Class'
         });
 
         // define icons.
         $mdIconProvider.icon('add-button', 'img/icon/add-button.svg');
         $mdIconProvider.icon('birthday-cake', 'img/icon/birthday-cake.svg');
         $mdIconProvider.icon('briefcase', 'img/icon/briefcase.svg');
+        $mdIconProvider.icon('class', 'img/icon/class.svg');
         $mdIconProvider.icon('dashboard', 'img/icon/dashboard.svg');
         $mdIconProvider.icon('female', 'img/icon/female.svg');
         $mdIconProvider.icon('lang-az', 'img/icon/lang-az.svg');
