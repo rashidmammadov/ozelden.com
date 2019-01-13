@@ -8,25 +8,45 @@
 </md-card>
 <card-label>{{'MY_CLASSES' | translate}}</card-label>
 <div>
-    <md-card class="oz-setting-card md-whiteframe-1dp" flex-gt-sm="30">
+    <oz-class-card>
+    <md-card class="oz-setting-card md-whiteframe-1dp" flex-gt-sm="50">
         <md-card-header layout="column">
-            <p>Lise - Matematik</p>
+            <h3>The Class Name</h3>
+            <p><b>Lise - Matematik</b> (Canan Özbaykal)</p>
             <div layout="row" layout-align="space-between center">
-                <div class="agenda-item active" layout="column" layout-align="center center">{{'MONDAY' | translate}}</div>
-                <div class="agenda-item" layout="column" layout-align="center center">{{'TUESDAY' | translate}}</div>
-                <div class="agenda-item active" layout="column" layout-align="center center">{{'WEDNESDAY' | translate}}</div>
-                <div class="agenda-item" layout="column" layout-align="center center">{{'THURSDAY' | translate}}</div>
-                <div class="agenda-item" layout="column" layout-align="center center">{{'FRIDAY' | translate}}</div>
-                <div class="agenda-item active" layout="column" layout-align="center center">{{'SATURDAY' | translate}}</div>
-                <div class="agenda-item" layout="column" layout-align="center center">{{'SUNDAY' | translate}}</div>
+                <div class="week-item active" layout="column" layout-align="center center"> {{'MONDAY' | translate}}</div>
+                <div class="week-item" layout="column" layout-align="center center"> {{'TUESDAY' | translate}}</div>
+                <div class="week-item active" layout="column" layout-align="center center"> {{'WEDNESDAY' | translate}}</div>
+                <div class="week-item" layout="column" layout-align="center center"> {{'THURSDAY' | translate}}</div>
+                <div class="week-item" layout="column" layout-align="center center"> {{'FRIDAY' | translate}}</div>
+                <div class="week-item" layout="column" layout-align="center center"> {{'SATURDAY' | translate}}</div>
+                <div class="week-item active" layout="column" layout-align="center center"> {{'SUNDAY' | translate}}</div>
             </div>
         </md-card-header>
         <md-divider></md-divider>
         <md-card-content>
             <div layout="column" layout-align="center space-between">
                 <p>9 Participants</p>
-                <img style="width: 32px;" ng-src="img/default/female-user.png" class="md-avatar" alt="student" />
+                <div class="participant-container">
+                    <md-menu ng-repeat="i in [1,2,3,4,5,6,7,8,9]">
+                        <div ng-click="$mdMenu.open()" class="md-button">
+                            <div style="background: url('img/default/female-user.png') no-repeat center center;
+                                width: 32px; height: 32px; background-size: 100%;" class="participant">
+                            </div>
+                            <p>Rashid Sahib Oglu</p>
+                            <p>Mammadov</p>
+                        </div>
+                        <md-menu-content width="4">
+                            <md-menu-item ng-repeat="item in [1, 2, 3]">
+                                <md-button>
+                                    Option {{item}}
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </div>
             </div>
         </md-card-content>
     </md-card>
+    </oz-class-card>
 </div>
