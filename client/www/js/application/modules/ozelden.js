@@ -102,6 +102,7 @@
         $mdIconProvider.icon('math-greater-than', 'img/icon/math-greater-than.svg');
         $mdIconProvider.icon('math-infinity', 'img/icon/math-infinity.svg');
         $mdIconProvider.icon('math-less-than', 'img/icon/math-less-than.svg');
+        $mdIconProvider.icon('more-details', 'img/icon/more-details.svg');
         $mdIconProvider.icon('quality', 'img/icon/quality.svg');
         $mdIconProvider.icon('remove-button', 'img/icon/remove-button.svg');
         $mdIconProvider.icon('save', 'img/icon/save.svg');

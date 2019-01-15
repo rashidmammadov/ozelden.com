@@ -1,18 +1,25 @@
 (function () {
     'use strict';
 
-    function ClassCtrl($mdDialog) {
-
+    function ClassCtrl($rootScope, $mdDialog) {
         var self = this;
+        $rootScope.loadingOperation = false;
 
-        var originatorEv;
-
-        this.openMenu = function($mdMenu, ev) {
-            originatorEv = ev;
-            $mdMenu.open(ev);
+        function openClassDialog(event, operation, data) {
+            $mdDialog.show({
+                controller: 'ClassDialogCtrl',
+                controllerAs: 'Class',
+                templateUrl: 'html/controllers/dialog/class.html',
+                locals: {
+                    type: operation,
+                    data: data
+                },
+                targetEvent: event,
+                clickOutsideToClose: true
+            }).then(function(){}, function () {});
         };
 
-        this.title = "Lise - Matematik";
+        this.openClassDialog = openClassDialog;
     }
 
     angular.module('ozelden.controllers').controller('ClassCtrl', ClassCtrl);

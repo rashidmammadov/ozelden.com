@@ -3,6 +3,8 @@
 
     function DirectionService($rootScope) {
 
+        // https://api.ozelden.com/api/v1/
+        // http://localhost:8000/api/v1/
         function apiUri() {
             return "http://localhost:8000/api/v1/";
         }
