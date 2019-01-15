@@ -45,7 +45,7 @@ class ApiController extends Controller {
     /**
      * @param $message
      * @param $data
-     * @return json respond
+     * @return mixed respond
      */
     public function respondCreated($message, $data = null) {
         return $this->respond([
@@ -58,7 +58,7 @@ class ApiController extends Controller {
 
     /**
      * @param $message
-     * @return json respond
+     * @return mixed respond
      */
     public function respondNotFound($message = 'Not Found!'){
         return $this->respond([
@@ -71,7 +71,7 @@ class ApiController extends Controller {
     /**
      * @param $message
      * @param $errors
-     * @return json respond
+     * @return mixed respond
      */
     public function respondValidationError($message, $errors){
         return $this->respond([
@@ -84,7 +84,7 @@ class ApiController extends Controller {
 
     /**
      * @param $message
-     * @return json respond
+     * @return mixed respond
      */
     public function respondWithError($message){
         return $this->respond([
@@ -97,7 +97,7 @@ class ApiController extends Controller {
     /**
      * @param $data
      * @param $headers
-     * @return json Response
+     * @return mixed Response
      */
     public function respond($data, $headers = []){
         return Response::json($data, $this->getStatusCode(), $headers);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\UserLecturesList;
+use App\Http\Queries\MySQL\ApiQuery;
 use JWTAuth;
 use Validator;
 use Illuminate\Http\Request;
@@ -14,8 +15,10 @@ class LectureController extends ApiController {
 
     private $dataController;
     private $userLectureTransformer;
+    private $dbQuery;
 
-    public function __construct(dataController $dataController, userLectureTransformer $userLectureTransformer) {
+    public function __construct(apiQuery $apiQuery, dataController $dataController, userLectureTransformer $userLectureTransformer) {
+        $this->dbQuery = $apiQuery;
         $this->dataController = $dataController;
         $this->userLectureTransformer = $userLectureTransformer;
     }
@@ -23,7 +26,7 @@ class LectureController extends ApiController {
     /**
      * @description Add lecture to user`s lectures list
      * @param Request $request
-     * @return json
+     * @return mixed
      */
     public function addToUserLectureList(Request $request) {
         try {
@@ -40,23 +43,31 @@ class LectureController extends ApiController {
             if ($validator->fails()) {
                 return $this->respondValidationError('FIELDS_VALIDATION_FAILED', $validator->errors());
             } else {
-                $existLecture = UserLecturesList::where([
+                $params = array(
+                    'lectureArea' => $request['lectureArea'],
+                    'lectureTheme' => $request['lectureTheme'],
+                    'experience' => $request['experience'],
+                    'price' => $request['price']
+                );
+                $existLecture = $this->dbQuery->getUserSelectedLecture($userId, $params);
+                /*$existLecture = UserLecturesList::where([
                     ['userId', '=', $userId],
                     ['lectureArea', '=', $request['lectureArea']],
                     ['lectureTheme', '=', $request['lectureTheme']]
-                ])->first();
+                ])->first();*/
 
                 if ($existLecture) {
                     return $this->respondWithError('THIS_LECTURE_ALREADY_ADDED');
                 } else {
-                    UserLecturesList::create([
+                    $this->dbQuery->setUserLecture($userId, $params);
+                    /*UserLecturesList::create([
                         'userId' => $userId,
                         'lectureArea' => $request['lectureArea'],
                         'lectureTheme' => $request['lectureTheme'],
                         'experience' => $request['experience'],
                         'price' => $request['price']
-                    ]);
-                    return $this->respondCreated("LECTURE_ADDED_SUCCESSFULLY");
+                    ]);*/
+                    return $this->respondCreated('LECTURE_ADDED_SUCCESSFULLY');
                 }
             }
         } catch (JWTException $e) {
@@ -68,7 +79,7 @@ class LectureController extends ApiController {
     /**
      * @description Get user`s lectures list
      * @param Request $request
-     * @return json
+     * @return mixed
      */
     public function getUserLectureList(Request $request) {
         try {
@@ -76,7 +87,7 @@ class LectureController extends ApiController {
             $rules = array('userId' => 'required');
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
-                return $this->respondValidationError("FIELDS_VALIDATION_FAILED", $validator->errors());
+                return $this->respondValidationError('FIELDS_VALIDATION_FAILED', $validator->errors());
             } else {
                 $userId = $request['userId'];
                 if ($request['average'] == true) {
@@ -94,7 +105,7 @@ class LectureController extends ApiController {
     /**
      * @description Remove selected lecture from user`s lectures list.
      * @param Request $request
-     * @return json
+     * @return mixed
      */
     public function removeLectureFromUserLectureList(Request $request) {
         try {
@@ -106,15 +117,20 @@ class LectureController extends ApiController {
             );
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
-                return $this->respondValidationError("FIELDS_VALIDATION_FAILED", $validator->errors());
+                return $this->respondValidationError('FIELDS_VALIDATION_FAILED', $validator->errors());
             } else {
-                UserLecturesList::where([
+                $params = array(
+                    'lectureArea' => $request['lectureArea'],
+                    'lectureTheme' => $request['lectureTheme']
+                );
+                $this->dbQuery->deleteUserSelectedLecture($userId, $params);
+                /*UserLecturesList::where([
                     ['userId', '=', $userId],
                     ['lectureArea', '=', $request['lectureArea']],
                     ['lectureTheme', '=', $request['lectureTheme']]
-                ])->delete();
+                ])->delete();*/
 
-                return $this->respondCreated("LECTURE_REMOVED_SUCCESSFULLY");
+                return $this->respondCreated('LECTURE_REMOVED_SUCCESSFULLY');
             }
         } catch (JWTException $e) {
             $this->setStatusCode($e->getStatusCode());
@@ -125,11 +141,11 @@ class LectureController extends ApiController {
     /**
      * @description Get user`s lectures list with lecture average.
      * @param $userId int - holds the user id.
-     * @return json
+     * @return mixed
      */
     public function userLecturesListWithAverage($userId) {
         $lecturesData = $this->getAllLecturesData();
-        $userLecturesList = UserLecturesList::where('userId', $userId)->get();
+        $userLecturesList = $this->dbQuery->getUserLecturesList($userId);//UserLecturesList::where('userId', $userId)->get();
         $responseList = array();
         foreach ($userLecturesList as $lecture) {
             for ($i = 0; $i < count($lecturesData); $i++) {
@@ -152,16 +168,16 @@ class LectureController extends ApiController {
 
     /**
      * @description Get user`s lectures list without lecture average.
-     * @param Request $request
-     * @return json
+     * @param $userId
+     * @return mixed
      */
     public function userLecturesListWithoutAverage($userId) {
-        $userLecturesList = UserLecturesList::where('userId', $userId);
+        $userLecturesList = $this->dbQuery->getUserLecturesList($userId);//UserLecturesList::where('userId', $userId);
     }
 
     /**
      * @description get all registered lectures data.
-     * @return json
+     * @return mixed
      */
     private function getAllLecturesData() {
         $request = new Request();

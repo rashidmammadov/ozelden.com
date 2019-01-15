@@ -10,12 +10,12 @@ class ApiQuery {
         // 
     }
 
-    /* -------- LECTURE QUERIES -------- */
+    /** -------- LECTURE QUERIES -------- **/
 
     /**
      * @description query to delete given lecture from user`s lecture list
-     * @param $userId
-     * @param $parameters
+     * @param integer $userId
+     * @param array $parameters
      */
     public function deleteUserSelectedLecture($userId, $parameters) {
         UserLecturesList::where([
@@ -27,8 +27,8 @@ class ApiQuery {
 
     /**
      * @description query to set given lecture to user`s lectures list
-     * @param $userId
-     * @param $parameters
+     * @param integer $userId
+     * @param array $parameters
      */
     public function setUserLecture($userId, $parameters) {
         UserLecturesList::create([
@@ -42,8 +42,8 @@ class ApiQuery {
 
     /**
      * @description query to get user`s lectures list
-     * @param $userId
-     * @return mixed
+     * @param integer $userId
+     * @return mixed query result
      */
     public function getUserLecturesList($userId) {
         $queryResult = UserLecturesList::where('userId', $userId)->get();
@@ -53,8 +53,8 @@ class ApiQuery {
 
     /**
      * @description query to get user`s selected lecture info
-     * @param Integer $userId
-     * @param Object $parameters
+     * @param integer $userId
+     * @param array $parameters
      * @return mixed query result
      */
     public function getUserSelectedLecture($userId, $parameters) {
