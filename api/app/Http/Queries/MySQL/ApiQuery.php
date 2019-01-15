@@ -10,7 +10,7 @@ class ApiQuery {
         // 
     }
 
-    /* -------- LECTURE QUERIES -------- */
+    /** -------- LECTURE QUERIES -------- **/
 
     /**
      * @description query to delete given lecture from user`s lecture list
