@@ -11,17 +11,17 @@ class ApiQuery {
     }
 
     /* LECTURE QUERIES */
-    public function deleteUserSelectedLecture($parameters) {
+    public function deleteUserSelectedLecture($userId, $parameters) {
         UserLecturesList::where([
-            ['userId', '=', $parameters['userId']],
+            ['userId', '=', $userId],
             ['lectureArea', '=', $parameters['lectureArea']],
             ['lectureTheme', '=', $parameters['lectureTheme']]
         ])->delete();
     }
 
-    public function setUserLecture($parameters) {
+    public function setUserLecture($userId, $parameters) {
         UserLecturesList::create([
-            'userId' => $parameters['userId'],
+            'userId' => $userId,
             'lectureArea' => $parameters['lectureArea'],
             'lectureTheme' => $parameters['lectureTheme'],
             'experience' => $parameters['experience'],
@@ -29,15 +29,15 @@ class ApiQuery {
         ]);
     }
 
-    public function getUserLecturesList($parameters) {
-        $queryResult = UserLecturesList::where('userId', $parameters['userId'])->get();
+    public function getUserLecturesList($userId) {
+        $queryResult = UserLecturesList::where('userId', $userId)->get();
 
         return $queryResult;
     }
 
-    public function getUserSelectedLecture($parameters) {
+    public function getUserSelectedLecture($userId, $parameters) {
         $queryResult = UserLecturesList::where([
-            ['userId', '=', $parameters['userId']],
+            ['userId', '=', $userId],
             ['lectureArea', '=', $parameters['lectureArea']],
             ['lectureTheme', '=', $parameters['lectureTheme']]
         ])->first();
