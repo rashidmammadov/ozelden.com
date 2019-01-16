@@ -49,10 +49,10 @@ class ApiController extends Controller {
      */
     public function respondCreated($message, $data = null) {
         return $this->respond([
-            'status' => 'success',
-            'status_code' => Res::HTTP_CREATED,
-            'message' => $message,
-            'data' => $data
+            STATUS => SUCCESS,
+            STATUS_CODE => Res::HTTP_CREATED,
+            MESSAGE => $message,
+            DATA => $data
         ]);
     }
 
@@ -62,9 +62,9 @@ class ApiController extends Controller {
      */
     public function respondNotFound($message = 'Not Found!'){
         return $this->respond([
-            'status' => 'error',
-            'status_code' => Res::HTTP_NOT_FOUND,
-            'message' => $message,
+            STATUS => ERROR,
+            STATUS_CODE => Res::HTTP_NOT_FOUND,
+            MESSAGE => $message,
         ]);
     }
 
@@ -75,10 +75,10 @@ class ApiController extends Controller {
      */
     public function respondValidationError($message, $errors){
         return $this->respond([
-            'status' => 'error',
-            'status_code' => Res::HTTP_UNPROCESSABLE_ENTITY,
-            'message' => $message,
-            'data' => $errors
+            STATUS => ERROR,
+            STATUS_CODE => Res::HTTP_UNPROCESSABLE_ENTITY,
+            MESSAGE => $message,
+            DATA => $errors
         ]);
     }
 
@@ -88,9 +88,9 @@ class ApiController extends Controller {
      */
     public function respondWithError($message){
         return $this->respond([
-            'status' => 'error',
-            'status_code' => Res::HTTP_UNAUTHORIZED,
-            'message' => $message,
+            STATUS => ERROR,
+            STATUS_CODE => Res::HTTP_UNAUTHORIZED,
+            MESSAGE => $message,
         ]);
     }
 
