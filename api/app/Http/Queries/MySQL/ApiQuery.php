@@ -19,9 +19,9 @@ class ApiQuery {
      */
     public function deleteUserSelectedLecture($userId, $parameters) {
         UserLecturesList::where([
-            ['userId', '=', $userId],
-            ['lectureArea', '=', $parameters['lectureArea']],
-            ['lectureTheme', '=', $parameters['lectureTheme']]
+            [USER_ID, EQUAL_SIGN, $userId],
+            [LECTURE_AREA, EQUAL_SIGN, $parameters[LECTURE_AREA]],
+            [LECTURE_THEME, EQUAL_SIGN, $parameters[LECTURE_THEME]]
         ])->delete();
     }
 
@@ -32,11 +32,11 @@ class ApiQuery {
      */
     public function setUserLecture($userId, $parameters) {
         UserLecturesList::create([
-            'userId' => $userId,
-            'lectureArea' => $parameters['lectureArea'],
-            'lectureTheme' => $parameters['lectureTheme'],
-            'experience' => $parameters['experience'],
-            'price' => $parameters['price']
+            USER_ID => $userId,
+            LECTURE_AREA => $parameters[LECTURE_AREA],
+            LECTURE_THEME => $parameters[LECTURE_THEME],
+            EXPERIENCE => $parameters[EXPERIENCE],
+            PRICE => $parameters[PRICE]
         ]);
     }
 
@@ -46,7 +46,7 @@ class ApiQuery {
      * @return mixed query result
      */
     public function getUserLecturesList($userId) {
-        $queryResult = UserLecturesList::where('userId', $userId)->get();
+        $queryResult = UserLecturesList::where(USER_ID, $userId)->get();
 
         return $queryResult;
     }
@@ -59,9 +59,9 @@ class ApiQuery {
      */
     public function getUserSelectedLecture($userId, $parameters) {
         $queryResult = UserLecturesList::where([
-            ['userId', '=', $userId],
-            ['lectureArea', '=', $parameters['lectureArea']],
-            ['lectureTheme', '=', $parameters['lectureTheme']]
+            [USER_ID, EQUAL_SIGN, $userId],
+            [LECTURE_AREA, EQUAL_SIGN, $parameters[LECTURE_AREA]],
+            [LECTURE_THEME, EQUAL_SIGN, $parameters[LECTURE_THEME]]
         ])->first();
 
         return $queryResult;

@@ -210,5 +210,4 @@ oz-class-card .week-item {
     margin: 8px 0px;
 }
 oz-class-card .week-item.active {background-color: #D1A377 !important;}
-oz-class-card md-list-item._md-button-wrap>div.md-button:first-child {padding: 0px;}
-oz-class-card md-card-content .md-button {line-height: normal !important;font-size: 12px;}
+oz-class-card md-list-item._md-button-wrap>div.md-button:first-child {padding: 0px 8px;}

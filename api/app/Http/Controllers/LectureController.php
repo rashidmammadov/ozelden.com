@@ -33,10 +33,10 @@ class LectureController extends ApiController {
             $user = JWTAuth::parseToken()->authenticate();
             $userId = $user->id;
             $rules = array(
-                'lectureArea' => 'required',
-                'lectureTheme' => 'required',
-                'experience' => 'required',
-                'price' => 'required'
+                LECTURE_AREA => 'required',
+                LECTURE_THEME => 'required',
+                EXPERIENCE => 'required',
+                PRICE => 'required'
             );
 
             $validator = Validator::make($request->all(), $rules);
@@ -44,16 +44,16 @@ class LectureController extends ApiController {
                 return $this->respondValidationError('FIELDS_VALIDATION_FAILED', $validator->errors());
             } else {
                 $params = array(
-                    'lectureArea' => $request['lectureArea'],
-                    'lectureTheme' => $request['lectureTheme'],
-                    'experience' => $request['experience'],
-                    'price' => $request['price']
+                    LECTURE_AREA => $request[LECTURE_AREA],
+                    LECTURE_THEME => $request[LECTURE_THEME],
+                    EXPERIENCE => $request[EXPERIENCE],
+                    PRICE => $request[PRICE]
                 );
                 $existLecture = $this->dbQuery->getUserSelectedLecture($userId, $params);
                 /*$existLecture = UserLecturesList::where([
-                    ['userId', '=', $userId],
-                    ['lectureArea', '=', $request['lectureArea']],
-                    ['lectureTheme', '=', $request['lectureTheme']]
+                    [USER_ID, '=', $userId],
+                    [LECTURE_AREA, '=', $request[LECTURE_AREA]],
+                    [LECTURE_THEME, '=', $request[LECTURE_THEME]]
                 ])->first();*/
 
                 if ($existLecture) {
@@ -61,11 +61,11 @@ class LectureController extends ApiController {
                 } else {
                     $this->dbQuery->setUserLecture($userId, $params);
                     /*UserLecturesList::create([
-                        'userId' => $userId,
-                        'lectureArea' => $request['lectureArea'],
-                        'lectureTheme' => $request['lectureTheme'],
-                        'experience' => $request['experience'],
-                        'price' => $request['price']
+                        USER_ID => $userId,
+                        LECTURE_AREA => $request[LECTURE_AREA],
+                        LECTURE_THEME => $request[LECTURE_THEME],
+                        EXPERIENCE => $request[EXPERIENCE],
+                        PRICE => $request[PRICE]
                     ]);*/
                     return $this->respondCreated('LECTURE_ADDED_SUCCESSFULLY');
                 }
@@ -84,12 +84,12 @@ class LectureController extends ApiController {
     public function getUserLectureList(Request $request) {
         try {
             JWTAuth::getToken();
-            $rules = array('userId' => 'required');
+            $rules = array(USER_ID => 'required');
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
                 return $this->respondValidationError('FIELDS_VALIDATION_FAILED', $validator->errors());
             } else {
-                $userId = $request['userId'];
+                $userId = $request[USER_ID];
                 if ($request['average'] == true) {
                     return $this->userLecturesListWithAverage($userId);
                 } else {
@@ -112,22 +112,22 @@ class LectureController extends ApiController {
             $user = JWTAuth::parseToken()->authenticate();
             $userId = $user->id;
             $rules = array(
-                'lectureArea' => 'required',
-                'lectureTheme' => 'required'
+                LECTURE_AREA => 'required',
+                LECTURE_THEME => 'required'
             );
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
                 return $this->respondValidationError('FIELDS_VALIDATION_FAILED', $validator->errors());
             } else {
                 $params = array(
-                    'lectureArea' => $request['lectureArea'],
-                    'lectureTheme' => $request['lectureTheme']
+                    LECTURE_AREA => $request[LECTURE_AREA],
+                    LECTURE_THEME => $request[LECTURE_THEME]
                 );
                 $this->dbQuery->deleteUserSelectedLecture($userId, $params);
                 /*UserLecturesList::where([
-                    ['userId', '=', $userId],
-                    ['lectureArea', '=', $request['lectureArea']],
-                    ['lectureTheme', '=', $request['lectureTheme']]
+                    [USER_ID, '=', $userId],
+                    [LECTURE_AREA, '=', $request[LECTURE_AREA]],
+                    [LECTURE_THEME, '=', $request[LECTURE_THEME]]
                 ])->delete();*/
 
                 return $this->respondCreated('LECTURE_REMOVED_SUCCESSFULLY');
@@ -145,17 +145,17 @@ class LectureController extends ApiController {
      */
     public function userLecturesListWithAverage($userId) {
         $lecturesData = $this->getAllLecturesData();
-        $userLecturesList = $this->dbQuery->getUserLecturesList($userId);//UserLecturesList::where('userId', $userId)->get();
+        $userLecturesList = $this->dbQuery->getUserLecturesList($userId);//UserLecturesList::where(USER_ID, $userId)->get();
         $responseList = array();
         foreach ($userLecturesList as $lecture) {
             for ($i = 0; $i < count($lecturesData); $i++) {
                 $lectureArea = $lecturesData[$i];
-                if ($lectureArea->base == $lecture['lectureArea']) {
+                if ($lectureArea->base == $lecture[LECTURE_AREA]) {
                     for ($j = 0; $j < count($lectureArea->link); $j++) {
                         $lectureTheme = $lectureArea->link[$j];
-                        if ($lectureTheme->base == $lecture['lectureTheme']) {
+                        if ($lectureTheme->base == $lecture[LECTURE_THEME]) {
                             $average = $lectureTheme->average->TRY;
-                            $lecture['currency'] = 'TRY';
+                            $lecture[CURRENCY] = TURKISH_LIRA;
                             $r = $this->userLectureTransformer->lectureArrayWithAverage($lecture, $average);
                             array_push($responseList, $r);
                         }
@@ -172,7 +172,7 @@ class LectureController extends ApiController {
      * @return mixed
      */
     public function userLecturesListWithoutAverage($userId) {
-        $userLecturesList = $this->dbQuery->getUserLecturesList($userId);//UserLecturesList::where('userId', $userId);
+        $userLecturesList = $this->dbQuery->getUserLecturesList($userId);//UserLecturesList::where(USER_ID, $userId);
     }
 
     /**
