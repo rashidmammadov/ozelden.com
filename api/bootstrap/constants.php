@@ -1,9 +1,11 @@
 <?php
 
+define('BIRTH_DATE', 'birthDate');
 define('COURSE_TYPE', 'courseType');
 define('CURRENCY', 'currency');
 define('DATA', 'data');
 define('DAY_HOUR_TABLE', 'dayHourTable');
+define('EMAIL', 'email');
 define('EQUAL_SIGN', '=');
 define('ERROR', 'error');
 define('EXPERIENCE', 'experience');
@@ -13,10 +15,16 @@ define('LECTURE_AREA', 'lectureArea');
 define('LECTURE_THEME', 'lectureTheme');
 define('LOCATION', 'location');
 define('MESSAGE', 'message');
+define('NAME', 'name');
+define('PASSWORD', 'password');
+define('PASSWORD_CONFIRMATION', 'password_confirmation');
 define('PRICE', 'price');
 define('REGION', 'region');
+define('SEX', 'sex');
 define('STATUS', 'status');
 define('STATUS_CODE', 'status_code');
 define('SUCCESS', 'success');
+define('SURNAME', 'surname');
 define('TURKISH_LIRA', 'TRY');
+define('TYPE', 'type');
 define('USER_ID', 'userId');

@@ -34,7 +34,7 @@ class UserController extends ApiController
 
     /**
      * @description: Get own info by token
-     * @return json: User info
+     * @return mixed: User info
      */
     public function refreshUser() {
         try {
@@ -55,25 +55,25 @@ class UserController extends ApiController
     /**
      * @description: Api user auth method
      * @param Request $request
-     * @return json : Json String response
+     * @return mixed : Json String response
      */
     public function auth(Request $request) {
         $rules = array (
-            'email' => 'required|email',
-            'password' => 'required',
+            EMAIL => 'required|email',
+            PASSWORD => 'required',
         );
 
         $validator = Validator::make($request->all(), $rules);
 
-        if ($validator->fails()){
+        if ($validator->fails()) {
             return $this->respondValidationError("FIELDS_VALIDATION_FAILED", $validator->errors());
         } else {
-            $user = User::where('email', $request['email'])->first();
+            $user = User::where(EMAIL, $request[EMAIL])->first();
 
             if ($user) {
                 $remember_token = $user->remember_token;
                 if ($remember_token == NULL){
-                    return $this->_login($request['email'], $request['password'], false);
+                    return $this->_login($request[EMAIL], $request[PASSWORD], false);
                 }
 
                 try {
@@ -94,40 +94,40 @@ class UserController extends ApiController
     /**
      * @description: Api user register method
      * @param Request $request
-     * @return json : Json String response
+     * @return mixed : Json String response
      */
     public function register(Request $request) {
         $rules = array (
-            'type' => 'required|max:255',
-            'name' => 'required|max:255',
-            'surname' => 'required|max:255',
-            'birthDate' => 'required',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
-            'password_confirmation' => 'required|min:6',
-            'sex' => 'required|max:9'
+            TYPE => 'required|max:255',
+            NAME => 'required|max:255',
+            SURNAME => 'required|max:255',
+            BIRTH_DATE => 'required',
+            EMAIL => 'required|email|max:255|unique:users',
+            PASSWORD => 'required|min:6|confirmed',
+            PASSWORD_CONFIRMATION => 'required|min:6',
+            SEX => 'required|max:9'
         );
         $validator = Validator::make($request->all(), $rules);
         if ($validator-> fails()){
             return $this->respondValidationError("FIELDS_VALIDATION_FAILED", $validator->errors());
         } else {
              User::create([
-                'type' => $request['type'],
-                'name' => $request['name'],
-                'surname' => $request['surname'],
-                'birthDate' => $request['birthDate'],
-                'email' => $request['email'],
-                'password' => \Hash::make($request['password']),
-                'sex' => $request['sex']
+                TYPE => $request[TYPE],
+                NAME => $request[NAME],
+                SURNAME => $request[SURNAME],
+                BIRTH_DATE => $request[BIRTH_DATE],
+                EMAIL => $request[EMAIL],
+                PASSWORD => \Hash::make($request[PASSWORD]),
+                SEX => $request[SEX]
             ]);
 
-            return $this->_login($request['email'], $request['password'], true);
+            return $this->_login($request[EMAIL], $request[PASSWORD], true);
         }
     }
 
     /**
      * @description: Api user logout method
-     * @return json : Json String response
+     * @return mixed : Json String response
      */
     public function logout() {
         try {
@@ -149,16 +149,15 @@ class UserController extends ApiController
      * @param $email
      * @param $password
      * @param $newUser
-     * @return json : Json String response
+     * @return mixed : Json String response
      */
     private function _login($email, $password, $newUser) {
-        $credentials = ['email' => $email, 'password' => $password];
+        $credentials = [EMAIL => $email, PASSWORD => $password];
         if ( ! $token = JWTAuth::attempt($credentials)) {
             return $this->respondWithError("USER_DOES_NOT_EXIST");
         }
 
         $user = JWTAuth::toUser($token);
-
         $user->remember_token = $token;
         $user->save();
 
