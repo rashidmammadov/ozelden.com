@@ -35,4 +35,8 @@ class User extends Authenticatable {
     public function user_lectures_list() {
         return $this->hasMany('App\UserLecturesList');
     }
+
+    public function class_list() {
+        return $this->hasMany('App\ClassList');
+    }
 }
