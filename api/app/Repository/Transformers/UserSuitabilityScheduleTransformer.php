@@ -6,19 +6,19 @@ class UserSuitabilityScheduleTransformer extends Transformer{
 
     public function transform($schedule){
         return [
-            'region' => json_decode($schedule->region),
-            'location' => json_decode($schedule->location),
-            'courseType' => json_decode($schedule->courseType),
-            'facility' => json_decode($schedule->facility),
-            'dayHourTable' => json_decode($schedule->dayHourTable)
+            REGION => json_decode($schedule->region),
+            LOCATION => json_decode($schedule->location),
+            COURSE_TYPE => json_decode($schedule->courseType),
+            FACILITY => json_decode($schedule->facility),
+            DAY_HOUR_TABLE => json_decode($schedule->dayHourTable)
         ];
     }
 
     public function setCourseType() {
         $courseType = array(
-            'individual' => false,
-            'group' => false,
-            'class' => false);
+            INDIVIDUAL => false,
+            GROUP => false,
+            CLASS_ => false );
         return $courseType;
     }
 
@@ -30,9 +30,10 @@ class UserSuitabilityScheduleTransformer extends Transformer{
     }
 
     public function setFacility() {
-        $facility = array( 'demo' => false,
-            'groupDiscount' => false,
-            'packageDiscount' => false );
+        $facility = array(
+            DEMO => false,
+            GROUP_DISCOUNT => false,
+            PACKAGE_DISCOUNT => false );
         return $facility;
     }
 
@@ -43,12 +44,12 @@ class UserSuitabilityScheduleTransformer extends Transformer{
 
     public function setLocation() {
         $location = array(
-            'studentHome' => false,
-            'tutorHome' => false,
-            'etude' => false,
-            'course' => false,
-            'library' => false,
-            'overInternet' => false );
+            STUDENT_HOME => false,
+            TUTOR_HOME => false,
+            ETUDE => false,
+            COURSE => false,
+            LIBRARY => false,
+            OVER_INTERNET => false );
         return $location;
     }
 

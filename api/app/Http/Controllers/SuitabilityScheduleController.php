@@ -42,7 +42,7 @@ class SuitabilityScheduleController extends ApiController {
             $facility = json_encode($this->userSuitabilityScheduleTransformer->setFacility());
             $dayHourTable =  json_encode($this->userSuitabilityScheduleTransformer->setDayHourTable());
 
-            $this->dbQuery->setUserSuitabilitySchedule($userId, $region, $location, $courseType, $facility, $dayHourTable);
+            $this->dbQuery->setUserDefaultSuitabilitySchedule($userId, $region, $location, $courseType, $facility, $dayHourTable);
             /*SuitabilitySchedule::create([
                 USER_ID => $userId,
                 REGION => json_encode($this->userSuitabilityScheduleTransformer->setRegion()),

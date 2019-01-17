@@ -90,7 +90,7 @@ class ApiQuery {
      * @param string $facility {object}
      * @param string $dayHourTable {object}
      */
-    public function setUserSuitabilitySchedule($userId, $region, $location, $courseType, $facility, $dayHourTable) {
+    public function setUserDefaultSuitabilitySchedule($userId, $region, $location, $courseType, $facility, $dayHourTable) {
         SuitabilitySchedule::create([
             USER_ID => $userId,
             REGION => $region,
