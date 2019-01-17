@@ -2,6 +2,7 @@
 
 namespace App\Http\Queries\MySQL;
 
+use App\UserClassList;
 use App\SuitabilitySchedule;
 use App\UserLecturesList;
 
@@ -11,7 +12,20 @@ class ApiQuery {
         // 
     }
 
-    /** -------- LECTURE QUERIES -------- **/
+    /** ------------------------- USER CLASS QUERIES ------------------------- **/
+
+    /**
+     * @description query to get user`s class list
+     * @param integer $userId
+     * @return mixed query Result
+     */
+    public function getUserClassList($userId) {
+        $queryResult = UserClassList::where(USER_ID, $userId)->get();
+
+        return $queryResult;
+    }
+
+    /** ------------------------- USER LECTURE QUERIES ------------------------- **/
 
     /**
      * @description query to delete given lecture from user`s lecture list
@@ -68,7 +82,7 @@ class ApiQuery {
         ]);
     }
 
-    /** -------- SUITABILITY SCHEDULE -------- **/
+    /** ------------------------- SUITABILITY SCHEDULE ------------------------- **/
 
     /**
      * @description query to get user`s suitability schedule

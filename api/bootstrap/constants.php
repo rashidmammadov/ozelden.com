@@ -1,5 +1,6 @@
 <?php
 
+define('AVERAGE', 'average');
 define('BIRTH_DATE', 'birthDate');
 define('COURSE', 'course');
 define('COURSE_TYPE', 'courseType');

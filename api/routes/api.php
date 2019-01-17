@@ -25,6 +25,8 @@ Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
     Route::get('/suitabilitySchedule', 'SuitabilityScheduleController@getSuitabilitySchedule');
     Route::put('/suitabilitySchedule', 'SuitabilityScheduleController@updateSuitabilitySchedule');
 
+    Route::get('/userClassList', 'UserClassListController@getUserClassList');
+
     Route::delete('/userLecturesList', 'LectureController@removeLectureFromUserLectureList');    
     Route::get('/userLecturesList', 'LectureController@getUserLectureList');
     Route::post('/userLecturesList', 'LectureController@addToUserLectureList');

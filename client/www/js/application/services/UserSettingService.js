@@ -17,7 +17,7 @@
          * @name ozelden.services.UserSettingService#addToUserLectureList
          * @methodOf ozelden.services.UserSettingService
          *
-         * @description add given leture object to user`s lecture list.
+         * @description add given lecture object to user`s lecture list.
          * @param {Object} lectureObject - holds the lecture.
          */
         function addToUserLectureList(lectureObject) {
@@ -28,6 +28,25 @@
                 url: VocabularyService.userLecturesList(),
                 headers: headers,
                 data: lectureObject
+            }).then($$fetchSuccessResponse, $$fetchFailureResponse);
+
+            return self.deferred.promise;
+        }
+
+        /**
+         * @ngdoc method
+         * @name ozelden.services.UserSettingService#getUserClassList
+         * @methodOf ozelden.services.UserSettingService
+         *
+         * @description get selected user`s class list.
+         */
+        function getUserClassList() {
+            self.deferred = $q.defer();
+
+            $http({
+                method: 'GET',
+                url: VocabularyService.userClassList(),
+                headers: headers
             }).then($$fetchSuccessResponse, $$fetchFailureResponse);
 
             return self.deferred.promise;
@@ -143,6 +162,7 @@
         }
 
         this.addToUserLectureList = addToUserLectureList;
+        this.getUserClassList = getUserClassList;
         this.getUserLectureList = getUserLectureList;
         this.getSuitabilitySchedule = getSuitabilitySchedule;
         this.updateSuitabilitySchedule = updateSuitabilitySchedule;

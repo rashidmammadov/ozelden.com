@@ -37,6 +37,6 @@ class User extends Authenticatable {
     }
 
     public function class_list() {
-        return $this->hasMany('App\ClassList');
+        return $this->hasMany('App\UserClassList');
     }
 }

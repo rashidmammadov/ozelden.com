@@ -90,7 +90,7 @@ class LectureController extends ApiController {
                 return $this->respondValidationError('FIELDS_VALIDATION_FAILED', $validator->errors());
             } else {
                 $userId = $request[USER_ID];
-                if ($request['average'] == true) {
+                if ($request[AVERAGE] == true) {
                     return $this->userLecturesListWithAverage($userId);
                 } else {
                     return $this->userLecturesListWithoutAverage($userId);

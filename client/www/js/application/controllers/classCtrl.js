@@ -1,9 +1,16 @@
 (function () {
     'use strict';
 
-    function ClassCtrl($rootScope, $mdDialog) {
+    function ClassCtrl($rootScope, $mdDialog, UserSettingService) {
         var self = this;
-        $rootScope.loadingOperation = false;
+        $rootScope.loadingOperation = true;
+
+        UserSettingService.getUserClassList().then(function(result) {
+            result;
+            $rootScope.loadingOperation = false;
+        }, function() {
+            $rootScope.loadingOperation = false;
+        });
 
         function openClassDialog(event, operation, data) {
             $mdDialog.show({

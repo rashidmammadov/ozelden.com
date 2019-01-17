@@ -23,10 +23,10 @@
          * @ngdoc method
          * @description Get default data.
          */
-        DataService.get({regions: true}).then(function (result){
+        DataService.get({regions: true}).then(function (result) {
             result.regions && (self.cities = result.regions);
             $rootScope.loadingOperation = false;
-        },function(rejection){
+        }, function() {
             $rootScope.loadingOperation = false;
         });
 
