@@ -7,13 +7,16 @@ use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Validator;
+use App\Repository\Transformers\ClassTransformer;
 
 class UserClassListController extends ApiController {
 
     private $dbQuery;
+    private $classTransformer;
 
-    public function __construct(apiQuery $apiQuery) {
+    public function __construct(apiQuery $apiQuery, classTransformer $classTransformer) {
         $this->dbQuery = $apiQuery;
+        $this->classTransformer = $classTransformer;
     }
 
     /**
@@ -77,6 +80,11 @@ class UserClassListController extends ApiController {
     public function prepareUserClassList($userId) {
         // TODO;
         $classList = $this->dbQuery->getUserClassList($userId);
-        return $classList;
+        $classArray = array();
+        foreach ($classList as $class) {
+            $class = $this->classTransformer->transform($class);
+            array_push($classArray, $class);
+        }
+        return $classArray;
     }
 }

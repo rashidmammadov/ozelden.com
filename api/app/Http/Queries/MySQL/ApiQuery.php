@@ -5,11 +5,14 @@ namespace App\Http\Queries\MySQL;
 use App\UserClassList;
 use App\SuitabilitySchedule;
 use App\UserLecturesList;
+use Illuminate\Support\Facades\DB;
 
 class ApiQuery {
 
     public function __construct() {
-        // 
+        // db table names
+        define('USERS', 'users');
+        define('USER_CLASS_LIST', 'user_class_list');
     }
 
     /** ------------------------- USER CLASS QUERIES ------------------------- **/
@@ -20,7 +23,12 @@ class ApiQuery {
      * @return mixed query Result
      */
     public function getUserClassList($userId) {
-        $queryResult = UserClassList::where(USER_ID, $userId)->get();
+        $queryResult = DB::table(USER_CLASS_LIST)->where(USER_ID, $userId)
+            ->join(USERS, (USERS.'.'.IDENTIFIER), EQUAL_SIGN, (USER_CLASS_LIST.'.'.TUTOR_ID))
+            ->get(array(
+                (USER_CLASS_LIST.'.'.STAR_SIGN),
+                (USERS.'.'.IDENTIFIER), (USERS.'.'.NAME), (USERS.'.'.SURNAME)
+            ));
 
         return $queryResult;
     }
