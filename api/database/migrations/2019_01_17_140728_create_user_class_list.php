@@ -14,11 +14,11 @@ class CreateUserClassList extends Migration
         Schema::create('user_class_list', function (Blueprint $table) {
             $table->increments('classId');
             $table->integer('userId');
-            $table->char('className', 50);
+            $table->char('className', 30);
             $table->integer('tutorId');
             $table->char('lectureArea', 99);
             $table->char('lectureTheme', 99);
-            $table->text('day', 999)->nullable();
+            $table->text('day', 500)->nullable();
             $table->text('content', 200)->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();

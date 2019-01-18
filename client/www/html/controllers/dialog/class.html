@@ -1,0 +1,91 @@
+<md-dialog flex>
+    <form name="classForm">
+        <md-dialog-content layout-gt-md="row" layout="column" flex>
+            <div layout="column" flex>
+                <card-label>{{::'FILTERS' | translate}}</card-label>
+                <md-card class="oz-setting-card">
+                    <md-card-content layout="column" flex>
+                        <md-input-container class="md-block">
+                            <label>{{::'CLASS_NAME' | translate}}</label>
+                            <input md-maxlength="30" required md-no-asterisk name="className" ng-model="Class.className">
+                            <div ng-messages="classForm.className.$error">
+                                <div ng-message="required">{{'REQUIRED' | translate}}</div>
+                                <div ng-message="md-maxlength">The description must be less than 30 characters long.</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label>{{::'TUTOR' | translate}}</label>
+                            <md-select name="tutorId" ng-model="Class.tutorId" required>
+                                <md-option value="{{tutor.id}}" ng-repeat="tutor in Class.tutors">{{tutor.name}}</md-option>
+                            </md-select>
+                            <div ng-messages="classForm.tutorId.$error">
+                                <div ng-message="required">{{'REQUIRED' | translate}}</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label>{{::'LECTURE' | translate}}</label>
+                            <md-select name="lecture" ng-model="Class.lecture" required>
+                                <md-option value="{{lecture}}" ng-repeat="lecture in Class.lectures">
+                                    {{lecture.lectureArea | translate}} - {{lecture.lectureTheme | translate}}
+                                </md-option>
+                            </md-select>
+                            <div ng-messages="classForm.lecture.$error">
+                                <div ng-message="required">{{'REQUIRED' | translate}}</div>
+                            </div>
+                        </md-input-container>
+                    </md-card-content>
+                </md-card>
+
+                <card-label>{{::'FILTERS' | translate}}</card-label>
+                <md-card class="oz-setting-card">
+                    <md-card-content layout="column" flex>
+                        <md-switch ng-model="Class.content.inspection" aria-label="Inspection" flex>
+                            {{'INSPECTION' | translate}}
+                        </md-switch>
+                        <md-switch ng-model="Class.content.point" aria-label="Point" flex>
+                            {{'POINT' | translate}}
+                        </md-switch>
+                        <md-switch ng-model="Class.content.exam" aria-label="Exam" flex>
+                            {{'EXAM' | translate}}
+                        </md-switch>
+                    </md-card-content>
+                </md-card>
+            </div>
+
+            <div layout="column" flex>
+            <card-label>{{::'FILTERS' | translate}}</card-label>
+            <md-card class="oz-setting-card">
+                <md-card-content layout="column" flex>
+                    <div class="md-margin-vertical" layout="row" layout-align="space-between center" ng-repeat="d in Class.day">
+                        <md-switch ng-model="d.state" aria-label="{{Class.dayMap[$index]}}" flex>
+                            {{Class.dayMap[$index] | translate}}
+                        </md-switch>
+                        <md-input-container>
+                            <label>{{'START' | translate}}</label>
+                            <md-select name="start" ng-model="d.start" ng-disabled="!d.state">
+                                <md-option value="{{hour}}" ng-repeat="hour in Class.hours">{{hour}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container>
+                            <label>{{'END' | translate}}</label>
+                            <md-select name="end" ng-model="d.end" ng-disabled="!d.state">
+                                <md-option value="{{hour}}" ng-repeat="hour in Class.hours">{{hour}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                </md-card-content>
+            </md-card>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button class="md-primary override-ont-button" ng-click="Class.cancel()">
+                {{::'CANCEL' | translate}}
+            </md-button>
+            <md-button type="submit" class="md-primary override-ont-button" ng-click="Class.confirm()">
+                {{::'CONFIRM' | translate}}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

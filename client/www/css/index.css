@@ -39,6 +39,11 @@ h2{font-weight: 500;}
     background-color: #BC936B;
 }
 
+.md-margin-vertical {margin: 8px 0px;}
+.md-margin-horizontal {margin: 0px 8px;}
+.md-padding-vertical {padding: 8px 0px;}
+.md-padding-horizontal {padding: 0px 8px;}
+
 .float-button{
     position: fixed;
     top: 64px;

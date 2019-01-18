@@ -14,10 +14,31 @@
 
         /**
          * @ngdoc method
+         * @name ozelden.services.UserSettingService#addToUserClassList
+         * @methodOf ozelden.services.UserSettingService
+         *
+         * @description add given class to user`s class list.
+         * @param {Object} classObject - holds the class.
+         */
+        function addToUserClassList(classObject) {
+            self.deferred = $q.defer();
+
+            $http({
+                method: 'POST',
+                url: VocabularyService.userClassList(),
+                headers: headers,
+                data: classObject
+            }).then($$fetchSuccessResponse, $$fetchFailureResponse);
+
+            return self.deferred.promise;
+        }
+
+        /**
+         * @ngdoc method
          * @name ozelden.services.UserSettingService#addToUserLectureList
          * @methodOf ozelden.services.UserSettingService
          *
-         * @description add given lecture object to user`s lecture list.
+         * @description add given lecture to user`s lecture list.
          * @param {Object} lectureObject - holds the lecture.
          */
         function addToUserLectureList(lectureObject) {
@@ -161,6 +182,7 @@
             self.deferred.reject(rejection);
         }
 
+        this.addToUserClassList = addToUserClassList;
         this.addToUserLectureList = addToUserLectureList;
         this.getUserClassList = getUserClassList;
         this.getUserLectureList = getUserLectureList;

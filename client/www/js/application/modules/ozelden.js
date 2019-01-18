@@ -79,7 +79,7 @@
         }).state('ozelden.user.class',{
             url: '/class',
             templateUrl: 'html/controllers/user/class.html',
-            controller: 'ClassCtrl',
+            controller: 'UserClassCtrl',
             controllerAs: 'Class'
         });
 

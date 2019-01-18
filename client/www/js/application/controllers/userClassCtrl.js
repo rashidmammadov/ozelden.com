@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function ClassCtrl($rootScope, $mdDialog, UserSettingService) {
+    function UserClassCtrl($rootScope, $mdDialog, UserSettingService) {
         var self = this;
         $rootScope.loadingOperation = true;
 
@@ -23,11 +23,19 @@
                 },
                 targetEvent: event,
                 clickOutsideToClose: true
-            }).then(function(){}, function () {});
+            }).then(function(params) {
+                if (operation === 'create') {
+                    UserSettingService.addToUserClassList(params).then(function (result) {
+                        result;
+                    }, function (failure) {
+                        failure;
+                    });
+                }
+            });
         };
 
         this.openClassDialog = openClassDialog;
     }
 
-    angular.module('ozelden.controllers').controller('ClassCtrl', ClassCtrl);
+    angular.module('ozelden.controllers').controller('UserClassCtrl', UserClassCtrl);
 }());

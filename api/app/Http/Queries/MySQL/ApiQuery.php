@@ -25,6 +25,18 @@ class ApiQuery {
         return $queryResult;
     }
 
+    public function setUserClass($userId, $parameters) {
+        UserClassList::create([
+            USER_ID => $userId,
+            CLASS_NAME => $parameters[CLASS_NAME],
+            TUTOR_ID => $parameters[TUTOR_ID],
+            LECTURE_AREA => $parameters[LECTURE_AREA],
+            LECTURE_THEME => $parameters[LECTURE_THEME],
+            DAY => $parameters[DAY],
+            CONTENT => $parameters[CONTENT]
+        ]);
+    }
+
     /** ------------------------- USER LECTURE QUERIES ------------------------- **/
 
     /**

@@ -43,14 +43,6 @@ class SuitabilityScheduleController extends ApiController {
             $dayHourTable =  json_encode($this->userSuitabilityScheduleTransformer->setDayHourTable());
 
             $this->dbQuery->setUserDefaultSuitabilitySchedule($userId, $region, $location, $courseType, $facility, $dayHourTable);
-            /*SuitabilitySchedule::create([
-                USER_ID => $userId,
-                REGION => json_encode($this->userSuitabilityScheduleTransformer->setRegion()),
-                LOCATION => json_encode($this->userSuitabilityScheduleTransformer->setLocation()),
-                COURSE_TYPE => json_encode($this->userSuitabilityScheduleTransformer->setCourseType()),
-                FACILITY => json_encode($this->userSuitabilityScheduleTransformer->setFacility()),
-                DAY_HOUR_TABLE => json_encode($this->userSuitabilityScheduleTransformer->setDayHourTable())
-            ]);*/
         }
     }
 
@@ -63,7 +55,6 @@ class SuitabilityScheduleController extends ApiController {
         try {
             JWTAuth::getToken();
             $suitabilitySchedule = $this->dbQuery->getUserSuitabilitySchedule($request[IDENTIFIER]);
-            //SuitabilitySchedule::where(USER_ID, $request[IDENTIFIER])->first();
             return $this->respondCreated('', $this->userSuitabilityScheduleTransformer->transform($suitabilitySchedule));
         } catch (JWTException $e) {
             $this->setStatusCode($e->getStatusCode());
@@ -80,7 +71,6 @@ class SuitabilityScheduleController extends ApiController {
         try {
             JWTAuth::getToken();
             try {
-                //$schedule = SuitabilitySchedule::where(USER_ID, $request[USER_ID])->first();
                 $region = json_encode($request[REGION]);
                 $location = json_encode($request[LOCATION]);
                 $courseType = json_encode($request[COURSE_TYPE]);
@@ -88,7 +78,6 @@ class SuitabilityScheduleController extends ApiController {
                 $dayHourTable = json_encode($request[DAY_HOUR_TABLE]);
 
                 $this->dbQuery->updateUserSuitabilitySchedule($request[USER_ID], $region, $location, $courseType, $facility, $dayHourTable);
-                //$schedule->save();
                 return $this->respondCreated('CHANGES_UPDATED_SUCCESSFULLY');
             } catch (Exception $e) {
                 $this->setStatusCode($e->getStatusCode());

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\UserLecturesList;
 use App\Http\Queries\MySQL\ApiQuery;
 use JWTAuth;
 use Validator;
@@ -50,23 +49,11 @@ class LectureController extends ApiController {
                     PRICE => $request[PRICE]
                 );
                 $existLecture = $this->dbQuery->getUserSelectedLecture($userId, $params);
-                /*$existLecture = UserLecturesList::where([
-                    [USER_ID, '=', $userId],
-                    [LECTURE_AREA, '=', $request[LECTURE_AREA]],
-                    [LECTURE_THEME, '=', $request[LECTURE_THEME]]
-                ])->first();*/
 
                 if ($existLecture) {
                     return $this->respondWithError('THIS_LECTURE_ALREADY_ADDED');
                 } else {
                     $this->dbQuery->setUserLecture($userId, $params);
-                    /*UserLecturesList::create([
-                        USER_ID => $userId,
-                        LECTURE_AREA => $request[LECTURE_AREA],
-                        LECTURE_THEME => $request[LECTURE_THEME],
-                        EXPERIENCE => $request[EXPERIENCE],
-                        PRICE => $request[PRICE]
-                    ]);*/
                     return $this->respondCreated('LECTURE_ADDED_SUCCESSFULLY');
                 }
             }
@@ -124,11 +111,6 @@ class LectureController extends ApiController {
                     LECTURE_THEME => $request[LECTURE_THEME]
                 );
                 $this->dbQuery->deleteUserSelectedLecture($userId, $params);
-                /*UserLecturesList::where([
-                    [USER_ID, '=', $userId],
-                    [LECTURE_AREA, '=', $request[LECTURE_AREA]],
-                    [LECTURE_THEME, '=', $request[LECTURE_THEME]]
-                ])->delete();*/
 
                 return $this->respondCreated('LECTURE_REMOVED_SUCCESSFULLY');
             }
@@ -145,7 +127,7 @@ class LectureController extends ApiController {
      */
     public function userLecturesListWithAverage($userId) {
         $lecturesData = $this->getAllLecturesData();
-        $userLecturesList = $this->dbQuery->getUserLecturesList($userId);//UserLecturesList::where(USER_ID, $userId)->get();
+        $userLecturesList = $this->dbQuery->getUserLecturesList($userId);
         $responseList = array();
         foreach ($userLecturesList as $lecture) {
             for ($i = 0; $i < count($lecturesData); $i++) {
@@ -172,7 +154,7 @@ class LectureController extends ApiController {
      * @return mixed
      */
     public function userLecturesListWithoutAverage($userId) {
-        $userLecturesList = $this->dbQuery->getUserLecturesList($userId);//UserLecturesList::where(USER_ID, $userId);
+        $userLecturesList = $this->dbQuery->getUserLecturesList($userId);
     }
 
     /**
