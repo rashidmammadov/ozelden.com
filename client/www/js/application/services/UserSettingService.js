@@ -138,6 +138,27 @@
 
         /**
          * @ngdoc method
+         * @name ozelden.services.UserSettingService#updateUserClass
+         * @methodOf ozelden.services.UserSettingService
+         *
+         * @description update selected user`s given class.
+         * @param {Object} data - holds the class data.
+         */
+        function updateUserClass(data) {
+            self.deferred = $q.defer();
+
+            $http({
+                method: 'PUT',
+                url: VocabularyService.userClassList(),
+                headers: headers,
+                data: data
+            }).then($$fetchSuccessResponse, $$fetchFailureResponse);
+
+            return self.deferred.promise;
+        }
+
+        /**
+         * @ngdoc method
          * @name ozelden.services.UserSettingService#removeLectureFromUserLectureList
          * @methodOf ozelden.services.UserSettingService
          *
@@ -188,6 +209,7 @@
         this.getUserLectureList = getUserLectureList;
         this.getSuitabilitySchedule = getSuitabilitySchedule;
         this.updateSuitabilitySchedule = updateSuitabilitySchedule;
+        this.updateUserClass = updateUserClass;
         this.removeLectureFromUserLectureList = removeLectureFromUserLectureList;
         return this;
     }

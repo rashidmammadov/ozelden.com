@@ -12,9 +12,11 @@ class ClassTransformer extends Transformer{
                 TUTOR_ID => $class->tutorId,
                 NAME => $class->name . ' ' . $class->surname
             ),
-            LECTURE => $class->lectureArea . ' ' . $class->lectureTheme,
+            LECTURE_AREA => $class->lectureArea,
+            LECTURE_THEME => $class->lectureTheme,
             DAY => json_decode($class->day),
-            CONTENT => json_decode($class->content)
+            CONTENT => json_decode($class->content),
+            STUDENTS => array()
         ];
     }
 

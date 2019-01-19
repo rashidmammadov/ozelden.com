@@ -95,10 +95,10 @@
          */
         function $$confirmToRemoveLecture(lecture) {
             UserSettingService.removeLectureFromUserLectureList(lecture).then(function(result) {
+                $rootScope.loadingOperation = false;
                 self.lecturesList = self.lecturesList.filter(function (value) {
                     return !$$isEqualLectures(value, lecture);
                 });
-                $rootScope.loadingOperation = false;
                 NotificationService.showMessage($filter('translate')(result.message));
             },function (failure) {
                 $rootScope.loadingOperation = false;

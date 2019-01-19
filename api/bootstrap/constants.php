@@ -41,6 +41,7 @@ define('SEX', 'sex');
 define('STAR_SIGN', '*');
 define('STATUS', 'status');
 define('STATUS_CODE', 'status_code');
+define('STUDENTS', 'students');
 define('STUDENT_HOME', 'studentHome');
 define('SUCCESS', 'success');
 define('SURNAME', 'surname');

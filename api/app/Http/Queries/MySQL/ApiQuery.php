@@ -18,12 +18,27 @@ class ApiQuery {
     /** ------------------------- USER CLASS QUERIES ------------------------- **/
 
     /**
+     * @description query to get user`s class
+     * @param $userId
+     * @param $classId
+     * @return mixed
+     */
+    public function getClass($userId, $classId) {
+        $queryResult = UserClassList::where([
+            [USER_ID, EQUAL_SIGN, $userId],
+            [CLASS_ID, EQUAL_SIGN, $classId]
+        ])->first();
+
+        return $queryResult;
+    }
+
+    /**
      * @description query to get user`s class list
      * @param integer $userId
      * @return mixed query Result
      */
     public function getUserClassList($userId) {
-        $queryResult = DB::table(USER_CLASS_LIST)->where(USER_ID, $userId)
+        $queryResult = UserClassList::where(USER_ID, $userId)
             ->join(USERS, (USERS.'.'.IDENTIFIER), EQUAL_SIGN, (USER_CLASS_LIST.'.'.TUTOR_ID))
             ->get(array(
                 (USER_CLASS_LIST.'.'.STAR_SIGN),
@@ -33,6 +48,12 @@ class ApiQuery {
         return $queryResult;
     }
 
+    /**
+     * @description query to set class to user`s class list
+     * @param integer $userId
+     * @param $parameters
+     * @return mixed query Result
+     */
     public function setUserClass($userId, $parameters) {
         UserClassList::create([
             USER_ID => $userId,
@@ -43,6 +64,23 @@ class ApiQuery {
             DAY => $parameters[DAY],
             CONTENT => $parameters[CONTENT]
         ]);
+    }
+
+    /**
+     * @description query to update class of user
+     * @param integer $userId
+     * @param integer $classId
+     * @param array $parameters
+     */
+    public function updateUserClass($userId, $classId, $parameters) {
+        $queryResult = $this->getClass($userId, $classId);
+        $queryResult->className = $parameters[CLASS_NAME];
+        $queryResult->tutorId = $parameters[TUTOR_ID];
+        $queryResult->lectureArea = $parameters[LECTURE_AREA];
+        $queryResult->lectureTheme = $parameters[LECTURE_THEME];
+        $queryResult->day = $parameters[DAY];
+        $queryResult->content = $parameters[CONTENT];
+        $queryResult->save();
     }
 
     /** ------------------------- USER LECTURE QUERIES ------------------------- **/

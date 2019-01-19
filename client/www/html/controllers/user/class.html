@@ -1,5 +1,5 @@
 <md-card class="oz-setting-card md-whiteframe-1dp" flex-gt-sm="25">
-    <md-card-content ng-click="Class.openClassDialog($event, 'create', null)">
+    <md-card-content ng-click="Class.openClassDialog('create', null)">
         <div layout="column" layout-align="center center">
             <md-icon class="large-icon" md-svg-icon="add-button"></md-icon>
             <p>Create New Class</p>
@@ -8,48 +8,5 @@
 </md-card>
 <card-label>{{'MY_CLASSES' | translate}}</card-label>
 <div>
-    <oz-class-card>
-    <md-card class="oz-setting-card md-whiteframe-1dp" flex-gt-sm="50">
-        <md-card-header layout="column">
-            <h3>The Class Name</h3>
-            <p><b>Lise - Matematik</b> (Canan Özbaykal)</p>
-            <div layout="row" layout-align="space-between center">
-                <div class="week-item active" layout="column" layout-align="center center"> {{'MONDAY' | translate}}</div>
-                <div class="week-item" layout="column" layout-align="center center"> {{'TUESDAY' | translate}}</div>
-                <div class="week-item active" layout="column" layout-align="center center"> {{'WEDNESDAY' | translate}}</div>
-                <div class="week-item" layout="column" layout-align="center center"> {{'THURSDAY' | translate}}</div>
-                <div class="week-item" layout="column" layout-align="center center"> {{'FRIDAY' | translate}}</div>
-                <div class="week-item" layout="column" layout-align="center center"> {{'SATURDAY' | translate}}</div>
-                <div class="week-item active" layout="column" layout-align="center center"> {{'SUNDAY' | translate}}</div>
-            </div>
-        </md-card-header>
-        <md-divider></md-divider>
-        <md-card-content>
-            <div layout="column" layout-align="center space-between">
-                <div layout="row" layout-align="space-between center">
-
-                </div>
-                <p>9 Participants</p>
-                <md-list flex style="max-height: 144px; overflow-y: auto;">
-                    <md-list-item ng-repeat="item in [1,2,3,4,5,6,7,8,9]" ng-click="null">
-                        <img style="background: url('img/default/female-user.png') no-repeat center center;
-                            width: 32px; height: 32px; background-size: 100%;" class="md-avatar">
-                        </img>
-                        <p>Rashid Mammadov</p>
-                        <md-menu class="md-secondary">
-                            <md-button class="md-icon-button" ng-click="$mdMenu.open()">
-                                <md-icon class="small-icon" md-svg-icon="more-details"></md-icon>
-                            </md-button>
-                            <md-menu-content width="4">
-                                <md-menu-item>
-                                   <p>fdfdf</p>
-                                </md-menu-item>
-                            </md-menu-content>
-                        </md-menu>
-                    </md-list-item>
-                </md-list>
-            </div>
-        </md-card-content>
-    </md-card>
-    </oz-class-card>
+    <oz-class-card ng-repeat="class in Class.classList" ng-model="class" on-edit="Class.openClassDialog"></oz-class-card>
 </div>

@@ -89,6 +89,8 @@
         $mdIconProvider.icon('briefcase', 'img/icon/briefcase.svg');
         $mdIconProvider.icon('class', 'img/icon/class.svg');
         $mdIconProvider.icon('dashboard', 'img/icon/dashboard.svg');
+        $mdIconProvider.icon('edit-button', 'img/icon/edit-button.svg');
+        $mdIconProvider.icon('false', 'img/icon/false.svg');
         $mdIconProvider.icon('female', 'img/icon/female.svg');
         $mdIconProvider.icon('lang-az', 'img/icon/lang-az.svg');
         $mdIconProvider.icon('lang-en', 'img/icon/lang-en.svg');
@@ -106,10 +108,12 @@
         $mdIconProvider.icon('quality', 'img/icon/quality.svg');
         $mdIconProvider.icon('remove-button', 'img/icon/remove-button.svg');
         $mdIconProvider.icon('save', 'img/icon/save.svg');
+        $mdIconProvider.icon('settings', 'img/icon/settings.svg');
         $mdIconProvider.icon('side-nav', 'img/icon/side-nav.svg');
         $mdIconProvider.icon('star', 'img/icon/star.svg');
         $mdIconProvider.icon('suitability-schedule', 'img/icon/suitability-schedule.svg');
         $mdIconProvider.icon('total-user', 'img/icon/total-user.svg');
+        $mdIconProvider.icon('true', 'img/icon/true.svg');
         $mdIconProvider.icon('user-search', 'img/icon/user-search.svg');
     });
 

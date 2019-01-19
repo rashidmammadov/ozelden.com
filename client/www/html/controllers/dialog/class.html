@@ -16,7 +16,7 @@
 
                         <md-input-container>
                             <label>{{::'TUTOR' | translate}}</label>
-                            <md-select name="tutorId" ng-model="Class.tutorId" required>
+                            <md-select name="tutorId" ng-model="Class.tutor" required ng-disabled="true">
                                 <md-option value="{{tutor.id}}" ng-repeat="tutor in Class.tutors">{{tutor.name}}</md-option>
                             </md-select>
                             <div ng-messages="classForm.tutorId.$error">
@@ -27,7 +27,9 @@
                         <md-input-container>
                             <label>{{::'LECTURE' | translate}}</label>
                             <md-select name="lecture" ng-model="Class.lecture" required>
-                                <md-option value="{{lecture}}" ng-repeat="lecture in Class.lectures">
+                                <md-option value="{{lecture}}" ng-repeat="lecture in Class.lectures"
+                                    ng-selected="{{Class.lecture.lectureArea === lecture.lectureArea &&
+                                                   Class.lecture.lectureTheme === lecture.lectureTheme}}">
                                     {{lecture.lectureArea | translate}} - {{lecture.lectureTheme | translate}}
                                 </md-option>
                             </md-select>
@@ -83,7 +85,8 @@
             <md-button class="md-primary override-ont-button" ng-click="Class.cancel()">
                 {{::'CANCEL' | translate}}
             </md-button>
-            <md-button type="submit" class="md-primary override-ont-button" ng-click="Class.confirm()">
+            <md-button type="submit" class="md-primary override-ont-button" ng-click="Class.confirm()"
+                ng-disabled="!Class.className || !Class.tutor || !Class.lecture">
                 {{::'CONFIRM' | translate}}
             </md-button>
         </md-dialog-actions>
