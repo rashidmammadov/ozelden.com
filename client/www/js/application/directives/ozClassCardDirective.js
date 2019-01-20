@@ -24,7 +24,7 @@
             link: link,
             scope: {
                 data: '=ngModel',
-                edit: '=?onEdit'
+                operation: '=?onOperation'
             }
         }
     }

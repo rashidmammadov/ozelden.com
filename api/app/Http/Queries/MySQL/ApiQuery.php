@@ -15,7 +15,19 @@ class ApiQuery {
         define('USER_CLASS_LIST', 'user_class_list');
     }
 
-    /** ------------------------- USER CLASS QUERIES ------------------------- **/
+    /* ------------------------- USER CLASS QUERIES ------------------------- */
+
+    /**
+     * @description query to remove user`s class
+     * @param integer $userId
+     * @param integer $classId
+     */
+    public function deleteUserClass($userId, $classId) {
+        UserClassList::where([
+            [USER_ID, EQUAL_SIGN, $userId],
+            [CLASS_ID, EQUAL_SIGN, $classId]
+        ])->delete();
+    }
 
     /**
      * @description query to get user`s class
@@ -83,7 +95,7 @@ class ApiQuery {
         $queryResult->save();
     }
 
-    /** ------------------------- USER LECTURE QUERIES ------------------------- **/
+    /* ------------------------- USER LECTURE QUERIES ------------------------- */
 
     /**
      * @description query to delete given lecture from user`s lecture list
@@ -140,7 +152,7 @@ class ApiQuery {
         ]);
     }
 
-    /** ------------------------- SUITABILITY SCHEDULE ------------------------- **/
+    /* ------------------------- SUITABILITY SCHEDULE ------------------------- */
 
     /**
      * @description query to get user`s suitability schedule

@@ -6,7 +6,6 @@
         $rootScope.loadingOperation = true;
 
         this.classList = [];
-        this.lecturesList = [];
 
         /**
          * @ngdoc request
@@ -30,33 +29,47 @@
          * @name ozelden.controllers.controllers:UserClassCtrl#openClassDialog
          * @description Add created class to class list.
          *
-         * @param {String} operation - select the operation type ['create', 'edit']
+         * @param {String} operation - select the operation type ['create', 'edit', 'remove']
          * @param {Object=} data - holds the class data if exist
          */
         function openClassDialog(operation, data) {
-            var tutors = [{
-                id: $rootScope.user.id,
-                name: $rootScope.user.name + ' ' + $rootScope.user.surname
-            }];
-            $mdDialog.show({
-                controller: 'ClassDialogCtrl',
-                controllerAs: 'Class',
-                templateUrl: 'html/controllers/dialog/class.html',
-                locals: {
-                    type: operation,
-                    data: data,
-                    tutors: tutors
-                },
-                targetEvent: event,
-                clickOutsideToClose: true
-            }).then(function(params) {
-                $rootScope.loadingOperation = true;
-                if (operation === 'create') {
-                    $$createClass(params);
-                } else if (operation === 'edit') {
-                    $$updateClass(params);
-                }
-            });
+            if (operation !== 'remove') {
+                var tutors = [{
+                    id: $rootScope.user.id,
+                    name: $rootScope.user.name + ' ' + $rootScope.user.surname
+                }];
+                $mdDialog.show({
+                    controller: 'ClassDialogCtrl',
+                    controllerAs: 'Class',
+                    templateUrl: 'html/controllers/dialog/class.html',
+                    locals: {
+                        type: operation,
+                        data: data,
+                        tutors: tutors
+                    },
+                    targetEvent: event,
+                    clickOutsideToClose: true
+                }).then(function (params) {
+                    $rootScope.loadingOperation = true;
+                    if (operation === 'create') {
+                        $$createClass(params);
+                    } else if (operation === 'edit') {
+                        $$updateClass(params);
+                    }
+                });
+            } else {
+                var confirm = $mdDialog.confirm()
+                    .title($filter('translate')('REMOVE_CLASS_TITLE'))
+                    .textContent($filter('translate')('REMOVE_CLASS_CONTENT'))
+                    .ariaLabel('Remove Class')
+                    .ok($filter('translate')('CONFIRM'))
+                    .cancel($filter('translate')('CANCEL'));
+
+                $mdDialog.show(confirm).then(function() {
+                    $rootScope.loadingOperation = true;
+                    $$removeClass(data.classId);
+                });
+            }
         }
 
         /**
@@ -77,6 +90,26 @@
                 $rootScope.loadingOperation = false;
                 NotificationService.showMessage($filter('translate')('SOMETHING_WHEN_WRONG_WHILE_ADDING_CLASS'));
             });
+        }
+
+        /**
+         * @ngdoc method
+         * @name ozelden.controllers.controllers:UserClassCtrl#$$removeClass
+         * @description Remove the given class.
+
+         * @param {Integer} classId - holds the class data.
+         */
+        function $$removeClass(classId) {
+            UserSettingService.removeClassFromUserClassList({classId: classId}).then(function (result) {
+                $rootScope.loadingOperation = false;
+                if (result.status === 'success') {
+                    self.classList = self.classList.filter(function (d) { return d.classId !== classId; });
+                    NotificationService.showMessage($filter('translate')(result.message));
+                }
+            }, function () {
+                $rootScope.loadingOperation = false;
+                NotificationService.showMessage($filter('translate')('SOMETHING_WENT_WRONG_WHILE_REMOVING_CLASS'));
+            })
         }
 
         /**

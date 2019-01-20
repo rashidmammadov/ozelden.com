@@ -159,6 +159,27 @@
 
         /**
          * @ngdoc method
+         * @name ozelden.services.UserSettingService#removeClassFromUserClassList
+         * @methodOf ozelden.services.UserSettingService
+         *
+         * @description remove selected class from user`s class list.
+         * @param {Object} data - holds the selected class`s id.
+         */
+        function removeClassFromUserClassList(data) {
+            self.deferred = $q.defer();
+
+            $http({
+                method: 'DELETE',
+                url: VocabularyService.userClassList(),
+                headers: headers,
+                data: data
+            }).then($$fetchSuccessResponse, $$fetchFailureResponse);
+
+            return self.deferred.promise;
+        }
+
+        /**
+         * @ngdoc method
          * @name ozelden.services.UserSettingService#removeLectureFromUserLectureList
          * @methodOf ozelden.services.UserSettingService
          *
@@ -210,6 +231,7 @@
         this.getSuitabilitySchedule = getSuitabilitySchedule;
         this.updateSuitabilitySchedule = updateSuitabilitySchedule;
         this.updateUserClass = updateUserClass;
+        this.removeClassFromUserClassList = removeClassFromUserClassList;
         this.removeLectureFromUserLectureList = removeLectureFromUserLectureList;
         return this;
     }

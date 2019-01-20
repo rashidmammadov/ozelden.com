@@ -2,7 +2,7 @@
     <md-card-header layout="column">
         <div layout="row" layout-align="space-between center">
             <div layout="column">
-                <h3>{{data.className}}</h3>
+                <h3>{{::data.className}}</h3>
                 <p><b>{{::data.lectureArea | translate}} - {{::data.lectureTheme | translate}}</b> ({{data.tutor.name}})</p>
             </div>
             <div>
@@ -12,10 +12,10 @@
                     </md-button>
                     <md-menu-content width="4">
                         <md-menu-item>
-                            <md-button ng-click="edit('edit', data)"><md-icon md-svg-src="edit-button"></md-icon>{{::'EDIT' | translate}}</md-button>
+                            <md-button ng-click="operation('edit', data)"><md-icon md-svg-src="edit-button"></md-icon>{{::'EDIT' | translate}}</md-button>
                         </md-menu-item>
                         <md-menu-item>
-                            <md-button><md-icon md-svg-src="remove-button"></md-icon>{{::'REMOVE' | translate}}</md-button>
+                            <md-button ng-click="operation('remove', data)"><md-icon md-svg-src="remove-button"></md-icon>{{::'REMOVE' | translate}}</md-button>
                         </md-menu-item>
                     </md-menu-content>
                 </md-menu>

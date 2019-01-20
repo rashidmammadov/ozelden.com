@@ -73,6 +73,33 @@ class UserClassListController extends ApiController {
     }
 
     /**
+     * @description Remove class
+     * @param Request $request
+     * @return mixed
+     */
+    public function removeClass(Request $request) {
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+            $userId = $user->id;
+            $rules = array(
+                CLASS_ID => 'required'
+            );
+
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return $this->respondValidationError('FIELDS_VALIDATION_FAILED', $validator->errors());
+            } else {
+                $classId = $request[CLASS_ID];
+                $this->dbQuery->deleteUserClass($userId, $classId);
+                return $this->respondCreated('CLASS_REMOVED_SUCCESSFULLY');
+            }
+        } catch (JWTException $e) {
+            $this->setStatusCode($e->getStatusCode());
+            return $this->respondWithError($e->getMessage());
+        }
+    }
+
+    /**
      * @description Update class
      * @param Request $request
      * @return mixed
