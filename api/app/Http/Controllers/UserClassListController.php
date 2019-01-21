@@ -32,7 +32,9 @@ class UserClassListController extends ApiController {
                 CLASS_NAME => 'required|max:30',
                 TUTOR_ID => 'required',
                 LECTURE_AREA => 'required',
-                LECTURE_THEME => 'required'
+                LECTURE_THEME => 'required',
+                CITY => 'required',
+                DISTRICT => 'required'
             );
 
             $validator = Validator::make($request->all(), $rules);
@@ -44,6 +46,8 @@ class UserClassListController extends ApiController {
                     TUTOR_ID => $request[TUTOR_ID],
                     LECTURE_AREA => $request[LECTURE_AREA],
                     LECTURE_THEME => $request[LECTURE_THEME],
+                    CITY => $request[CITY],
+                    DISTRICT => $request[DISTRICT],
                     DAY => json_encode($request[DAY]),
                     CONTENT => json_encode($request[CONTENT])
                 );
@@ -113,7 +117,9 @@ class UserClassListController extends ApiController {
                 CLASS_NAME => 'required|max:30',
                 TUTOR_ID => 'required',
                 LECTURE_AREA => 'required',
-                LECTURE_THEME => 'required'
+                LECTURE_THEME => 'required',
+                CITY => 'required',
+                DISTRICT => 'required'
             );
 
             $validator = Validator::make($request->all(), $rules);
@@ -126,6 +132,8 @@ class UserClassListController extends ApiController {
                     TUTOR_ID => $request[TUTOR_ID],
                     LECTURE_AREA => $request[LECTURE_AREA],
                     LECTURE_THEME => $request[LECTURE_THEME],
+                    CITY => $request[CITY],
+                    DISTRICT => $request[DISTRICT],
                     DAY => json_encode($request[DAY]),
                     CONTENT => json_encode($request[CONTENT])
                 );
@@ -144,7 +152,6 @@ class UserClassListController extends ApiController {
      * @return mixed
      */
     public function prepareUserClassList($userId) {
-        // TODO;
         $classList = $this->dbQuery->getUserClassList($userId);
         $classArray = array();
         foreach ($classList as $class) {

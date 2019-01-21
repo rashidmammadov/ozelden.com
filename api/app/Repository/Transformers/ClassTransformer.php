@@ -14,6 +14,8 @@ class ClassTransformer extends Transformer{
             ),
             LECTURE_AREA => $class->lectureArea,
             LECTURE_THEME => $class->lectureTheme,
+            CITY => $class->city,
+            DISTRICT => $class->district,
             DAY => json_decode($class->day),
             CONTENT => json_decode($class->content),
             STUDENTS => array()

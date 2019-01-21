@@ -82,16 +82,25 @@
          * @param {Object} params - holds the user id and response type.
          */
         function getUserLectureList(params) {
-            self.deferred = $q.defer();
+            var deferred = $q.defer();
 
             $http({
                 method: 'GET',
                 url: VocabularyService.userLecturesList(),
                 headers: headers,
                 params: params
-            }).then($$fetchSuccessResponse, $$fetchFailureResponse);
+            }).then(function (response) {
+                var result = response.data;
+                if (result.status === "success") {
+                    deferred.resolve(result);
+                } else {
+                    deferred.reject(result);
+                }
+            }, function (rejection) {
+                deferred.reject(rejection);
+            });
 
-            return self.deferred.promise;
+            return deferred.promise;
         }
 
         /**
@@ -103,16 +112,25 @@
          * @param {Integer} id - holds the user`s id.
          */
         function getSuitabilitySchedule(id) {
-            self.deferred = $q.defer();
+            var deferred = $q.defer();
 
             $http({
                 method: 'GET',
                 url: VocabularyService.suitabilitySchedule(),
                 headers: headers,
                 params: { id: id }
-            }).then($$fetchSuccessResponse, $$fetchFailureResponse);
+            }).then(function (response) {
+                var result = response.data;
+                if (result.status === "success") {
+                    deferred.resolve(result);
+                } else {
+                    deferred.reject(result);
+                }
+            }, function (rejection) {
+                deferred.reject(rejection);
+            });
 
-            return self.deferred.promise;
+            return deferred.promise;
         }
 
         /**

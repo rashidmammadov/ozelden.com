@@ -16,8 +16,10 @@ class CreateUserClassList extends Migration
             $table->integer('userId');
             $table->char('className', 30);
             $table->integer('tutorId');
-            $table->char('lectureArea', 99);
-            $table->char('lectureTheme', 99);
+            $table->char('lectureArea', 50);
+            $table->char('lectureTheme', 50);
+            $table->char('city', 50);
+            $table->char('district', 50);
             $table->text('day', 500)->nullable();
             $table->text('content', 200)->nullable();
             $table->boolean('status')->default(1);

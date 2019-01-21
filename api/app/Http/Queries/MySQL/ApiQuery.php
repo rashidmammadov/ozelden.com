@@ -73,6 +73,8 @@ class ApiQuery {
             TUTOR_ID => $parameters[TUTOR_ID],
             LECTURE_AREA => $parameters[LECTURE_AREA],
             LECTURE_THEME => $parameters[LECTURE_THEME],
+            CITY => $parameters[CITY],
+            DISTRICT => $parameters[DISTRICT],
             DAY => $parameters[DAY],
             CONTENT => $parameters[CONTENT]
         ]);
@@ -90,6 +92,8 @@ class ApiQuery {
         $queryResult->tutorId = $parameters[TUTOR_ID];
         $queryResult->lectureArea = $parameters[LECTURE_AREA];
         $queryResult->lectureTheme = $parameters[LECTURE_THEME];
+        $queryResult->city = $parameters[CITY];
+        $queryResult->district = $parameters[DISTRICT];
         $queryResult->day = $parameters[DAY];
         $queryResult->content = $parameters[CONTENT];
         $queryResult->save();

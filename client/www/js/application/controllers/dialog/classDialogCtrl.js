@@ -1,19 +1,16 @@
 (function () {
     'use strict';
 
-    function ClassDialogCtrl($scope, $mdDialog, locals, CookieService, UserSettingService) {
+    function ClassDialogCtrl($scope, $mdDialog, $state, locals, CookieService) {
         var self = this;
+        var userId = CookieService.getUser() && CookieService.getUser().id;
 
         $scope.operation = locals.type;
         $scope.data = locals.data;
-        var userId = CookieService.getUser() && CookieService.getUser().id;
         var classId = $scope.data ? $scope.data.classId : null;
         this.tutors = locals.tutors;
-        this.lectures = [];
-
-        UserSettingService.getUserLectureList({userId: userId, average: true}).then(function(result) {
-            if (result.status === 'success') { self.lectures = result.data; }
-        });
+        this.lectures = locals.lectures;
+        this.regions = locals.regions;
 
         this.dayMap = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
         this.hours = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00',
@@ -32,6 +29,7 @@
         this.className = $scope.data ? $scope.data.className : null;
         this.tutor = $scope.data ? $scope.data.tutor.tutorId : userId;
         this.lecture = $scope.data ? {lectureArea: $scope.data.lectureArea, lectureTheme: $scope.data.lectureTheme} : null;
+        this.region = $scope.data ? {city: $scope.data.city, district: $scope.data.district} : null;
         this.content = $scope.data ? $scope.data.content : {};
         this.day = ($scope.data && $scope.data.day) ? $scope.data.day : defaultDay;
         
@@ -39,12 +37,15 @@
             var dayObject = [];
             self.day.forEach(function (d) { dayObject.push({state: d.state, start: d.start, end: d.end}); });
             var lectureObject = JSON.parse(self.lecture);
+            var regionObject = JSON.parse(self.region);
             var classData = {
                 classId: classId,
                 className: self.className,
                 tutorId: Number(self.tutor),
                 lectureArea: lectureObject.lectureArea,
                 lectureTheme: lectureObject.lectureTheme,
+                city: regionObject.city,
+                district: regionObject.district,
                 content: self.content,
                 day: dayObject
             };

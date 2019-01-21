@@ -1,0 +1,8 @@
+@media (max-width: 1280px) {
+    oz-class-card .oz-setting-card {width: calc(50% - 16px); display: inline-block;}
+    .class-dialog-content {display: block;}
+}
+
+@media (max-width: 960px) {
+    oz-class-card .oz-setting-card {width: calc(100% - 16px); display: inline-block;}
+}

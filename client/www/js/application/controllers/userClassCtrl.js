@@ -1,11 +1,30 @@
 (function () {
     'use strict';
 
-    function UserClassCtrl($rootScope, $filter, $mdDialog, UserSettingService, NotificationService) {
+    function UserClassCtrl($rootScope, $filter, $mdDialog, CookieService, UserSettingService, NotificationService) {
         var self = this;
+        var userId = CookieService.getUser() && CookieService.getUser().id;
         $rootScope.loadingOperation = true;
 
         this.classList = [];
+        this.lectures = [];
+        this.regions = [];
+
+        /**
+         * @ngdoc request
+         * @description Get user`s lectures list.
+         */
+        UserSettingService.getUserLectureList({userId: userId, average: true}).then(function(result) {
+            if (result.status === 'success') { self.lectures = result.data; }
+        });
+
+        /**
+         * @ngdoc request
+         * @description Get user`s regions list.
+         */
+        UserSettingService.getSuitabilitySchedule(userId).then(function (result) {
+            if (result.status === 'success') { self.regions = result.data.region; }
+        });
 
         /**
          * @ngdoc request
@@ -45,7 +64,9 @@
                     locals: {
                         type: operation,
                         data: data,
-                        tutors: tutors
+                        tutors: tutors,
+                        lectures: self.lectures,
+                        regions: self.regions
                     },
                     targetEvent: event,
                     clickOutsideToClose: true
@@ -56,7 +77,7 @@
                     } else if (operation === 'edit') {
                         $$updateClass(params);
                     }
-                });
+                }, function () {});
             } else {
                 var confirm = $mdDialog.confirm()
                     .title($filter('translate')('REMOVE_CLASS_TITLE'))
@@ -68,7 +89,7 @@
                 $mdDialog.show(confirm).then(function() {
                     $rootScope.loadingOperation = true;
                     $$removeClass(data.classId);
-                });
+                }, function () {});
             }
         }
 

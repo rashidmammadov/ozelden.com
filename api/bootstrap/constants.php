@@ -2,6 +2,7 @@
 
 define('AVERAGE', 'average');
 define('BIRTH_DATE', 'birthDate');
+define('CITY', 'city');
 define('COURSE', 'course');
 define('COURSE_TYPE', 'courseType');
 define('CLASS_', 'class');
@@ -13,6 +14,7 @@ define('DATA', 'data');
 define('DAY', 'day');
 define('DAY_HOUR_TABLE', 'dayHourTable');
 define('DEMO', 'demo');
+define('DISTRICT', 'district');
 define('DOT', '.');
 define('EMAIL', 'email');
 define('EQUAL_SIGN', '=');

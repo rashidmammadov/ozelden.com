@@ -1,8 +1,8 @@
 <md-dialog flex>
     <form name="classForm">
-        <md-dialog-content layout-gt-md="row" layout="column" flex>
-            <div layout-gt-md="row" layout="column" style="height: 100%; width:100%; overflow: auto; display: block;">
-            <div layout="column">
+        <md-dialog-content layout-gt-sm="row" layout="column" flex>
+            <div class="class-dialog-content" layout-gt-md="row" layout="column">
+            <div layout="column" flex>
                 <card-label>{{::'FILTERS' | translate}}</card-label>
                 <md-card class="oz-setting-card">
                     <md-card-content layout="column" flex>
@@ -29,19 +29,35 @@
                             <label>{{::'LECTURE' | translate}}</label>
                             <md-select name="lecture" ng-model="Class.lecture" required>
                                 <md-option value="{{lecture}}" ng-repeat="lecture in Class.lectures"
-                                    ng-selected="{{Class.lecture.lectureArea === lecture.lectureArea &&
-                                                   Class.lecture.lectureTheme === lecture.lectureTheme}}">
+                                           ng-selected="{{Class.lecture.lectureArea === lecture.lectureArea &&
+                                           Class.lecture.lectureTheme === lecture.lectureTheme}}">
                                     {{::lecture.lectureArea | translate}} - {{::lecture.lectureTheme | translate}}
                                 </md-option>
                             </md-select>
                             <div ng-messages="classForm.lecture.$error">
                                 <div ng-message="required">{{::'REQUIRED' | translate}}</div>
                             </div>
+                            <a class="redirect-button" ui-sref="ozelden.user.lecturesList" ng-click="Class.cancel()">{{::'ADD_LECTURE' | translate}}</a>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label>{{::'REGION' | translate}}</label>
+                            <md-select name="region" ng-model="Class.region" required>
+                                <md-option value="{{region}}" ng-repeat="region in Class.regions"
+                                           ng-selected="{{Class.region.city === region.city &&
+                                           Class.region.district === region.district}}">
+                                    {{::region.city}} - {{::region.district}}
+                                </md-option>
+                            </md-select>
+                            <div ng-messages="classForm.region.$error">
+                                <div ng-message="required">{{::'REQUIRED' | translate}}</div>
+                            </div>
+                            <a class="redirect-button" ui-sref="ozelden.user.suitabilitySchedule" ng-click="Class.cancel()">{{::'ADD_REGION' | translate}}</a>
                         </md-input-container>
                     </md-card-content>
                 </md-card>
 
-                <card-label>{{::'FILTERS' | translate}}</card-label>
+                <card-label>{{::'CONTENT' | translate}}</card-label>
                 <md-card class="oz-setting-card">
                     <md-card-content layout="column" flex>
                         <md-switch ng-model="Class.content.inspection" aria-label="Inspection" flex>
@@ -58,7 +74,7 @@
             </div>
 
             <div layout="column" flex>
-            <card-label>{{::'FILTERS' | translate}}</card-label>
+            <card-label>{{::'DAYS' | translate}}</card-label>
             <md-card class="oz-setting-card">
                 <md-card-content layout="column" flex>
                     <div class="md-margin-vertical" layout="row" layout-align="space-between center" ng-repeat="d in Class.day">
@@ -88,7 +104,7 @@
                 {{::'CANCEL' | translate}}
             </md-button>
             <md-button type="submit" class="md-primary override-ont-button" ng-click="Class.confirm()"
-                ng-disabled="!Class.className || !Class.tutor || !Class.lecture">
+                ng-disabled="!Class.className || !Class.tutor || !Class.lecture || !Class.region">
                 {{::'CONFIRM' | translate}}
             </md-button>
         </md-dialog-actions>

@@ -10,7 +10,7 @@ class UserClassList extends Model {
     protected $primaryKey = 'classId';
 
     protected $fillable = [
-        'userId', 'className', 'tutorId', 'lectureArea', 'lectureTheme', 'day', 'content', 'status'
+        'userId', 'className', 'tutorId', 'lectureArea', 'lectureTheme', 'city', 'district', 'day', 'content', 'status'
     ];
 
     public function user() {

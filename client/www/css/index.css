@@ -202,23 +202,3 @@ md-input-container.editable:hover {background-color: rgba(0,0,0,0.12);}
 md-input-container.editable:not(.md-input-invalid).md-input-focused .md-input {border-color: #D1A377;}
 md-input-container.editable .md-input {border-color: transparent;}
 md-input-container.editable .md-errors-spacer {min-height: 4px;}
-
-oz-class-card .oz-setting-card {width: calc(33% - 16px); display: inline-block;}
-oz-class-card md-card-header h3 {margin-bottom: 4px; font-weight: 400;}
-oz-class-card md-card-header p {margin-top: 4px; margin-bottom: 4px;}
-oz-class-card md-card-header md-icon{fill: #ffffff !important;}
-oz-class-card md-card-header md-icon{fill: #ffffff !important;}
-oz-class-card .week-item {
-    background-color: transparent;
-    border-radius: 32px;
-    min-width: 32px;
-    width: 32px;
-    min-height: 32px;
-    height: 32px;
-    padding: 8px 0px;
-    font-size: 12px;
-    margin: 8px 0px;
-    text-align: center;
-}
-oz-class-card .week-item.active {background-color: #D1A377 !important;}
-oz-class-card md-list-item._md-button-wrap>div.md-button:first-child {padding: 0px 8px;}
