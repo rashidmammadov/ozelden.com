@@ -52,4 +52,6 @@ define('TUTOR', 'tutor');
 define('TUTOR_HOME', 'tutorHome');
 define('TUTOR_ID', 'tutorId');
 define('TYPE', 'type');
+define('USER', 'user');
 define('USER_ID', 'userId');
+define('WELCOME_EMAIL', 'welcomeEmail');

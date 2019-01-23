@@ -13,6 +13,7 @@ use \Illuminate\Http\Response as Res;
 use Validator;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Http\Controllers\EmailController;
 
 class UserController extends ApiController
 {
@@ -21,15 +22,20 @@ class UserController extends ApiController
      * */
     protected $userTransformer;
     protected $suitabilitySchedule;
+    protected $email;
 
     /**
      * UserController constructor.
      * @param UserTransformer $userTransformer
      * @param SuitabilityScheduleController $suitabilityScheduleController
+     * @param \App\Http\Controllers\EmailController $emailController
      */
-    public function __construct(userTransformer $userTransformer, suitabilityScheduleController $suitabilityScheduleController) {
+    public function __construct(userTransformer $userTransformer,
+                                suitabilityScheduleController $suitabilityScheduleController,
+                                emailController $emailController) {
         $this->userTransformer = $userTransformer;
         $this->suitabilitySchedule = $suitabilityScheduleController;
+        $this->email = $emailController;
     }
 
     /**
@@ -111,7 +117,7 @@ class UserController extends ApiController
         if ($validator-> fails()){
             return $this->respondValidationError("FIELDS_VALIDATION_FAILED", $validator->errors());
         } else {
-             User::create([
+            $params = array(
                 TYPE => $request[TYPE],
                 NAME => $request[NAME],
                 SURNAME => $request[SURNAME],
@@ -119,8 +125,10 @@ class UserController extends ApiController
                 EMAIL => $request[EMAIL],
                 PASSWORD => \Hash::make($request[PASSWORD]),
                 SEX => $request[SEX]
-            ]);
+            );
+            User::create($params);
 
+            $this->email->send(WELCOME_EMAIL, $params);
             return $this->_login($request[EMAIL], $request[PASSWORD], true);
         }
     }
