@@ -13,8 +13,11 @@
              align="center">
             <img src="hands.svg" style="width: 72px; height: 72px;">
             <h2 style="font-weight: 600;">Hoş Geldin {{$name}} {{$surname}}</h2>
-            <p><b>{{$email}}</b> ile özelden ailesine katıldın!</p>
+            <p>özelden ailesine katıldın!</p>
             <p>Hemen bilgilerini <a href="https://ozelden.com">buradan</a> güncelle ve senin için en uygun {{$type == 'student' ? 'öğretmeni' : 'öğrenciyi'}} bulalım.</p>
+            <p>Bilgileriniz: </p>
+            <p><b>Email:</b> {{$email}}</p>
+            <p><b>Parola:</b> {{$password}}</p>
         </div>
         <div style="background-color: #D1A377; padding: 64px 16px 16px 16px; margin-top: -48px;" align="center">
             ozelden.com
