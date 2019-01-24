@@ -19,11 +19,9 @@ class EmailController extends Controller {
     }
 
     private function sendWelcomeEmail($user) {
-        Mail::send('emails/welcome', $user, function ($message) {
+        Mail::send('emails/welcome', $user, function ($message) use ($user) {
             $message->from(NO_REPLY, 'özelden team');
-            if (!empty($user[EMAIL])) {
-                $message->to($user[EMAIL]);
-            }
+            $message->to($user[EMAIL]);
         });
     }
 }
