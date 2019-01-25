@@ -18,7 +18,14 @@ class EmailController extends Controller {
         }
     }
 
-    private function sendWelcomeEmail($user) {
+    private function sendWelcomeEmail($data) {
+        $user = array(
+            TYPE => $data[TYPE],
+            NAME => $data[NAME],
+            SURNAME => $data[SURNAME],
+            EMAIL => $data[EMAIL],
+            PASSWORD => $data[PASSWORD]
+        );
         Mail::send('emails/welcome', $user, function ($message) use ($user) {
             $message->subject('🎉 Hoş Geldin!');
             $message->from(NO_REPLY, 'özelden team');
