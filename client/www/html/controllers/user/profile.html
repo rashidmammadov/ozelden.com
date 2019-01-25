@@ -1,0 +1,58 @@
+<div layout-gt-md="row" layout="column">
+    <div layout="column" flex-gt-md="30" flex>
+        <card-label>{{::'PERSONAL' | translate}}</card-label>
+        <md-card class="oz-setting-card md-whiteframe-1dp" flex>
+            <div class="profile-picture-bg" layout="column" layout-align="center center">
+            </div>
+            <div class="profile-picture-container" layout="column" layout-align="center center">
+                <img class="picture" src="img/default/female-user.png">
+                <md-button class="md-raised">{{::'UPLOAD_PHOTO' | translate}}</md-button>
+            </div>
+            <md-card-content>
+                <div layout="column" flex>
+                    <div layout="column" layout-align="center space-between">
+                        <h2>{{::User.personal.name}} {{::User.personal.surname}}</h2>
+                        <p>{{::User.personal.email}}</p>
+                    </div>
+                </div>
+            </md-card-content>
+        </md-card>
+    </div>
+
+    <div layout="column" flex>
+        <div flex layout="column">
+            <card-label>{{::'CONTACT' | translate}}</card-label>
+            <md-card class="oz-setting-card md-whiteframe-1dp">
+                <form name="contactForm">
+                    <md-card-content>
+                        <md-input-container class="md-block">
+                            <label>{{::'TELEPHONE' | translate}}</label>
+                            <input md-maxlength="10" name="telephone" ng-pattern="/^[0-9]{3}[0-9]{3}[0-9]{4}$/" md-no-asterisk ng-model="User.contact.telephone">
+                            <div class="hint">5#########</div>
+                            <div ng-messages="contactForm.telephone.$error">
+                                <div ng-message="pattern">{{::'FIELDS_VALIDATION_FAILED' | translate}}</div>
+                            </div>
+                        </md-input-container>
+                        <div layout="row" flex>
+                            <md-input-container class="md-block" flex>
+                                <label>{{::'CITY' | translate}}</label>
+                                <input md-no-asterisk name="city" ng-model="User.personal.city">
+                            </md-input-container>
+                            <md-input-container class="md-block" flex>
+                                <label>{{::'DISTRICT' | translate}}</label>
+                                <input md-no-asterisk name="district" ng-model="User.personal.district">
+                            </md-input-container>
+                        </div>
+                        <md-input-container class="md-block">
+                            <label>{{::'ADDRESS' | translate}}</label>
+                            <textarea ng-model="User.personal.address" md-maxlength="200" rows="2" md-select-on-focus></textarea>
+                        </md-input-container>
+                    </md-card-content>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-raised" type="sumbit">{{::'CONFIRM' | translate}}</md-button>
+                    </md-card-actions>
+                </form>
+            </md-card>
+        </div>
+    </div>
+</div>

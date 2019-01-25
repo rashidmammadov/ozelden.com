@@ -202,3 +202,8 @@ md-input-container.editable:hover {background-color: rgba(0,0,0,0.12);}
 md-input-container.editable:not(.md-input-invalid).md-input-focused .md-input {border-color: #D1A377;}
 md-input-container.editable .md-input {border-color: transparent;}
 md-input-container.editable .md-errors-spacer {min-height: 4px;}
+
+.profile-picture-bg {background: url('../img/default/female-user.png') center center no-repeat;
+    background-size: cover; filter: blur(10px); position: relative; height: 200px;}
+.profile-picture-container {margin-top: -170px;}
+.profile-picture-container .picture {border-radius: 100%; width: 120px; height: 120px; box-shadow: 0 0 8px 0px #721C47; background-color: rgba(209, 163, 119, 0.5);}

@@ -81,6 +81,11 @@
             templateUrl: 'html/controllers/user/class.html',
             controller: 'UserClassCtrl',
             controllerAs: 'Class'
+        }).state('ozelden.user.profile',{
+            url: '/profile',
+            templateUrl: 'html/controllers/user/profile.html',
+            controller: 'UserProfileCtrl',
+            controllerAs: 'User'
         });
 
         // define icons.
@@ -105,6 +110,7 @@
         $mdIconProvider.icon('math-infinity', 'img/icon/math-infinity.svg');
         $mdIconProvider.icon('math-less-than', 'img/icon/math-less-than.svg');
         $mdIconProvider.icon('more-details', 'img/icon/more-details.svg');
+        $mdIconProvider.icon('profile', 'img/icon/profile.svg');
         $mdIconProvider.icon('quality', 'img/icon/quality.svg');
         $mdIconProvider.icon('remove-button', 'img/icon/remove-button.svg');
         $mdIconProvider.icon('save', 'img/icon/save.svg');
