@@ -20,6 +20,7 @@ class EmailController extends Controller {
 
     private function sendWelcomeEmail($user) {
         Mail::send('emails/welcome', $user, function ($message) use ($user) {
+            $message->subject('🎉 Hoş Geldin!');
             $message->from(NO_REPLY, 'özelden team');
             $message->to($user[EMAIL]);
         });

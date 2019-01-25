@@ -128,7 +128,7 @@ class UserController extends ApiController
             );
             User::create($params);
 
-            $this->email->send(WELCOME_EMAIL, $params);
+            $this->_sendWelcomeEmail($request);
             return $this->_login($request[EMAIL], $request[PASSWORD], true);
         }
     }
@@ -174,5 +174,20 @@ class UserController extends ApiController
         }
 
         return $this->respondCreated("USER_LOGGED_IN_SUCCESSFULLY", $this->userTransformer->transform($user));
+    }
+
+    /**
+     * @description: Send email to registered user.
+     * @param Request $params
+     */
+    private function _sendWelcomeEmail($params) {
+        $data = array(
+            TYPE => $params[TYPE],
+            EMAIL => $params[EMAIL],
+            NAME => $params[NAME],
+            SURNAME => $params[SURNAME],
+            PASSWORD => $params[PASSWORD]
+        );
+        $this->email->send(WELCOME_EMAIL, $data);
     }
 }
