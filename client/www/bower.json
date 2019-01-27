@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "d3": "^4.13.0",
-    "angular-cookies": "^1.7.5"
+    "angular-cookies": "^1.7.5",
+    "jquery": "^3.3.1"
   }
 }

@@ -2,11 +2,11 @@
     <div layout="column" flex-gt-md="30" flex>
         <card-label>{{::'PERSONAL' | translate}}</card-label>
         <md-card class="oz-setting-card md-whiteframe-1dp" flex>
-            <div class="profile-picture-bg" layout="column" layout-align="center center">
+            <div class="profile-picture-bg" layout="column" layout-align="center center"
+                style="background: url('img/default/canan.jpg') center center no-repeat; background-size: cover;">
             </div>
             <div class="profile-picture-container" layout="column" layout-align="center center">
-                <img class="picture" src="img/default/female-user.png">
-                <md-button class="md-raised">{{::'UPLOAD_PHOTO' | translate}}</md-button>
+                <div class="picture" style="background: url('img/default/canan.jpg') center center no-repeat; background-size: cover;"></div>
             </div>
             <md-card-content>
                 <div layout="column" flex>
@@ -16,6 +16,9 @@
                     </div>
                 </div>
             </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button ng-click="User.upload()" class="md-raised" type="submit">{{::'CONFIRM' | translate}}</md-button>
+            </md-card-actions>
         </md-card>
     </div>
 
@@ -49,7 +52,7 @@
                         </md-input-container>
                     </md-card-content>
                     <md-card-actions layout="row" layout-align="end center">
-                        <md-button class="md-raised" type="sumbit">{{::'CONFIRM' | translate}}</md-button>
+                        <md-button class="md-raised" type="submit">{{::'CONFIRM' | translate}}</md-button>
                     </md-card-actions>
                 </form>
             </md-card>
