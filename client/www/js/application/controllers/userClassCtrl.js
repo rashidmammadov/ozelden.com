@@ -68,7 +68,6 @@
                         lectures: self.lectures,
                         regions: self.regions
                     },
-                    targetEvent: event,
                     clickOutsideToClose: true
                 }).then(function (params) {
                     $rootScope.loadingOperation = true;

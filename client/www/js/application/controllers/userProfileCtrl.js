@@ -15,7 +15,6 @@
                 controllerAs: 'File',
                 templateUrl: 'html/controllers/dialog/upload.html',
                 locals: {},
-                targetEvent: event,
                 clickOutsideToClose: true
             }).then(function (result) {
                 self.picture = result.base64;

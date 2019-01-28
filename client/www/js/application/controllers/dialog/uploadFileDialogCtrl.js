@@ -5,13 +5,13 @@
 
         var self = this;
         this.loading = false;
-        this.file = null;
+        $scope.file = null;
         $scope.base64 = null;
 
         function confirm() {
             var file = $scope.name.split('.');
             var fileType = file[file.length - 1];
-            $mdDialog.hide({base64: self.file, fileType: fileType});
+            $mdDialog.hide({base64: $scope.file, fileType: fileType});
         }
 
         function upload() {
@@ -25,19 +25,26 @@
                     if (data.lengthComputable) {
                         var progress = parseInt( ((data.loaded / data.total) * 100), 10 );
                         if (progress === 100) {
+                            var d = $scope.file = data.target.result;
                             self.loading = false;
-                            var d = self.file = data.target.result;
-                            $scope.base64 = d.replace(/^[^,]*,/, '');
+                            //$scope.base64 = d.replace(/^[^,]*,/, '');
+                            $scope.$apply();
                         }
-                        $scope.$apply();
                     }
                 };
+            } else {
+                self.loading = false;
             }
+        }
+
+        function selectFile() {
+            $("#file").click();
         }
 
         this.cancel = $mdDialog.cancel;
         this.confirm = confirm;
         $scope.upload = upload;
+        this.selectFile = selectFile;
     }
 
     angular.module('ozelden.controllers').controller('UploadFileDialogCtrl', UploadFileDialogCtrl);
