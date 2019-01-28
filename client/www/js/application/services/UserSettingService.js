@@ -10,8 +10,6 @@
             'Authorization': 'Bearer ' + CookieService.getUser().remember_token
         };
 
-        this.deferred;
-
         /**
          * @ngdoc method
          * @name ozelden.services.UserSettingService#addToUserClassList
@@ -21,16 +19,20 @@
          * @param {Object} classObject - holds the class.
          */
         function addToUserClassList(classObject) {
-            self.deferred = $q.defer();
+            var deferred = $q.defer();
 
             $http({
                 method: 'POST',
                 url: VocabularyService.userClassList(),
                 headers: headers,
                 data: classObject
-            }).then($$fetchSuccessResponse, $$fetchFailureResponse);
+            }).then(function (response) {
+                $$fetchSuccessResponse(response.data, deferred);
+            }, function (rejection) {
+                deferred.reject(rejection);
+            });
 
-            return self.deferred.promise;
+            return deferred.promise;
         }
 
         /**
@@ -42,16 +44,20 @@
          * @param {Object} lectureObject - holds the lecture.
          */
         function addToUserLectureList(lectureObject) {
-            self.deferred = $q.defer();
+            var deferred = $q.defer();
 
             $http({
                 method: 'POST',
                 url: VocabularyService.userLecturesList(),
                 headers: headers,
                 data: lectureObject
-            }).then($$fetchSuccessResponse, $$fetchFailureResponse);
+            }).then(function (response) {
+                $$fetchSuccessResponse(response.data, deferred);
+            }, function (rejection) {
+                deferred.reject(rejection);
+            });
 
-            return self.deferred.promise;
+            return deferred.promise;
         }
 
         /**
@@ -62,15 +68,19 @@
          * @description get selected user`s class list.
          */
         function getUserClassList() {
-            self.deferred = $q.defer();
+            var deferred = $q.defer();
 
             $http({
                 method: 'GET',
                 url: VocabularyService.userClassList(),
                 headers: headers
-            }).then($$fetchSuccessResponse, $$fetchFailureResponse);
+            }).then(function (response) {
+                $$fetchSuccessResponse(response.data, deferred);
+            }, function (rejection) {
+                deferred.reject(rejection);
+            });
 
-            return self.deferred.promise;
+            return deferred.promise;
         }
 
         /**
@@ -90,12 +100,7 @@
                 headers: headers,
                 params: params
             }).then(function (response) {
-                var result = response.data;
-                if (result.status === "success") {
-                    deferred.resolve(result);
-                } else {
-                    deferred.reject(result);
-                }
+                $$fetchSuccessResponse(response.data, deferred);
             }, function (rejection) {
                 deferred.reject(rejection);
             });
@@ -120,12 +125,7 @@
                 headers: headers,
                 params: { id: id }
             }).then(function (response) {
-                var result = response.data;
-                if (result.status === "success") {
-                    deferred.resolve(result);
-                } else {
-                    deferred.reject(result);
-                }
+                $$fetchSuccessResponse(response.data, deferred);
             }, function (rejection) {
                 deferred.reject(rejection);
             });
@@ -142,16 +142,20 @@
          * @param {Object} data - holds the user`s suitability settings.
          */
         function updateSuitabilitySchedule(data) {
-            self.deferred = $q.defer();
+            var deferred = $q.defer();
 
             $http({
                 method: 'PUT',
                 url: VocabularyService.suitabilitySchedule(),
                 headers: headers,
                 data: data
-            }).then($$fetchSuccessResponse, $$fetchFailureResponse);
+            }).then(function (response) {
+                $$fetchSuccessResponse(response.data, deferred);
+            }, function (rejection) {
+                deferred.reject(rejection);
+            });
 
-            return self.deferred.promise;
+            return deferred.promise;
         }
 
         /**
@@ -163,16 +167,45 @@
          * @param {Object} data - holds the class data.
          */
         function updateUserClass(data) {
-            self.deferred = $q.defer();
+            var deferred = $q.defer();
 
             $http({
                 method: 'PUT',
                 url: VocabularyService.userClassList(),
                 headers: headers,
                 data: data
-            }).then($$fetchSuccessResponse, $$fetchFailureResponse);
+            }).then(function (response) {
+                $$fetchSuccessResponse(response.data, deferred);
+            }, function (rejection) {
+                deferred.reject(rejection);
+            });
 
-            return self.deferred.promise;
+            return deferred.promise;
+        }
+
+        /**
+         * @ngdoc method
+         * @name ozelden.services.UserSettingService#uploadProfilePicture
+         * @methodOf ozelden.services.UserSettingService
+         *
+         * @description upload picture of selected user.
+         * @param {Object} data - holds the picture data.
+         */
+        function uploadProfilePicture(data) {
+            var deferred = $q.defer();
+
+            $http({
+                method: 'PUT',
+                url: VocabularyService.uploadProfilePicture(),
+                headers: headers,
+                data: data
+            }).then(function (response) {
+                $$fetchSuccessResponse(response.data, deferred);
+            }, function (rejection) {
+                deferred.reject(rejection);
+            });
+
+            return deferred.promise;
         }
 
         /**
@@ -184,16 +217,20 @@
          * @param {Object} data - holds the selected class`s id.
          */
         function removeClassFromUserClassList(data) {
-            self.deferred = $q.defer();
+            var deferred = $q.defer();
 
             $http({
                 method: 'DELETE',
                 url: VocabularyService.userClassList(),
                 headers: headers,
                 data: data
-            }).then($$fetchSuccessResponse, $$fetchFailureResponse);
+            }).then(function (response) {
+                $$fetchSuccessResponse(response.data, deferred);
+            }, function (rejection) {
+                deferred.reject(rejection);
+            });
 
-            return self.deferred.promise;
+            return deferred.promise;
         }
 
         /**
@@ -205,16 +242,20 @@
          * @param {Object} data - holds the selected lecture`s data.
          */
         function removeLectureFromUserLectureList(data) {
-            self.deferred = $q.defer();
+            var deferred = $q.defer();
 
             $http({
                 method: 'DELETE',
                 url: VocabularyService.userLecturesList(),
                 headers: headers,
                 data: data
-            }).then($$fetchSuccessResponse, $$fetchFailureResponse);
+            }).then(function (response) {
+                $$fetchSuccessResponse(response.data, deferred);
+            }, function (rejection) {
+                deferred.reject(rejection);
+            });
 
-            return self.deferred.promise;
+            return deferred.promise;
         }
 
         /**
@@ -223,23 +264,12 @@
          * @methodOf ozelden.services.UserSettingService
          * @description call when response is success.
          */
-        function $$fetchSuccessResponse(response) {
-            var result = response.data;
+        function $$fetchSuccessResponse(result, deferred) {
             if (result.status === "success") {
-                self.deferred.resolve(result);
+                deferred.resolve(result);
             } else {
-                self.deferred.reject(result);
+                deferred.reject(result);
             }
-        }
-
-        /**
-         * @ngdoc method
-         * @name ozelden.services.UserSettingService#$$fetchFailureResponse
-         * @methodOf ozelden.services.UserSettingService
-         * @description call when response is failure.
-         */
-        function $$fetchFailureResponse(rejection) {
-            self.deferred.reject(rejection);
         }
 
         this.addToUserClassList = addToUserClassList;
@@ -249,6 +279,7 @@
         this.getSuitabilitySchedule = getSuitabilitySchedule;
         this.updateSuitabilitySchedule = updateSuitabilitySchedule;
         this.updateUserClass = updateUserClass;
+        this.uploadProfilePicture = uploadProfilePicture;
         this.removeClassFromUserClassList = removeClassFromUserClassList;
         this.removeLectureFromUserLectureList = removeLectureFromUserLectureList;
         return this;

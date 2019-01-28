@@ -1,6 +1,7 @@
 <?php
 
 define('AVERAGE', 'average');
+define('BASE64', 'base64');
 define('BIRTH_DATE', 'birthDate');
 define('CITY', 'city');
 define('COURSE', 'course');
@@ -22,6 +23,8 @@ define('ERROR', 'error');
 define('ETUDE', 'etude');
 define('EXPERIENCE', 'experience');
 define('FACILITY', 'facility');
+define('FILE_NAME', 'fileName');
+define('FILE_TYPE', 'fileType');
 define('GROUP', 'group');
 define('GROUP_DISCOUNT', 'groupDiscount');
 define('IDENTIFIER', 'id');

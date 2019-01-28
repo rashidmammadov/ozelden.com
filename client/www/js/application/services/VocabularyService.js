@@ -15,6 +15,7 @@
         this.userLogin = function() { return self.api + 'login'; };
         this.userLogout = function() { return self.api + 'logout'; };
         this.userRegister = function() { return self.api + 'register'; };
+        this.uploadProfilePicture = function () { return self.api + 'profilePicture'; };
 
         return this;
     }

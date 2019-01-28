@@ -1,9 +1,23 @@
 <md-dialog>
-    <md-dialog-content layout="column">
-        <label for="file">
-            <md-icon md-svg-icon="add-button"></md-icon>
-        </label>
-        <input class="md-button md-ink-ripple" type="file" name="file" id="file" accept="image/*"
-         style="opacity: 0;position: absolute;z-index: -1;">
+    <md-progress-linear md-mode="indeterminate" ng-show="File.loading"></md-progress-linear>
+    <md-dialog-content layout="column" class="md-padding">
+        <div layout="column" layout-align="center center" class="md-margin">
+            <img src="{{File.file}}" style="width: 256px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px 0 rgba(0,0,0,0.12);">
+        </div>
+        <md-button layout="row" layout-align="space-between center">
+            <label for="file" style="cursor: pointer;">
+                <md-icon md-svg-icon="upload"></md-icon> {{::'SELECT_FILE' | translate}}
+            </label>
+        </md-button>
+        <input class="md-button md-ink-ripple" type="file" name="file" id="file" accept="image/*" style="display: none;"
+               onchange="angular.element(this).scope().upload()">
     </md-dialog-content>
+    <md-dialog-actions>
+        <md-button class="md-raised" ng-click="File.cancel()">
+            {{::'CANCEL' | translate}}
+        </md-button>
+        <md-button type="submit" class="md-raised" ng-click="File.confirm()" ng-disabled="!File.file">
+            {{::'CONFIRM' | translate}}
+        </md-button>
+    </md-dialog-actions>
 </md-dialog>

@@ -120,6 +120,7 @@
         $mdIconProvider.icon('suitability-schedule', 'img/icon/suitability-schedule.svg');
         $mdIconProvider.icon('total-user', 'img/icon/total-user.svg');
         $mdIconProvider.icon('true', 'img/icon/true.svg');
+        $mdIconProvider.icon('upload', 'img/icon/upload.svg');
         $mdIconProvider.icon('user-search', 'img/icon/user-search.svg');
     });
 
