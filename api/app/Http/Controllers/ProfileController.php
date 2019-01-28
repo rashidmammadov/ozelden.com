@@ -56,8 +56,8 @@ class ProfileController extends ApiController {
         $originalHeight = $imageDetails[1];
         $newWidth = $originalWidth;
         $newHeight = $originalHeight;
-        if ($originalWidth > 500 || $originalHeight > 500) {
-            $coefficient = ($originalWidth > $originalHeight) ? ($originalWidth / 500) : ($originalHeight / 500);
+        if ($originalWidth > 400 || $originalHeight > 400) {
+            $coefficient = ($originalWidth > $originalHeight) ? ($originalWidth / 400) : ($originalHeight / 400);
             if ($coefficient > 0) {
                 $newWidth = $originalWidth / $coefficient;
                 $newHeight = $originalHeight / $coefficient;
