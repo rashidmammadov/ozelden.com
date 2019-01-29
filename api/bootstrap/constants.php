@@ -1,5 +1,6 @@
 <?php
 
+define('ADDRESS', 'address');
 define('AVERAGE', 'average');
 define('BASE64', 'base64');
 define('BIRTH_DATE', 'birthDate');
@@ -10,6 +11,7 @@ define('CLASS_', 'class');
 define('CLASS_ID', 'classId');
 define('CLASS_NAME', 'className');
 define('CONTENT', 'content');
+define('COUNTRY', 'country');
 define('CURRENCY', 'currency');
 define('DATA', 'data');
 define('DAY', 'day');
@@ -29,6 +31,7 @@ define('GROUP', 'group');
 define('GROUP_DISCOUNT', 'groupDiscount');
 define('IDENTIFIER', 'id');
 define('INDIVIDUAL', 'individual');
+define('LANGUAGE', 'language');
 define('LECTURE', 'lecture');
 define('LECTURE_AREA', 'lectureArea');
 define('LECTURE_THEME', 'lectureTheme');
@@ -40,6 +43,8 @@ define('OVER_INTERNET', 'overInternet');
 define('PACKAGE_DISCOUNT', 'packageDiscount');
 define('PASSWORD', 'password');
 define('PASSWORD_CONFIRMATION', 'password_confirmation');
+define('PICTURE', 'picture');
+define('PHONE', 'phone');
 define('PRICE', 'price');
 define('REGION', 'region');
 define('SEX', 'sex');

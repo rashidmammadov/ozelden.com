@@ -14,6 +14,7 @@ use Validator;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Controllers\EmailController;
+use App\Http\Queries\MySQL\ApiQuery;
 
 class UserController extends ApiController
 {
@@ -171,6 +172,7 @@ class UserController extends ApiController
 
         if ($newUser) {
             $this->suitabilitySchedule->create($user->id);
+            ApiQuery::setUserDefaultProfile($user->id);
         }
 
         return $this->respondCreated("USER_LOGGED_IN_SUCCESSFULLY", $this->userTransformer->transform($user));

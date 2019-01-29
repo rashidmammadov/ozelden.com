@@ -7,6 +7,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 use JWTAuth;
 use Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Http\Queries\MySQL\ApiQuery;
 
 
 class ProfileController extends ApiController {
@@ -65,7 +66,20 @@ class ProfileController extends ApiController {
         }
 
         Image::make(file_get_contents($file))->resize($newWidth, $newHeight)->save($path);
+        $params = array(
+            PICTURE => $path
+        );
+        $this->updateUserProfile($userId, $params);
         return $fileName.' ('.$newWidth.'px-'.$newHeight.'px)';
+    }
+
+    /**
+     * @description send request to update user`s profile.
+     * @param integer $userId
+     * @param array $params
+     */
+    private function updateUserProfile($userId, $params) {
+        ApiQuery::updateUserProfile($userId, $params);
     }
 
 }

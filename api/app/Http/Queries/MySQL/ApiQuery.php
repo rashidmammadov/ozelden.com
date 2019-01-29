@@ -2,6 +2,8 @@
 
 namespace App\Http\Queries\MySQL;
 
+use App\Profile;
+use App\User;
 use App\UserClassList;
 use App\SuitabilitySchedule;
 use App\UserLecturesList;
@@ -11,8 +13,65 @@ class ApiQuery {
 
     public function __construct() {
         // db table names
+        define('PROFILE', 'profile');
         define('USERS', 'users');
         define('USER_CLASS_LIST', 'user_class_list');
+    }
+
+    /* ------------------------- PROFILE QUERIES ------------------------- */
+
+    /**
+     * @description query to get user`s profile
+     * @param integer $userId
+     * @return mixed
+     */
+    public static function getUserProfile($userId) {
+        $queryResult = Profile::where([
+            [USER_ID, EQUAL_SIGN, $userId]
+        ])->first();
+
+        return $queryResult;
+    }
+
+    /**
+     * @description query to set user`s default profile table
+     * @param integer $userId
+     */
+    public static function setUserDefaultProfile($userId) {
+        Profile::create([
+            USER_ID => $userId
+        ]);
+    }
+
+    /**
+     * @description query to update user`s profile.
+     * @param integer $userId
+     * @param array $parameters
+     */
+    public static function updateUserProfile($userId, $parameters) {
+        $queryResult = self::getUserProfile($userId);
+        if (!empty($parameters[PICTURE])) {
+            $queryResult->picture = $parameters[PICTURE];
+        }
+        if (!empty($parameters[PHONE])) {
+            $queryResult->phone = $parameters[PHONE];
+        }
+        if (!empty($parameters[COUNTRY])) {
+            $queryResult->country = $parameters[COUNTRY];
+        }
+        if (!empty($parameters[CITY])) {
+            $queryResult->city = $parameters[CITY];
+        }
+        if (!empty($parameters[DISTRICT])) {
+            $queryResult->district = $parameters[DISTRICT];
+        }
+        if (!empty($parameters[ADDRESS])) {
+            $queryResult->address = $parameters[ADDRESS];
+        }
+        if (!empty($parameters[LANGUAGE])) {
+            $queryResult->language = $parameters[LANGUAGE];
+        }
+        $queryResult->save();
     }
 
     /* ------------------------- USER CLASS QUERIES ------------------------- */
