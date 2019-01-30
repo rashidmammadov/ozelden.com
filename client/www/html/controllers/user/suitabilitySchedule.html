@@ -26,10 +26,8 @@
                                     </md-option>
                                 </md-select>
                             </md-input-container>
-                            <md-button class="md-icon-button" ng-click="Suitability.addRegion()"
-                                       ng-disabled="!Suitability.cities[Suitability.selectedCity]">
-                                <md-tooltip md-direction="top">{{'ADD' | translate}}</md-tooltip>
-                                <md-icon md-svg-icon="add-button"></md-icon>
+                            <md-button class="md-raised" ng-click="Suitability.addRegion()" ng-disabled="!Suitability.cities[Suitability.selectedCity]">
+                                {{::'ADD' | translate}}
                             </md-button>
                         </div>
                         <div layout="row">

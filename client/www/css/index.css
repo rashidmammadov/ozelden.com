@@ -108,13 +108,9 @@ md-card.oz-setting-card md-card-title{
     padding: 8px;
 }
 
-.md-chips md-chip{
-    background-color: #FFFFFF;
-    border-radius: 4px;
-    border: 1px solid #D1A377;
-    font-size: 11px;
-    height: 32px;
-}
+.md-chips md-chip {background-color: #FFFFFF; border-radius: 4px; border: 1px solid #D1A377; font-size: 11px; height: 32px;}
+md-chips .md-chips {box-shadow: none; outline: none;}
+.md-chips md-chip .md-chip-remove md-icon {min-width: 20px; min-height: 20px; width: 20px; height: 20px;}
 
 md-input-container{
     margin: 16px 0px 0px 0px;

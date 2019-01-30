@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class SuitabilitySchedule extends Model {
 
     protected $table = 'user_suitability_schedule';
-    protected $primaryKey = 'userId';
+    protected $primaryKey = USER_ID;
 
     protected $fillable = [
-        'userId', 'region', 'location', 'courseType', 'facility', 'dayHourTable'
+        USER_ID, REGION, LOCATION, COURSE_TYPE, FACILITY, DAY_HOUR_TABLE
     ];
 
     public function user() {
