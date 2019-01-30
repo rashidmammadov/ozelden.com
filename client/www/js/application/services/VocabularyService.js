@@ -7,8 +7,9 @@
         this.api = DirectionService.apiUri();
 
         this.data = function() { return self.api + 'data'; };
-        this.suitabilitySchedule = function() { return self.api + 'suitabilitySchedule'; };
+        this.profile = function () { return self.api + 'profile'; };
         this.refreshUser = function() { return  self.api + 'refreshUser'; };
+        this.suitabilitySchedule = function() { return self.api + 'suitabilitySchedule'; };
         this.search = function() { return self.api + 'search/get'; };
         this.userClassList = function () { return self.api + 'userClassList'; };
         this.userLecturesList = function() { return self.api + 'userLecturesList'; };

@@ -17,11 +17,11 @@ class CreateProfileTable extends Migration
             $table->integer('userId');
             $table->string('picture', 99)->nullable();
             $table->string('phone', 11)->nullable();
-            $table->char('country', 2)->nullable();
+            $table->char('country', 2)->nullable()->default('tr');
             $table->string('city', 20)->nullable();
             $table->string('district', 20)->nullable();
             $table->text('address', 200)->nullable();
-            $table->char('language', 2)->nullable();
+            $table->char('language', 2)->nullable()->default('tr');
             $table->timestamps();
         });
     }

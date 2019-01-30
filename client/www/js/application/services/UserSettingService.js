@@ -11,7 +11,7 @@
         };
 
         /**
-         * @ngdoc method
+         * @ngdoc {POST} method
          * @name ozelden.services.UserSettingService#addToUserClassList
          * @methodOf ozelden.services.UserSettingService
          *
@@ -36,7 +36,7 @@
         }
 
         /**
-         * @ngdoc method
+         * @ngdoc {POST} method
          * @name ozelden.services.UserSettingService#addToUserLectureList
          * @methodOf ozelden.services.UserSettingService
          *
@@ -61,7 +61,31 @@
         }
 
         /**
-         * @ngdoc method
+         * @ngdoc {GET} method
+         * @name ozelden.services.UserSettingService#getProfile
+         * @methodOf ozelden.services.UserSettingService
+         *
+         * @description get selected user`s profile.
+         */
+        function getProfile() {
+            var deferred = $q.defer();
+
+            $http({
+                method: 'GET',
+                url: VocabularyService.profile(),
+                headers: headers
+            }).then(function (response) {
+                $$fetchSuccessResponse(response.data, deferred);
+            }, function (rejection) {
+                deferred.reject(rejection);
+            });
+
+            return deferred.promise;
+        }
+
+
+        /**
+         * @ngdoc {GET} method
          * @name ozelden.services.UserSettingService#getUserClassList
          * @methodOf ozelden.services.UserSettingService
          *
@@ -84,7 +108,7 @@
         }
 
         /**
-         * @ngdoc method
+         * @ngdoc {GET} method
          * @name ozelden.services.UserSettingService#getUserLectureList
          * @methodOf ozelden.services.UserSettingService
          *
@@ -109,7 +133,7 @@
         }
 
         /**
-         * @ngdoc method
+         * @ngdoc {GET} method
          * @name ozelden.services.UserSettingService#getSuitabilitySchedule
          * @methodOf ozelden.services.UserSettingService
          *
@@ -134,7 +158,32 @@
         }
 
         /**
-         * @ngdoc method
+         * @ngdoc {PUT} method
+         * @name ozelden.services.UserSettingService#updateProfile
+         * @methodOf ozelden.services.UserSettingService
+         *
+         * @description update selected user`s profile info.
+         * @param {Object} data - holds the profile data.
+         */
+        function updateProfile(data) {
+            var deferred = $q.defer();
+
+            $http({
+                method: 'PUT',
+                url: VocabularyService.profile(),
+                headers: headers,
+                data: data
+            }).then(function (response) {
+                $$fetchSuccessResponse(response.data, deferred);
+            }, function (rejection) {
+                deferred.reject(rejection);
+            });
+
+            return deferred.promise;
+        }
+
+        /**
+         * @ngdoc {PUT} method
          * @name ozelden.services.UserSettingService#updateSuitabilitySchedule
          * @methodOf ozelden.services.UserSettingService
          *
@@ -159,7 +208,7 @@
         }
 
         /**
-         * @ngdoc method
+         * @ngdoc {PUT} method
          * @name ozelden.services.UserSettingService#updateUserClass
          * @methodOf ozelden.services.UserSettingService
          *
@@ -184,7 +233,7 @@
         }
 
         /**
-         * @ngdoc method
+         * @ngdoc {PUT} method
          * @name ozelden.services.UserSettingService#uploadProfilePicture
          * @methodOf ozelden.services.UserSettingService
          *
@@ -209,7 +258,7 @@
         }
 
         /**
-         * @ngdoc method
+         * @ngdoc {DELETE} method
          * @name ozelden.services.UserSettingService#removeClassFromUserClassList
          * @methodOf ozelden.services.UserSettingService
          *
@@ -234,7 +283,7 @@
         }
 
         /**
-         * @ngdoc method
+         * @ngdoc {DELETE} method
          * @name ozelden.services.UserSettingService#removeLectureFromUserLectureList
          * @methodOf ozelden.services.UserSettingService
          *
@@ -272,14 +321,20 @@
             }
         }
 
+        /** POST METHODS **/
         this.addToUserClassList = addToUserClassList;
         this.addToUserLectureList = addToUserLectureList;
+        /** GET METHODS **/
+        this.getProfile = getProfile;
         this.getUserClassList = getUserClassList;
         this.getUserLectureList = getUserLectureList;
         this.getSuitabilitySchedule = getSuitabilitySchedule;
+        /** PUT METHODS **/
+        this.updateProfile = updateProfile;
         this.updateSuitabilitySchedule = updateSuitabilitySchedule;
         this.updateUserClass = updateUserClass;
         this.uploadProfilePicture = uploadProfilePicture;
+        /** DELETE METHODS **/
         this.removeClassFromUserClassList = removeClassFromUserClassList;
         this.removeLectureFromUserLectureList = removeLectureFromUserLectureList;
         return this;

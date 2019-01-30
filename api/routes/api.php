@@ -39,5 +39,7 @@ Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
     Route::post('/logout', 'UserController@logout');
     Route::post('/register', 'UserController@register');
 
+    Route::get('/profile', 'ProfileController@getUserProfile');
+    Route::put('/profile', 'ProfileController@updateProfile');
     Route::put('/profilePicture', 'ProfileController@uploadProfilePicture');
 });

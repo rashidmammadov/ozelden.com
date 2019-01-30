@@ -7,6 +7,9 @@
             </div>
             <div class="profile-picture-container" layout="column" layout-align="center center">
                 <div class="picture" style="background: url({{User.picture}}) center center no-repeat; background-size: cover;"></div>
+                <md-button class="md-icon-button md-raised" ng-click="User.upload()">
+                    <md-icon md-svg-icon="edit-button"></md-icon>
+                </md-button>
             </div>
             <md-card-content>
                 <div layout="column" flex>
@@ -16,9 +19,6 @@
                     </div>
                 </div>
             </md-card-content>
-            <md-card-actions layout="row" layout-align="end center">
-                <md-button ng-click="User.upload()" class="md-raised" type="submit">{{::'CONFIRM' | translate}}</md-button>
-            </md-card-actions>
         </md-card>
     </div>
 
@@ -30,7 +30,7 @@
                     <md-card-content>
                         <md-input-container class="md-block">
                             <label>{{::'TELEPHONE' | translate}}</label>
-                            <input md-maxlength="10" name="telephone" ng-pattern="/^[0-9]{3}[0-9]{3}[0-9]{4}$/" md-no-asterisk ng-model="User.contact.telephone">
+                            <input md-maxlength="10" name="telephone" ng-pattern="/^[0-9]{3}[0-9]{3}[0-9]{4}$/" md-no-asterisk ng-model="User.profile.phone">
                             <div class="hint">5#########</div>
                             <div ng-messages="contactForm.telephone.$error">
                                 <div ng-message="pattern">{{::'FIELDS_VALIDATION_FAILED' | translate}}</div>
@@ -38,21 +38,32 @@
                         </md-input-container>
                         <div layout="row" flex>
                             <md-input-container class="md-block" flex>
-                                <label>{{::'CITY' | translate}}</label>
-                                <input md-no-asterisk name="city" ng-model="User.personal.city">
+                                <label>{{'CITY' | translate}}</label>
+                                <md-select ng-model="User.profile.city">
+                                    <md-option ng-repeat="(city, index) in User.regions" ng-value="city">
+                                        {{city}}
+                                    </md-option>
+                                </md-select>
                             </md-input-container>
                             <md-input-container class="md-block" flex>
-                                <label>{{::'DISTRICT' | translate}}</label>
-                                <input md-no-asterisk name="district" ng-model="User.personal.district">
+                                <label>{{'DISTRICT' | translate}}</label>
+                                <md-select ng-model="User.profile.district">
+                                    <md-option ng-repeat="district in User.regions[User.profile.city]" ng-value="district">
+                                        {{district}}
+                                    </md-option>
+                                </md-select>
                             </md-input-container>
                         </div>
                         <md-input-container class="md-block">
                             <label>{{::'ADDRESS' | translate}}</label>
-                            <textarea ng-model="User.personal.address" md-maxlength="200" rows="2" md-select-on-focus></textarea>
+                            <textarea ng-model="User.profile.address" md-maxlength="200" rows="2" md-select-on-focus></textarea>
                         </md-input-container>
                     </md-card-content>
                     <md-card-actions layout="row" layout-align="end center">
-                        <md-button class="md-raised" type="submit">{{::'CONFIRM' | translate}}</md-button>
+                        <md-button class="md-raised" type="submit" ng-click="User.updateContact()"
+                            ng-disabled="!User.profile.phone || !User.profile.city || !User.profile.district || !User.profile.address">
+                            {{::'CONFIRM' | translate}}
+                        </md-button>
                     </md-card-actions>
                 </form>
             </md-card>

@@ -8,11 +8,59 @@ use JWTAuth;
 use Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Queries\MySQL\ApiQuery;
+use App\Repository\Transformers\ProfileTransformer;
 
 
 class ProfileController extends ApiController {
 
-    public function __construct() {}
+    protected $profileTransformer;
+
+    public function __construct(ProfileTransformer $profileTransformer) {
+        $this->profileTransformer = $profileTransformer;
+    }
+
+    /**
+     * @description Get profile of user.
+     * @return mixed
+     */
+    public function getUserProfile() {
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+            $userId = $user->id;
+
+            $profile = ApiQuery::getUserProfile($userId);
+            return $this->respondCreated(null, $this->profileTransformer->transform($profile));
+        } catch (JWTException $e) {
+            $this->setStatusCode($e->getStatusCode());
+            return $this->respondWithError($e->getMessage());
+        }
+    }
+
+    /**
+     * @description Handle request to update profile info.
+     * @param Request $request
+     * @return mixed
+     */
+    public function updateProfile(Request $request) {
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+            $userId = $user->id;
+
+            $params = array(
+                PHONE => $request[PHONE],
+                COUNTRY => $request[COUNTRY],
+                CITY => $request[CITY],
+                DISTRICT => $request[DISTRICT],
+                ADDRESS => $request[ADDRESS],
+                LANGUAGE => $request[LANGUAGE]
+            );
+            $this->updateUserProfile($userId, $params);
+            return $this->respondCreated('CHANGES_UPDATED_SUCCESSFULLY');
+        } catch (JWTException $e) {
+            $this->setStatusCode($e->getStatusCode());
+            return $this->respondWithError($e->getMessage());
+        }
+    }
 
     /**
      * @description Handle request to upload picture.
@@ -49,7 +97,8 @@ class ProfileController extends ApiController {
      * @return array|bool
      */
     public function uploadUserProfilePicture($userId, $file, $fileType) {
-        $fileName = 'user-'.$userId.'.'.$fileType;
+        $currentDate = date('siHdmY');
+        $fileName = 'user-'.$userId.'-'.$currentDate.'.'.$fileType;
         $path = public_path().'/images/users/' . $fileName;
 
         $imageDetails = getimagesize($file);
@@ -57,8 +106,8 @@ class ProfileController extends ApiController {
         $originalHeight = $imageDetails[1];
         $newWidth = $originalWidth;
         $newHeight = $originalHeight;
-        if ($originalWidth > 400 || $originalHeight > 400) {
-            $coefficient = ($originalWidth > $originalHeight) ? ($originalWidth / 400) : ($originalHeight / 400);
+        if ($originalWidth > 350 || $originalHeight > 350) {
+            $coefficient = ($originalWidth > $originalHeight) ? ($originalWidth / 350) : ($originalHeight / 350);
             if ($coefficient > 0) {
                 $newWidth = $originalWidth / $coefficient;
                 $newHeight = $originalHeight / $coefficient;

@@ -17,6 +17,14 @@
         $translateProvider.preferredLanguage('tr');
         $translateProvider.useSanitizeValueStrategy('escape');
         
+        function getStaticData($rootScope, DataService) {
+            var params = {lectures: true, regions: true};
+            return (DataService.get(params).then(function (result) {
+                result.lectures && ($rootScope.lectures = result.lectures);
+                result.regions && ($rootScope.regions = result.regions);
+            }))
+        }
+        
         function getUserData($rootScope, $timeout, SignService, CookieService) {
             var user = CookieService.getUser();
             if (user) {
@@ -44,6 +52,7 @@
             controller: 'MainCtrl',
             controllerAs: 'Main',
             resolve: {
+                data: getStaticData,
                 user: getUserData
             }
         }).state('ozelden.user',{
