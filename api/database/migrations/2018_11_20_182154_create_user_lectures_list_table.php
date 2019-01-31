@@ -13,11 +13,11 @@ class CreateUserLecturesListTable extends Migration
      */
     public function up() {
         Schema::create('user_lectures_list', function (Blueprint $table) {
-            $table->integer('userId');
-            $table->char('lectureArea', 99);
-            $table->char('lectureTheme', 99);
-            $table->integer('experience');
-            $table->float('price');
+            $table->integer(USER_ID);
+            $table->char(LECTURE_AREA, 99);
+            $table->char(LECTURE_THEME, 99);
+            $table->integer(EXPERIENCE);
+            $table->float(PRICE);
             $table->timestamps();
         });
     }

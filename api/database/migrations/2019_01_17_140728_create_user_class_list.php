@@ -12,17 +12,17 @@ class CreateUserClassList extends Migration
      */
     public function up() {
         Schema::create('user_class_list', function (Blueprint $table) {
-            $table->increments('classId');
-            $table->integer('userId');
-            $table->char('className', 30);
-            $table->integer('tutorId');
-            $table->char('lectureArea', 50);
-            $table->char('lectureTheme', 50);
-            $table->char('city', 50);
-            $table->char('district', 50);
-            $table->text('day', 500)->nullable();
-            $table->text('content', 200)->nullable();
-            $table->boolean('status')->default(1);
+            $table->increments(CLASS_ID);
+            $table->integer(USER_ID);
+            $table->char(CLASS_NAME, 30);
+            $table->integer(TUTOR_ID);
+            $table->char(LECTURE_AREA, 50);
+            $table->char(LECTURE_THEME, 50);
+            $table->char(CITY, 50);
+            $table->char(DISTRICT, 50);
+            $table->text(DAY, 500)->nullable();
+            $table->text(CONTENT, 200)->nullable();
+            $table->boolean(STATUS)->default(1);
             $table->timestamps();
         });
     }

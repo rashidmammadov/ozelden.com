@@ -14,14 +14,14 @@ class CreateProfileTable extends Migration
     public function up()
     {
         Schema::create('profile', function (Blueprint $table) {
-            $table->integer('userId');
-            $table->string('picture', 99)->nullable();
-            $table->string('phone', 11)->nullable();
-            $table->char('country', 2)->nullable()->default('tr');
-            $table->string('city', 20)->nullable();
-            $table->string('district', 20)->nullable();
-            $table->text('address', 200)->nullable();
-            $table->char('language', 2)->nullable()->default('tr');
+            $table->integer(USER_ID);
+            $table->string(PICTURE, 99)->nullable();
+            $table->string(PHONE, 11)->nullable();
+            $table->char(COUNTRY, 2)->nullable()->default(DOMAIN_TURKEY);
+            $table->string(CITY, 20)->nullable();
+            $table->string(DISTRICT, 20)->nullable();
+            $table->text(ADDRESS, 200)->nullable();
+            $table->char(LANGUAGE, 2)->nullable()->default(DOMAIN_TURKEY);
             $table->timestamps();
         });
     }

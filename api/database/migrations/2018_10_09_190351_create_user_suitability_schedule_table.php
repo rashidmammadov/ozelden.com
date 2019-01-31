@@ -14,12 +14,12 @@ class CreateUserSuitabilityScheduleTable extends Migration
     public function up()
     {
         Schema::create('user_suitability_schedule', function (Blueprint $table) {
-            $table->integer('userId');
-            $table->string('region')->nullable();
-            $table->string('location')->nullable();
-            $table->string('courseType')->nullable();
-            $table->string('facility')->nullable();
-            $table->text('dayHourTable', 999)->nullable();
+            $table->integer(USER_ID);
+            $table->string(REGION)->nullable();
+            $table->string(LOCATION)->nullable();
+            $table->string(COURSE_TYPE)->nullable();
+            $table->string(FACILITY)->nullable();
+            $table->text(DAY_HOUR_TABLE, 500)->nullable();
             $table->timestamps();
         });
     }
