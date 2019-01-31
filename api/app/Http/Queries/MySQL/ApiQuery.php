@@ -222,7 +222,7 @@ class ApiQuery {
      * @param integer $userId
      * @return mixed query result
      */
-    public function getUserSuitabilitySchedule($userId) {
+    public static function getUserSuitabilitySchedule($userId) {
         $queryResult = SuitabilitySchedule::where(USER_ID, $userId)->first();
 
         return $queryResult;
@@ -237,7 +237,7 @@ class ApiQuery {
      * @param string $facility {object}
      * @param string $dayHourTable {object}
      */
-    public function setUserDefaultSuitabilitySchedule($userId, $region, $location, $courseType, $facility, $dayHourTable) {
+    public static function setUserDefaultSuitabilitySchedule($userId, $region, $location, $courseType, $facility, $dayHourTable) {
         SuitabilitySchedule::create([
             USER_ID => $userId,
             REGION => $region,
@@ -251,19 +251,25 @@ class ApiQuery {
     /**
      * @description query to update user`s suitability schedule
      * @param integer $userId
-     * @param string $region {array}
-     * @param string $location {object}
-     * @param string $courseType {object}
-     * @param string $facility {object}
-     * @param string $dayHourTable {object}
+     * @param $parameters
      */
-    public function updateUserSuitabilitySchedule($userId, $region, $location, $courseType, $facility, $dayHourTable) {
-        $queryResult = $this->getUserSuitabilitySchedule($userId);
-        $queryResult->region = $region;
-        $queryResult->location = $location;
-        $queryResult->courseType = $courseType;
-        $queryResult->facility = $facility;
-        $queryResult->dayHourTable = $dayHourTable;
+    public static function updateUserSuitabilitySchedule($userId, $parameters) {
+        $queryResult = self::getUserSuitabilitySchedule($userId);
+        if (!empty($parameters[REGION])) {
+            $queryResult->region = json_encode($parameters[REGION]);
+        }
+        if (!empty($parameters[LOCATION])) {
+            $queryResult->location = json_encode($parameters[LOCATION]);
+        }
+        if (!empty($parameters[COURSE_TYPE])) {
+            $queryResult->courseType = json_encode($parameters[COURSE_TYPE]);
+        }
+        if (!empty($parameters[FACILITY])) {
+            $queryResult->facility = json_encode($parameters[FACILITY]);
+        }
+        if (!empty($parameters[DAY_HOUR_TABLE])) {
+            $queryResult->dayHourTable = json_encode($parameters[DAY_HOUR_TABLE]);
+        }
         $queryResult->save();
     }
 

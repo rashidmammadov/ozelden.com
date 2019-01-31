@@ -138,16 +138,14 @@
          * @methodOf ozelden.services.UserSettingService
          *
          * @description get selected user`s suitability schedule.
-         * @param {Integer} id - holds the user`s id.
          */
-        function getSuitabilitySchedule(id) {
+        function getSuitabilitySchedule() {
             var deferred = $q.defer();
 
             $http({
                 method: 'GET',
                 url: VocabularyService.suitabilitySchedule(),
-                headers: headers,
-                params: { id: id }
+                headers: headers
             }).then(function (response) {
                 $$fetchSuccessResponse(response.data, deferred);
             }, function (rejection) {

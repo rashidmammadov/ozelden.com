@@ -1,45 +1,31 @@
 (function () {
     'use strict';
 
-    function UserSuitabilityScheduleCtrl($rootScope, $scope, $filter, CookieService, DataService, UserSettingService, NotificationService){
+    function UserSuitabilityScheduleCtrl($rootScope, $scope, $filter, UserSettingService, NotificationService){
         var self = this;
 
-        $scope.disableRegionButton = true;
         $scope.saveChangesButton = false;
         $rootScope.loadingOperation = true;
 
-        this.currentUserId = CookieService.getUser().id;
-        this.cities = [];
-        this.selectedCity;
-        this.selectedDistrict;
-
-        this.region;
-        this.location;
-        this.courseType;
-        this.facility;
-        this.dayHourTable;
+        this.cities = $rootScope.regions;
+        this.selectedCity = null;
+        this.selectedDistrict = null;
 
         /**
-         * @ngdoc method
-         * @description Get default data.
+         * @ngdoc param
+         * @description Get user`s suitability schedule.
          */
-        DataService.get({regions: true}).then(function (result) {
-            result.regions && (self.cities = result.regions);
+        UserSettingService.getSuitabilitySchedule().then(function(result) {
             $rootScope.loadingOperation = false;
-        }, function() {
-            $rootScope.loadingOperation = false;
-        });
-
-        UserSettingService.getSuitabilitySchedule(self.currentUserId).then(function(result){
-            $scope.region = self.region = result.data.region;
+            self.region = result.data.region;
             self.location = result.data.location;
             self.courseType = result.data.courseType;
             self.facility = result.data.facility;
             self.dayHourTable = result.data.dayHourTable;
             self.$$setDayHourTableData();
         }, function(rejection){
-            NotificationService.showMessage(rejection);
             $rootScope.loadingOperation = false;
+            NotificationService.showMessage(rejection);
         });
 
         /**
@@ -51,8 +37,8 @@
             var region = {
                 city: self.selectedCity,
                 district: self.selectedDistrict
-            }
-            if(self.region.length > 4) {
+            };
+            if (self.region.length > 4) {
                 NotificationService.showMessage($filter('translate')('YOU_CAN_NOT_ADD_MORE_THAN_5_REGIONS'));
             } else {
                 var exist = false;
@@ -62,8 +48,12 @@
                     }
                 });
 
-                !exist ? self.region.push(region) : NotificationService.showMessage($filter('translate')('THIS_REGION_ALREADY_ADDED'));
-                $scope.region = self.region;
+                if (!exist) {
+                    self.region.push(region);
+                    updateSuitabilitySchedule({'region': self.region});
+                } else {
+                    NotificationService.showMessage($filter('translate')('THIS_REGION_ALREADY_ADDED'));
+                }
             }
         }
 
@@ -74,36 +64,26 @@
          */
         function updateDayHourTableData(data) {
             angular.forEach(self.dayHourTable, function (value, day) {
-                if(day === data.day){
+                if (day === data.day) {
                     value[data.hour] = data.value;
                 }
             });
-            $scope.saveChangesButton = true;
         }
 
         /**
          * @ngdoc method
          * @name ozelden.controllers.controllers:TutorSuitabilityScheduleCtrl#updateSuitabilitySchedule
          * @description Update tutor`s suitability schedule by send request.
+         * @param {Object} data - hold the changed object.
          */
-        function updateSuitabilitySchedule(){
+        function updateSuitabilitySchedule(data) {
             $rootScope.loadingOperation = true;
-            var data = {
-                userId: self.currentUserId,
-                region: self.region,
-                location: self.location,
-                courseType: self.courseType,
-                facility: self.facility,
-                dayHourTable: self.dayHourTable
-            }
             UserSettingService.updateSuitabilitySchedule(data).then(function(result){
                 $rootScope.loadingOperation = false;
                 NotificationService.showMessage($filter('translate')(result.message));
-                $scope.saveChangesButton = false;
             },function(rejection){
                 $rootScope.loadingOperation = false;
                 NotificationService.showMessage($filter('translate')(rejection));
-                $scope.saveChangesButton = false;
             });
         }
 
@@ -113,9 +93,10 @@
          * @description Set tutor`s dayHourTable data for directive.
          */
         function $$setDayHourTableData() {
+            $rootScope.loadingOperation = false;
             var data = [];
-            angular.forEach(self.dayHourTable, function(value, day){
-                angular.forEach(value, function(d, hour){
+            angular.forEach(self.dayHourTable, function(value, day) {
+                angular.forEach(value, function(d, hour) {
                     data.push({
                         day: day,
                         hour: hour,
@@ -124,22 +105,10 @@
                 });
             });
             $scope.$broadcast('$drawDayHourTable', data);
-            $rootScope.loadingOperation = false;
         }
-
-        function activateSaveButton(){
-            $scope.saveChangesButton = true;
-        }
-
-        $scope.$watch('region.length', function (newVal, oldVal) {
-            if (newVal !== undefined && oldVal !== undefined && newVal !== oldVal){
-                $scope.saveChangesButton = true;
-            }
-        });
 
         this.addRegion = addRegion;
         this.updateSuitabilitySchedule = updateSuitabilitySchedule;
-        this.activateSaveButton = activateSaveButton;
         this.updateDayHourTableData = updateDayHourTableData;
 
         this.$$setDayHourTableData = $$setDayHourTableData;

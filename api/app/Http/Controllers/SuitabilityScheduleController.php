@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\SuitabilitySchedule;
 use App\Http\Queries\MySQL\ApiQuery;
 use Illuminate\Http\Request;
 use JWTAuth;
@@ -17,16 +16,13 @@ use Tymon\JWTAuth\Exceptions\JWTException;
  */
 class SuitabilityScheduleController extends ApiController {
 
-    private $dbQuery;
     private $userSuitabilityScheduleTransformer;
 
     /**
      * SuitabilityScheduleController constructor.
-     * @param ApiQuery $apiQuery
      * @param UserSuitabilityScheduleTransformer $userSuitabilityScheduleTransformer
      */
-    public function __construct(apiQuery $apiQuery, userSuitabilityScheduleTransformer $userSuitabilityScheduleTransformer) {
-        $this->dbQuery = $apiQuery;
+    public function __construct(userSuitabilityScheduleTransformer $userSuitabilityScheduleTransformer) {
         $this->userSuitabilityScheduleTransformer = $userSuitabilityScheduleTransformer;
     }
 
@@ -42,19 +38,19 @@ class SuitabilityScheduleController extends ApiController {
             $facility = json_encode($this->userSuitabilityScheduleTransformer->setFacility());
             $dayHourTable =  json_encode($this->userSuitabilityScheduleTransformer->setDayHourTable());
 
-            $this->dbQuery->setUserDefaultSuitabilitySchedule($userId, $region, $location, $courseType, $facility, $dayHourTable);
+            ApiQuery::setUserDefaultSuitabilitySchedule($userId, $region, $location, $courseType, $facility, $dayHourTable);
         }
     }
 
     /**
      * @description: get given user`s suitability schedule.
-     * @param Request $request
      * @return mixed
      */
-    public function getSuitabilitySchedule(Request $request) {
+    public function getSuitabilitySchedule() {
         try {
-            JWTAuth::getToken();
-            $suitabilitySchedule = $this->dbQuery->getUserSuitabilitySchedule($request[IDENTIFIER]);
+            $user = JWTAuth::parseToken()->authenticate();
+            $userId = $user->id;
+            $suitabilitySchedule = ApiQuery::getUserSuitabilitySchedule($userId);
             return $this->respondCreated('', $this->userSuitabilityScheduleTransformer->transform($suitabilitySchedule));
         } catch (JWTException $e) {
             $this->setStatusCode($e->getStatusCode());
@@ -69,15 +65,10 @@ class SuitabilityScheduleController extends ApiController {
      */
     public function updateSuitabilitySchedule(Request $request) {
         try {
-            JWTAuth::getToken();
+            $user = JWTAuth::parseToken()->authenticate();
+            $userId = $user->id;
             try {
-                $region = json_encode($request[REGION]);
-                $location = json_encode($request[LOCATION]);
-                $courseType = json_encode($request[COURSE_TYPE]);
-                $facility = json_encode($request[FACILITY]);
-                $dayHourTable = json_encode($request[DAY_HOUR_TABLE]);
-
-                $this->dbQuery->updateUserSuitabilitySchedule($request[USER_ID], $region, $location, $courseType, $facility, $dayHourTable);
+                ApiQuery::updateUserSuitabilitySchedule($userId, $request);
                 return $this->respondCreated('CHANGES_UPDATED_SUCCESSFULLY');
             } catch (Exception $e) {
                 $this->setStatusCode($e->getStatusCode());
