@@ -1,6 +1,6 @@
 <div layout-gt-sm="row" layout="column" flex>
     <div layout="column" flex>
-        <div layout-gt-sm="row" layout="column" flex>
+        <div layout-gt-md="row" layout="column" flex>
             <div flex layout="column">
                 <card-label>{{::'REGIONS' | translate}}</card-label>
                 <md-card class="oz-setting-card md-whiteframe-1dp min-height-md">
@@ -63,7 +63,7 @@
             </div>
         </div>
 
-        <div layout-gt-sm="row" layout="column" flex>
+        <div layout-gt-md="row" layout="column" flex>
             <div flex layout="column">
                 <card-label>{{::'COURSE_TYPE' | translate}}</card-label>
                 <md-card class="oz-setting-card md-whiteframe-1dp min-height-md">
@@ -101,7 +101,7 @@
     <div layout="row">
         <div flex layout="column">
             <card-label>{{::'SUITABILITY_SCHEDULE' | translate}}</card-label>
-            <md-card class="oz-setting-card md-whiteframe-1dp" flex>
+            <md-card class="oz-setting-card md-whiteframe-1dp">
                 <md-card-content>
                     <oz-Suitability-schedule on-click="Suitability.updateDayHourTableData"></oz-Suitability-schedule>
                 </md-card-content>

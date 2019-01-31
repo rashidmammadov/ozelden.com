@@ -22,8 +22,8 @@
             self.courseType = result.data.courseType;
             self.facility = result.data.facility;
             self.dayHourTable = result.data.dayHourTable;
-            self.$$setDayHourTableData();
-        }, function(rejection){
+            $$setDayHourTableData();
+        }, function(rejection) {
             $rootScope.loadingOperation = false;
             NotificationService.showMessage(rejection);
         });
@@ -68,6 +68,7 @@
                     value[data.hour] = data.value;
                 }
             });
+            updateSuitabilitySchedule({'dayHourTable': self.dayHourTable});
         }
 
         /**
@@ -110,8 +111,6 @@
         this.addRegion = addRegion;
         this.updateSuitabilitySchedule = updateSuitabilitySchedule;
         this.updateDayHourTableData = updateDayHourTableData;
-
-        this.$$setDayHourTableData = $$setDayHourTableData;
     }
 
     angular.module('ozelden.controllers').controller('UserSuitabilityScheduleCtrl', UserSuitabilityScheduleCtrl);
