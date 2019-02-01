@@ -70,18 +70,12 @@ class LectureController extends ApiController {
      */
     public function getUserLectureList(Request $request) {
         try {
-            JWTAuth::getToken();
-            $rules = array(USER_ID => 'required');
-            $validator = Validator::make($request->all(), $rules);
-            if ($validator->fails()) {
-                return $this->respondValidationError('FIELDS_VALIDATION_FAILED', $validator->errors());
+            $user = JWTAuth::parseToken()->authenticate();
+            $userId = $user->id;
+            if ($request[AVERAGE] == true) {
+                return $this->userLecturesListWithAverage($userId);
             } else {
-                $userId = $request[USER_ID];
-                if ($request[AVERAGE] == true) {
-                    return $this->userLecturesListWithAverage($userId);
-                } else {
-                    return $this->userLecturesListWithoutAverage($userId);
-                }
+                return $this->userLecturesListWithoutAverage($userId);
             }
         } catch (JWTException $e) {
             $this->setStatusCode($e->getStatusCode());

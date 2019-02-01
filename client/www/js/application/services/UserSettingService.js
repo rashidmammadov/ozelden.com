@@ -113,7 +113,7 @@
          * @methodOf ozelden.services.UserSettingService
          *
          * @description get selected user`s lecture list.
-         * @param {Object} params - holds the user id and response type.
+         * @param {Object} params - holds the response type.
          */
         function getUserLectureList(params) {
             var deferred = $q.defer();

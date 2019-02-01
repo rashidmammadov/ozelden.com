@@ -106,6 +106,7 @@
         $mdIconProvider.icon('edit-button', 'img/icon/edit-button.svg');
         $mdIconProvider.icon('false', 'img/icon/false.svg');
         $mdIconProvider.icon('female', 'img/icon/female.svg');
+        $mdIconProvider.icon('info', 'img/icon/info.svg');
         $mdIconProvider.icon('lang-az', 'img/icon/lang-az.svg');
         $mdIconProvider.icon('lang-en', 'img/icon/lang-en.svg');
         $mdIconProvider.icon('lang-tr', 'img/icon/lang-tr.svg');

@@ -37,7 +37,7 @@
                             <div ng-messages="classForm.lecture.$error">
                                 <div ng-message="required">{{::'REQUIRED' | translate}}</div>
                             </div>
-                            <a class="redirect-button" ui-sref="ozelden.user.lecturesList" ng-click="Class.cancel()">{{::'ADD_LECTURE' | translate}}</a>
+                            <div class="hint">{{::'ADD_MORE_LECTURE_INFO' | translate}}</div>
                         </md-input-container>
 
                         <md-input-container>
@@ -52,22 +52,19 @@
                             <div ng-messages="classForm.region.$error">
                                 <div ng-message="required">{{::'REQUIRED' | translate}}</div>
                             </div>
-                            <a class="redirect-button" ui-sref="ozelden.user.suitabilitySchedule" ng-click="Class.cancel()">{{::'ADD_REGION' | translate}}</a>
+                            <div class="hint">{{::'ADD_MORE_REGION_INFO' | translate}}</div>
                         </md-input-container>
                     </md-card-content>
                 </md-card>
 
-                <card-label>{{::'CONTENT' | translate}}</card-label>
+                <card-label>{{::'INSPECTION' | translate}} / {{::'EXAM' | translate}}</card-label>
                 <md-card class="oz-setting-card">
                     <md-card-content layout="column" flex>
                         <md-switch ng-model="Class.content.inspection" aria-label="Inspection" flex>
-                            {{::'INSPECTION' | translate}}
-                        </md-switch>
-                        <md-switch ng-model="Class.content.point" aria-label="Point" flex>
-                            {{::'POINT' | translate}}
+                            {{::'INSPECTION_INFO' | translate}}
                         </md-switch>
                         <md-switch ng-model="Class.content.exam" aria-label="Exam" flex>
-                            {{::'EXAM' | translate}}
+                            {{::'EXAM_INFO' | translate}}
                         </md-switch>
                     </md-card-content>
                 </md-card>
@@ -81,18 +78,28 @@
                         <md-switch ng-model="d.state" aria-label="{{Class.dayMap[$index]}}" flex>
                             {{::Class.dayMap[$index] | translate}}
                         </md-switch>
-                        <md-input-container>
-                            <label>{{::'START' | translate}}</label>
-                            <md-select name="start" ng-model="d.start" ng-disabled="!d.state">
-                                <md-option value="{{hour}}" ng-repeat="hour in Class.hours">{{hour}}</md-option>
-                            </md-select>
-                        </md-input-container>
-                        <md-input-container>
-                            <label>{{::'END' | translate}}</label>
-                            <md-select name="end" ng-model="d.end" ng-disabled="!d.state">
-                                <md-option value="{{hour}}" ng-repeat="hour in Class.hours">{{hour}}</md-option>
-                            </md-select>
-                        </md-input-container>
+                        <md-autocomplete class="no-errors-spacer" md-selected-item="d.start" md-autoselect="true"
+                                         md-search-text="d.startDateText"
+                                         md-selected-item-change="d.start"
+                                         md-items="date in Class.querySearch(d.startDateText, Class.hours)"
+                                         md-item-text="::date" md-min-length="0"
+                                         md-floating-label="{{::'START' | translate}}" md-require-match="true"
+                                         ng-disabled="!d.state" flex>
+                            <md-item-template>
+                                <span md-highlight-text="d.startDateText" md-highlight-flags="^i">{{date}}</span>
+                            </md-item-template>
+                        </md-autocomplete>
+                        <md-autocomplete class="no-errors-spacer" md-selected-item="d.end" md-autoselect="true"
+                                         md-search-text="d.endDateText"
+                                         md-selected-item-change="d.end"
+                                         md-items="date in Class.querySearch(d.endDateText, Class.hours)"
+                                         md-item-text="::date" md-min-length="0"
+                                         md-floating-label="{{::'END' | translate}}" md-require-match="true"
+                                         ng-disabled="!d.state" flex>
+                            <md-item-template>
+                                <span md-highlight-text="d.endDateText" md-highlight-flags="^i">{{date}}</span>
+                            </md-item-template>
+                        </md-autocomplete>
                     </div>
                 </md-card-content>
             </md-card>

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function ClassDialogCtrl($scope, $mdDialog, $state, locals, CookieService) {
+    function ClassDialogCtrl($scope, $mdDialog, $state, locals, CookieService, UtilityService) {
         var self = this;
         var userId = CookieService.getUser() && CookieService.getUser().id;
 
@@ -11,20 +11,20 @@
         this.tutors = locals.tutors;
         this.lectures = locals.lectures;
         this.regions = locals.regions;
+        this.dayHourTable = locals.dayHourTable;
 
         this.dayMap = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
-        this.hours = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00',
-            '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', "23:00", "24:00"];
+        this.hours = [];
+        for (var i = 8; i < 24; i++) {
+            for (var j = 0; j < 60; j += 5) {
+                var h = i < 10 ? '0'.concat(i) : i;
+                var m = j < 10 ? '0'.concat(j) : j;
+                self.hours.push([h, m].join(':'));
+            }
+        }
 
-        var defaultDay = [
-            {state: false, start: '08:00', end: '12:00' },
-            {state: false, start: '08:00', end: '12:00' },
-            {state: false, start: '08:00', end: '12:00' },
-            {state: false, start: '08:00', end: '12:00' },
-            {state: false, start: '08:00', end: '12:00' },
-            {state: false, start: '08:00', end: '12:00' },
-            {state: false, start: '08:00', end: '12:00' }
-        ];
+        var defaultDay = [];
+        for (var i = 0; i < 7; i++) { defaultDay.push({state: false, start: '08:00', end: '12:00' }); }
 
         this.className = $scope.data ? $scope.data.className : null;
         this.tutor = $scope.data ? $scope.data.tutor.tutorId : userId;
@@ -32,6 +32,8 @@
         this.region = $scope.data ? {city: $scope.data.city, district: $scope.data.district} : null;
         this.content = $scope.data ? $scope.data.content : {};
         this.day = ($scope.data && $scope.data.day) ? $scope.data.day : defaultDay;
+
+        this.querySearch = UtilityService.querySearch;
         
         function confirm() {
             var dayObject = [];

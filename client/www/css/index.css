@@ -6,7 +6,7 @@ h2 {font-weight: 500;}
 
 .md-datepicker-input.md-input {width: 205px;}
 
-.hint {color: #D0D0D0;}
+.hint {color: #D0D0D0; font-size: 13px;}
 
 ui-view {padding: 0px !important;}
 
@@ -60,6 +60,7 @@ md-chips .md-chips {box-shadow: none; outline: none;}
 .md-chips md-chip .md-chip-remove md-icon {min-width: 20px; min-height: 20px; width: 20px; height: 20px;}
 
 md-input-container {margin: 16px 0px 0px 0px;}
+md-input-container .md-errors-spacer {min-height: 0px;}
 
 md-switch {margin: 8px 0px;}
 .md-switch.md-default-theme.md-checked .md-thumb, md-switch.md-checked .md-thumb {background-color: #D1A377 !important;}
@@ -67,6 +68,8 @@ md-switch.md-default-theme.md-checked .md-bar, md-switch.md-checked .md-bar {bac
 
 md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {background-color: #D1A377;}
 md-progress-linear.md-default-theme .md-container, md-progress-linear .md-container {background-color: rgba(209, 163, 119, 0.3);}
+
+.cursor-pointer {cursor: pointer;}
 
 .md-open-menu-container.md-active {border-radius: 8px;}
 md-menu-content { padding: 0px;}

@@ -14,7 +14,7 @@
          * @ngdoc request
          * @description Get user`s lectures list.
          */
-        UserSettingService.getUserLectureList({userId: userId, average: true}).then(function(result) {
+        UserSettingService.getUserLectureList({average: true}).then(function(result) {
             if (result.status === 'success') { self.lectures = result.data; }
         });
 
@@ -22,7 +22,7 @@
          * @ngdoc request
          * @description Get user`s regions list.
          */
-        UserSettingService.getSuitabilitySchedule(userId).then(function (result) {
+        UserSettingService.getSuitabilitySchedule().then(function (result) {
             if (result.status === 'success') { self.regions = result.data.region; }
         });
 
