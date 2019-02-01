@@ -36,6 +36,7 @@ md-list {padding: 0px;}
 .min-height-lg {min-height: 256px;}
 
 .large-icon {height: 48px; width: 48px; min-height: 48px; min-width: 48px;}
+.mid-icon {height: 20px; width: 20px; min-height: 20px; min-width: 20px;}
 .small-icon {height: 16px; width: 16px; min-height: 16px; min-width: 16px;}
 
 md-pagination-wrapper {width: 100%;}
@@ -74,10 +75,12 @@ md-progress-linear.md-default-theme .md-container, md-progress-linear .md-contai
 .md-open-menu-container.md-active {border-radius: 8px;}
 md-menu-content { padding: 0px;}
 
-.ozelden-list.header {border-bottom: 1px solid lightgray;}
+.scroll-left {width: 100%; overflow-x: auto;}
+.min-width-md {min-width: 600px;}
+
+.ozelden-list.header {box-shadow: 0 2px 16px -4px rgba(0,0,0,0.24);}
 .ozelden-list.header p {font-weight: bold; color: #555555;}
 .ozelden-list.body {height: 240px;overflow-y: scroll;}
-.ozelden-list.body .average-icon md-icon {height: 18px; width: 18px; min-height: 0px; min-width: 0px;}
 
 .no-data {position: relative; bottom: 128px; text-align: center; color: #721C47; }
 

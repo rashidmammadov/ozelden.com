@@ -14,10 +14,8 @@ class LectureController extends ApiController {
 
     private $dataController;
     private $userLectureTransformer;
-    private $dbQuery;
 
-    public function __construct(apiQuery $apiQuery, dataController $dataController, userLectureTransformer $userLectureTransformer) {
-        $this->dbQuery = $apiQuery;
+    public function __construct(dataController $dataController, userLectureTransformer $userLectureTransformer) {
         $this->dataController = $dataController;
         $this->userLectureTransformer = $userLectureTransformer;
     }
@@ -48,12 +46,12 @@ class LectureController extends ApiController {
                     EXPERIENCE => $request[EXPERIENCE],
                     PRICE => $request[PRICE]
                 );
-                $existLecture = $this->dbQuery->getUserSelectedLecture($userId, $params);
+                $existLecture = ApiQuery::getUserSelectedLecture($userId, $params);
 
                 if ($existLecture) {
                     return $this->respondWithError('THIS_LECTURE_ALREADY_ADDED');
                 } else {
-                    $this->dbQuery->setUserLecture($userId, $params);
+                    ApiQuery::setUserLecture($userId, $params);
                     return $this->respondCreated('LECTURE_ADDED_SUCCESSFULLY');
                 }
             }
@@ -104,8 +102,7 @@ class LectureController extends ApiController {
                     LECTURE_AREA => $request[LECTURE_AREA],
                     LECTURE_THEME => $request[LECTURE_THEME]
                 );
-                $this->dbQuery->deleteUserSelectedLecture($userId, $params);
-
+                ApiQuery::deleteUserSelectedLecture($userId, $params);
                 return $this->respondCreated('LECTURE_REMOVED_SUCCESSFULLY');
             }
         } catch (JWTException $e) {
@@ -121,7 +118,7 @@ class LectureController extends ApiController {
      */
     public function userLecturesListWithAverage($userId) {
         $lecturesData = $this->getAllLecturesData();
-        $userLecturesList = $this->dbQuery->getUserLecturesList($userId);
+        $userLecturesList = ApiQuery::getUserLecturesList($userId);
         $responseList = array();
         foreach ($userLecturesList as $lecture) {
             for ($i = 0; $i < count($lecturesData); $i++) {
@@ -148,7 +145,14 @@ class LectureController extends ApiController {
      * @return mixed
      */
     public function userLecturesListWithoutAverage($userId) {
-        $userLecturesList = $this->dbQuery->getUserLecturesList($userId);
+        $userLecturesList = ApiQuery::getUserLecturesList($userId);
+        $responseList = array();
+        foreach ($userLecturesList as $lecture) {
+            $lecture[CURRENCY] = TURKISH_LIRA;
+            $r = $this->userLectureTransformer->transform($lecture);
+            array_push($responseList, $r);
+        }
+        return $this->respondCreated('SUCCESS', $responseList);
     }
 
     /**

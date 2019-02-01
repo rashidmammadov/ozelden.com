@@ -165,7 +165,7 @@ class ApiQuery {
      * @param integer $userId
      * @param array $parameters
      */
-    public function deleteUserSelectedLecture($userId, $parameters) {
+    public static function deleteUserSelectedLecture($userId, $parameters) {
         UserLecturesList::where([
             [USER_ID, EQUAL_SIGN, $userId],
             [LECTURE_AREA, EQUAL_SIGN, $parameters[LECTURE_AREA]],
@@ -178,7 +178,7 @@ class ApiQuery {
      * @param integer $userId
      * @return mixed query result
      */
-    public function getUserLecturesList($userId) {
+    public static function getUserLecturesList($userId) {
         $queryResult = UserLecturesList::where(USER_ID, $userId)->get();
 
         return $queryResult;
@@ -190,7 +190,7 @@ class ApiQuery {
      * @param array $parameters
      * @return mixed query result
      */
-    public function getUserSelectedLecture($userId, $parameters) {
+    public static function getUserSelectedLecture($userId, $parameters) {
         $queryResult = UserLecturesList::where([
             [USER_ID, EQUAL_SIGN, $userId],
             [LECTURE_AREA, EQUAL_SIGN, $parameters[LECTURE_AREA]],
@@ -205,7 +205,7 @@ class ApiQuery {
      * @param integer $userId
      * @param array $parameters
      */
-    public function setUserLecture($userId, $parameters) {
+    public static function setUserLecture($userId, $parameters) {
         UserLecturesList::create([
             USER_ID => $userId,
             LECTURE_AREA => $parameters[LECTURE_AREA],

@@ -1,37 +1,28 @@
 (function () {
     'use strict';
 
-    function UserLecturesListCtrl($rootScope, $scope, $filter, $http, $mdDialog, CookieService, DataService, 
-            NotificationService, UserSettingService) {
+    function UserLecturesListCtrl($rootScope, $scope, $filter, $http, $mdDialog, NotificationService,
+            UtilityService, UserSettingService) {
         var self = this;
 
-        var userId = CookieService.getUser() && CookieService.getUser().id;
         $rootScope.loadingOperation = true;
-        this.lectures;
+        this.lectures = $rootScope.lectures;
         this.lecturesList = [];
 
         this.experienceList = [];
         for (var i = 0; i <= 60; i++) { self.experienceList.push(i); }
 
-        /**
-         * @ngdoc request
-         * @description Get default data.
-         */
-        DataService.get({lectures: true}).then(function (result) {
-            result.lectures && (self.lectures = result.lectures);
-        }, function() {
-            $rootScope.loadingOperation = false;
-        });
+        this.findLectureAverage = UtilityService.findLectureAverage;
 
         /**
          * @ngdoc request
          * @description Get user`s lectures list.
          */
-        UserSettingService.getUserLectureList({userId: userId, average: true}).then(function(result) {
+        UserSettingService.getUserLectureList({average: true}).then(function(result) {
+            $rootScope.loadingOperation = false;
             if (result.status === 'success') {
                 self.lecturesList = result.data;
             }
-            $rootScope.loadingOperation = false;
         }, function() {
             $rootScope.loadingOperation = false;
             NotificationService.showMessage($filter('translate')('SOMETHING_WENT_WRONG_WHILE_GETTING_LECTURES_LIST'));
@@ -52,8 +43,8 @@
 
             if (!result) {
                 UserSettingService.addToUserLectureList(lectureObject).then(function(result) {
-                    self.lecturesList.push(lectureObject);
                     $rootScope.loadingOperation = false;
+                    self.lecturesList.push(lectureObject);
                     NotificationService.showMessage($filter('translate')(result.message));
                 },function () {
                     $rootScope.loadingOperation = false;

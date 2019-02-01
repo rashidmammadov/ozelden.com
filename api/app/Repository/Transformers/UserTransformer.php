@@ -6,15 +6,15 @@ class UserTransformer extends Transformer{
 
     public function transform($user){
         return [
-            'type' => $user->type,
-            'id' => $user->id,
-            'name' => $user->name,
-            'surname' => $user->surname,
-            'birthDate' => $user->birthDate,
-            'email' => $user->email,
-            'sex' => $user->sex,
-            'remember_token' => $user->remember_token,
-            'state' => $user->state
+            TYPE => $user->type,
+            IDENTIFIER => $user->id,
+            NAME => $user->name,
+            SURNAME => $user->surname,
+            BIRTH_DATE => $user->birthDate,
+            EMAIL => $user->email,
+            SEX => $user->sex,
+            REMEMBER_TOKEN => $user->remember_token,
+            STATE => $user->state
         ];
     }
 

@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class UserClassList extends Model {
 
     protected $table = 'user_class_list';
-    protected $primaryKey = 'classId';
+    protected $primaryKey = CLASS_ID;
 
     protected $fillable = [
-        'userId', 'className', 'tutorId', 'lectureArea', 'lectureTheme', 'city', 'district', 'day', 'content', 'status'
+        USER_ID, CLASS_NAME, TUTOR_ID, LECTURE_AREA, LECTURE_THEME, CITY, DISTRICT, DAY, CONTENT, STATUS
     ];
 
     public function user() {

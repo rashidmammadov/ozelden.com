@@ -11,7 +11,7 @@ class UserLecturesList extends Model {
     public $incrementing = false;
 
     protected $fillable = [
-        'userId', 'lectureArea', 'lectureTheme', 'experience', 'price'
+        USER_ID, LECTURE_AREA, LECTURE_THEME, EXPERIENCE, PRICE
     ];
 
     public function user() {

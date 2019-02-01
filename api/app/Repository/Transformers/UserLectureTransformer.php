@@ -6,17 +6,23 @@ class UserLectureTransformer extends Transformer{
 
 
     public function transform($lecture) {
-        // TODO
+        return [
+            LECTURE_AREA => $lecture->lectureArea,
+            LECTURE_THEME => $lecture->lectureTheme,
+            EXPERIENCE => $lecture->experience,
+            PRICE => $lecture->price,
+            CURRENCY => $lecture->currency
+        ];
     }
 
     public function lectureArrayWithAverage($lecture, $average) {
         return [
-            'lectureArea' => $lecture['lectureArea'],
-            'lectureTheme' => $lecture->lectureTheme,
-            'experience' => $lecture->experience,
-            'price' => $lecture->price,
-            'currency' => $lecture->currency,
-            'average' => $average
+            LECTURE_AREA => $lecture->lectureArea,
+            LECTURE_THEME => $lecture->lectureTheme,
+            EXPERIENCE => $lecture->experience,
+            PRICE => $lecture->price,
+            CURRENCY => $lecture->currency,
+            AVERAGE => $average
         ];
     }
 }

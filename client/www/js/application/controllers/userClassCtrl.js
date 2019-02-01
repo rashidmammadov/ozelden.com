@@ -1,9 +1,8 @@
 (function () {
     'use strict';
 
-    function UserClassCtrl($rootScope, $filter, $mdDialog, CookieService, UserSettingService, NotificationService) {
+    function UserClassCtrl($rootScope, $filter, $mdDialog, UserSettingService, NotificationService) {
         var self = this;
-        var userId = CookieService.getUser() && CookieService.getUser().id;
         $rootScope.loadingOperation = true;
 
         this.classList = [];
@@ -14,7 +13,7 @@
          * @ngdoc request
          * @description Get user`s lectures list.
          */
-        UserSettingService.getUserLectureList({average: true}).then(function(result) {
+        UserSettingService.getUserLectureList().then(function(result) {
             if (result.status === 'success') { self.lectures = result.data; }
         });
 

@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model {
 
     protected $table = 'profile';
-    protected $primaryKey = 'userId';
+    protected $primaryKey = USER_ID;
 
     protected $fillable = [
-        'userId', 'phone', 'country', 'city', 'district', 'address', 'language'
+        USER_ID, PHONE, COUNTRY, CITY, DISTRICT, ADDRESS, LANGUAGE
     ];
 
     public function user() {

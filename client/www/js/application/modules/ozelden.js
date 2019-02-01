@@ -116,9 +116,13 @@
         $mdIconProvider.icon('logo', 'img/logo/logo.svg');
         $mdIconProvider.icon('male', 'img/icon/male.svg');
         $mdIconProvider.icon('math-approximately-equal', 'img/icon/math-approximately-equal.svg');
+        $mdIconProvider.icon('math-approximately-equal-filled', 'img/icon/math-approximately-equal-filled.svg');
         $mdIconProvider.icon('math-greater-than', 'img/icon/math-greater-than.svg');
+        $mdIconProvider.icon('math-greater-than-filled', 'img/icon/math-greater-than-filled.svg');
         $mdIconProvider.icon('math-infinity', 'img/icon/math-infinity.svg');
+        $mdIconProvider.icon('math-infinity-filled', 'img/icon/math-infinity-filled.svg');
         $mdIconProvider.icon('math-less-than', 'img/icon/math-less-than.svg');
+        $mdIconProvider.icon('math-less-than-filled', 'img/icon/math-less-than-filled.svg');
         $mdIconProvider.icon('more-details', 'img/icon/more-details.svg');
         $mdIconProvider.icon('profile', 'img/icon/profile.svg');
         $mdIconProvider.icon('quality', 'img/icon/quality.svg');

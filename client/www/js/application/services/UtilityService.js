@@ -22,6 +22,28 @@
             return query ? tags.concat(additionalTags).filter(createFilterFor(query)) : tags;
         };
 
+        /**
+         * @ngdoc method
+         * @name ozelden.services.UtilityService#findLectureAverage
+         * @methodOf ozelden.services.TutorService
+         *
+         * @description find lecture average.
+         * @param {Object} lecture - holds the lecture data.
+         */
+        this.findLectureAverage = function(lecture) {
+            var diff = { fill: '#707070', icon: 'math-infinity-filled', status: 'UNDEFINED' };
+            if (lecture.average > 0) {
+                if ((lecture.average - lecture.experience * 5) <= lecture.price && (lecture.average - (-lecture.experience * 5)) >= lecture.price) {
+                    diff = { fill: 'darkgreen', icon: 'math-approximately-equal-filled', status: 'AVAILABLE' }
+                } else if ((lecture.average - lecture.experience * 5) > lecture.price) {
+                    diff = { fill: '#D1A377', icon: 'math-less-than-filled', status: 'CHEAP' }
+                } else if ((lecture.average + lecture.experience * 5) < lecture.price) {
+                    diff = { fill: 'darkred', icon: 'math-greater-than-filled', status: 'EXPENSIVE' }
+                }
+            }
+            return diff;
+        };
+
         return this;
     }
 
