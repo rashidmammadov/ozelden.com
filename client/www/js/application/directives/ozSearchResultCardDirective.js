@@ -43,7 +43,7 @@
                 graphsConfig.displayPercent = false;
                 graphsConfig.circleColor = '#D1A377';
                 graphsConfig.textColor = '#721C47';
-                graphsConfig.waveTextColor = '#721C47';
+                graphsConfig.waveTextColor = '#FFFFFF';
                 graphsConfig.waveColor = '#D1A377';
                 graphData.forEach(function (value, i) {
                     loadLiquidFillGauge(userId + '-graph-' + i, value, graphsConfig);

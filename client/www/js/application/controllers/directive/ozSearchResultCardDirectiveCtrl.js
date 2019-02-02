@@ -41,7 +41,7 @@
             } else {
                 image = 'background: url(' + d.picture + ') no-repeat center center;';
             }
-            return image + 'width: 64px; height: 64px; border-radius: 100%;'
+            return image + 'width: 80px; height: 80px; border-radius: 100%;'
         }
 
         this.dateDifference = dateDifference;
