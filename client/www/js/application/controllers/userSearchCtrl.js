@@ -36,8 +36,8 @@
             'image': null,
             'registerDate': 713134324000,
             'average': 9,
-            'expression': 9.1,
-            'attention': 7.3,
+            'expression': 0,
+            'discipline': 7.3,
             'contact': 8.5,
             'regions': 'Izmir'
         },{
@@ -52,7 +52,7 @@
             'registerDate': 713134324000,
             'average': 9,
             'expression': 9.1,
-            'attention': 7.3,
+            'discipline': 7.3,
             'contact': 8.5,
             'regions': 'Izmir'
         }];

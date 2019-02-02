@@ -1,81 +1,93 @@
 <md-card class="oz-user-card" flex layout="column">
     <div class="oz-user-card-header" layout-align="space-between center" layout="row">
         <div layout="row" flex>
-            <div class="name"></div>
+            <div class="name">
+                <h3>{{::user.name}} {{::user.surname}}</h3>
+                <p> Tutor </p>
+            </div>
         </div>
-        <md-button class="md-fab md-mini float">
-            <md-icon md-svg-icon="add-button"></md-icon>
+        <md-button class="md-icon-button">
+            <md-icon md-svg-icon="settings"></md-icon>
         </md-button>
     </div>
     <div class="oz-user-card-info" layout="row">
-        <div class="image"></div>
-        <div layout="row" style="margin-right: 24px;">
+        <div class="image">
+            <div style="{{::Ctrl.setImage(user)}}"></div>
+        </div>
+        <div layout="row" layout-align="space-around start" flex>
             <div class="general" layout-align="center center" layout="column">
                 <md-icon md-svg-icon="location"></md-icon>
-                <p class="location"></p>
+                <p class="location">{{::user.location}}</p>
             </div>
             <div class="general" layout-align="center center" layout="column">
                 <md-icon md-svg-icon="birthday-cake"></md-icon>
-                <p class="birthday"></p>
+                <p class="birthday">{{::Ctrl.dateDifference(user.birthDate, 'year', 'AGE')}}</p>
             </div>
             <div class="general" layout-align="center center" layout="column">
                 <md-icon md-svg-icon="quality"></md-icon>
-                <p class="register"></p>
+                <p class="register">{{::Ctrl.dateDifference(user.registerDate, 'month')}}</p>
             </div>
         </div>
     </div>
     <md-divider></md-divider>
     <div class="oz-user-card-content">
-        <div class="tab overall" tab-index="0">
-            <div style="margin: 0px 40px" layout="row" layout-align="space-between center">
-                <p>{{'EXPRESSION' | translate}}</p>
-                <p>{{'ATTENTION' | translate}}</p>
-                <p>{{'CONTACT' | translate}}</p>
-            </div>
-            <graph></graph>
-            <div class="overview" layout="row" layout-align="space-around center" flex>
-                <div class="item" flex>
-                    <p><md-icon md-svg-icon="star"></md-icon> {{'AVERAGE' | translate}}: <b>8.7</b></p>
-                </div>
-                <div class="item" flex>
-                    <p><md-icon md-svg-icon="total-user"></md-icon> {{'TOTAL' | translate}}: <b>12</b></p>
-                </div>
-            </div>
-        </div>
-        <div class="tab courses" tab-index="1">
-            <md-list>
-                <md-list-item ng-repeat="lecture in user.lecturesList">
-                    <p style="width: 25%">{{lecture.lectureArea | translate}}</p>
-                    <p style="width: 35%">{{lecture.lectureTheme | translate}}</p>
-                    <p style="width: 10%" align="left">{{lecture.experience}} {{'YEAR' | translate}}</p>
-                    <p style="width: 10%" align="right">{{lecture.price}} {{lecture.currency | translate}}</p>
-                    <p style="width: 10%" align="center">
-                        <md-icon ng-if="(lecture.average-lecture.experience*5) <= lecture.price && (lecture.average-(-lecture.experience*5)) >= lecture.price && lecture.average>0"
-                                 style="fill: darkgreen;" md-svg-icon="math-approximately-equal"></md-icon>
-                        <md-icon ng-if="(lecture.average - lecture.experience*5) > lecture.price && lecture.average>0"
-                                 style="fill: #D1A377;" md-svg-icon="math-less-than"></md-icon>
-                        <md-icon ng-if="(lecture.average + lecture.experience*5) < lecture.price && lecture.average>0"
-                                 style="fill: darkred;" md-svg-icon="math-greater-than"></md-icon>
-                        <md-icon ng-if="lecture.average == 0"
-                                 style="fill: #555555;" md-svg-icon="math-infinity"></md-icon>
-                    </p>
-                    <p style="width: 10%" align="left">{{lecture.average}} {{lecture.currency | translate}}</p>
-                </md-list-item>
-            </md-list>
-        </div>
-        <div class="tab regions">
-            <md-list>
-                <md-list-item ng-repeat="region in user.regions">
-                    <p style="width: 50%">{{region.city}}</p>
-                    <p style="width: 50%">{{region.district}}</p>
-                </md-list-item>
-            </md-list>
-        </div>
-    </div>
-    <md-divider></md-divider>
-    <div class="oz-user-card-action" layout="row" layout-align="space-between center">
-        <md-button tab-index="0" class="active">General</md-button>
-        <md-button tab-index="1" class="">Dersler</md-button>
-        <md-button tab-index="2" class="">General</md-button>
+        <md-tabs md-align-tabs="bottom">
+            <md-tab id="tab1">
+                <md-tab-label>{{::'OVERALL' | translate}}</md-tab-label>
+                <md-tab-body>
+                    <div class="overall">
+                        <div layout="row" layout-align="space-between center" flex>
+                            <p flex align="center">{{::'ATTENTION' | translate}}</p>
+                            <p flex align="center">{{::'DISCIPLINE' | translate}}</p>
+                            <p flex align="center">{{::'EXPRESSION' | translate}}</p>
+                        </div>
+                        <graph></graph>
+                        <div class="overview" layout="row" layout-align="space-around center" flex>
+                            <div class="item" flex>
+                                <p><md-icon md-svg-icon="star"></md-icon> {{'AVERAGE' | translate}}: <b>8.7</b></p>
+                            </div>
+                            <div class="item" flex>
+                                <p><md-icon md-svg-icon="total-user"></md-icon> {{'TOTAL' | translate}}: <b>12</b></p>
+                            </div>
+                        </div>
+                    </div>
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="tab2">
+                <md-tab-label>{{::'LECTURES' | translate}}</md-tab-label>
+                <md-tab-body>
+                    <md-list>
+                        <md-list-item ng-repeat="lecture in user.lecturesList">
+                            <p style="width: 25%">{{lecture.lectureArea | translate}}</p>
+                            <p style="width: 35%">{{lecture.lectureTheme | translate}}</p>
+                            <p style="width: 10%" align="left">{{lecture.experience}} {{'YEAR' | translate}}</p>
+                            <p style="width: 10%" align="right">{{lecture.price}} {{lecture.currency | translate}}</p>
+                            <p style="width: 10%" align="center">
+                                <md-icon ng-if="(lecture.average-lecture.experience*5) <= lecture.price && (lecture.average-(-lecture.experience*5)) >= lecture.price && lecture.average>0"
+                                         style="fill: darkgreen;" md-svg-icon="math-approximately-equal"></md-icon>
+                                <md-icon ng-if="(lecture.average - lecture.experience*5) > lecture.price && lecture.average>0"
+                                         style="fill: #D1A377;" md-svg-icon="math-less-than"></md-icon>
+                                <md-icon ng-if="(lecture.average + lecture.experience*5) < lecture.price && lecture.average>0"
+                                         style="fill: darkred;" md-svg-icon="math-greater-than"></md-icon>
+                                <md-icon ng-if="lecture.average == 0"
+                                         style="fill: #555555;" md-svg-icon="math-infinity"></md-icon>
+                            </p>
+                            <p style="width: 10%" align="left">{{lecture.average}} {{lecture.currency | translate}}</p>
+                        </md-list-item>
+                    </md-list>
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="tab3">
+                <md-tab-label>{{::'REGIONS' | translate}}</md-tab-label>
+                <md-tab-body>
+                    <md-list>
+                        <md-list-item ng-repeat="region in user.regions">
+                            <p style="width: 50%">{{region.city}}</p>
+                            <p style="width: 50%">{{region.district}}</p>
+                        </md-list-item>
+                    </md-list>
+                </md-tab-body>
+            </md-tab>
+        </md-tabs>
     </div>
 </md-card>

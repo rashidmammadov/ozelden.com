@@ -1,39 +1,47 @@
-.oz-user-card{
+.search-result-board {
+    width: calc( 100% / 2 );
+    display: inline-block;
+}
+
+.oz-user-card {
     width: calc(100% - 16px);
-    height: 400px;
+    height: 398px;
     display: inline-block;
     border-radius: 4px;
 }
 
-.oz-user-card .oz-user-card-header{
+.oz-user-card md-tab-item {
+    width: auto;
+}
+
+.oz-user-card md-tabs:not(.md-no-tab-content):not(.md-dynamic-height) {
+    min-height: 188px;
+}
+
+.oz-user-card .oz-user-card-header {
     border-radius: 4px 4px 0px 0px;
     background-color: #721C47;
     padding: 8px 16px 40px 8px;
 }
 
-.oz-user-card .oz-user-card-header .name{
+.oz-user-card .oz-user-card-header .name {
     color: white;
     margin-left: 8px;
 }
 
-.oz-user-card .oz-user-card-header .name h3{
+.oz-user-card .oz-user-card-header .name h3 {
     font-size: 20px;
     font-weight: 100;
     margin: 4px 0px;
 }
 
-.oz-user-card .oz-user-card-header .name p{
+.oz-user-card .oz-user-card-header .name p {
     font-size: 12px;
     font-weight: 100;
     margin: 4px 0px;
 }
 
-.oz-user-card .oz-user-card-header .float{
-    bottom: -64px;
-    right: -8px;
-}
-
-.oz-user-card .oz-user-card-info .image{
+.oz-user-card .oz-user-card-info .image {
     background-color: #D1A377;
     height: 64px;
     width: 64px;
@@ -42,12 +50,12 @@
     margin: -32px 16px 4px 16px;
 }
 
-.oz-user-card .oz-user-card-info .general{
+.oz-user-card .oz-user-card-info .general {
     margin: 8px;
     width: 64px;
 }
 
-.oz-user-card .oz-user-card-info .general p{
+.oz-user-card .oz-user-card-info .general p {
     font-size: 12px;
     margin: 4px 0px;
     font-weight: 500;
@@ -57,47 +65,48 @@
     height: 176px;
 }
 
-.oz-user-card .oz-user-card-content .overall .size{
+.oz-user-card .oz-user-card-content .overall .size {
     font-size: 18px;
     fill: #707070;
     font-weight: 700;
 }
 
-.oz-user-card .oz-user-card-content .overall p{
+.oz-user-card .oz-user-card-content .overall p {
     color: #707070;
     font-size: 14px;
 }
 
-.oz-user-card .oz-user-card-content .overall .overview{
+.oz-user-card .oz-user-card-content .overall .overview {
+    margin-top: 8px;
     text-align: center;
 }
 
-.oz-user-card .oz-user-card-content .overall .overview .item{
+.oz-user-card .oz-user-card-content .overall .overview .item {
     margin: 0px;
     -webkit-box-shadow: 0px -4px 16px -8px #D1A377;
     -moz-box-shadow: 0px -4px 16px -8px #D1A377;
     box-shadow: 0px -4px 12px -8px #D1A377;
 }
 
-.oz-user-card .oz-user-card-content .overall .overview md-icon{
+.oz-user-card .oz-user-card-content .overall .overview md-icon {
     fill: #D1A377;
     margin: 0px 4px;
 }
 
 .oz-user-card .oz-user-card-content .courses,
-.oz-user-card .oz-user-card-content .regions{
+.oz-user-card .oz-user-card-content .regions {
     margin: 0px 16px;
     padding: 0px;
 }
 
-.oz-user-card .oz-user-card-content md-list{
+.oz-user-card .oz-user-card-content md-list {
     height: 144px;
     padding: 0px;
     margin: 16px 0px;
     overflow-y: scroll;
 }
 
-.oz-user-card .oz-user-card-content md-list-item{
+.oz-user-card .oz-user-card-content md-list-item {
     min-height: 32px;
     height: 36px;
     padding: 0px 8px;
@@ -106,22 +115,49 @@
     font-size: 13px;
 }
 
-.oz-user-card .oz-user-card-content md-list-item md-icon{
+.oz-user-card .oz-user-card-content md-list-item md-icon {
     height: 16px;
     width: 16px;
     min-height: 16px;
     min-width: 16px;
 }
 
-.oz-user-card .oz-user-card-content md-list-item:nth-child(2n+1){
+.oz-user-card .oz-user-card-content md-list-item:nth-child(2n+1) {
     background-color: #f6f2f2;
 }
 
-.oz-user-card .oz-user-card-action .md-button{
-    margin: 0px;
+.oz-user-card md-tabs .md-tab {
+    text-transform: capitalize;
     width: 33%;
 }
-.oz-user-card .oz-user-card-action .md-button.active{
+
+.oz-user-card md-tabs .md-tab.md-active {
     background-color: #721C47;
     color: white;
+}
+
+.oz-user-card md-tabs md-ink-bar {
+    color: transparent;
+    background-color: transparent;
+}
+
+@media (max-width: 1280px) {
+    .search-result-board {
+        width: calc( 100% );
+        display: inline-block;
+    }
+}
+
+@media (max-width: 959px) {
+    .search-result-board {
+        width: calc( 100% / 2 );
+        display: inline-block;
+    }
+}
+
+@media (max-width: 750px) {
+    .search-result-board {
+        width: calc( 100% );
+        display: inline-block;
+    }
 }

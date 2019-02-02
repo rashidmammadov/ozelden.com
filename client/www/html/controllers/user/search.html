@@ -1,45 +1,47 @@
 <div layout="column" flex>
-    <card-label>{{'FILTERS' | translate}}</card-label>
-    <md-card class="oz-setting-card md-whiteframe-1dp" flex>
-        <md-card-content>
-            <div layout="row">
-                <md-input-container flex>
-                    <label>{{'LECTURE_AREA' | translate}}</label>
-                    <md-select ng-model="Search.selectedLectureArea">
-                        <md-option ng-repeat="area in Search.lectures" ng-value="area" ng-selected="$index==0">
-                            {{area.base | translate}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
-                <md-input-container flex>
-                    <label>{{'LECTURE_THEME' | translate}}</label>
-                    <md-select ng-model="Search.selectedLectureTheme">
-                        <md-option ng-repeat="theme in Search.selectedLectureArea.link" ng-value="theme" ng-selected="$index==0">
-                            {{theme.base | translate}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
-                <md-input-container flex>
-                    <label>{{'CITY' | translate}}</label>
-                    <md-select ng-model="Search.selectedCity">
-                        <md-option ng-repeat="(city, index) in Search.regions" ng-value="city"
-                                   ng-selected="city.toLowerCase() === 'ankara'">
-                            {{city}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
-                <md-input-container flex>
-                    <label>{{'DISTRICT' | translate}}</label>
-                    <md-select ng-model="Search.selectedDistrict" ng-disabled="!Search.regions[Search.selectedCity]">
-                        <md-option ng-repeat="district in Search.regions[Search.selectedCity]"
-                                   ng-value="district" ng-selected="$index == 0 ? true : false">
-                            {{district}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
-            </div>
-        </md-card-content>
-    </md-card>
+    <div layout="column">
+        <card-label>{{'FILTERS' | translate}}</card-label>
+        <md-card class="oz-setting-card md-whiteframe-1dp" flex>
+            <md-card-content>
+                <div layout="row">
+                    <md-input-container flex>
+                        <label>{{'LECTURE_AREA' | translate}}</label>
+                        <md-select ng-model="Search.selectedLectureArea">
+                            <md-option ng-repeat="area in Search.lectures" ng-value="area" ng-selected="$index==0">
+                                {{area.base | translate}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label>{{'LECTURE_THEME' | translate}}</label>
+                        <md-select ng-model="Search.selectedLectureTheme">
+                            <md-option ng-repeat="theme in Search.selectedLectureArea.link" ng-value="theme" ng-selected="$index==0">
+                                {{theme.base | translate}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label>{{'CITY' | translate}}</label>
+                        <md-select ng-model="Search.selectedCity">
+                            <md-option ng-repeat="(city, index) in Search.regions" ng-value="city"
+                                       ng-selected="city.toLowerCase() === 'ankara'">
+                                {{city}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label>{{'DISTRICT' | translate}}</label>
+                        <md-select ng-model="Search.selectedDistrict" ng-disabled="!Search.regions[Search.selectedCity]">
+                            <md-option ng-repeat="district in Search.regions[Search.selectedCity]"
+                                       ng-value="district" ng-selected="$index == 0 ? true : false">
+                                {{district}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+            </md-card-content>
+        </md-card>
+    </div>
 
     <oz-search-result ng-data="Search.searchResult"></oz-search-result>
 </div>
