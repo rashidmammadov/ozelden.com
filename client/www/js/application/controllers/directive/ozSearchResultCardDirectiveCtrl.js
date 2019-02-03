@@ -31,17 +31,19 @@
         }
 
         function setImage(d) {
-            var image;
-            if (!d.picture) {
-                if (d.sex === 'mars') {
-                    image = 'background: url("img/default/male-user-white.png") no-repeat center center;';
+            if (d) {
+                var image;
+                if (!d.picture) {
+                    if (d.sex === 'mars') {
+                        image = 'background: url("img/default/male-user-white.png") no-repeat center center;';
+                    } else {
+                        image = 'background: url("img/default/female-user-white.png") no-repeat center center;'
+                    }
                 } else {
-                    image = 'background: url("img/default/female-user-white.png") no-repeat center center;'
+                    image = 'background: url(' + d.picture + ') no-repeat center center;';
                 }
-            } else {
-                image = 'background: url(' + d.picture + ') no-repeat center center;';
+                return image + 'width: 80px; height: 80px; border-radius: 100%;'
             }
-            return image + 'width: 80px; height: 80px; border-radius: 100%;'
         }
 
         this.dateDifference = dateDifference;

@@ -1,6 +1,12 @@
-<div ng-repeat="user in data" class="search-result-board">
+<md-virtual-repeat-container style="height: 100%;width: 100%;">
+    <div md-virtual-repeat="user in Board.dynamicItems" md-on-demand="" class="search-result-board">
+        <i ng-hide="true">{{user.id}}</i>
+        <oz-search-result-card id="user-{{user.id}}" ng-user-data="user"></oz-search-result-card>
+    </div>
+</md-virtual-repeat-container>
+<!--<div ng-repeat="user in data" class="search-result-board">
     <oz-search-result-card id="user-{{user.id}}" ng-user-data="user"></oz-search-result-card>
-</div>
+</div>-->
 <div flex>
     <md-button ng-click="Board.loadMore()" class="md-icon-button"><md-icon md-svg-icon="math-infinity"></md-icon></md-button>
 </div>

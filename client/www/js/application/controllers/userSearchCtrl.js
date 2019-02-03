@@ -25,67 +25,26 @@
             $rootScope.loadingOperation = false;
         });
 
-        this.searchResult = [{
-            'id': 1,
-            'name': 'Rashid',
-            'surname': 'Mammadov',
-            'birthDate':  713134324000,
-            'email': 'reshidmemmedov@gmail.com',
-            'sex': 'mars',
-            'telephone': '05079708807',
-            'image': null,
-            'registerDate': 713134324000,
-            'average': 9,
-            'expression': 0,
-            'discipline': 4.3,
-            'contact': 8.5,
-            'regions': 'Izmir'
-        },{
-            'id': 2,
-            'name': 'Rashid',
-            'surname': 'Mammadov',
-            'birthDate':  713134324000,
-            'email': 'reshidmemmedov@gmail.com',
-            'sex': 'mars',
-            'telephone': '05079708807',
-            'image': null,
-            'registerDate': 713134324000,
-            'average': 9,
-            'expression': 9.1,
-            'discipline': 7.3,
-            'contact': 8.5,
-            'regions': 'Izmir'
-        },{
-            'id': 3,
-            'name': 'Rashid',
-            'surname': 'Mammadov',
-            'birthDate':  713134324000,
-            'email': 'reshidmemmedov@gmail.com',
-            'sex': 'mars',
-            'telephone': '05079708807',
-            'image': null,
-            'registerDate': 713134324000,
-            'average': 9,
-            'expression': 0,
-            'discipline': 7.3,
-            'contact': 5.5,
-            'regions': 'Izmir'
-        },{
-            'id': 4,
-            'name': 'Rashid',
-            'surname': 'Mammadov',
-            'birthDate':  713134324000,
-            'email': 'reshidmemmedov@gmail.com',
-            'sex': 'mars',
-            'telephone': '05079708807',
-            'image': null,
-            'registerDate': 713134324000,
-            'average': 9,
-            'expression': 9.1,
-            'discipline': 7.3,
-            'contact': 8.5,
-            'regions': 'Izmir'
-        }];
+        this.searchResult = [];
+
+        for (var i=1; i<20; i++) {
+            self.searchResult.push({
+                'id': i,
+                'name': i + 'Rashid',
+                'surname': 'Mammadov',
+                'birthDate':  713134324000,
+                'email': 'reshidmemmedov@gmail.com',
+                'sex': 'mars',
+                'telephone': '05079708807',
+                'image': null,
+                'registerDate': 713134324000,
+                'average': 9,
+                'expression': 0,
+                'discipline': 4.3,
+                'contact': 8.5,
+                'regions': 'Izmir'
+            })
+        }
     }
 
     angular.module('ozelden.controllers').controller('UserSearchCtrl', UserSearchCtrl);
