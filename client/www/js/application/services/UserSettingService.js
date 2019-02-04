@@ -3,8 +3,6 @@
     
     function UserSettingService($http, $q, VocabularyService, CookieService) {
 
-        var self = this;
-
         var headers = {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + CookieService.getUser().remember_token

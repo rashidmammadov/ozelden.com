@@ -7,7 +7,7 @@
                     <md-input-container flex>
                         <label>{{'LECTURE_AREA' | translate}}</label>
                         <md-select ng-model="Search.selectedLectureArea">
-                            <md-option ng-repeat="area in Search.lectures" ng-value="area" ng-selected="$index==0">
+                            <md-option ng-repeat="area in Search.lectures" ng-value="area">
                                 {{area.base | translate}}
                             </md-option>
                         </md-select>
@@ -15,7 +15,7 @@
                     <md-input-container flex>
                         <label>{{'LECTURE_THEME' | translate}}</label>
                         <md-select ng-model="Search.selectedLectureTheme">
-                            <md-option ng-repeat="theme in Search.selectedLectureArea.link" ng-value="theme" ng-selected="$index==0">
+                            <md-option ng-repeat="theme in Search.selectedLectureArea.link" ng-value="theme">
                                 {{theme.base | translate}}
                             </md-option>
                         </md-select>
@@ -23,8 +23,7 @@
                     <md-input-container flex>
                         <label>{{'CITY' | translate}}</label>
                         <md-select ng-model="Search.selectedCity">
-                            <md-option ng-repeat="(city, index) in Search.regions" ng-value="city"
-                                       ng-selected="city.toLowerCase() === 'ankara'">
+                            <md-option ng-repeat="(city, index) in Search.regions" ng-value="city">
                                 {{city}}
                             </md-option>
                         </md-select>
@@ -32,8 +31,7 @@
                     <md-input-container flex>
                         <label>{{'DISTRICT' | translate}}</label>
                         <md-select ng-model="Search.selectedDistrict" ng-disabled="!Search.regions[Search.selectedCity]">
-                            <md-option ng-repeat="district in Search.regions[Search.selectedCity]"
-                                       ng-value="district" ng-selected="$index == 0 ? true : false">
+                            <md-option ng-repeat="district in Search.regions[Search.selectedCity]" ng-value="district">
                                 {{district}}
                             </md-option>
                         </md-select>
