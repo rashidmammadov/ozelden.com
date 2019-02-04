@@ -70,11 +70,13 @@ class LectureController extends ApiController {
         try {
             $user = JWTAuth::parseToken()->authenticate();
             $userId = $user->id;
+            $userLecturesList = ApiQuery::getUserLecturesList($userId);
             if ($request[AVERAGE] == true) {
-                return $this->userLecturesListWithAverage($userId);
+                $result = $this->userLecturesListWithAverage($userLecturesList);
             } else {
-                return $this->userLecturesListWithoutAverage($userId);
+                $result = $this->userLecturesListWithoutAverage($userLecturesList);
             }
+            return $this->respondCreated('SUCCESS', $result);
         } catch (JWTException $e) {
             $this->setStatusCode($e->getStatusCode());
             return $this->respondWithError($e->getMessage());
@@ -113,12 +115,11 @@ class LectureController extends ApiController {
 
     /**
      * @description Get user`s lectures list with lecture average.
-     * @param $userId int - holds the user id.
+     * @param $userLecturesList
      * @return mixed
      */
-    public function userLecturesListWithAverage($userId) {
+    public function userLecturesListWithAverage($userLecturesList) {
         $lecturesData = $this->getAllLecturesData();
-        $userLecturesList = ApiQuery::getUserLecturesList($userId);
         $responseList = array();
         foreach ($userLecturesList as $lecture) {
             for ($i = 0; $i < count($lecturesData); $i++) {
@@ -136,23 +137,22 @@ class LectureController extends ApiController {
                 }
             }
         }
-        return $this->respondCreated('SUCCESS', $responseList);
+        return $responseList;
     }
 
     /**
      * @description Get user`s lectures list without lecture average.
-     * @param $userId
+     * @param $userLecturesList
      * @return mixed
      */
-    public function userLecturesListWithoutAverage($userId) {
-        $userLecturesList = ApiQuery::getUserLecturesList($userId);
+    public function userLecturesListWithoutAverage($userLecturesList) {
         $responseList = array();
         foreach ($userLecturesList as $lecture) {
             $lecture[CURRENCY] = TURKISH_LIRA;
             $r = $this->userLectureTransformer->transform($lecture);
             array_push($responseList, $r);
         }
-        return $this->respondCreated('SUCCESS', $responseList);
+        return $responseList;
     }
 
     /**

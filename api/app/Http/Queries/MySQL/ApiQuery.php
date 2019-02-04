@@ -13,9 +13,9 @@ class ApiQuery {
 
     public function __construct() {
         // db table names
-        define('PROFILE', 'profile');
-        define('USERS', 'users');
-        define('USER_CLASS_LIST', 'user_class_list');
+        define('PROFILE_TABLE', 'profile');
+        define('USERS_TABLE', 'users');
+        define('USER_CLASS_LIST_TABLE', 'user_class_list');
     }
 
     /* ------------------------- PROFILE QUERIES ------------------------- */
@@ -110,10 +110,10 @@ class ApiQuery {
      */
     public function getUserClassList($userId) {
         $queryResult = UserClassList::where(USER_ID, $userId)
-            ->join(USERS, (USERS.'.'.IDENTIFIER), EQUAL_SIGN, (USER_CLASS_LIST.'.'.TUTOR_ID))
+            ->join(USERS_TABLE, (USERS_TABLE.'.'.IDENTIFIER), EQUAL_SIGN, (USER_CLASS_LIST_TABLE.'.'.TUTOR_ID))
             ->get(array(
-                (USER_CLASS_LIST.'.'.STAR_SIGN),
-                (USERS.'.'.IDENTIFIER), (USERS.'.'.NAME), (USERS.'.'.SURNAME)
+                (USER_CLASS_LIST_TABLE.'.'.STAR_SIGN),
+                (USERS_TABLE.'.'.IDENTIFIER), (USERS_TABLE.'.'.NAME), (USERS_TABLE.'.'.SURNAME)
             ));
 
         return $queryResult;
@@ -213,6 +213,26 @@ class ApiQuery {
             EXPERIENCE => $parameters[EXPERIENCE],
             PRICE => $parameters[PRICE]
         ]);
+    }
+
+    /* ------------------------- SEARCH QUERIES ------------------------- */
+
+    public static function searchTutor($type) {
+        $lectureArea = 'PRIMARY_SCHOOL_REINFORCEMENT';
+        $lectureTheme = null;
+        $city = null;
+        $district = null;
+        $queryResult = User::where(TYPE, $type)
+            ->join('profile', ('users'.'.'.IDENTIFIER), EQUAL_SIGN, ('profile'.'.'.USER_ID))
+            ->join('user_lectures_list', ('users'.'.'.IDENTIFIER), EQUAL_SIGN, ('user_lectures_list'.'.'.USER_ID))
+            ->join('user_suitability_schedule', ('users'.'.'.IDENTIFIER), EQUAL_SIGN, ('user_suitability_schedule'.'.'.USER_ID))
+            ->where('user_lectures_list'.'.'.LECTURE_AREA, EQUAL_SIGN, $lectureArea)
+            ->where('user_lectures_list'.'.'.LECTURE_THEME, 'LIKE', $lectureTheme) // must be equal fully
+            ->where('user_suitability_schedule'.'.'.REGION, 'LIKE', '%'.$city.'%')
+            ->where('user_suitability_schedule'.'.'.REGION, 'LIKE', '%'.$district.'%')
+            ->get();
+
+        return $queryResult;
     }
 
     /* ------------------------- SUITABILITY SCHEDULE ------------------------- */

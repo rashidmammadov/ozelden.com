@@ -10,7 +10,7 @@
         this.profile = function () { return self.api + 'profile'; };
         this.refreshUser = function() { return  self.api + 'refreshUser'; };
         this.suitabilitySchedule = function() { return self.api + 'suitabilitySchedule'; };
-        this.search = function() { return self.api + 'search/get'; };
+        this.search = function() { return self.api + 'search'; };
         this.userClassList = function () { return self.api + 'userClassList'; };
         this.userLecturesList = function() { return self.api + 'userLecturesList'; };
         this.userLogin = function() { return self.api + 'login'; };

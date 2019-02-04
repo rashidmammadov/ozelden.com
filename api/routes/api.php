@@ -42,4 +42,6 @@ Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
     Route::get('/profile', 'ProfileController@getUserProfile');
     Route::put('/profile', 'ProfileController@updateProfile');
     Route::put('/profilePicture', 'ProfileController@uploadProfilePicture');
+
+    Route::get('/search', 'SearchController@search');
 });

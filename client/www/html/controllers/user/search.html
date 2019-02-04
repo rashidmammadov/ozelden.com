@@ -43,5 +43,5 @@
         </md-card>
     </div>
 
-    <oz-search-result ng-data="Search.searchResult" flex></oz-search-result>
+    <oz-search-result ng-if="Search.searchResult.length" ng-data="Search.searchResult" flex></oz-search-result>
 </div>

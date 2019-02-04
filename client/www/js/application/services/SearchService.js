@@ -1,33 +1,35 @@
 (function () {
     'use strict';
 
-    function SearchService($http, $q, VocabularyService) {
+    function SearchService($http, $q, VocabularyService, CookieService) {
+
+        var headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + CookieService.getUser().remember_token
+        };
 
         /**
          * @ngdoc method
-         * @name ozelden.services.SearchService#tutorSearch
+         * @name ozelden.services.SearchService#get
          * @methodOf ozelden.services.SearchService
          *
          * @description returns result of tutor search.
          * @param {Object} params - holds the search params.
          */
-        function tutorSearch(params) {
+        function get(params) {
             var deferred = $q.defer();
 
             $http({
                 url: VocabularyService.search(),
                 method: 'GET',
-                params: {
-                    act: 'tutorSearch',
-                    offset: params.offset,
-                    limit: 2
-                }
+                headers: headers,
+                params: params
             }).then(function (response) {
                 var result = response.data;
-                if (result.success) {
-                    deferred.resolve(result.data);
+                if (result.status === 'success') {
+                    deferred.resolve(result);
                 } else {
-                    deferred.reject(result.failure);
+                    deferred.reject(result);
                 }
             }, function (rejection) {
                 deferred.reject(rejection);
@@ -36,7 +38,7 @@
             return deferred.promise;
         }
 
-        this.tutorSearch = tutorSearch;
+        this.get = get;
         return this;
     }
 

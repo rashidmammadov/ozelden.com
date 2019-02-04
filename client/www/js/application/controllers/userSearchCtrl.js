@@ -6,45 +6,22 @@
      * @name ozelden.controllers.controllers:UserSearchCtrl
      * @description Controller for the main page view.
      */
-    function UserSearchCtrl($rootScope, $scope, $state, $translate, CookieService, DataService) {
+    function UserSearchCtrl($rootScope, $scope, $state, $translate, SearchService) {
         var self = this;
 
-        $rootScope.loadingOperation = true;
-        this.lectures;
-        this.regions;
+        $rootScope.loadingOperation = false;
+        this.lectures = $rootScope.lectures;
+        this.regions = $rootScope.regions;
+        this.searchResult = [];
 
         /**
          * @ngdoc method
          * @description Get default data.
          */
-        DataService.get({regions: true, lectures: true}).then(function (result){
-            result.lectures && (self.lectures = result.lectures);
-            result.regions && (self.regions = result.regions);
-            $rootScope.loadingOperation = false;
-        },function(rejection){
-            $rootScope.loadingOperation = false;
+        SearchService.get({type: 'tutor'}).then(function (d) {
+            self.searchResult = d.data;
         });
 
-        this.searchResult = [];
-
-        for (var i=1; i<20; i++) {
-            self.searchResult.push({
-                'id': i,
-                'name': i + 'Rashid',
-                'surname': 'Mammadov',
-                'birthDate':  713134324000,
-                'email': 'reshidmemmedov@gmail.com',
-                'sex': 'mars',
-                'telephone': '05079708807',
-                'image': null,
-                'registerDate': 713134324000,
-                'average': 9,
-                'expression': 0,
-                'discipline': 4.3,
-                'contact': 8.5,
-                'regions': 'Izmir'
-            })
-        }
     }
 
     angular.module('ozelden.controllers').controller('UserSearchCtrl', UserSearchCtrl);
