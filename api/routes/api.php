@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,6 +21,15 @@ header('Access-Control-Allow-Origins:*');
 header('Access-Control-Allow-Methods:*');
 
 Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
+    /*Route::get('/clear-cache', function() {
+        $route = Artisan::call('route:clear');
+        $config = Artisan::call('config:clear');
+        $cache = Artisan::call('cache:clear');
+        echo 'route: '.$route.'<br>'.
+            'config: '.$config.'<br>'.
+            'cache: '.$cache;
+    });*/
+
     Route::get('/data', 'DataController@get');
 
     Route::get('/suitabilitySchedule', 'SuitabilityScheduleController@getSuitabilitySchedule');
