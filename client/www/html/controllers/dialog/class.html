@@ -6,7 +6,7 @@
                 <card-label>{{::'FILTERS' | translate}}</card-label>
                 <md-card class="oz-setting-card">
                     <md-card-content layout="column" flex>
-                        <md-input-container class="md-block">
+                        <md-input-container class="no-error-space md-block">
                             <label>{{::'CLASS_NAME' | translate}}</label>
                             <input md-maxlength="30" required md-no-asterisk name="className" ng-model="Class.className">
                             <div ng-messages="classForm.className.$error">
@@ -78,7 +78,7 @@
                         <md-switch ng-model="d.state" aria-label="{{Class.dayMap[$index]}}" flex>
                             {{::Class.dayMap[$index] | translate}}
                         </md-switch>
-                        <md-autocomplete class="no-errors-spacer" md-selected-item="d.start" md-autoselect="true"
+                        <md-autocomplete class="no-error-space" md-selected-item="d.start" md-autoselect="true"
                                          md-search-text="d.startDateText"
                                          md-selected-item-change="d.start"
                                          md-items="date in Class.querySearch(d.startDateText, Class.hours)"
@@ -89,7 +89,7 @@
                                 <span md-highlight-text="d.startDateText" md-highlight-flags="^i">{{date}}</span>
                             </md-item-template>
                         </md-autocomplete>
-                        <md-autocomplete class="no-errors-spacer" md-selected-item="d.end" md-autoselect="true"
+                        <md-autocomplete class="no-error-space" md-selected-item="d.end" md-autoselect="true"
                                          md-search-text="d.endDateText"
                                          md-selected-item-change="d.end"
                                          md-items="date in Class.querySearch(d.endDateText, Class.hours)"

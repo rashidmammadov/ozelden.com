@@ -19,23 +19,38 @@ class SearchController extends ApiController {
         $this->lectureList = $lectureController;
     }
 
+    /**
+     * @description: Handle search request.
+     * @param Request $request
+     * @return mixed: search result
+     */
     public function search(Request $request) {
         try {
             JWTAuth::parseToken()->authenticate();
             $userType = $request[TYPE];
 
+            $result = null;
             if ($userType == TUTOR) {
-                return $this->searchTutor($request);
+                $result = $this->searchTutor($request);
             }
+            return $this->respondCreated('SUCCESS', $result);
         } catch (JWTException $e) {
             $this->setStatusCode($e->getStatusCode());
             return $this->respondWithError($e->getMessage());
         }
     }
 
+    /**
+     * @description: Prepare data for search result.
+     * @param Request $request
+     * @return mixed: search result
+     */
     private function searchTutor($request) {
-        $userType = $request[TYPE];
-        $result =  ApiQuery::searchTutor($userType);
+        $lectureArea = $request[LECTURE_AREA];
+        $lectureTheme = $request[LECTURE_THEME];
+        $city = $request[CITY];
+        $district = $request[DISTRICT];
+        $result =  ApiQuery::searchTutor($lectureArea, $lectureTheme, $city, $district);
         $users = array();
         $distinctUsers = array();
         foreach ($result as $user) {
@@ -47,6 +62,6 @@ class SearchController extends ApiController {
             }
 
         }
-        return $this->respondCreated('', $users);
+        return $users;
     }
 }

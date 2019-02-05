@@ -17,14 +17,15 @@ class SearchTransformer extends Transformer {
             SEX => $user->sex,
             PHONE => $user->phone,
             PICTURE => $user->picture,
-            'registerDate' => 713134324000,
+            REGISTER_DATE => strtotime($user->created_at)*1000,
             AVERAGE => 9,
             EXPRESSION => 0,
             DISCIPLINE => 4.3,
             CONTACT => 8.5,
             CITY => $user->city,
             DISTRICT => $user->district,
-            LECTURES_LIST => $user->lecturesList
+            LECTURES_LIST => $user->lecturesList,
+            FACILITY => json_decode($user->facility)
         ];
     }
 }

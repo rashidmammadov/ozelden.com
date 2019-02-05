@@ -32,11 +32,11 @@ class SuitabilityScheduleController extends ApiController {
      */
     public function create($userId) {
         if ($userId) {
-            $region =  json_encode($this->userSuitabilityScheduleTransformer->setRegion());
-            $location = json_encode($this->userSuitabilityScheduleTransformer->setLocation());
-            $courseType = json_encode($this->userSuitabilityScheduleTransformer->setCourseType());
-            $facility = json_encode($this->userSuitabilityScheduleTransformer->setFacility());
-            $dayHourTable =  json_encode($this->userSuitabilityScheduleTransformer->setDayHourTable());
+            $region =  json_encode($this->userSuitabilityScheduleTransformer->setRegion(), JSON_UNESCAPED_UNICODE);
+            $location = json_encode($this->userSuitabilityScheduleTransformer->setLocation(), JSON_UNESCAPED_UNICODE);
+            $courseType = json_encode($this->userSuitabilityScheduleTransformer->setCourseType(), JSON_UNESCAPED_UNICODE);
+            $facility = json_encode($this->userSuitabilityScheduleTransformer->setFacility(), JSON_UNESCAPED_UNICODE);
+            $dayHourTable =  json_encode($this->userSuitabilityScheduleTransformer->setDayHourTable(), JSON_UNESCAPED_UNICODE);
 
             ApiQuery::setUserDefaultSuitabilitySchedule($userId, $region, $location, $courseType, $facility, $dayHourTable);
         }

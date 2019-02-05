@@ -44,10 +44,10 @@
                         <graph></graph>
                         <div class="overview" layout="row" layout-align="space-around center" flex>
                             <div class="item" flex>
-                                <p><md-icon md-svg-icon="star"></md-icon> {{'AVERAGE' | translate}}: <b>8.7</b></p>
+                                <p><md-icon md-svg-icon="star"></md-icon> {{::'AVERAGE' | translate}}: <b>8.7</b></p>
                             </div>
                             <div class="item" flex>
-                                <p><md-icon md-svg-icon="total-user"></md-icon> {{'TOTAL' | translate}}: <b>12</b></p>
+                                <p><md-icon md-svg-icon="total-user"></md-icon> {{::'TOTAL_VOTES' | translate}}: <b>12</b></p>
                             </div>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                     <md-list-item class="ozelden-list header" style="background-color: transparent;">
                         <p style="width:25%">{{::'LECTURE_AREA' | translate}}</p>
                         <p style="width:35%">{{::'LECTURE_THEME' | translate}}</p>
-                        <p style="width:10%">{{::'EXPERIENCE' | translate}}</p>
+                        <p style="width:10%">{{::'EXPR' | translate}}</p>
                         <p style="width:10%" align="right">{{::'PRICE' | translate}}</p>
                         <p style="width:10%" align="center">{{::'DIFF' | translate}}</p>
                         <p style="width:10%" align="left">{{::'AVG' | translate}}</p>
@@ -80,14 +80,14 @@
                 </md-tab-body>
             </md-tab>
             <md-tab id="tab3">
-                <md-tab-label>{{::'REGIONS' | translate}}</md-tab-label>
+                <md-tab-label>{{::'FACILITIES' | translate}}</md-tab-label>
                 <md-tab-body>
-                    <md-list>
-                        <md-list-item ng-repeat="region in user.regions">
-                            <p style="width: 50%">{{region.city}}</p>
-                            <p style="width: 50%">{{region.district}}</p>
-                        </md-list-item>
-                    </md-list>
+                    <div class="facility" layout="row" layout-align="space-between center" ng-repeat="(option, value) in user.facility">
+                        <md-icon class="md-margin small-icon"
+                                 style="fill: {{::(value ? 'green' : 'darkred')}}"
+                                 md-svg-icon="{{::(value ? 'true' : 'false')}}"></md-icon>
+                        <p flex>{{::option | translate}}</p>
+                    </div>
                 </md-tab-body>
             </md-tab>
         </md-tabs>

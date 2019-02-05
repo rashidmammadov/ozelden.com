@@ -216,20 +216,33 @@ class ApiQuery {
 
     /* ------------------------- SEARCH QUERIES ------------------------- */
 
-    public static function searchTutor($type) {
-        $lectureArea = 'PRIMARY_SCHOOL_REINFORCEMENT';
-        $lectureTheme = null;
-        $city = null;
-        $district = null;
-        $queryResult = User::where(TYPE, $type)
+    /**
+     * @description query to get tutor`s search result.
+     * @param string $lectureArea
+     * @param string $lectureTheme
+     * @param string $city
+     * @param string $district
+     * @return mixed query result
+     */
+    public static function searchTutor($lectureArea, $lectureTheme, $city, $district) {
+        $queryResult = User::where(TYPE, TUTOR)
             ->join(self::profile, (self::users.'.'.IDENTIFIER), EQUAL_SIGN, (self::profile.'.'.USER_ID))
             ->join(self::userLecturesList, (self::users.'.'.IDENTIFIER), EQUAL_SIGN, (self::userLecturesList.'.'.USER_ID))
             ->join(self::userSuitabilitySchedule, (self::users.'.'.IDENTIFIER), EQUAL_SIGN, (self::userSuitabilitySchedule.'.'.USER_ID))
 
             ->where(self::userLecturesList.'.'.LECTURE_AREA, EQUAL_SIGN, $lectureArea)
-            ->where(self::userLecturesList.'.'.LECTURE_THEME, 'LIKE', $lectureTheme) // must be equal fully
-            ->where(self::userSuitabilitySchedule.'.'.REGION, 'LIKE', '%'.$city.'%')
-            ->where(self::userSuitabilitySchedule.'.'.REGION, 'LIKE', '%'.$district.'%')
+            /** the lecture theme can be search by null or user can give all themes. **/
+            ->where(function ($query) use ($lectureTheme) {
+                $query->where(self::userLecturesList.'.'.LECTURE_THEME, 'LIKE', $lectureTheme)
+                    ->orWhere(self::userLecturesList.'.'.LECTURE_THEME, 'LIKE', 'ALL');
+            })
+            /** the district can be search by null or user can contains all districts of selected city. **/
+            ->where(function ($query) use ($city, $district) {
+                $query->where(self::userSuitabilitySchedule.'.'.REGION, 'LIKE',
+                        '%city":"'.$city.'","district":"'.$district.'%')
+                    ->orWhere(self::userSuitabilitySchedule.'.'.REGION, 'LIKE',
+                        '%city":"'.$city.'","district":"hepsi%');
+            })
             ->get();
 
         return $queryResult;
@@ -276,19 +289,19 @@ class ApiQuery {
     public static function updateUserSuitabilitySchedule($userId, $parameters) {
         $queryResult = self::getUserSuitabilitySchedule($userId);
         if (!empty($parameters[REGION])) {
-            $queryResult->region = json_encode($parameters[REGION]);
+            $queryResult->region = json_encode($parameters[REGION], JSON_UNESCAPED_UNICODE);
         }
         if (!empty($parameters[LOCATION])) {
-            $queryResult->location = json_encode($parameters[LOCATION]);
+            $queryResult->location = json_encode($parameters[LOCATION], JSON_UNESCAPED_UNICODE);
         }
         if (!empty($parameters[COURSE_TYPE])) {
-            $queryResult->courseType = json_encode($parameters[COURSE_TYPE]);
+            $queryResult->courseType = json_encode($parameters[COURSE_TYPE], JSON_UNESCAPED_UNICODE);
         }
         if (!empty($parameters[FACILITY])) {
-            $queryResult->facility = json_encode($parameters[FACILITY]);
+            $queryResult->facility = json_encode($parameters[FACILITY], JSON_UNESCAPED_UNICODE);
         }
         if (!empty($parameters[DAY_HOUR_TABLE])) {
-            $queryResult->dayHourTable = json_encode($parameters[DAY_HOUR_TABLE]);
+            $queryResult->dayHourTable = json_encode($parameters[DAY_HOUR_TABLE], JSON_UNESCAPED_UNICODE);
         }
         $queryResult->save();
     }

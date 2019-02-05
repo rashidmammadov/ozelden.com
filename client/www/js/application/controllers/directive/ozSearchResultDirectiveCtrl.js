@@ -15,7 +15,7 @@
                 offset: $scope.data.length
             };
 
-            SearchService.tutorSearch(params).then(function(result){
+            SearchService.get(params).then(function(result){
                 $scope.data.push.apply($scope.data, result);
 
             }, function(failure) {});

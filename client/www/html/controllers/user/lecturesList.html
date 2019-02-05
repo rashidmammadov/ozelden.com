@@ -4,7 +4,7 @@
         <md-card-content>
             <div layout-gt-md="row" layout="column" flex>
                 <div layout="row" flex>
-                    <md-input-container flex>
+                    <md-input-container class="no-error-space" flex>
                         <label>{{::'LECTURE_AREA' | translate}}</label>
                         <md-select ng-model="Lectures.selectedLectureArea">
                             <md-option ng-repeat="area in Lectures.lectures" ng-value="area" ng-selected="$index==0">
@@ -12,7 +12,7 @@
                             </md-option>
                         </md-select>
                     </md-input-container>
-                    <md-input-container flex>
+                    <md-input-container class="no-error-space" flex>
                         <label>{{::'LECTURE_THEME' | translate}}</label>
                         <md-select ng-model="Lectures.selectedLectureTheme">
                             <md-option ng-repeat="theme in Lectures.selectedLectureArea.link" ng-value="theme" ng-selected="$index==0">
@@ -22,7 +22,7 @@
                     </md-input-container>
                 </div>
                 <div layout="row" flex>
-                    <md-input-container flex>
+                    <md-input-container class="no-error-space" flex>
                         <label>{{::'EXPERIENCE' | translate}}</label>
                         <md-select ng-model="Lectures.selectedExperience">
                             <md-option ng-repeat="year in Lectures.experienceList" ng-value="year" ng-selected="$index==0">
@@ -30,7 +30,7 @@
                             </md-option>
                         </md-select>
                     </md-input-container>
-                    <md-input-container flex>
+                    <md-input-container class="no-error-space" flex>
                         <label>{{::'PRICE' | translate}} (₺)</label>
                         <input type="number" step="any" min="1" max="99999" ng-model="Lectures.selectedPrice">
                     </md-input-container>

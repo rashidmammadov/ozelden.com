@@ -1,38 +1,40 @@
 <div layout="column" style="height: 100%; overflow: hidden">
     <div layout="column">
-        <card-label>{{'FILTERS' | translate}}</card-label>
+        <card-label>{{::'FILTERS' | translate}}</card-label>
         <md-card class="oz-setting-card md-whiteframe-1dp" flex>
             <md-card-content>
                 <div layout="row">
                     <md-input-container flex>
-                        <label>{{'LECTURE_AREA' | translate}}</label>
-                        <md-select ng-model="Search.selectedLectureArea">
+                        <label>{{::'LECTURE_AREA' | translate}}</label>
+                        <md-select ng-model="Search.selectedLectureArea" ng-change="Search.search()">
                             <md-option ng-repeat="area in Search.lectures" ng-value="area">
-                                {{area.base | translate}}
+                                {{::area.base | translate}}
                             </md-option>
                         </md-select>
                     </md-input-container>
                     <md-input-container flex>
-                        <label>{{'LECTURE_THEME' | translate}}</label>
-                        <md-select ng-model="Search.selectedLectureTheme">
-                            <md-option ng-repeat="theme in Search.selectedLectureArea.link" ng-value="theme">
-                                {{theme.base | translate}}
+                        <label>{{::'LECTURE_THEME' | translate}}</label>
+                        <md-select ng-model="Search.selectedLectureTheme" ng-change="Search.search()">
+                            <md-option ng-repeat="theme in Search.selectedLectureArea.link" ng-value="theme"
+                                ng-selected="$index == 0">
+                                {{::theme.base | translate}}
                             </md-option>
                         </md-select>
                     </md-input-container>
                     <md-input-container flex>
-                        <label>{{'CITY' | translate}}</label>
-                        <md-select ng-model="Search.selectedCity">
+                        <label>{{::'CITY' | translate}}</label>
+                        <md-select ng-model="Search.selectedCity" ng-change="Search.search()">
                             <md-option ng-repeat="(city, index) in Search.regions" ng-value="city">
-                                {{city}}
+                                {{::city}}
                             </md-option>
                         </md-select>
                     </md-input-container>
                     <md-input-container flex>
-                        <label>{{'DISTRICT' | translate}}</label>
-                        <md-select ng-model="Search.selectedDistrict" ng-disabled="!Search.regions[Search.selectedCity]">
+                        <label>{{::'DISTRICT' | translate}}</label>
+                        <md-select ng-model="Search.selectedDistrict" ng-disabled="!Search.regions[Search.selectedCity]"
+                                   ng-change="Search.search()">
                             <md-option ng-repeat="district in Search.regions[Search.selectedCity]" ng-value="district">
-                                {{district}}
+                                {{::district}}
                             </md-option>
                         </md-select>
                     </md-input-container>

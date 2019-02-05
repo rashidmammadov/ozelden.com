@@ -7,7 +7,7 @@
     width: calc(100% - 16px);
     height: 398px;
     display: inline-block;
-    border-radius: 4px;
+    border-radius: 8px;
 }
 
 .oz-user-card md-tab-item {
@@ -19,7 +19,7 @@
 }
 
 .oz-user-card .oz-user-card-header {
-    border-radius: 4px 4px 0px 0px;
+    border-radius: 8px 8px 0px 0px;
     background-color: #721C47;
     padding: 8px 16px 40px 8px;
 }
@@ -59,6 +59,9 @@
     font-size: 12px;
     margin: 4px 0px;
     font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .oz-user-card .oz-user-card-content {
@@ -93,10 +96,10 @@
     margin: 0px 4px;
 }
 
-.oz-user-card .oz-user-card-content .courses,
-.oz-user-card .oz-user-card-content .regions {
+.oz-user-card .oz-user-card-content .facility {
     margin: 0px 16px;
     padding: 0px;
+    font-size: 14px;
 }
 
 .oz-user-card .oz-user-card-content md-list {
@@ -124,6 +127,10 @@
 
 .oz-user-card .oz-user-card-content md-list-item:nth-child(2n+1) {
     background-color: #f6f2f2;
+}
+
+.oz-user-card md-tabs {
+    border-radius: 0 0 8px 8px;
 }
 
 .oz-user-card md-tabs .md-tab {

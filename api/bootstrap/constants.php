@@ -51,6 +51,7 @@ define('PASSWORD_CONFIRMATION', 'password_confirmation');
 define('PICTURE', 'picture');
 define('PHONE', 'phone');
 define('PRICE', 'price');
+define('REGISTER_DATE', 'registerDate');
 define('REGION', 'region');
 define('REMEMBER_TOKEN', 'remember_token');
 define('SEX', 'sex');

@@ -9,7 +9,7 @@
     function UserSearchCtrl($rootScope, $scope, $state, $translate, CookieService, SearchService) {
         var self = this;
 
-        $rootScope.loadingOperation = false;
+        $rootScope.loadingOperation = true;
         this.lectures = $rootScope.lectures;
         this.regions = $rootScope.regions;
         this.searchResult = [];
@@ -21,24 +21,31 @@
 
         /**
          * @ngdoc method
-         * @description Get default data.
+         * @name ozelden.controllers.controllers.UserSearchCtrl#search
+         * @description Prepare request to get search result.
          */
-        function startSampleSearch() {
+        function search() {
+            function request(query) {
+                $rootScope.loadingOperation = true;
+                SearchService.get(query).then(function (d) {
+                    $rootScope.loadingOperation = false;
+                    self.searchResult = d.data;
+                }, function () {
+                    $rootScope.loadingOperation = false;
+                });
+            }
             var query = {};
             query.type = CookieService.getUser().type === 'student' ? 'tutor' : 'student';
             query.lectureArea = self.selectedLectureArea.base;
-            query.selectedLectureTheme = self.selectedLectureTheme.base.toLowerCase() === 'all' ? null : self.selectedLectureTheme.base;
+            query.lectureTheme = self.selectedLectureTheme.base.toLowerCase() === 'all' ? null : self.selectedLectureTheme.base;
             query.city = self.selectedCity;
             query.district = self.selectedDistrict.toLowerCase() === 'hepsi' ? null : self.selectedDistrict;
+            request(query);
         }
 
-        startSampleSearch();
+        search();
 
-        SearchService.get({type: 'tutor'}).then(function (d) {
-            self.searchResult = d.data;
-        });
-
-        //this.search = search;
+        this.search = search;
 
     }
 
