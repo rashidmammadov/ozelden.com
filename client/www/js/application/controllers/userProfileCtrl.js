@@ -79,15 +79,7 @@
          * @param {String} originalUrl - holds the picture url
          */
         function $$setProfilePicture(originalUrl) {
-            var newUrl = self.picture;
-            if (originalUrl) {
-                if (originalUrl.includes('http')) {
-                    newUrl = originalUrl
-                } else {
-                    newUrl = 'http://localhost:8000/'.concat(originalUrl.slice(originalUrl.indexOf('images/users/')));
-                }
-            }
-            return newUrl;
+            return originalUrl ? originalUrl : self.picture;
         }
 
         this.updateContact = updateContact;

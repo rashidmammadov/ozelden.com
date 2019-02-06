@@ -99,15 +99,17 @@ class ProfileController extends ApiController {
     public function uploadUserProfilePicture($userId, $file, $fileType) {
         $currentDate = date('siHdmY');
         $fileName = 'user-'.$userId.'-'.$currentDate.'.'.$fileType;
-        $path = public_path().'/images/users/' . $fileName;
+        $dir = '/users/';
+        $subPath = env('IMAGES_PATH');
+        $path = public_path(). $subPath . $dir . $fileName;
 
         $imageDetails = getimagesize($file);
         $originalWidth = $imageDetails[0];
         $originalHeight = $imageDetails[1];
         $newWidth = $originalWidth;
         $newHeight = $originalHeight;
-        if ($originalWidth > 350 || $originalHeight > 350) {
-            $coefficient = ($originalWidth > $originalHeight) ? ($originalWidth / 350) : ($originalHeight / 350);
+        if ($originalWidth > 300 || $originalHeight > 300) {
+            $coefficient = ($originalWidth > $originalHeight) ? ($originalWidth / 300) : ($originalHeight / 300);
             if ($coefficient > 0) {
                 $newWidth = $originalWidth / $coefficient;
                 $newHeight = $originalHeight / $coefficient;
@@ -116,7 +118,7 @@ class ProfileController extends ApiController {
 
         Image::make(file_get_contents($file))->resize($newWidth, $newHeight)->save($path);
         $params = array(
-            PICTURE => $path
+            PICTURE => url('/') . $dir . $fileName
         );
         $this->updateUserProfile($userId, $params);
         return $fileName.' ('.$newWidth.'px-'.$newHeight.'px)';
