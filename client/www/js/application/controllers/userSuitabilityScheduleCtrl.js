@@ -81,7 +81,7 @@
             $rootScope.loadingOperation = true;
             UserSettingService.updateSuitabilitySchedule(data).then(function(result){
                 $rootScope.loadingOperation = false;
-                NotificationService.showMessage($filter('translate')(result.message));
+                //NotificationService.showMessage($filter('translate')(result.message));
             },function(rejection){
                 $rootScope.loadingOperation = false;
                 NotificationService.showMessage($filter('translate')(rejection));

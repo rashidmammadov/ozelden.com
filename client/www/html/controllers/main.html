@@ -9,11 +9,11 @@
         </div>
 
         <div layout="row" layout-align="end center">
-            <md-button ng-if="user.id" ui-sref="ozelden.user.dashboard" ui-sref-active="active">{{user.name}} {{user.surname | limitTo: 1}}.</md-button>
-            <md-button ng-if="!user.id" ui-sref="ozelden.user.sign" ui-sref-active="active">{{'LOGIN' | translate}}</md-button>
+            <md-button ng-if="user.id" ui-sref="ozelden.user.dashboard" ui-sref-active="active">{{::user.name}} {{::user.surname | limitTo: 1}}.</md-button>
+            <md-button ng-if="!user.id" ui-sref="ozelden.user.sign" ui-sref-active="active">{{::'LOGIN' | translate}}</md-button>
             <md-button ng-if="user.id" class="md-icon-button" ng-click="Main.logout()">
                 <md-icon md-svg-icon="logout"></md-icon>
-                <md-tooltip md-direction="bottom">{{'LOGOUT' | translate}}</md-tooltip>
+                <md-tooltip md-direction="bottom">{{::'LOGOUT' | translate}}</md-tooltip>
             </md-button>
 
             <md-select aria-label="Languages" ng-model="Main.selectedLanguage" class="md-no-underline">

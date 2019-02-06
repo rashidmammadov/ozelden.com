@@ -28,9 +28,10 @@
                             </md-button>
                         </div>
                         <div layout="row">
-                            <md-chips ng-model="Suitability.region" name="region" readonly="true" md-removable="true">
+                            <md-chips ng-model="Suitability.region" name="region" readonly="true" md-removable="true"
+                                      ng-change="Suitability.updateSuitabilitySchedule({'region': Suitability.region})">
                                 <md-chip-template>
-                                    <b>{{$chip.city}}</b> - {{$chip.district}}
+                                    <b>{{::$chip.city}}</b> - {{::$chip.district}}
                                 </md-chip-template>
                             </md-chips>
                         </div>

@@ -19,7 +19,7 @@
             }
         }, function () {
             $rootScope.loadingOperation = false;
-            NotificationService.showMessage('SOMETHING_WENT_WRONG');
+            NotificationService.showMessage($filter('translate')('SOMETHING_WENT_WRONG'));
         });
         
         function updateContact() {
