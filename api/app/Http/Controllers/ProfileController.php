@@ -98,7 +98,7 @@ class ProfileController extends ApiController {
      */
     public function uploadUserProfilePicture($userId, $file, $fileType) {
         $currentDate = date('siHdmY');
-        $fileName = 'user-'.$userId.'-'.$currentDate.'.'.$fileType;
+        $fileName = $userId.'-'.$currentDate.'.'.$fileType;
         $dir = '/users/';
         $subPath = env('IMAGES_PATH');
         $path = public_path(). $subPath . $dir . $fileName;
@@ -118,7 +118,7 @@ class ProfileController extends ApiController {
 
         Image::make(file_get_contents($file))->resize($newWidth, $newHeight)->save($path);
         $params = array(
-            PICTURE => url('/') . $dir . $fileName
+            PICTURE => env('IMAGES_HOST') . $dir . $fileName
         );
         $this->updateUserProfile($userId, $params);
         return $fileName.' ('.$newWidth.'px-'.$newHeight.'px)';
