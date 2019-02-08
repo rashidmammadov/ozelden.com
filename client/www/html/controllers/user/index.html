@@ -13,7 +13,13 @@
                 <md-icon md-svg-icon="user-search"></md-icon>
                 <p> {{::'SEARCH' | translate}} </p>
             </md-list-item>
-            <md-subheader class="md-no-sticky">{{'SETTINGS' | translate}}</md-subheader>
+            <md-subheader class="md-no-sticky">{{::'SETTINGS' | translate}}</md-subheader>
+            <md-list-item ng-click="User.link('ozelden.user.children')"
+                          ng-class="{active: state.current.name === 'ozelden.user.children'}">
+                <md-icon md-svg-icon="children"></md-icon>
+                <p> {{::'MY_CHILDREN' | translate}} </p>
+            </md-list-item>
+            <md-divider></md-divider>
             <md-list-item ng-click="User.link('ozelden.user.lecturesList')"
                           ng-class="{active: state.current.name === 'ozelden.user.lecturesList'}">
                 <md-icon md-svg-icon="lectures-list"></md-icon>
