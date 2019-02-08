@@ -222,9 +222,10 @@ class ApiQuery {
      * @param string $lectureTheme
      * @param string $city
      * @param string $district
+     * @param integer $maxPrice
      * @return mixed query result
      */
-    public static function searchTutor($lectureArea, $lectureTheme, $city, $district) {
+    public static function searchTutor($lectureArea, $lectureTheme, $city, $district, $maxPrice) {
         $queryResult = User::where(TYPE, TUTOR)
             ->join(self::profile, (self::users.'.'.IDENTIFIER), EQUAL_SIGN, (self::profile.'.'.USER_ID))
             ->join(self::userLecturesList, (self::users.'.'.IDENTIFIER), EQUAL_SIGN, (self::userLecturesList.'.'.USER_ID))
@@ -233,14 +234,20 @@ class ApiQuery {
             ->where(self::userLecturesList.'.'.LECTURE_AREA, EQUAL_SIGN, $lectureArea)
             /** the lecture theme can be search by null or user can give all themes. **/
             ->where(function ($query) use ($lectureTheme) {
-                $query->where(self::userLecturesList.'.'.LECTURE_THEME, 'LIKE', $lectureTheme)
-                    ->orWhere(self::userLecturesList.'.'.LECTURE_THEME, 'LIKE', 'ALL');
+                $query->where(self::userLecturesList.'.'.LECTURE_THEME, LIKE_SIGN, $lectureTheme)
+                    ->orWhere(self::userLecturesList.'.'.LECTURE_THEME, LIKE_SIGN, 'ALL');
+            })
+            /** lectures should be on given range **/
+            ->where(function ($query) use ($maxPrice) {
+                if ($maxPrice) {
+                    $query->where(self::userLecturesList.'.'.PRICE, LESS_OR_EQUAL_SIGN, $maxPrice);
+                }
             })
             /** the district can be search by null or user can contains all districts of selected city. **/
             ->where(function ($query) use ($city, $district) {
-                $query->where(self::userSuitabilitySchedule.'.'.REGION, 'LIKE',
+                $query->where(self::userSuitabilitySchedule.'.'.REGION, LIKE_SIGN,
                         '%city":"'.$city.'","district":"'.$district.'%')
-                    ->orWhere(self::userSuitabilitySchedule.'.'.REGION, 'LIKE',
+                    ->orWhere(self::userSuitabilitySchedule.'.'.REGION, LIKE_SIGN,
                         '%city":"'.$city.'","district":"hepsi%');
             })
             ->get();

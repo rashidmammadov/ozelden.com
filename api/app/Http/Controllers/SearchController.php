@@ -50,7 +50,8 @@ class SearchController extends ApiController {
         $lectureTheme = $request[LECTURE_THEME];
         $city = $request[CITY];
         $district = $request[DISTRICT];
-        $result =  ApiQuery::searchTutor($lectureArea, $lectureTheme, $city, $district);
+        $maxPrice = $request[MAX_PRICE];
+        $result =  ApiQuery::searchTutor($lectureArea, $lectureTheme, $city, $district, $maxPrice);
         $users = array();
         $distinctUsers = array();
         foreach ($result as $user) {

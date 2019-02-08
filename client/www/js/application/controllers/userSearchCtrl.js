@@ -18,6 +18,7 @@
         self.selectedLectureTheme = self.lectures[0].link[0];
         self.selectedCity = 'Izmir';
         self.selectedDistrict = self.regions['Izmir'][0];
+        self.maxPrice = 250;
 
         /**
          * @ngdoc method
@@ -40,6 +41,7 @@
             query.lectureTheme = self.selectedLectureTheme.base.toLowerCase() === 'all' ? null : self.selectedLectureTheme.base;
             query.city = self.selectedCity;
             query.district = self.selectedDistrict.toLowerCase() === 'hepsi' ? null : self.selectedDistrict;
+            query.maxPrice = self.maxPrice < 250 ? self.maxPrice : null;
             request(query);
         }
 
