@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function ozClassCard($filter, $timeout) {
+    function ozStudentCard($filter, $timeout) {
 
         function link(scope, elem, attrs) {
 
@@ -9,7 +9,7 @@
 
             function drawList(data) {
                 if (data) {
-                    card = elem[0].setAttribute('id', data.classId);
+                    card = elem[0].setAttribute('id', data.childId);
                 }
             }
 
@@ -20,7 +20,7 @@
 
         return {
             restrict: 'E',
-            templateUrl: 'html/directive/ozClassCard.html',
+            templateUrl: 'html/directive/ozStudentCard.html',
             link: link,
             scope: {
                 data: '=ngModel',
@@ -29,5 +29,5 @@
         }
     }
 
-    angular.module('ozelden.directives').directive('ozClassCard', ozClassCard);
+    angular.module('ozelden.directives').directive('ozStudentCard', ozStudentCard);
 })();
