@@ -61,7 +61,7 @@ md-checkbox.md-checked .md-icon {background-color: #721C47;}
 
 card-label {margin: 8px 8px 4px 8px; font-size: 16px; color: rgb(112, 112, 112); }
 md-card.oz-setting-card {margin: 8px; border-radius: 8px;}
-md-card.oz-setting-card md-card-header {padding: 0px 16px; background-color: #721C47; border-radius: 8px 8px 0px 0px; color: #fff;}
+md-card.oz-setting-card md-card-header {padding: 0px 16px; border-radius: 8px 8px 0px 0px; color: #fff; background-image: linear-gradient(to bottom right, rgba(114,28,71,0.7), #721C47);}
 md-card.oz-setting-card md-card-title {padding: 16px; max-height: 16px; min-height: 16px; font-weight: 500; color: #707070; font-size: 16px;}
 
 .md-chips md-chip {background-color: #FFFFFF; border-radius: 8px; border: 1px solid #D1A377; font-size: 11px; height: 32px;}
@@ -89,6 +89,8 @@ md-menu-content { padding: 0px;}
 .ozelden-list.header {box-shadow: 0 2px 16px -4px rgba(0,0,0,0.24);}
 .ozelden-list.header p {font-weight: bold; color: #555555;}
 .ozelden-list.body {height: 240px;overflow-y: scroll;}
+.ozelden-list p {white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+.ozelden-list.no-space {padding: 0px !important; font-size: 14px;}
 
 .no-data {position: relative; bottom: 128px; text-align: center; color: #721C47; }
 
