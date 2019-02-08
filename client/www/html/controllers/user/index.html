@@ -1,0 +1,53 @@
+<section layout="row" flex style="height: 100%;">
+    <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')"
+                md-disable-backdrop md-whiteframe="4" ng-show="user.id">
+        <md-list ng-cloak>
+            <md-list-item ng-click="User.link('ozelden.user.dashboard')"
+                          ng-class="{active: state.current.name === 'ozelden.user.dashboard'}">
+                <md-icon md-svg-icon="dashboard"></md-icon>
+                <p> {{::'DASHBOARD' | translate}} </p>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-list-item ng-click="User.link('ozelden.user.search')"
+                          ng-class="{active: state.current.name === 'ozelden.user.search'}">
+                <md-icon md-svg-icon="user-search"></md-icon>
+                <p> {{::'SEARCH' | translate}} </p>
+            </md-list-item>
+            <md-subheader class="md-no-sticky">{{::'SETTINGS' | translate}}</md-subheader>
+            <md-list-item ng-click="User.link('ozelden.user.children')"
+                          ng-class="{active: state.current.name === 'ozelden.user.children'}">
+                <md-icon md-svg-icon="children"></md-icon>
+                <p> {{::'MY_CHILDREN' | translate}} </p>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-list-item ng-click="User.link('ozelden.user.lecturesList')"
+                          ng-class="{active: state.current.name === 'ozelden.user.lecturesList'}">
+                <md-icon md-svg-icon="lectures-list"></md-icon>
+                <p> {{::'LECTURES_LIST' | translate}} </p>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-list-item ng-click="User.link('ozelden.user.suitabilitySchedule')"
+                          ng-class="{active: state.current.name === 'ozelden.user.suitabilitySchedule'}">
+                <md-icon md-svg-icon="suitability-schedule"></md-icon>
+                <p> {{::'SUITABILITY_SCHEDULE' | translate}} </p>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-list-item ng-click="User.link('ozelden.user.class')"
+                          ng-class="{active: state.current.name === 'ozelden.user.class'}">
+                <md-icon md-svg-icon="class"></md-icon>
+                <p> {{::'MY_CLASSES' | translate}} </p>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-list-item ng-click="User.link('ozelden.user.profile')"
+                          ng-class="{active: state.current.name === 'ozelden.user.profile'}">
+                <md-icon md-svg-icon="settings"></md-icon>
+                <p> {{::'PROFILE' | translate}} </p>
+            </md-list-item>
+            <md-divider></md-divider>
+        </md-list>
+    </md-sidenav>
+
+    <md-content flex layout-padding>
+        <ui-view></ui-view>
+    </md-content>
+</section>
