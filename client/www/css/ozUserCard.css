@@ -20,8 +20,8 @@
 
 .oz-user-card .oz-user-card-header {
     border-radius: 8px 8px 0px 0px;
-    background-color: #721C47;
     padding: 8px 16px 40px 8px;
+    background-image: linear-gradient(to bottom right, rgba(114,28,71,0.7), #721C47);
 }
 
 .oz-user-card .oz-user-card-header .name {
@@ -145,7 +145,7 @@
 }
 
 .oz-user-card md-tabs .md-tab.md-active {
-    background-color: #721C47;
+    background-image: linear-gradient(to bottom right, rgba(114,28,71,0.7), #721C47);
     color: white;
 }
 

@@ -95,12 +95,18 @@
             templateUrl: 'html/controllers/user/profile.html',
             controller: 'UserProfileCtrl',
             controllerAs: 'User'
+        }).state('ozelden.user.children',{
+            url: '/children',
+            templateUrl: 'html/controllers/user/children.html',
+            controller: 'UserChildrenCtrl',
+            controllerAs: 'Children'
         });
 
         // define icons.
         $mdIconProvider.icon('add-button', 'img/icon/add-button.svg');
         $mdIconProvider.icon('birthday-cake', 'img/icon/birthday-cake.svg');
         $mdIconProvider.icon('briefcase', 'img/icon/briefcase.svg');
+        $mdIconProvider.icon('children', 'img/icon/children.svg');
         $mdIconProvider.icon('class', 'img/icon/class.svg');
         $mdIconProvider.icon('dashboard', 'img/icon/dashboard.svg');
         $mdIconProvider.icon('edit-button', 'img/icon/edit-button.svg');
