@@ -1,0 +1,28 @@
+<md-card class="oz-setting-card md-whiteframe-1dp">
+    <md-card-header>
+        <div class="md-margin-vertical" layout="column" layout-align="center center" flex>
+            <div class="image" style="background: url('http://localhost:8000/users/user-4-55131306022019.jpg') center center no-repeat;"></div>
+            <p>{{::data.name}} {{::data.surname}}</p>
+        </div>
+    </md-card-header>
+    <md-divider></md-divider>
+    <md-card-content>
+        <div class="info" layout="row" layout-align="space-around center">
+            <div layout="column" layout-align="center center">
+                <md-icon md-svg-src="birthday-cake"></md-icon>
+                <p>15 {{::'AGE' | translate}}</p>
+            </div>
+            <div layout="column" layout-align="center center">
+                <md-icon md-svg-src="male"></md-icon>
+                <p>{{::'MALE' | translate}}</p>
+            </div>
+        </div>
+        <md-divider></md-divider>
+        <div layout="column">
+            <p>{{::'CLASS' | translate}}</p>
+            <md-chips ng-model="data.classes" name="classes" readonly="true" md-removable="false">
+                <md-chip-template><b>{{::$chip.className}}</b></md-chip-template>
+            </md-chips>
+        </div>
+    </md-card-content>
+</md-card>
