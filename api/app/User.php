@@ -28,6 +28,14 @@ class User extends Authenticatable {
         PASSWORD, REMEMBER_TOKEN,
     ];
 
+    public function child() {
+        return $this->hasOne('App\Child');
+    }
+
+    public function class_list() {
+        return $this->hasMany('App\UserClassList');
+    }
+
     public function profile() {
         return $this->hasOne('App\Profile');
     }
@@ -38,9 +46,5 @@ class User extends Authenticatable {
 
     public function user_lectures_list() {
         return $this->hasMany('App\UserLecturesList');
-    }
-
-    public function class_list() {
-        return $this->hasMany('App\UserClassList');
     }
 }

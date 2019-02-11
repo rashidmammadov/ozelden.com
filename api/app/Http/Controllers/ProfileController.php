@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Intervention\Image\ImageManagerStatic as Image;
+use App\Library\Image;
 use JWTAuth;
 use Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -71,6 +71,7 @@ class ProfileController extends ApiController {
         try {
             $user = JWTAuth::parseToken()->authenticate();
             $userId = $user->id;
+            $userType = $user->type;
             $rules = array(
                 BASE64 => 'required',
                 FILE_TYPE => 'required'
@@ -80,48 +81,15 @@ class ProfileController extends ApiController {
             if ($validator->fails()) {
                 return $this->respondValidationError('FIELDS_VALIDATION_FAILED', $validator->errors());
             } else {
-                $data = $this->uploadUserProfilePicture($userId, $request[BASE64], $request[FILE_TYPE]);
-                return $this->respondCreated('PICTURE_UPLOADED_SUCCESSFULLY', $data);
+                $picture = Image::uploadProfilePicture($userId, $userType, $request[BASE64], $request[FILE_TYPE]);
+                $params = array(PICTURE => $picture);
+                $this->updateUserProfile($userId, $params);
+                return $this->respondCreated('PICTURE_UPLOADED_SUCCESSFULLY', $picture);
             }
         } catch (JWTException $e) {
             $this->setStatusCode($e->getStatusCode());
             return $this->respondWithError($e->getMessage());
         }
-    }
-
-    /**
-     * @description Minify and upload picture of selected user.
-     * @param integer $userId
-     * @param string {base64} $file
-     * @param string $fileType
-     * @return array|bool
-     */
-    public function uploadUserProfilePicture($userId, $file, $fileType) {
-        $currentDate = date('siHdmY');
-        $fileName = $userId.'-'.$currentDate.'.'.$fileType;
-        $dir = '/users/';
-        $subPath = env('IMAGES_PATH');
-        $path = public_path(). $subPath . $dir . $fileName;
-
-        $imageDetails = getimagesize($file);
-        $originalWidth = $imageDetails[0];
-        $originalHeight = $imageDetails[1];
-        $newWidth = $originalWidth;
-        $newHeight = $originalHeight;
-        if ($originalWidth > 300 || $originalHeight > 300) {
-            $coefficient = ($originalWidth > $originalHeight) ? ($originalWidth / 300) : ($originalHeight / 300);
-            if ($coefficient > 0) {
-                $newWidth = $originalWidth / $coefficient;
-                $newHeight = $originalHeight / $coefficient;
-            }
-        }
-
-        Image::make(file_get_contents($file))->resize($newWidth, $newHeight)->save($path);
-        $params = array(
-            PICTURE => env('IMAGES_HOST') . $dir . $fileName
-        );
-        $this->updateUserProfile($userId, $params);
-        return $fileName.' ('.$newWidth.'px-'.$newHeight.'px)';
     }
 
     /**

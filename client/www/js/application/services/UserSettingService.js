@@ -310,7 +310,7 @@
          * @description call when response is success.
          */
         function $$fetchSuccessResponse(result, deferred) {
-            if (result.status === "success") {
+            if (result.status === 'success') {
                 deferred.resolve(result);
             } else {
                 deferred.reject(result);
