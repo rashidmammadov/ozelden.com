@@ -26,20 +26,6 @@
 
         /**
          * @ngdoc method
-         * @name ozelden.controllers.controllers:UserSignCtrl#checkValidInput
-         * @description Switch register button state between disable and enable.
-         */
-        function checkValidInput() {
-            if(!self.name || !self.surname || !self.birthDate|| !self.sex || !self.email || !self.password || !self.passwordConfirm
-                || self.password!=self.passwordConfirm || self.password < 6 || self.terms==false){
-                return true;
-            }else{
-                return false;
-            }
-        }
-
-        /**
-         * @ngdoc method
          * @name ozelden.controllers.controllers:UserSignCtrl#_in
          * @description Send request for log in user.
          */
@@ -51,17 +37,17 @@
             };
 
             SignService._in(data).then(function (result) {
-                if (result.status === 'success'){
-                    NotificationService.showMessage($filter("translate")(result.message));
+                if (result.status === 'success') {
+                    NotificationService.showMessage($filter('translate')(result.message));
                     $rootScope.user = result.data;
-                    CookieService.setUser($rootScope.user, "14-d");
-                    $state.go("ozelden.user.dashboard");
+                    CookieService.setUser($rootScope.user, '14-d');
+                    $state.go('ozelden.user.dashboard');
                 } else {
-                    NotificationService.showMessage($filter("translate")(result.message));
+                    NotificationService.showMessage($filter('translate')(result.message));
                 }
                 $rootScope.loadingOperation = false;
-            }, function ($rejection) {
-                NotificationService.showMessage($filter("translate")("SOMETHING_WENT_WRONG"));
+            }, function (rejection) {
+                NotificationService.showMessage($filter('translate')(rejection.message));
                 $rootScope.loadingOperation = false;
             })
         }
@@ -72,35 +58,38 @@
          * @description Send request for register user.
          */
         function up() {
-            $rootScope.loadingOperation = true;
-            var data= {
-                type: self.type,
-                name: self.name,
-                surname: self.surname,
-                birthDate: self.birthDate.getTime(),
-                email: self.email,
-                password: self.password,
-                password_confirmation: self.passwordConfirm,
-                sex: self.sex
-            };
+            if ($scope.SignUpForm.$valid && self.password === self.passwordConfirm && self.terms === true) {
+                $rootScope.loadingOperation = true;
+                var data = {
+                    type: self.type,
+                    name: self.name,
+                    surname: self.surname,
+                    birthDate: self.birthDate.getTime(),
+                    email: self.email,
+                    password: self.password,
+                    password_confirmation: self.passwordConfirm,
+                    sex: self.sex
+                };
 
-            SignService.up(data).then(function (result){
-                if (result.status === 'success'){
-                    NotificationService.showMessage($filter("translate")(result.message));
-                    $rootScope.user = result.data;
-                    CookieService.setUser($rootScope.user, "14-d");
-                    $state.go("ozelden.user.dashboard");
-                } else {
-                    NotificationService.showMessage($filter("translate")(result.message));
-                }
-                $rootScope.loadingOperation = false;
-            }, function () {
-                NotificationService.showMessage($filter("translate")("SOMETHING_WENT_WRONG"));
-                $rootScope.loadingOperation = false;
-            });
+                SignService.up(data).then(function (result) {
+                    if (result.status === 'success') {
+                        NotificationService.showMessage($filter('translate')(result.message));
+                        $rootScope.user = result.data;
+                        CookieService.setUser($rootScope.user, '14-d');
+                        $state.go('ozelden.user.dashboard');
+                    } else {
+                        NotificationService.showMessage($filter('translate')(result.message));
+                    }
+                    $rootScope.loadingOperation = false;
+                }, function (rejection) {
+                    NotificationService.showMessage($filter('translate')(rejection.message));
+                    $rootScope.loadingOperation = false;
+                });
+            } else {
+                NotificationService.showMessage($filter('translate')('FIELDS_VALIDATION_FAILED'));
+            }
         }
 
-        this.checkValidInput = checkValidInput;
         this._in = _in;
         this.up = up;
     }

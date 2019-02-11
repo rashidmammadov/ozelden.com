@@ -71,7 +71,6 @@ class UserController extends ApiController
         );
 
         $validator = Validator::make($request->all(), $rules);
-
         if ($validator->fails()) {
             return $this->respondValidationError("FIELDS_VALIDATION_FAILED", $validator->errors());
         } else {
@@ -80,7 +79,7 @@ class UserController extends ApiController
             if ($user) {
                 $remember_token = $user->remember_token;
                 if ($remember_token == NULL){
-                    return $this->_login($request[EMAIL], $request[PASSWORD], false);
+                    return $this->_login($request, false);
                 }
 
                 try {
@@ -104,7 +103,7 @@ class UserController extends ApiController
      * @return mixed : Json String response
      */
     public function register(Request $request) {
-        $rules = array (
+        $rules = array(
             TYPE => 'required|max:255',
             NAME => 'required|max:255',
             SURNAME => 'required|max:255',
@@ -128,9 +127,7 @@ class UserController extends ApiController
                 SEX => $request[SEX]
             );
             User::create($params);
-
-            $this->email->send(WELCOME_EMAIL, $request);
-            return $this->_login($request[EMAIL], $request[PASSWORD], true);
+            return $this->_login($request, true);
         }
     }
 
@@ -155,15 +152,14 @@ class UserController extends ApiController
 
     /**
      * @description: Api user login method
-     * @param $email
-     * @param $password
+     * @param $request
      * @param $newUser
      * @return mixed : Json String response
      */
-    private function _login($email, $password, $newUser) {
-        $credentials = [EMAIL => $email, PASSWORD => $password];
+    private function _login($request, $newUser) {
+        $credentials = [EMAIL => $request[EMAIL], PASSWORD => $request[PASSWORD]];
         if ( ! $token = JWTAuth::attempt($credentials)) {
-            return $this->respondWithError("USER_DOES_NOT_EXIST");
+            return $this->respondWithError('USER_DOES_NOT_EXIST');
         }
 
         $user = JWTAuth::toUser($token);
@@ -173,9 +169,10 @@ class UserController extends ApiController
         if ($newUser) {
             $this->suitabilitySchedule->create($user->id);
             ApiQuery::setUserDefaultProfile($user->id);
+            $this->email->send(WELCOME_EMAIL, $request);
         }
 
-        return $this->respondCreated("USER_LOGGED_IN_SUCCESSFULLY", $this->userTransformer->transform($user));
+        return $this->respondCreated('USER_LOGGED_IN_SUCCESSFULLY', $this->userTransformer->transform($user));
     }
 
 }
