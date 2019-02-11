@@ -44,6 +44,24 @@
             return diff;
         };
 
+        /**
+         * @ngdoc method
+         * @name ozelden.services.UtilityService#setMillisecondsDate
+         * @methodOf ozelden.services.TutorService
+         *
+         * @description calculate milliseconds date.
+         * @param {Object=} value - holds the date values.
+         */
+        this.setMillisecondsDate = function (value) {
+            var date = null;
+            if (value.day && value.month && value.year) {
+                date = new Date(value.year, value.month, value.day);
+            } else {
+                date = new Date();
+            }
+            return date.getTime();
+        };
+
         return this;
     }
 

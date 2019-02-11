@@ -7,112 +7,109 @@
         <md-tabs flex="55" md-dynamic-height md-border-bottom>
             <md-tab ng-click="tabindex = 0">
                 <md-tab-label>
-                    {{'LOGIN' | translate}}
+                    {{::'LOGIN' | translate}}
                 </md-tab-label>
                 <md-tab-body>
                     <form name="SignInForm" class="md-margin md-padding">
                         <md-input-container class="md-block">
-                            <label>{{'EMAIL' | translate}}</label>
+                            <label>{{::'EMAIL' | translate}}</label>
                             <input required type="email" name="email" ng-model="Sign.signInEmail"
                                    minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
                             <div ng-messages="SignInForm.email.$error" role="alert">
                                 <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
-                                    {{'INVALID_EMAIL' | translate}}
+                                    {{::'INVALID_EMAIL' | translate}}
                                 </div>
                             </div>
                         </md-input-container>
                         <md-input-container class="md-block">
-                            <label>{{'PASSWORD' | translate}}</label>
+                            <label>{{::'PASSWORD' | translate}}</label>
                             <input required type="password" name="password" ng-model="Sign.signInPassword"
                                    minlength="6" maxlength="100"/>
                             <div ng-messages="SignInForm.password.$error" role="alert">
                                 <div ng-message-exp="['required', 'minlength', 'maxlength']">
-                                    {{'INVALID_PASSWORD' | translate}}
+                                    {{::'INVALID_PASSWORD' | translate}}
                                 </div>
                             </div>
                         </md-input-container>
                         <md-button type="submit" ng-click="Sign._in()" class="sign-button md-raised"
-                                   ng-disabled="loadingOperation">{{'LOGIN' | translate}}</md-button>
+                                   ng-disabled="loadingOperation">{{::'LOGIN' | translate}}</md-button>
                     </form>
                 </md-tab-body>
             </md-tab>
             <md-tab ng-click="tabindex = 1">
                 <md-tab-label>
-                    {{'REGISTRATION' | translate}}
+                    {{::'REGISTRATION' | translate}}
                 </md-tab-label>
                 <md-tab-body>
                     <form name="SignUpForm" class="md-margin md-padding">
                         <md-radio-group ng-model="Sign.type" layout="row" style="margin-top: 24px; margin-bottom: 24px;">
                             <md-radio-button value="tutor">
-                                {{'TUTOR' | translate}}
+                                {{::'TUTOR' | translate}}
                             </md-radio-button>
                             <md-radio-button value="student">
-                                {{'STUDENT' | translate}}
+                                {{::'STUDENT' | translate}}
                             </md-radio-button>
                         </md-radio-group>
                         <md-input-container class="md-block">
-                            <label>{{'NAME' | translate}}</label>
+                            <label>{{::'NAME' | translate}}</label>
                             <input required type="text" name="name" ng-model="Sign.name"/>
                             <div ng-messages="SignUpForm.name.$error" role="alert">
                                 <div ng-message-exp="['required']">
-                                    {{'REQUIRED' | translate}}
+                                    {{::'REQUIRED' | translate}}
                                 </div>
                             </div>
                         </md-input-container>
                         <md-input-container class="md-block">
-                            <label>{{'SURNAME' | translate}}</label>
+                            <label>{{::'SURNAME' | translate}}</label>
                             <input required type="text" name="surname" ng-model="Sign.surname"/>
                             <div ng-messages="SignUpForm.surname.$error" role="alert">
                                 <div ng-message-exp="['required']">
-                                    {{'REQUIRED' | translate}}
+                                    {{::'REQUIRED' | translate}}
                                 </div>
                             </div>
                         </md-input-container>
-                        <md-input-container>
-                            <label>{{'DATE_OF_BIRTH' | translate}}</label>
-                            <md-datepicker required md-hide-icons="calendar" ng-model="Sign.birthDate" md-open-on-focus></md-datepicker>
-                        </md-input-container>
+                        <oz-date-input label="'DATE_OF_BIRTH'" ng-model="Sign.birthDate"></oz-date-input>
                         <md-radio-group ng-model="Sign.sex" layout="row" style="margin-top: 24px; margin-bottom: 24px;">
                             <md-radio-button value="venus">
-                                {{'FEMALE' | translate}}
+                                {{::'FEMALE' | translate}}
                             </md-radio-button>
                             <md-radio-button value="mars">
-                                {{'MALE' | translate}}
+                                {{::'MALE' | translate}}
                             </md-radio-button>
                         </md-radio-group>
                         <md-input-container class="md-block">
-                            <label>{{'EMAIL' | translate}}</label>
+                            <label>{{::'EMAIL' | translate}}</label>
                             <input required type="email" name="email" ng-model="Sign.email"
                                    minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
                             <div ng-messages="SignUpForm.email.$error" role="alert">
                                 <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
-                                    {{'INVALID_EMAIL' | translate}}
+                                    {{::'INVALID_EMAIL' | translate}}
                                 </div>
                             </div>
                         </md-input-container>
                         <md-input-container class="md-block">
-                            <label>{{'PASSWORD' | translate}}</label>
+                            <label>{{::'PASSWORD' | translate}}</label>
                             <input required type="password" name="password" ng-model="Sign.password"
                                    minlength="6" maxlength="100"/>
                             <div ng-messages="SignUpForm.password.$error" role="alert">
                                 <div ng-message-exp="['required', 'minlength', 'maxlength']">
-                                    {{'INVALID_PASSWORD' | translate}}
+                                    {{::'INVALID_PASSWORD' | translate}}
                                 </div>
                             </div>
                         </md-input-container>
                         <md-input-container class="md-block">
-                            <label>{{'PASSWORD_CONFIRM' | translate}}</label>
+                            <label>{{::'PASSWORD_CONFIRM' | translate}}</label>
                             <input required type="password" name="passwordConfirm" ng-model="Sign.passwordConfirm"
                                    minlength="6" maxlength="100"/>
                             <div ng-messages="SignUpForm.passwordConfirm.$error" role="alert">
                                 <div ng-message-exp="['required', 'minlength', 'maxlength']">
-                                    {{'INVALID_PASSWORD' | translate}}
+                                    {{::'INVALID_PASSWORD' | translate}}
                                 </div>
                             </div>
                         </md-input-container>
-                        <md-checkbox ng-model="Sign.terms">{{'ACCEPT_TERMS_OF_USE' | translate}}</md-checkbox><br/>
-                        <md-button type="sumbit" class="sign-button md-ranpmised" ng-disabled="Sign.checkValidInput() || loadingOperation"
-                            ng-click="Sign.up()">{{'LOGIN' | translate}}</md-button>
+                        <md-checkbox ng-model="Sign.terms">{{::'ACCEPT_TERMS_OF_USE' | translate}}</md-checkbox><br/>
+                        <md-button type="sumbit" class="sign-button md-ranpmised" ng-disabled="loadingOperation"
+                            ng-click="Sign.up()">{{::'LOGIN' | translate}}</md-button>
                     </form>
                 </md-tab-body>
             </md-tab>
