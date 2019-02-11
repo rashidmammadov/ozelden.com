@@ -28,7 +28,7 @@
 
         /**
          * @ngdoc method
-         * @name ozelden.controllers.controllers:MainCtrl#changeLangugage
+         * @name ozelden.controllers.controllers:MainCtrl#changeLangugage792237354220
          * @description This method changes application`s language.
          * @param lang: send selected language name.
          */
