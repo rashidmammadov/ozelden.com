@@ -1,8 +1,9 @@
 (function () {
     'use strict';
 
-    var ozelden = angular.module('ozelden',['ozelden.controllers','ozelden.directives','ozelden.filters','ozelden.services',
-        'ngAnimate', 'ngAria', 'ngMaterial', 'ngMessages', 'pascalprecht.translate', 'ui.router', 'ngCookies']);
+    var ozelden = angular.module('ozelden',['ozelden.constants', 'ozelden.controllers','ozelden.directives',
+        'ozelden.filters', 'ozelden.services', 'ngAnimate', 'ngAria', 'ngMaterial', 'ngMessages', 'pascalprecht.translate',
+        'ui.router', 'ngCookies']);
 
     ozelden.run(function ($rootScope, $http, VocabularyService) {});
 
