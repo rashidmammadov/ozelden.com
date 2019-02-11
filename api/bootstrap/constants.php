@@ -5,6 +5,8 @@ define('AVERAGE', 'average');
 define('BASE64', 'base64');
 define('BIRTH_DATE', 'birthDate');
 define('CITY', 'city');
+define('CHILD', 'child');
+define('CHILD_ID', 'childId');
 define('CONTACT', 'contact');
 define('COURSE', 'course');
 define('COURSE_TYPE', 'courseType');
