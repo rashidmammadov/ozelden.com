@@ -2,6 +2,7 @@
 
 namespace App\Http\Queries\MySQL;
 
+use App\Child;
 use App\Profile;
 use App\User;
 use App\UserClassList;
@@ -11,11 +12,57 @@ use Illuminate\Support\Facades\DB;
 
 class ApiQuery {
 
+    const child = 'child';
     const profile = 'profile';
     const users = 'users';
     const userClassList = 'user_class_list';
     const userLecturesList = 'user_lectures_list';
     const userSuitabilitySchedule = 'user_suitability_schedule';
+
+    /* ------------------------- CHILD QUERIES ------------------------- */
+
+    /**
+     * @description query to get user`s children.
+     * @param integer $userId
+     * @return mixed
+     */
+    public static function getUserChildren($userId) {
+        $queryResult = Child::where([
+           [USER_ID, EQUAL_SIGN, $userId]
+        ])->get();
+
+        return $queryResult;
+    }
+
+    /**
+     * @description query to set child of given parent.
+     * @param integer $userId
+     * @param array $parameters
+     * @return mixed
+     */
+    public static function setChild($userId, $parameters) {
+        Child::create([
+            USER_ID => $userId,
+            PICTURE => $parameters[PICTURE],
+            NAME => $parameters[NAME],
+            SURNAME => $parameters[SURNAME],
+            SEX => $parameters[SEX],
+            BIRTH_DATE => $parameters[BIRTH_DATE]
+        ]);
+    }
+
+    /**
+     * @description query to delete user`s selected child.
+     * @param integer $userId
+     * @param integer $childId
+     * @return mixed
+     */
+    public static function deleteChild($userId, $childId) {
+        Child::where([
+            [USER_ID, EQUAL_SIGN, $userId],
+            [CHILD_ID, EQUAL_SIGN, $childId]
+        ])->delete();
+    }
 
     /* ------------------------- PROFILE QUERIES ------------------------- */
 

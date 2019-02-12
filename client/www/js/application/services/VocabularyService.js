@@ -6,6 +6,7 @@
 
         this.api = DirectionService.apiUri();
 
+        this.child_ = function() { return self.api + 'child'; };
         this.data = function() { return self.api + 'data'; };
         this.profile = function () { return self.api + 'profile'; };
         this.refreshUser = function() { return  self.api + 'refreshUser'; };
