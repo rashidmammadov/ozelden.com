@@ -1,12 +1,13 @@
 (function () {
     'use strict';
 
-    function UtilityService() {
+    function UtilityService($filter) {
+        var currentDate = new Date().getTime();
 
         /**
          * @ngdoc method
          * @name ozelden.services.UtilityService#querySearch
-         * @methodOf ozelden.services.TutorService
+         * @methodOf ozelden.services.UtilityService
          *
          * @description get current user`s info by token.
          * @param {String} query - holds the user token.
@@ -25,7 +26,7 @@
         /**
          * @ngdoc method
          * @name ozelden.services.UtilityService#findLectureAverage
-         * @methodOf ozelden.services.TutorService
+         * @methodOf ozelden.services.UtilityService
          *
          * @description find lecture average.
          * @param {Object} lecture - holds the lecture data.
@@ -46,8 +47,41 @@
 
         /**
          * @ngdoc method
+         * @name ozelden.services.UtilityService#dateDifference
+         * @methodOf ozelden.services.UtilityService
+         *
+         * @description find difference between two milliseconds date.
+         * @param {String} given - holds the millisecond date.
+         * @param {String} range - holds the range type.
+         * @param {String=} type - holds the type.
+         */
+        this.dateDifference = function(given, range, type) {
+            if (given) {
+                var result;
+                var dateA = new Date(currentDate);
+                var dateB = new Date(given);
+                if (range === 'year') {
+                    var year = dateA.getFullYear() - dateB.getFullYear();
+                    result = year ? year + ' ' + $filter('translate')(type) : '?';
+                } else if (range === 'month') {
+                    result = ((dateA.getFullYear() - dateB.getFullYear()) * 12 + dateA.getMonth()) - dateB.getMonth();
+                    var year = Math.floor(result / 12);
+                    var month = result % 12;
+                    if (!year && !month) {
+                        result = $filter('translate')('NEW');
+                    } else {
+                        result = (year ? year + ' ' + $filter('translate')('Y') : '') + ' ' +
+                            (month ? month + ' ' + $filter('translate')('M') : '');
+                    }
+                }
+                return result;
+            }
+        }
+
+        /**
+         * @ngdoc method
          * @name ozelden.services.UtilityService#setMillisecondsDate
-         * @methodOf ozelden.services.TutorService
+         * @methodOf ozelden.services.UtilityService
          *
          * @description calculate milliseconds date.
          * @param {Object=} value - holds the date values.
