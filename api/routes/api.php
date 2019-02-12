@@ -30,6 +30,10 @@ Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
             'cache: '.$cache;
     });*/
 
+    Route::delete('child', 'ChildController@removeChild');
+    Route::post('child', 'ChildController@addNewChild');
+    Route::get('child', 'ChildController@getUserChildren');
+
     Route::get('/data', 'DataController@get');
 
     Route::get('/suitabilitySchedule', 'SuitabilityScheduleController@getSuitabilitySchedule');
