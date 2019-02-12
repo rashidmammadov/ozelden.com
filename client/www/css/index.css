@@ -39,7 +39,9 @@ md-slider.md-default-theme .md-sign:after, md-slider .md-sign:after {border-top-
 ::-webkit-scrollbar-thumb{background-color: rgba(0,0,0,0.5); border-radius: 4px;}
 
 .md-margin-vertical {margin: 8px 0px;}
+.md-margin-vertical-md {margin: 16px 0px;}
 .md-margin-horizontal {margin: 0px 8px;}
+.md-margin-horizontal-md {margin: 0px 16px;}
 .md-padding-vertical {padding: 8px 0px;}
 .md-padding-horizontal {padding: 0px 8px;}
 
@@ -62,6 +64,7 @@ md-checkbox.md-checked .md-icon {background-color: #721C47;}
 .md-button {text-transform: capitalize; border-radius: 4px;}
 .md-button.md-icon-button {padding: 8px;}
 .md-button[disabled] {background-color: #F0F0F0 !important; }
+.md-icon-button.settings-button {margin-left: -48px; margin-top: 16px; position: relative; z-index: 3;}
 .float-button {position: fixed; top: 64px; right: 32px;}
 
 card-label {margin: 8px 8px 4px 8px; font-size: 16px; color: rgb(112, 112, 112); }

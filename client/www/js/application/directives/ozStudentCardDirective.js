@@ -1,11 +1,12 @@
 (function(){
     'use strict';
 
-    function ozStudentCard($filter, $timeout) {
+    function ozStudentCard($filter, $timeout, UtilityService) {
 
         function link(scope, elem, attrs) {
 
             var card;
+            scope.dateDifference = UtilityService.dateDifference;
 
             function drawList(data) {
                 if (data) {
