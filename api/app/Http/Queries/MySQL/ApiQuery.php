@@ -9,6 +9,7 @@ use App\UserClassList;
 use App\SuitabilitySchedule;
 use App\UserLecturesList;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ApiQuery {
 
@@ -20,6 +21,19 @@ class ApiQuery {
     const userSuitabilitySchedule = 'user_suitability_schedule';
 
     /* ------------------------- CHILD QUERIES ------------------------- */
+
+    /**
+     * @description query to get child.
+     * @param $childId
+     * @return mixed
+     */
+    public static function getChild($childId) {
+        $queryResult = Child::where([
+            [CHILD_ID, EQUAL_SIGN, $childId]
+        ])->first();
+
+        return $queryResult;
+    }
 
     /**
      * @description query to get user`s children.
@@ -37,7 +51,7 @@ class ApiQuery {
     /**
      * @description query to set child of given parent.
      * @param integer $userId
-     * @param array $parameters
+     * @param $parameters
      * @return mixed
      */
     public static function setChild($userId, $parameters) {
@@ -62,6 +76,32 @@ class ApiQuery {
             [USER_ID, EQUAL_SIGN, $userId],
             [CHILD_ID, EQUAL_SIGN, $childId]
         ])->delete();
+    }
+
+    /**
+     * @description query to update selected child.
+     * @param integer $childId
+     * @param $parameters
+     * @return mixed
+     */
+    public static function updateChild($childId, $parameters) {
+        $queryResult = self::getChild($childId);
+        if (!empty($parameters[PICTURE])) {
+            $queryResult->picture = $parameters[PICTURE];
+        }
+        if (!empty($parameters[NAME])) {
+            $queryResult->name = $parameters[NAME];
+        }
+        if (!empty($parameters[SURNAME])) {
+            $queryResult->surname = $parameters[SURNAME];
+        }
+        if (!empty($parameters[SEX])) {
+            $queryResult->sex = $parameters[SEX];
+        }
+        if (!empty($parameters[BIRTH_DATE])) {
+            $queryResult->birthDate = $parameters[BIRTH_DATE];
+        }
+        $queryResult->save();
     }
 
     /* ------------------------- PROFILE QUERIES ------------------------- */

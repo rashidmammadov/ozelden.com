@@ -40,7 +40,7 @@
                 }).then(function (child) {
                     if (operation === 'create') {
                         $$createChild(child);
-                    } else if (operation === 'update') {
+                    } else if (operation === 'edit') {
                         $$updateChild(child);
                     }
                 })
@@ -108,7 +108,15 @@
          * @param {Object} child - holds the child data.
          */
         function $$updateChild(child) {
-            
+            $rootScope.loadingOperation = true;
+            ChildService.updateChild(child).then(function (result) {
+                $rootScope.loadingOperation = false;
+                NotificationService.showMessage($filter('translate')(result.message));
+                getChildList();
+            }, function () {
+                $rootScope.loadingOperation = false;
+                NotificationService.showMessage($filter('translate')('SOMETHING_WENT_WRONG'));
+            });
         }
 
         this.openChildrenDialog = openChildrenDialog;
