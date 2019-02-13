@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
+use Monolog\Logger;
 use PHPUnit\Util\Json;
 use Response;
 use \Illuminate\Http\Response as Res;
