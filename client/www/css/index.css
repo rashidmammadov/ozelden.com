@@ -64,7 +64,6 @@ md-checkbox.md-checked .md-icon {background-color: #721C47;}
 .md-button {text-transform: capitalize; border-radius: 4px;}
 .md-button.md-icon-button {padding: 8px;}
 .md-button[disabled] {background-color: #F0F0F0 !important; }
-.md-icon-button.settings-button {margin-left: -48px; margin-top: 16px; position: relative; z-index: 3;}
 .float-button {position: fixed; top: 64px; right: 32px;}
 
 card-label {margin: 8px 8px 4px 8px; font-size: 16px; color: rgb(112, 112, 112); }
