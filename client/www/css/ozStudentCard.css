@@ -5,3 +5,4 @@ oz-student-card md-card-header md-icon {fill: #ffffff !important;}
 oz-student-card md-card-header .image {width: 80px; height: 80px; border-radius: 100%; background-size: cover !important;}
 oz-student-card md-card-content p {margin: 4px 0px;}
 oz-student-card md-card-content .info p {font-size: 13px;}
+oz-student-card  .md-icon-button.settings-button {margin-left: -48px; margin-top: 16px; position: relative; z-index: 3;}
