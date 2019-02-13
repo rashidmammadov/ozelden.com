@@ -1,0 +1,64 @@
+<div layout="column">
+    <div layout="column">
+        <card-label>{{::'FILTERS' | translate}}</card-label>
+        <md-card class="oz-setting-card md-whiteframe-1dp" flex>
+            <md-card-content>
+                <div layout-gt-md="row" layout="column">
+                    <div layout="row" flex>
+                        <md-input-container flex>
+                            <label>{{::'LECTURE_AREA' | translate}}</label>
+                            <md-select ng-model="Search.selectedLectureArea" ng-change="Search.search()">
+                                <md-option ng-repeat="area in Search.lectures" ng-value="area">
+                                    {{::area.base | translate}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex>
+                            <label>{{::'LECTURE_THEME' | translate}}</label>
+                            <md-select ng-model="Search.selectedLectureTheme" ng-change="Search.search()">
+                                <md-option ng-repeat="theme in Search.selectedLectureArea.link" ng-value="theme"
+                                    ng-selected="$index == 0">
+                                    {{::theme.base | translate}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                    <div layout="row" flex>
+                        <md-input-container flex>
+                            <label>{{::'CITY' | translate}}</label>
+                            <md-select ng-model="Search.selectedCity" ng-change="Search.search()">
+                                <md-option ng-repeat="(city, index) in Search.regions" ng-value="city">
+                                    {{::city}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex>
+                            <label>{{::'DISTRICT' | translate}}</label>
+                            <md-select ng-model="Search.selectedDistrict" ng-disabled="!Search.regions[Search.selectedCity]"
+                                       ng-change="Search.search()">
+                                <md-option ng-repeat="district in Search.regions[Search.selectedCity]" ng-value="district">
+                                    {{::district}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                </div>
+                <div layout="row" flex>
+                    <div layout="row" layout-align="space-between center" flex>
+                        <div layout layout-align="start center">
+                            <span class="md-body-1">{{::'MAX_PRICE' | translate}}:</span>
+                        </div>
+                        <md-slider class="md-margin-horizontal" flex md-discrete ng-model="Search.maxPrice"
+                                   step="5" min="5" max="250" aria-label="max price" ng-change="Search.search()">
+                        </md-slider>
+                        <div layout layout-align="start center">
+                            <span class="md-body-1">{{Search.maxPrice}} {{::'TRY' | translate}}</span>
+                        </div>
+                    </div>
+                </div>
+            </md-card-content>
+        </md-card>
+    </div>
+
+    <oz-search-result ng-if="Search.searchResult.length" ng-data="Search.searchResult" flex></oz-search-result>
+</div>

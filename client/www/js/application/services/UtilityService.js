@@ -76,7 +76,7 @@
                 }
                 return result;
             }
-        }
+        };
 
         /**
          * @ngdoc method
@@ -88,12 +88,29 @@
          */
         this.setMillisecondsDate = function (value) {
             var date = null;
-            if (value.day && value.month && value.year) {
+            if (value.day !== null && value.month !== null && value.year !== null) {
                 date = new Date(value.year, value.month, value.day);
             } else {
                 date = new Date();
             }
             return date.getTime();
+        };
+
+        /**
+         * @ngdoc method
+         * @name ozelden.services.UtilityService#setObjectDate
+         * @methodOf ozelden.services.UtilityService
+         *
+         * @description calculate object date from milliseconds.
+         * @param {=} value - holds the date values.
+         */
+        this.setObjectDate = function (value) {
+            var dateObject = value ? new Date(value) : new Date();
+            return {
+                day: dateObject.getDate(),
+                month: dateObject.getMonth(),
+                year: dateObject.getFullYear()
+            };
         };
 
         return this;
