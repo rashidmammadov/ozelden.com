@@ -21,6 +21,7 @@
   "CHESS": "Chess",
   "CHILD_ADDED_SUCCESSFULLY": "Child added successfully",
   "CHILD_REMOVED_SUCCESSFULLY": "Child removed successfully",
+  "CHILD_UPDATED_SUCCESSFULLY": "Child updated successfully",
   "CITIZENSHIP": "Citizenship",
   "CITY": "City",
   "CLASS": "Class",

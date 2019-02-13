@@ -4,12 +4,23 @@
     function ozDateInput(UtilityService, AppConstants) {
 
         function link(scope) {
-            scope.days = AppConstants.days;
-            scope.months = AppConstants.months;
-            scope.years = AppConstants.years;
+            getSelectableDateList();
+            setDate();
+
             scope.onChange = function() {
                 scope.data = UtilityService.setMillisecondsDate(scope.date);
             };
+            
+            function getSelectableDateList() {
+                scope.days = AppConstants.days;
+                scope.months = AppConstants.months;
+                scope.years = AppConstants.years;
+            }
+
+            function setDate() {
+                scope.date = UtilityService.setObjectDate(scope.millisecond);
+                scope.data = UtilityService.setMillisecondsDate(scope.date);
+            }
         }
 
         return {
@@ -18,7 +29,8 @@
             link: link,
             scope: {
                 label: '=label',
-                data: '=ngModel'
+                data: '=ngModel',
+                millisecond: '=?millisecond'
             }
         }
     }

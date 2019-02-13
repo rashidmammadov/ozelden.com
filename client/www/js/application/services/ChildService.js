@@ -82,6 +82,31 @@
         }
 
         /**
+         * @ngdoc {PUT} method
+         * @name ozelden.services.ChildService#updateChild
+         * @methodOf ozelden.services.ChildService
+         *
+         * @description update given child.
+         * @param {Object} data - holds the child data.
+         */
+        function updateChild(data) {
+            var deferred = $q.defer();
+
+            $http({
+                method: 'PUT',
+                url: VocabularyService.child_(),
+                headers: headers,
+                data: data
+            }).then(function (response) {
+                $$fetchSuccessResponse(response.data, deferred);
+            }, function (rejection) {
+                deferred.reject(rejection);
+            });
+
+            return deferred.promise;
+        }
+
+        /**
          * @ngdoc method
          * @name ozelden.services.ChildService#$$fetchSuccessResponse
          * @methodOf ozelden.services.ChildService
@@ -98,6 +123,7 @@
         this.addNewChild = addNewChild;
         this.getUserChildren = getUserChildren;
         this.removeChild = removeChild;
+        this.updateChild = updateChild;
         return this;
     }
 
