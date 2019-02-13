@@ -34,7 +34,7 @@
                     {{::'MALE' | translate}}
                 </md-radio-button>
             </md-radio-group>
-            <oz-date-input label="'DATE_OF_BIRTH'" ng-model="Child.birthDate"></oz-date-input>
+            <oz-date-input label="'DATE_OF_BIRTH'" ng-model="Child.birthDate" millisecond="Child.birthDate"></oz-date-input>
         </md-dialog-content>
         <md-dialog-actions>
             <md-button class="md-raised" ng-click="Child.cancel()">
