@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Library\Image;
+use App\Util\Image;
 use JWTAuth;
 use Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -54,7 +54,7 @@ class ProfileController extends ApiController {
                 ADDRESS => $request[ADDRESS],
                 LANGUAGE => $request[LANGUAGE]
             );
-            $this->updateUserProfile($userId, $params);
+            ApiQuery::updateUserProfile($userId, $params);
             return $this->respondCreated('CHANGES_UPDATED_SUCCESSFULLY');
         } catch (JWTException $e) {
             $this->setStatusCode($e->getStatusCode());
@@ -83,22 +83,13 @@ class ProfileController extends ApiController {
             } else {
                 $picture = Image::uploadProfilePicture($userId, $userType, $request[BASE64], $request[FILE_TYPE]);
                 $params = array(PICTURE => $picture);
-                $this->updateUserProfile($userId, $params);
+                ApiQuery::updateUserProfile($userId, $params);
                 return $this->respondCreated('PICTURE_UPLOADED_SUCCESSFULLY', $picture);
             }
         } catch (JWTException $e) {
             $this->setStatusCode($e->getStatusCode());
             return $this->respondWithError($e->getMessage());
         }
-    }
-
-    /**
-     * @description send request to update user`s profile.
-     * @param integer $userId
-     * @param array $params
-     */
-    private function updateUserProfile($userId, $params) {
-        ApiQuery::updateUserProfile($userId, $params);
     }
 
 }
