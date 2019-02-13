@@ -8,6 +8,7 @@
         $scope.data = locals.data;
 
         if ($scope.data) {
+            self.childId = $scope.data.childId;
             $scope.file = $scope.data.picture;
             self.name = $scope.data.name;
             self.surname = $scope.data.surname;
@@ -63,6 +64,7 @@
                 fileType = file[file.length - 1];
             }
             var data = {
+                childId: self.childId,
                 picture: ($scope.file && $scope.name) ? {base64: $scope.file, fileType: fileType} : null,
                 name: self.name,
                 surname: self.surname,

@@ -31,8 +31,9 @@ Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
     });*/
 
     Route::delete('child', 'ChildController@removeChild');
-    Route::post('child', 'ChildController@addNewChild');
     Route::get('child', 'ChildController@getUserChildren');
+    Route::post('child', 'ChildController@addNewChild');
+    Route::put('child', 'ChildController@updateChild');
 
     Route::get('/data', 'DataController@get');
 
