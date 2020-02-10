@@ -1,8 +1,0 @@
-oz-student-card .oz-setting-card {width: calc(33% - 16px); display: inline-block;}
-oz-student-card md-card-header h3 {margin-bottom: 4px; font-weight: 400;}
-oz-student-card md-card-header p {margin-top: 4px; margin-bottom: 4px;}
-oz-student-card md-card-header md-icon {fill: #ffffff !important;}
-oz-student-card md-card-header .image {width: 80px; height: 80px; border-radius: 100%; background-size: cover !important;}
-oz-student-card md-card-content p {margin: 4px 0px;}
-oz-student-card md-card-content .info p {font-size: 13px;}
-oz-student-card  .md-icon-button.settings-button {margin-left: -48px; margin-top: 16px; position: relative; z-index: 3;}
