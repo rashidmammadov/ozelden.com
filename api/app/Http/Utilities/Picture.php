@@ -18,7 +18,7 @@ class Picture {
     public static function upload($file, $primaryName, $type) {
         $currentDate = date('siHdmY');
         $fileName = $primaryName . '.' . $type;
-        $dir = '/users/';
+        $dir = 'users/';
         $subPath = env('IMAGES_PATH');
         $path = public_path() . $subPath . $dir . $fileName;
 
