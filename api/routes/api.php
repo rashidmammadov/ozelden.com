@@ -14,14 +14,10 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 header('Access-Control-Allow-Origins:*');
 header('Access-Control-Allow-Methods:*');
 
-Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
+Route::group(['prefix' => '/v1'], function () {
 
     /*Route::get('/clear-cache', function() {
         $route = Artisan::call('route:clear');
@@ -32,7 +28,6 @@ Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
             'cache: '.$cache;
     });*/
 
-    /** Logout/Refresh/Login/Register for users */
     Route::delete('/auth', 'UserController@logout');
     Route::get('/auth', 'UserController@refresh');
     Route::put('/auth', 'UserController@login');

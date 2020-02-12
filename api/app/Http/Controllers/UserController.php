@@ -2,18 +2,78 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Queries\MySQL\ApiQuery;
-use App\Http\Utility\Email;
-use App\Http\Utility\Merchant;
+use App\Http\Models\UserModel;
+use App\Http\Queries\MySQL\UserQuery;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Validator;
+use Illuminate\Http\Response as Res;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-use JWTAuth;
-use UserModel;
-use UserQuery;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Validator;
 
 class UserController extends ApiController {
+
+    /**
+     * Authorized user to login.
+     * @param Request $request
+     * @return mixed
+     */
+    public function login(Request $request) {
+        $rules = array (
+            EMAIL => 'required|email',
+            PASSWORD => 'required',
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $this->respondValidationError(FIELDS_VALIDATION_FAILED, $validator->errors());
+        } else {
+            $user = UserQuery::getUserByEmail($request[EMAIL]);
+            if ($user) {
+                /** add one signal device id **/
+                if ($request[ONESIGNAL_DEVICE_ID]) {
+                    $user[ONESIGNAL_DEVICE_ID] = $request[ONESIGNAL_DEVICE_ID];
+                    $user->save();
+                }
+                $remember_token = $user[REMEMBER_TOKEN];
+                if ($remember_token == NULL) {
+                    return $this->sign($request, false);
+                }
+                try {
+                    JWTAuth::setToken($remember_token);
+                    $user = JWTAuth::toUser();
+                    $userModel = new UserModel($user);
+                    return $this->respondCreated(LOGGED_IN_SUCCESSFULLY, $userModel->get());
+                } catch (JWTException $e) {
+                    $user->remember_token = NULL;
+                    $user->save();
+                    $this->setStatusCode($e->getCode());
+                    $this->setMessage(AUTHENTICATION_ERROR);
+                    return $this->respondWithError($this->getMessage());
+                }
+            } else {
+                return $this->respondWithError(INVALID_EMAIL_OR_PASSWORD);
+            }
+        }
+    }
+
+    /**
+     * Logout user and clear token.
+     * @return mixed
+     */
+    public function logout() {
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+            $user->remember_token = NULL;
+            $user->save();
+            $this->setStatusCode(Res::HTTP_OK);
+            return $this->respondCreated(LOGGED_OUT_SUCCESSFULLY);
+        } catch(JWTException $e) {
+            $this->setStatusCode($e->getStatusCode());
+            $this->setMessage(AUTHENTICATION_ERROR);
+            return $this->respondWithError($this->getMessage());
+        }
+    }
 
     /**
      * Refresh user by token,
@@ -36,7 +96,7 @@ class UserController extends ApiController {
             }
             return $this->respondCreated("Token Refreshed", $userModel->get());
         } catch (JWTException $e) {
-            $this->setStatusCode($e->getStatusCode());
+            $this->setStatusCode($e->getCode());
             $this->setMessage(AUTHENTICATION_ERROR);
             return $this->respondWithError($this->getMessage());
         }
@@ -90,10 +150,11 @@ class UserController extends ApiController {
      */
     private function sign($request, $newUser) {
         $credentials = [EMAIL => $request[EMAIL], PASSWORD => $request[PASSWORD]];
-        if ( ! $token = JWTAuth::attempt($credentials)) {
+        if (!$token = JWTAuth::attempt($credentials)) {
             return $this->respondWithError(USER_DOES_NOT_EXIST);
         }
-        $user = JWTAuth::toUser($token);
+        JWTAuth::setToken($token);
+        $user = JWTAuth::toUser();
         $user->remember_token = $token;
         $user->save();
         if ($newUser) {

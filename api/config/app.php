@@ -166,7 +166,7 @@ return [
          * Package Service Providers...
          */
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
-        Barryvdh\Cors\ServiceProvider::class,
+        Fruitcake\Cors\CorsServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
         /*

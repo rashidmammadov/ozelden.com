@@ -16,6 +16,11 @@ class Kernel extends ConsoleKernel
         //
     ];
 
+    protected $middleware = [
+        'cors' => \Fruitcake\Cors\HandleCors::class,
+        'auth.jwt' => \Tymon\JWTAuth\Http\Middleware\Authenticate::class,
+    ];
+
     /**
      * Define the application's command schedule.
      *

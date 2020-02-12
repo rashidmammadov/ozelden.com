@@ -47,7 +47,6 @@
       <path value="$PROJECT_DIR$/api/vendor/jakub-onderka/php-console-color" />
       <path value="$PROJECT_DIR$/api/vendor/vlucas/phpdotenv" />
       <path value="$PROJECT_DIR$/api/vendor/symfony/var-dumper" />
-      <path value="$PROJECT_DIR$/api/vendor/barryvdh/laravel-cors" />
       <path value="$PROJECT_DIR$/api/vendor/psr/container" />
       <path value="$PROJECT_DIR$/api/vendor/psr/log" />
       <path value="$PROJECT_DIR$/api/vendor/psr/simple-cache" />
@@ -84,6 +83,30 @@
       <path value="$PROJECT_DIR$/api/vendor/ralouphie/getallheaders" />
       <path value="$PROJECT_DIR$/api/vendor/guzzlehttp/psr7" />
       <path value="$PROJECT_DIR$/api/vendor/intervention/image" />
+      <path value="$PROJECT_DIR$/api/vendor/league/commonmark" />
+      <path value="$PROJECT_DIR$/api/vendor/facade/flare-client-php" />
+      <path value="$PROJECT_DIR$/api/vendor/facade/ignition-contracts" />
+      <path value="$PROJECT_DIR$/api/vendor/scrivo/highlight.php" />
+      <path value="$PROJECT_DIR$/api/vendor/facade/ignition" />
+      <path value="$PROJECT_DIR$/api/vendor/opis/closure" />
+      <path value="$PROJECT_DIR$/api/vendor/sebastian/type" />
+      <path value="$PROJECT_DIR$/api/vendor/phpoption/phpoption" />
+      <path value="$PROJECT_DIR$/api/vendor/symfony/mime" />
+      <path value="$PROJECT_DIR$/api/vendor/symfony/polyfill-iconv" />
+      <path value="$PROJECT_DIR$/api/vendor/symfony/error-handler" />
+      <path value="$PROJECT_DIR$/api/vendor/symfony/event-dispatcher-contracts" />
+      <path value="$PROJECT_DIR$/api/vendor/symfony/polyfill-intl-idn" />
+      <path value="$PROJECT_DIR$/api/vendor/symfony/translation-contracts" />
+      <path value="$PROJECT_DIR$/api/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/api/vendor/symfony/polyfill-php73" />
+      <path value="$PROJECT_DIR$/api/vendor/lcobucci/jwt" />
+      <path value="$PROJECT_DIR$/api/vendor/barryvdh/laravel-cors" />
     </include_path>
+  </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />
+  <component name="PhpUnit">
+    <phpunit_settings>
+      <PhpUnitSettings load_method="CUSTOM_LOADER" custom_loader_path="$PROJECT_DIR$/api/vendor/autoload.php" />
+    </phpunit_settings>
   </component>
 </project>

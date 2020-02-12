@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use Response;
+
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
+use PHPUnit\Util\Json;
+use Response;
 use \Illuminate\Http\Response as Res;
+use Illuminate\Http\Request;
 
 /**
  * Class ApiController
@@ -16,7 +19,7 @@ class ApiController extends Controller {
      * @return void
      */
     public function __construct() {
-        $this->beforeFilter('auth', ['on' => 'post']);
+//        $this->beforeFilter('auth', ['on' => 'post']);
     }
 
     /**
@@ -137,7 +140,7 @@ class ApiController extends Controller {
      * @param $headers
      * @return mixed Response
      */
-    public function respond($data, $headers = []){
+    public function respond($data, $headers = []) {
         return Response::json($data, $this->getStatusCode(), $headers);
     }
 }
