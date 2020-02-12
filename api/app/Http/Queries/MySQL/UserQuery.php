@@ -6,7 +6,7 @@ use App\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
 
-class UserQuery {
+class UserQuery extends Query {
 
     /**
      * Check email if exist on db.
@@ -47,7 +47,7 @@ class UserQuery {
      */
     public static function save($user) {
         try {
-            User::create([
+            $query = User::create([
                 TYPE => $user[TYPE],
                 NAME => $user[NAME],
                 SURNAME => $user[SURNAME],
@@ -57,20 +57,10 @@ class UserQuery {
                 SEX => $user[SEX],
                 ONESIGNAL_DEVICE_ID => $user[ONESIGNAL_DEVICE_ID]
             ]);
-            return true;
+            return $query;
         } catch (QueryException $e) {
             self::logException($e, debug_backtrace());
         }
-    }
-
-    /**
-     * Log exception error.
-     * @param QueryException $exception - holds the exception.
-     * @param array $backtrace - holds the backtrace array.
-     */
-    private static function logException(QueryException $exception, $backtrace) {
-        $caller = array_shift($backtrace);
-        Log::error($exception->getMessage() . ' (' . $caller['class'] . '->' . $caller['function'] . ':' . $caller['line'] . ')');
     }
 
 }

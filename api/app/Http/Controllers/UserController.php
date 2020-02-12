@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Models\UserModel;
+use App\Http\Queries\MySQL\ProfileQuery;
 use App\Http\Queries\MySQL\UserQuery;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response as Res;
@@ -69,7 +70,7 @@ class UserController extends ApiController {
             $this->setStatusCode(Res::HTTP_OK);
             return $this->respondCreated(LOGGED_OUT_SUCCESSFULLY);
         } catch(JWTException $e) {
-            $this->setStatusCode($e->getStatusCode());
+            $this->setStatusCode(401);
             $this->setMessage(AUTHENTICATION_ERROR);
             return $this->respondWithError($this->getMessage());
         }
@@ -96,7 +97,7 @@ class UserController extends ApiController {
             }
             return $this->respondCreated("Token Refreshed", $userModel->get());
         } catch (JWTException $e) {
-            $this->setStatusCode($e->getCode());
+            $this->setStatusCode(401);
             $this->setMessage(AUTHENTICATION_ERROR);
             return $this->respondWithError($this->getMessage());
         }
@@ -133,6 +134,7 @@ class UserController extends ApiController {
                 } else {
                     $queryResult = UserQuery::save($request);
                     if ($queryResult) {
+                        ProfileQuery::saveDefault($queryResult[IDENTIFIER]);
                         return $this->sign($request, true);
                     } else {
                         return $this->respondWithError(SOMETHING_WRONG_WITH_DB);

@@ -32,4 +32,9 @@ Route::group(['prefix' => '/v1'], function () {
     Route::get('/auth', 'UserController@refresh');
     Route::put('/auth', 'UserController@login');
     Route::post('/auth', 'UserController@register');
+
+    Route::get('/profile', 'ProfileController@getProfile');
+    Route::put('/profile', 'ProfileController@updateProfile');
+
+    Route::post('/picture', 'ProfileController@uploadProfilePicture');
 });
