@@ -34,6 +34,7 @@ define('DB_PROFILE_TABLE', 'profile');
 define('DEMO', 'demo');
 define('DISCIPLINE', 'discipline');
 define('DISTRICT', 'district');
+define('DISTRICTS', 'districts');
 define('DISTRICT_NAME', 'district_name');
 define('DOT', '.');
 define('EMAIL', 'email');
