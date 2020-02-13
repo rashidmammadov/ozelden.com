@@ -48,7 +48,7 @@ class UserController extends ApiController {
                 } catch (JWTException $e) {
                     $user->remember_token = NULL;
                     $user->save();
-                    $this->setStatusCode($e->getCode());
+                    $this->setStatusCode(401);
                     $this->setMessage(AUTHENTICATION_ERROR);
                     return $this->respondWithError($this->getMessage());
                 }
