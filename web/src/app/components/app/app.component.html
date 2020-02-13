@@ -1,5 +1,10 @@
 <mat-toolbar class="mat-elevation-z4" fxLayout="row" fxLayoutAlign="space-between center">
-    <button class="logo" mat-button >ozelden.com</button>
+    <button class="logo" mat-button routerLink="/">turnuvaz</button>
+    <div fxLayout="row" *ngIf="user">
+      <button mat-icon-button matTooltip="Çıkış" (click)="logout()">
+          <mat-icon svgIcon="log-out"></mat-icon>
+      </button>
+    </div>
 </mat-toolbar>
 <div>
     <router-outlet></router-outlet>

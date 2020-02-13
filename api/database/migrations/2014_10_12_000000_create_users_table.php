@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration {
             $table->char(EMAIL, 100)->unique();
             $table->string(PASSWORD);
             $table->char(SEX, 10);
-            $table->boolean(STATE)->default(0);
+            $table->boolean(STATE)->default(1);
             $table->string(REMEMBER_TOKEN, 400)->nullable();
             $table->string(ONESIGNAL_DEVICE_ID, 50)->nullable();
             $table->timestamps();
