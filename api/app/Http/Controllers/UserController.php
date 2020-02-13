@@ -7,6 +7,7 @@ use App\Http\Queries\MySQL\ProfileQuery;
 use App\Http\Queries\MySQL\UserQuery;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response as Res;
+use Illuminate\Support\Facades\Log;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -20,6 +21,7 @@ class UserController extends ApiController {
      * @return mixed
      */
     public function login(Request $request) {
+        Log::info($request[EMAIL]);
         $rules = array (
             EMAIL => 'required|email',
             PASSWORD => 'required',

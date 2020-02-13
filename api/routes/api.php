@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Artisan;
 header('Access-Control-Allow-Origins:*');
 header('Access-Control-Allow-Methods:*');
 
-Route::group(['prefix' => '/v1'], function () {
+Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
 
     /*Route::get('/clear-cache', function() {
         $route = Artisan::call('route:clear');
