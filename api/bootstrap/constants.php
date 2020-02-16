@@ -50,6 +50,7 @@ define('FILE_TYPE', 'file_type');
 define('GROUP', 'group');
 define('GROUP_DISCOUNT', 'group_discount');
 define('IDENTIFIER', 'id');
+define('IDENTITY_NUMBER', 'identity_number');
 define('INDIVIDUAL', 'individual');
 define('INVALID_EMAIL_OR_PASSWORD', 'Geçersiz email veya şifre');
 define('LANGUAGE', 'language');

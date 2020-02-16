@@ -10,6 +10,7 @@ class UserModel {
     private $surname;
     private $birthday;
     private $email;
+    private $identity_number;
     private $sex;
     private $state;
     private $rememberToken;
@@ -22,6 +23,7 @@ class UserModel {
         $this->setSurname($parameters[SURNAME]);
         $this->setBirthday($parameters[BIRTHDAY]);
         $this->setEmail($parameters[EMAIL]);
+        $this->setIdentityNumber($parameters[IDENTITY_NUMBER]);
         $this->setSex($parameters[SEX]);
         $this->setState($parameters[STATE]);
         $this->setRememberToken($parameters[REMEMBER_TOKEN]);
@@ -36,6 +38,7 @@ class UserModel {
             SURNAME => $this->getSurname(),
             BIRTHDAY => $this->getBirthday(),
             EMAIL => $this->getEmail(),
+            IDENTITY_NUMBER => $this->getIdentityNumber(),
             SEX => $this->getSex(),
             STATE => $this->getState(),
             REMEMBER_TOKEN => $this->getRememberToken(),
@@ -89,6 +92,14 @@ class UserModel {
 
     public function setEmail($email) {
         $this->email = $email;
+    }
+
+    public function getIdentityNumber() {
+        return $this->identity_number;
+    }
+
+    public function setIdentityNumber($identity_number): void {
+        $this->identity_number = $identity_number;
     }
 
     public function getSex() {

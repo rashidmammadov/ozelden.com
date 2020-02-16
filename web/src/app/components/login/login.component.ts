@@ -45,8 +45,8 @@ export class LoginComponent {
     private setLoginRequestParams() {
         const form = this.loginForm.controls;
         return {
-            email: form.email.value,
-            password: form.password.value
+            'email': form.email.value,
+            'password': form.password.value
         }
     }
 

@@ -16,7 +16,7 @@ class DataController extends ApiController {
         if ($type == 'cities') {
             $result = $this->prepareCities();
         }
-        return $this->respond($result);
+        return $this->respondCreated('', $result);
     }
 
     /**
