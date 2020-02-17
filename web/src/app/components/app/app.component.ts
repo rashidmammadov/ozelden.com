@@ -46,7 +46,9 @@ export class AppComponent {
     };
 
     private setSvgIcons() {
-        const svgArray: string[] = [];
+        const svgArray: string[] = [
+            'log-out'
+        ];
         let path: string = 'assets/icons/';
         svgArray.forEach((svg: string) => {
             this.matIconRegistry.addSvgIcon(svg, this.domSanitizer.bypassSecurityTrustResourceUrl(path + svg + '.svg'));

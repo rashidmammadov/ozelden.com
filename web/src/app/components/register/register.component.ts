@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -11,6 +11,7 @@ import { UtilityService } from '../../services/utility/utility.service';
 import { set } from '../../store/actions/user.action';
 import { loaded, loading } from '../../store/actions/progress.action';
 import { APP } from '../../constants/app.constant';
+import { DATE_TIME } from '../../constants/date-time.constant';
 import { REGEX } from '../../constants/regex.constant';
 import { TYPES } from '../../constants/types.constant';
 
@@ -23,25 +24,49 @@ export class RegisterComponent implements OnInit {
 
     public cities = [];
     public userTypes: object[] = [
-        {value: TYPES.TUTOR, name: 'Ders Vermek İstiyorum'},
-        {value: TYPES.TUTORED, name: 'Ders Almak İstiyorum'}
+        {value: TYPES.TUTOR, name: 'Ders Vermek İstiyorum (Öğretmen)'},
+        {value: TYPES.TUTORED, name: 'Ders Almak İstiyorum (Öğrenci)'}
     ];
+    public currentDate = new Date();
+    public days: number[] = [];
+    public months: number[] = [];
+    public years: number[] = [];
+    public selectedDay: number = 1;
+    public selectedMonth: number = 1;
+    public selectedYear: number = this.currentDate.getFullYear() - 18;
+    public MONTHS_MAP = DATE_TIME.MONTHS_MAP;
     private user: UserType;
 
     registerForm = new FormGroup({
-        email: new FormControl('', [Validators.required, Validators.email]),
+        name: new FormControl('', [Validators.required]),
+        surname: new FormControl('', [Validators.required]),
         type: new FormControl(TYPES.TUTORED, [Validators.required]),
+        email: new FormControl('', [Validators.required, Validators.email]),
+        phone: new FormControl('', [Validators.required]),
         password: new FormControl('', [Validators.required, Validators.pattern(REGEX.PASSWORD)]),
-        passwordConfirmation: new FormControl('', [Validators.required, Validators.pattern(REGEX.PASSWORD)]),
+        password_confirmation: new FormControl('', [Validators.required, Validators.pattern(REGEX.PASSWORD)]),
+        identity_number: new FormControl('', [Validators.required]),
+        sex: new FormControl('female', [Validators.required]),
+        birthday: new FormControl('', [Validators.required]),
         city: new FormControl('', [Validators.required]),
-        district: new FormControl('', [Validators.required])
+        district: new FormControl('', [Validators.required]),
+        address: new FormControl('', [Validators.required])
     });
 
     constructor(private dataService: DataService, private store: Store<{progress: boolean, user: UserType}>,
-                private authService: AuthService, private router: Router) { }
+                private authService: AuthService, private router: Router) {
+        for (let i = 1; i <= 31; i++) this.days.push(i);
+        for (let i = 1; i <= 12; i++) this.months.push(i);
+        for (let i = this.currentDate.getFullYear(); i >= this.currentDate.getFullYear() - 70; i--) this.years.push(i);
+    }
 
     ngOnInit() {
         setTimeout(() => this.getCities());
+    }
+
+    public setBirthday() {
+        const birthday = new Date(this.selectedYear, this.selectedMonth - 1, this.selectedDay);
+        this.registerForm.controls.birthday.setValue(birthday.getTime().toString());
     }
 
     public register = async () => {
@@ -71,16 +96,17 @@ export class RegisterComponent implements OnInit {
     private setRegisterRequestParams() {
         const form = this.registerForm.controls;
         return {
-            'email': form.email.value,
-            'type': form.type.value,
-            'password': form.password.value,
-            'passwordConfirmation': form.passwordConfirmation.value,
             'name': form.name.value,
             'surname': form.surname.value,
-            'birthday': form.birthday.value,
-            'sex': form.sex.value,
+            'email': form.email.value,
+            'phone' : form.phone.value,
+            'type': form.type.value,
+            'password': form.password.value,
+            'password_confirmation': form.password_confirmation.value,
             'identity_number': form.identity_number.value,
-            'city': form.city.value,
+            'sex': form.sex.value,
+            'birthday': form.birthday.value,
+            'city': form.city.value?.city_name,
             'district': form.district.value,
             'address': form.address.value
         }

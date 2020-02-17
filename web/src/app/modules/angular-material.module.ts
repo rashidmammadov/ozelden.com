@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
@@ -17,6 +18,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
         MatSnackBarModule,
         MatIconModule,
         MatSelectModule,
+        MatRadioModule,
         MatToolbarModule
     ]
 })

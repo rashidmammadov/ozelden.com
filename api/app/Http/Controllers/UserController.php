@@ -111,15 +111,19 @@ class UserController extends ApiController {
      */
     public function register(Request $request) {
         $rules = array (
-            TYPE => 'required|max:10',
             NAME => 'required|max:100',
             SURNAME => 'required|max:100',
-            BIRTHDAY => 'required',
             EMAIL => 'required|email|max:100|unique:users',
-            IDENTITY_NUMBER => 'required|max:11',
+            PHONE => 'required|max:10',
+            TYPE => 'required|max:10',
             PASSWORD => 'required|min:6|confirmed',
             PASSWORD_CONFIRMATION => 'required|min:6',
-            SEX => 'required|max:10'
+            IDENTITY_NUMBER => 'required|max:11',
+            SEX => 'required|max:10',
+            BIRTHDAY => 'required',
+            CITY => 'required',
+            DISTRICT => 'required',
+            ADDRESS => 'required'
         );
 
         $validator = Validator::make($request->all(), $rules);
@@ -135,7 +139,7 @@ class UserController extends ApiController {
                 } else {
                     $queryResult = UserQuery::save($request);
                     if ($queryResult) {
-                        ProfileQuery::saveDefault($queryResult[IDENTIFIER]);
+                        ProfileQuery::saveDefault($queryResult[IDENTIFIER], $request);
                         return $this->sign($request, true);
                     } else {
                         return $this->respondWithError(SOMETHING_WRONG_WITH_DB);

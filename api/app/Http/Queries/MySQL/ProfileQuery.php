@@ -4,6 +4,7 @@ namespace App\Http\Queries\MySQL;
 
 use App\Profile;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
 
 class ProfileQuery extends Query {
 
@@ -26,12 +27,19 @@ class ProfileQuery extends Query {
     /**
      * Save profile on db with given user id to set default values.
      * @param $userId - holds the user id.
+     * @param $profile - holds the profile data.
      * @return mixed
      */
-    public static function saveDefault($userId) {
+    public static function saveDefault($userId, $profile) {
         try {
             $query = Profile::create([
-                USER_ID => $userId
+                USER_ID => $userId,
+                PHONE => !empty($profile[PHONE]) ? $profile[PHONE] : null,
+                COUNTRY => !empty($profile[COUNTRY]) ? $profile[COUNTRY] : COUNTRY_TURKEY,
+                CITY => !empty($profile[CITY]) ? $profile[CITY] : null,
+                DISTRICT => !empty($profile[DISTRICT]) ? $profile[DISTRICT] : null,
+                ADDRESS => !empty($profile[ADDRESS]) ? $profile[ADDRESS] : null,
+                LANGUAGE => !empty($profile[LANGUAGE]) ? $profile[LANGUAGE] : COUNTRY_TURKEY_CODE
             ]);
             return $query;
         } catch (QueryException $e) {
