@@ -39,4 +39,6 @@ Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
     Route::put('/profile', 'ProfileController@updateProfile');
 
     Route::post('/picture', 'ProfileController@uploadProfilePicture');
+
+    Route::put('/suitability/{type}', 'SuitabilityController@update');
 });

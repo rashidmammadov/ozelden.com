@@ -137,9 +137,9 @@ class UserController extends ApiController {
                 if ($request[PASSWORD] != $request[PASSWORD_CONFIRMATION]) {
                     return $this->respondWithError(PASSWORD_VALIDATION_FAILED);
                 } else {
-                    $queryResult = UserQuery::save($request);
-                    if ($queryResult) {
-                        ProfileQuery::saveDefault($queryResult[IDENTIFIER], $request);
+                    $saveUserQueryResult = UserQuery::save($request);
+                    if ($saveUserQueryResult) {
+                        ProfileQuery::saveDefault($saveUserQueryResult[IDENTIFIER], $request);
                         return $this->sign($request, true);
                     } else {
                         return $this->respondWithError(SOMETHING_WRONG_WITH_DB);

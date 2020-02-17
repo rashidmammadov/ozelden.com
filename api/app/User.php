@@ -49,4 +49,12 @@ class User extends Authenticatable implements JWTSubject {
     public function profile() {
         return $this->hasOne('App\Profile');
     }
+
+    public function suitableCourseType() {
+        return $this->hasOne('App\SuitableCourseType');
+    }
+
+    public function suitableRegion() {
+        return $this->hasMany('App\SuitableRegion');
+    }
 }
