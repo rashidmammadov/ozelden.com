@@ -1,1 +1,52 @@
-<p>suitability works!</p>
+<div fxLayout="column" fxLayoutGap="16px">
+    <div fxLayout="row" fxLayoutGap="16px">
+        <mat-card fxFlex>
+            <mat-card-content *ngIf="course_type">
+                <div fxLayout="row">
+                    <h4>Ders Uygunluk Tipi</h4>
+                    <button mat-button (click)="updateSuitability('course_type')">Kaydet</button>
+                </div>
+                <section fxLayout="column">
+                    <mat-checkbox [(ngModel)]="course_type.individual">Birebir Ders</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="course_type.group">Grup Dersi</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="course_type.class">Sınıf Dersi</mat-checkbox>
+                </section>
+            </mat-card-content>
+        </mat-card>
+
+
+        <mat-card fxFlex>
+            <mat-card-content *ngIf="location">
+                <div fxLayout="row">
+                    <h4>Ders Uygunluk Tipi</h4>
+                    <button mat-button (click)="updateSuitability('facility')">Kaydet</button>
+                </div>
+                <section fxLayout="column">
+                    <mat-checkbox [(ngModel)]="facility.demo">Birebir Ders</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="facility.group_discount">Grup Dersi</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="facility.package_discount">Sınıf Dersi</mat-checkbox>
+                </section>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div fxLayout="row">
+        <mat-card fxFlex>
+            <mat-card-content *ngIf="location">
+                <div fxLayout="row">
+                    <h4>Ders Uygunluk Tipi</h4>
+                    <button mat-button (click)="updateSuitability('location')">Kaydet</button>
+                </div>
+                <section fxLayout="column">
+                    <mat-checkbox [(ngModel)]="location.student_home">Birebir Ders</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="location.tutor_home">Grup Dersi</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="location.etude">Sınıf Dersi</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="location.course">Sınıf Dersi</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="location.library">Sınıf Dersi</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="location.over_internet">Sınıf Dersi</mat-checkbox>
+                </section>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+</div>

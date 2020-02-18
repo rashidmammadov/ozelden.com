@@ -41,9 +41,9 @@ class SuitabilityController extends ApiController {
             $user = JWTAuth::parseToken()->authenticate();
             if ($type == COURSE_TYPE) {
                 return $this->updateCourseType($user[IDENTIFIER], $request);
-            } else if ($type == FACILITIES) {
+            } else if ($type == FACILITY) {
                 return $this->updateFacilities($user[IDENTIFIER], $request);
-            } else if ($type == LOCATIONS) {
+            } else if ($type == LOCATION) {
                 return $this->updateLocations($user[IDENTIFIER], $request);
             } else if ($type == REGIONS) {
                 return $this->updateRegions($user[IDENTIFIER], $request);
@@ -201,7 +201,7 @@ class SuitabilityController extends ApiController {
         }
         $suitability->setRegions($regions);
 
-        return $suitability->get();
+        return $this->respondCreated('', $suitability->get());
     }
 
 }

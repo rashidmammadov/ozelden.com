@@ -7,6 +7,7 @@ use App\SuitableFacility;
 use App\SuitableLocation;
 use App\SuitableRegion;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
 
 class SuitabilityQuery extends Query {
 
