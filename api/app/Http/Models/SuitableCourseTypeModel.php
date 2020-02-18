@@ -23,7 +23,7 @@ class SuitableCourseTypeModel {
     }
 
     public function getIndividual() {
-        return $this->individual;
+        return !!$this->individual;
     }
 
     public function setIndividual($individual): void {
@@ -31,7 +31,7 @@ class SuitableCourseTypeModel {
     }
 
     public function getGroup() {
-        return $this->group;
+        return !!$this->group;
     }
 
     public function setGroup($group): void {
@@ -39,7 +39,7 @@ class SuitableCourseTypeModel {
     }
 
     public function getClass() {
-        return $this->class;
+        return !!$this->class;
     }
 
     public function setClass($class): void {
