@@ -5,6 +5,7 @@ import { ApplicationComponent } from '../components/application/application.comp
 import { HomeComponent } from '../components/home/home.component';
 import { LoginComponent } from '../components/login/login.component';
 import { RegisterComponent } from '../components/register/register.component';
+import { SuitabilityComponent } from '../components/suitability/suitability.component';
 
 import { AuthGuard } from '../guards/auth.guard';
 
@@ -34,6 +35,10 @@ const routes: Routes = [
             {
                 path: 'home',
                 component: HomeComponent
+            },
+            {
+                path: 'suitability',
+                component: SuitabilityComponent
             }
         ]
     }

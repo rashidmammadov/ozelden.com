@@ -3,6 +3,7 @@
         <img src="./assets/images/logo.png" src.lt-md="./assets/images/logo-mini.png">
     </button>
     <div fxLayout="row" *ngIf="user">
+      <a mat-button routerLink="/app/suitability">Uygunluk</a>
       <button mat-icon-button matTooltip="Çıkış" (click)="logout()">
           <mat-icon svgIcon="log-out"></mat-icon>
       </button>

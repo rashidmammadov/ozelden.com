@@ -13,15 +13,16 @@ import { ApplicationComponent } from './components/application/application.compo
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { SuitabilityComponent } from './components/suitability/suitability.component';
 
 import { CookieService } from 'ngx-cookie-service';
 import { Cookie } from './services/cookie/cookie.service';
 import { UtilityService } from './services/utility/utility.service';
+
 import { ToastService } from './services/toast/toast.service';
-
 import { progressReducer } from './store/reducers/progress.reducer';
-import { userReducer } from './store/reducers/user.reducer';
 
+import { userReducer } from './store/reducers/user.reducer';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 
 @NgModule({
@@ -30,7 +31,8 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
         ApplicationComponent,
         HomeComponent,
         LoginComponent,
-        RegisterComponent
+        RegisterComponent,
+        SuitabilityComponent
     ],
     imports: [
         AppRoutingModule,
