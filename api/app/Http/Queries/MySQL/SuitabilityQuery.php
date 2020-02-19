@@ -85,14 +85,14 @@ class SuitabilityQuery extends Query {
     /**
      * Update tutor`s suitable course type.
      * @param $tutorId - holds the tutor id.
-     * @param $types - holds the course types.
+     * @param $courseType - holds the course type.
      * @return bool
      */
-    public static function updateCourseType($tutorId, $types) {
+    public static function updateCourseType($tutorId, $courseType) {
         try {
             SuitableCourseType::updateOrCreate(
                 [TUTOR_ID => $tutorId],
-                [INDIVIDUAL => $types[INDIVIDUAL], GROUP => $types[GROUP], CLASS_ => $types[CLASS_]]
+                [INDIVIDUAL => $courseType[INDIVIDUAL], GROUP => $courseType[GROUP], CLASS_ => $courseType[CLASS_]]
             );
             return true;
         } catch (QueryException $e) {
@@ -101,16 +101,16 @@ class SuitabilityQuery extends Query {
     }
 
     /**
-     * Update tutor`s suitable facilities.
+     * Update tutor`s suitable facility.
      * @param $tutorId - holds the tutor id.
-     * @param $facilities - holds the facilities.
+     * @param $facility - holds the facility.
      * @return bool
      */
-    public static function updateFacilities($tutorId, $facilities) {
+    public static function updateFacility($tutorId, $facility) {
         try {
             SuitableFacility::updateOrCreate(
                 [TUTOR_ID => $tutorId],
-                [DEMO => $facilities[DEMO], GROUP_DISCOUNT => $facilities[GROUP_DISCOUNT], PACKAGE_DISCOUNT => $facilities[PACKAGE_DISCOUNT]]
+                [DEMO => $facility[DEMO], GROUP_DISCOUNT => $facility[GROUP_DISCOUNT], PACKAGE_DISCOUNT => $facility[PACKAGE_DISCOUNT]]
             );
             return true;
         } catch (QueryException $e) {
@@ -119,17 +119,17 @@ class SuitabilityQuery extends Query {
     }
 
     /**
-     * Update tutor`s suitable locations.
+     * Update tutor`s suitable location.
      * @param $tutorId - holds the tutor id.
-     * @param $locations - holds the locations.
+     * @param $location - holds the location.
      * @return bool
      */
-    public static function updateLocations($tutorId, $locations) {
+    public static function updateLocation($tutorId, $location) {
         try {
             SuitableLocation::updateOrCreate(
                 [TUTOR_ID => $tutorId],
-                [STUDENT_HOME => $locations[STUDENT_HOME], TUTOR_HOME => $locations[TUTOR_HOME], ETUDE => $locations[ETUDE],
-                    COURSE => $locations[COURSE], LIBRARY => $locations[LIBRARY], OVER_INTERNET => $locations[OVER_INTERNET]]
+                [STUDENT_HOME => $location[STUDENT_HOME], TUTOR_HOME => $location[TUTOR_HOME], ETUDE => $location[ETUDE],
+                    COURSE => $location[COURSE], LIBRARY => $location[LIBRARY], OVER_INTERNET => $location[OVER_INTERNET]]
             );
             return true;
         } catch (QueryException $e) {

@@ -62,22 +62,15 @@ class SuitabilityController extends ApiController {
      * @return mixed
      */
     private function updateCourseType($tutorId, $request) {
-        $rules = array (
-            INDIVIDUAL => 'required',
-            GROUP => 'required',
-            CLASS_ => 'required'
-        );
-
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return $this->respondValidationError(FIELDS_VALIDATION_FAILED, $validator->errors());
-        } else {
-            $updateCourseType = SuitabilityQuery::updateCourseType($tutorId, $request);
+        if (!is_null($request[COURSE_TYPE])) {
+            $updateCourseType = SuitabilityQuery::updateCourseType($tutorId, $request[COURSE_TYPE]);
             if ($updateCourseType) {
                 return $this->respondCreated(COURSE_TYPE_UPDATED_SUCCESSFULLY);
             } else {
                 return $this->respondWithError(SOMETHING_WRONG_WITH_DB);
             }
+        } else {
+            return $this->respondValidationError(FIELDS_VALIDATION_FAILED, '');
         }
     }
 
@@ -88,22 +81,15 @@ class SuitabilityController extends ApiController {
      * @return mixed
      */
     private function updateFacilities($tutorId, $request) {
-        $rules = array (
-            DEMO => 'required',
-            GROUP_DISCOUNT => 'required',
-            PACKAGE_DISCOUNT => 'required'
-        );
-
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return $this->respondValidationError(FIELDS_VALIDATION_FAILED, $validator->errors());
-        } else {
-            $updateCourseType = SuitabilityQuery::updateFacilities($tutorId, $request);
+        if (!is_null($request[FACILITY])) {
+            $updateCourseType = SuitabilityQuery::updateFacility($tutorId, $request[FACILITY]);
             if ($updateCourseType) {
                 return $this->respondCreated(FACILITIES_UPDATED_SUCCESSFULLY);
             } else {
                 return $this->respondWithError(SOMETHING_WRONG_WITH_DB);
             }
+        } else {
+            return $this->respondValidationError(FIELDS_VALIDATION_FAILED, '');
         }
     }
 
@@ -114,25 +100,15 @@ class SuitabilityController extends ApiController {
      * @return mixed
      */
     private function updateLocations($tutorId, $request) {
-        $rules = array (
-            STUDENT_HOME => 'required',
-            TUTOR_HOME => 'required',
-            ETUDE => 'required',
-            COURSE => 'required',
-            LIBRARY => 'required',
-            OVER_INTERNET => 'required'
-        );
-
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return $this->respondValidationError(FIELDS_VALIDATION_FAILED, $validator->errors());
-        } else {
-            $updateCourseType = SuitabilityQuery::updateLocations($tutorId, $request);
+        if (!is_null($request[LOCATION])) {
+            $updateCourseType = SuitabilityQuery::updateLocation($tutorId, $request[LOCATION]);
             if ($updateCourseType) {
                 return $this->respondCreated(LOCATIONS_UPDATED_SUCCESSFULLY);
             } else {
                 return $this->respondWithError(SOMETHING_WRONG_WITH_DB);
             }
+        } else {
+            return $this->respondValidationError(FIELDS_VALIDATION_FAILED, '');
         }
     }
 
@@ -143,14 +119,7 @@ class SuitabilityController extends ApiController {
      * @return mixed
      */
     private function updateRegions($tutorId, $request) {
-        $rules = array (
-            REGIONS => 'required'
-        );
-
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return $this->respondValidationError(FIELDS_VALIDATION_FAILED, $validator->errors());
-        } else {
+        if (!is_null($request[REGIONS])) {
             $deleteExistRegions = SuitabilityQuery::deleteRegions($tutorId);
             if ($deleteExistRegions) {
                 $regions = array();
@@ -170,6 +139,8 @@ class SuitabilityController extends ApiController {
             } else {
                 return $this->respondWithError(SOMETHING_WRONG_WITH_DB);
             }
+        } else {
+            return $this->respondValidationError(FIELDS_VALIDATION_FAILED, '');
         }
     }
 

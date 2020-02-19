@@ -16,9 +16,9 @@ export class SuitabilityService {
         return UtilityService.pipeHttpResponse(this.http.get<IHttpResponse>(ENDPOINTS.SUITABILITY()));
     }
 
-    update(type: string, params): Promise<ErrorResponse | IHttpResponse> {
+    update(type: string, params, modifyBody: boolean = false): Promise<ErrorResponse | IHttpResponse> {
         return UtilityService.pipeHttpResponse(this.http.put<IHttpResponse>(ENDPOINTS.SUITABILITY(type),
-            UtilityService.setHttpParams(params)));
+          modifyBody ? UtilityService.setHttpParams(params) : params));
     }
 
 }

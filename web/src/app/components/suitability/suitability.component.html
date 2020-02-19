@@ -1,50 +1,98 @@
 <div fxLayout="column" fxLayoutGap="16px">
-    <div fxLayout="row" fxLayoutGap="16px">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
         <mat-card fxFlex>
-            <mat-card-content *ngIf="course_type">
-                <div fxLayout="row">
-                    <h4>Ders Uygunluk Tipi</h4>
-                    <button mat-button (click)="updateSuitability('course_type')">Kaydet</button>
-                </div>
-                <section fxLayout="column">
-                    <mat-checkbox [(ngModel)]="course_type.individual">Birebir Ders</mat-checkbox>
-                    <mat-checkbox [(ngModel)]="course_type.group">Grup Dersi</mat-checkbox>
-                    <mat-checkbox [(ngModel)]="course_type.class">Sınıf Dersi</mat-checkbox>
-                </section>
+            <mat-card-header fxLayoutAlign="space-between center">
+                <mat-card-title fxFlex>Ders Uygunluk Şekilleri</mat-card-title>
+                <button mat-button mat-raised-button color="primary" [disabled]="!changeList.course_type"
+                        (click)="updateSuitability('course_type')">Güncelle</button>
+            </mat-card-header>
+            <mat-card-content *ngIf="course_type" fxLayout="column">
+                <mat-checkbox (ngModelChange)="watchingSuitableChange('course_type')"
+                              [(ngModel)]="course_type.individual">Birebir Ders</mat-checkbox>
+                <mat-checkbox (ngModelChange)="watchingSuitableChange('course_type')"
+                              [(ngModel)]="course_type.group">Grup Dersi</mat-checkbox>
+                <mat-checkbox (ngModelChange)="watchingSuitableChange('course_type')"
+                              [(ngModel)]="course_type.class">Sınıf Dersi</mat-checkbox>
             </mat-card-content>
         </mat-card>
 
 
         <mat-card fxFlex>
-            <mat-card-content *ngIf="location">
-                <div fxLayout="row">
-                    <h4>Ders Uygunluk Tipi</h4>
-                    <button mat-button (click)="updateSuitability('facility')">Kaydet</button>
-                </div>
-                <section fxLayout="column">
-                    <mat-checkbox [(ngModel)]="facility.demo">Birebir Ders</mat-checkbox>
-                    <mat-checkbox [(ngModel)]="facility.group_discount">Grup Dersi</mat-checkbox>
-                    <mat-checkbox [(ngModel)]="facility.package_discount">Sınıf Dersi</mat-checkbox>
-                </section>
+            <mat-card-header fxLayoutAlign="space-between center">
+                <mat-card-title fxFlex>Promosyon/Kolaylık</mat-card-title>
+                <button mat-button mat-raised-button color="primary" [disabled]="!changeList.facility"
+                        (click)="updateSuitability('facility')">Güncelle</button>
+            </mat-card-header>
+            <mat-card-content *ngIf="location" fxLayout="column">
+                <mat-checkbox (ngModelChange)="watchingSuitableChange('facility')"
+                              [(ngModel)]="facility.demo">Ücretsiz Deneme Dersi</mat-checkbox>
+                <mat-checkbox (ngModelChange)="watchingSuitableChange('facility')"
+                              [(ngModel)]="facility.group_discount">Grup Dersi İndirimi</mat-checkbox>
+                <mat-checkbox (ngModelChange)="watchingSuitableChange('facility')"
+                              [(ngModel)]="facility.package_discount">Paket Program İndirimi</mat-checkbox>
             </mat-card-content>
         </mat-card>
     </div>
 
-    <div fxLayout="row">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
         <mat-card fxFlex>
-            <mat-card-content *ngIf="location">
-                <div fxLayout="row">
-                    <h4>Ders Uygunluk Tipi</h4>
-                    <button mat-button (click)="updateSuitability('location')">Kaydet</button>
+            <mat-card-header fxLayoutAlign="space-between center">
+                <mat-card-title fxFlex>Ders Verilecek Mekanlar</mat-card-title>
+                <button mat-button mat-raised-button color="primary"  [disabled]="!changeList.location"
+                        (click)="updateSuitability('location')">Güncelle</button>
+            </mat-card-header>
+            <mat-card-content *ngIf="location" fxLayout="column">
+                <mat-checkbox (ngModelChange)="watchingSuitableChange('location')"
+                              [(ngModel)]="location.student_home">Öğrenci Evi</mat-checkbox>
+                <mat-checkbox (ngModelChange)="watchingSuitableChange('location')"
+                              [(ngModel)]="location.tutor_home">Öğretmen Evi</mat-checkbox>
+                <mat-checkbox (ngModelChange)="watchingSuitableChange('location')"
+                              [(ngModel)]="location.etude">Etüt Merkezi</mat-checkbox>
+                <mat-checkbox (ngModelChange)="watchingSuitableChange('location')"
+                              [(ngModel)]="location.course">Dershane/Sınıf</mat-checkbox>
+                <mat-checkbox (ngModelChange)="watchingSuitableChange('location')"
+                              [(ngModel)]="location.library">Kütüphane</mat-checkbox>
+                <mat-checkbox (ngModelChange)="watchingSuitableChange('location')"
+                              [(ngModel)]="location.over_internet">İnternet Üzerinden</mat-checkbox>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card fxFlex>
+            <mat-card-header fxLayoutAlign="space-between center">
+                <mat-card-title fxFlex>Ders Verilecek Semtler</mat-card-title>
+                <button mat-button mat-raised-button color="primary" [disabled]="!changeList.regions"
+                        (click)="updateSuitability('regions')">Güncelle</button>
+            </mat-card-header>
+            <mat-card-content fxLayout="column">
+                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex fxLayoutGap="16px" fxLayoutGap.lt-md="8px">
+                    <mat-form-field fxFlex fxFlex.lt-md appearance="outline">
+                        <mat-label>İl</mat-label>
+                        <mat-select [(ngModel)]="city" (selectionChange)="changeCity()">
+                            <mat-option *ngFor="let city of cities" [value]="city">
+                                {{city.city_name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field *ngIf="city" fxFlex fxFlex.lt-md appearance="outline">
+                        <mat-label>İlçe</mat-label>
+                        <mat-select [(ngModel)]="district">
+                            <mat-option *ngFor="let district of city.districts" [value]="district">
+                                {{district}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <div fxLayoutAlign="center center">
+                        <button mat-button [disabled]="!city || !district" (click)="addRegion()">Ekle</button>
+                    </div>
                 </div>
-                <section fxLayout="column">
-                    <mat-checkbox [(ngModel)]="location.student_home">Birebir Ders</mat-checkbox>
-                    <mat-checkbox [(ngModel)]="location.tutor_home">Grup Dersi</mat-checkbox>
-                    <mat-checkbox [(ngModel)]="location.etude">Sınıf Dersi</mat-checkbox>
-                    <mat-checkbox [(ngModel)]="location.course">Sınıf Dersi</mat-checkbox>
-                    <mat-checkbox [(ngModel)]="location.library">Sınıf Dersi</mat-checkbox>
-                    <mat-checkbox [(ngModel)]="location.over_internet">Sınıf Dersi</mat-checkbox>
-                </section>
+                <mat-chip-list *ngIf="regions" aria-label="Region selection">
+                    <mat-chip *ngFor="let region of regions" [removable]="true" (removed)="removeRegion(region)">
+                        {{region.city}}/{{region.district}}
+                        <mat-icon matChipRemove svgIcon="x-circle"></mat-icon>
+                    </mat-chip>
+                </mat-chip-list>
             </mat-card-content>
         </mat-card>
     </div>

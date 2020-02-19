@@ -47,7 +47,8 @@ export class AppComponent {
 
     private setSvgIcons() {
         const svgArray: string[] = [
-            'log-out'
+            'log-out',
+            'x-circle'
         ];
         let path: string = 'assets/icons/';
         svgArray.forEach((svg: string) => {

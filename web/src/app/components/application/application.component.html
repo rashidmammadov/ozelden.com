@@ -1,4 +1,9 @@
-<p>application works!</p>
-<div>
-  <router-outlet></router-outlet>
+<div fxLayout="row" fxLayoutGap="16px">
+    <div fxLayout="column" fxLayoutGap="16px">
+        <a mat-button mat-raised-button routerLink="/app/home">Ana Sayfa</a>
+        <a mat-button mat-raised-button routerLink="/app/suitability">Uygunluk</a>
+    </div>
+    <div fxFlex>
+        <router-outlet></router-outlet>
+    </div>
 </div>

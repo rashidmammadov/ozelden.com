@@ -1,4 +1,4 @@
-import { NgModule, Injector } from '@angular/core';
+import { NgModule, Injector, APP_INITIALIZER } from '@angular/core';
 import { AppRoutingModule } from './modules/app-routing.module';
 import { AngularMaterialModule } from './modules/angular-material.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,13 +17,19 @@ import { SuitabilityComponent } from './components/suitability/suitability.compo
 
 import { CookieService } from 'ngx-cookie-service';
 import { Cookie } from './services/cookie/cookie.service';
+import { DataService } from './services/data/data.service';
+import { ToastService } from './services/toast/toast.service';
 import { UtilityService } from './services/utility/utility.service';
 
-import { ToastService } from './services/toast/toast.service';
+import { citiesReducer } from './store/reducers/cities.reducer';
 import { progressReducer } from './store/reducers/progress.reducer';
-
 import { userReducer } from './store/reducers/user.reducer';
+
 import { TokenInterceptor } from './interceptors/token.interceptor';
+
+export function fetchStaticData(dataService: DataService) {
+    return () => dataService.saveOnStore();
+}
 
 @NgModule({
     declarations: [
@@ -43,10 +49,11 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
         FormsModule,
         HttpClientModule,
         ReactiveFormsModule,
-        StoreModule.forRoot({ progress: progressReducer, user: userReducer }),
+        StoreModule.forRoot({ cities: citiesReducer, progress: progressReducer, user: userReducer }),
     ],
     providers: [
         CookieService,
+        { provide: APP_INITIALIZER, useFactory: fetchStaticData, deps: [DataService], multi: true},
         { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     ],
     bootstrap: [AppComponent]

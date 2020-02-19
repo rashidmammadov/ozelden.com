@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { first } from 'rxjs/operators';
+import { CityType } from '../../interfaces/city-type';
 import { UserType } from '../../interfaces/user-type';
 import { AuthService } from '../../services/auth/auth.service';
 import { Cookie } from '../../services/cookie/cookie.service';
@@ -22,7 +24,7 @@ import { TYPES } from '../../constants/types.constant';
 })
 export class RegisterComponent implements OnInit {
 
-    public cities = [];
+    public cities: CityType[] = [];
     public userTypes: object[] = [
         {value: TYPES.TUTOR, name: 'Ders Vermek İstiyorum (Öğretmen)'},
         {value: TYPES.TUTORED, name: 'Ders Almak İstiyorum (Öğrenci)'}
@@ -53,7 +55,7 @@ export class RegisterComponent implements OnInit {
         address: new FormControl('', [Validators.required])
     });
 
-    constructor(private dataService: DataService, private store: Store<{progress: boolean, user: UserType}>,
+    constructor(private dataService: DataService, private store: Store<{cities: CityType[], progress: boolean, user: UserType}>,
                 private authService: AuthService, private router: Router) {
         for (let i = 1; i <= 31; i++) this.days.push(i);
         for (let i = 1; i <= 12; i++) this.months.push(i);
@@ -84,13 +86,8 @@ export class RegisterComponent implements OnInit {
     };
 
     private getCities = async () => {
-        this.store.dispatch(loading());
-        const result = await this.dataService.cities();
-        UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
-            this.cities = response.data;
-            this.registerForm.controls.city.setValue(this.cities[33]);
-        });
-        this.store.dispatch(loaded());
+        this.cities = await this.store.select('cities').pipe(first()).toPromise();
+        this.registerForm.controls.city.setValue(this.cities[33]);
     };
 
     private setRegisterRequestParams() {
