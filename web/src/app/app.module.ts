@@ -11,9 +11,11 @@ import { StoreModule } from '@ngrx/store';
 import { AppComponent } from './components/app/app.component';
 import { ApplicationComponent } from './components/application/application.component';
 import { HomeComponent } from './components/home/home.component';
+import { LecturesComponent } from './components/lectures/lectures.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { SuitabilityComponent } from './components/suitability/suitability.component';
+import { TableComponent } from './components/shared/table/table.component';
 
 import { CookieService } from 'ngx-cookie-service';
 import { Cookie } from './services/cookie/cookie.service';
@@ -37,9 +39,11 @@ export function fetchStaticData(dataService: DataService) {
         AppComponent,
         ApplicationComponent,
         HomeComponent,
+        LecturesComponent,
         LoginComponent,
         RegisterComponent,
-        SuitabilityComponent
+        SuitabilityComponent,
+        TableComponent
     ],
     imports: [
         AppRoutingModule,
@@ -54,7 +58,7 @@ export function fetchStaticData(dataService: DataService) {
     ],
     providers: [
         CookieService,
-        { provide: APP_INITIALIZER, useFactory: fetchStaticData, deps: [DataService], multi: true},
+        { provide: APP_INITIALIZER, useFactory: fetchStaticData, deps: [DataService], multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     ],
     bootstrap: [AppComponent]

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ApplicationComponent } from '../components/application/application.component';
 import { HomeComponent } from '../components/home/home.component';
+import { LecturesComponent } from '../components/lectures/lectures.component';
 import { LoginComponent } from '../components/login/login.component';
 import { RegisterComponent } from '../components/register/register.component';
 import { SuitabilityComponent } from '../components/suitability/suitability.component';
@@ -35,6 +36,10 @@ const routes: Routes = [
             {
                 path: 'home',
                 component: HomeComponent
+            },
+            {
+                path: 'lectures',
+                component: LecturesComponent
             },
             {
                 path: 'suitability',

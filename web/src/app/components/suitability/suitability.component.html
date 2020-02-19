@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutGap="16px">
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
-        <mat-card fxFlex>
+        <mat-card class="mat-elevation-z4" fxFlex>
             <mat-card-header fxLayoutAlign="space-between center">
                 <mat-card-title fxFlex>Ders Uygunluk Şekilleri</mat-card-title>
                 <button mat-button mat-raised-button color="primary" [disabled]="!changeList.course_type"
@@ -17,7 +17,7 @@
         </mat-card>
 
 
-        <mat-card fxFlex>
+        <mat-card class="mat-elevation-z4" fxFlex>
             <mat-card-header fxLayoutAlign="space-between center">
                 <mat-card-title fxFlex>Promosyon/Kolaylık</mat-card-title>
                 <button mat-button mat-raised-button color="primary" [disabled]="!changeList.facility"
@@ -35,7 +35,7 @@
     </div>
 
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
-        <mat-card fxFlex>
+        <mat-card class="mat-elevation-z4" fxFlex>
             <mat-card-header fxLayoutAlign="space-between center">
                 <mat-card-title fxFlex>Ders Verilecek Mekanlar</mat-card-title>
                 <button mat-button mat-raised-button color="primary"  [disabled]="!changeList.location"
@@ -57,7 +57,7 @@
             </mat-card-content>
         </mat-card>
 
-        <mat-card fxFlex>
+        <mat-card class="mat-elevation-z4" fxFlex>
             <mat-card-header fxLayoutAlign="space-between center">
                 <mat-card-title fxFlex>Ders Verilecek Semtler</mat-card-title>
                 <button mat-button mat-raised-button color="primary" [disabled]="!changeList.regions"

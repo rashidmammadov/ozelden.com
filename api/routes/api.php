@@ -42,4 +42,7 @@ Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
 
     Route::get('/suitability', 'SuitabilityController@get');
     Route::put('/suitability/{type}', 'SuitabilityController@update');
+
+    Route::get('/tutor_lecture', 'TutorLectureController@get');
+    Route::post('/tutor_lecture', 'TutorLectureController@set');
 });

@@ -48,7 +48,9 @@ class DataController extends ApiController {
         foreach ($queryResult as $lectureArea => $lectureThemes) {
             $lectureThemesArray = array();
             foreach ($lectureThemes as $lectureTheme) {
-                array_push($lectureThemesArray, $lectureTheme[LECTURE_THEME]);
+                array_push($lectureThemesArray,
+                    array(LECTURE_THEME => $lectureTheme[LECTURE_THEME], AVERAGE_TRY => $lectureTheme[AVERAGE_TRY])
+                );
             }
             array_push($lectures, array(LECTURE_AREA => $lectureArea, LECTURE_THEMES => $lectureThemesArray));
         }

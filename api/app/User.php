@@ -65,4 +65,8 @@ class User extends Authenticatable implements JWTSubject {
     public function suitableRegion() {
         return $this->hasMany('App\SuitableRegion');
     }
+
+    public function tutorLecture() {
+        return $this->hasMany('App\TutorLecture');
+    }
 }

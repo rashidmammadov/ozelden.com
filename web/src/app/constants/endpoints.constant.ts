@@ -6,6 +6,7 @@ export const ENDPOINTS = {
 
     AUTH: () => `${PREFIX}auth`,
     DATA: (type: string) => `${PREFIX}data/${type}`,
-    SUITABILITY: (type?: string) => `${PREFIX}suitability` + (type ? `/${type}` : '')
+    SUITABILITY: (type?: string) => `${PREFIX}suitability` + (type ? `/${type}` : ''),
+    TUTOR_LECTURE: () => `${PREFIX}tutor_lecture`
 
 };
