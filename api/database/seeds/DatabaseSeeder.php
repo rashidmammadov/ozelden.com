@@ -1,6 +1,7 @@
 <?php
 
 use App\City;
+use App\Lecture;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -12,6 +13,7 @@ class DatabaseSeeder extends Seeder {
      */
     public function run() {
          $this->call(CityTableSeeder::class);
+         $this->call(LectureTableSeeder::class);
     }
 }
 
@@ -29,4 +31,18 @@ class CityTableSeeder extends Seeder {
 
     }
 
+}
+
+class LectureTableSeeder extends Seeder {
+
+    public function run() {
+        DB::table(DB_LECTURE_TABLE)->truncate();
+
+        $json = json_decode('{"İlköğretim Takviye":["Tüm Konular","Bilgisayar","Bilgi Teknolojisi","Din Kültürü ve Ahlak Bilgisi","Drama","Düşünme","Fen Bilgisi","Fen ve Teknoloji","Görsel Sanatlar","Halk Oyunları","Hayat Bilgisi","İletişim ve Sunum","Matematik","Müzik","Okuma-Yazma","Satranç","Sosyal Bilgiler","Tarım","Tarih","Teknoloji ve Tasarım","Tiyatro","Trafik","Türkçe","Vatandaşlık","Yabancı Dil"],"Lise Takviye":[],"Üniversite Takviye":[],"Sınav Hazırlık":[],"Yabancı Dil":[],"Bilgisayar":[],"Müzik":[],"Spor":[],"Sanat":[],"Dans":[],"Kişisel Gelişim":[],"Direksiyon":[],"Özel Eğitim":[],"Oyun ve Hobi":[]}');
+        foreach ($json as $lectureArea => $lectureThemes) {
+            foreach ($lectureThemes as $lectureTheme) {
+                Lecture::create([LECTURE_AREA => $lectureArea, LECTURE_THEME => $lectureTheme, AVERAGE_TRY => 0]);
+            }
+        }
+    }
 }

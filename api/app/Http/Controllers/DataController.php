@@ -15,6 +15,8 @@ class DataController extends ApiController {
         $result = null;
         if ($type == 'cities') {
             $result = $this->prepareCities();
+        } else if ($type == 'lectures') {
+            $result = $this->prepareLectures();
         }
         return $this->respondCreated('', $result);
     }
@@ -34,6 +36,23 @@ class DataController extends ApiController {
             array_push($cityAndDistricts, array(CITY_NAME => $city, DISTRICTS => $districtArray));
         }
         return $cityAndDistricts;
+    }
+
+    /**
+     * Prepare lectures and relative lecture themes.
+     * @return array - returns prepared data.
+     */
+    private function prepareLectures() {
+        $queryResult = DataQuery::getLectures();
+        $lectures = array();
+        foreach ($queryResult as $lectureArea => $lectureThemes) {
+            $lectureThemesArray = array();
+            foreach ($lectureThemes as $lectureTheme) {
+                array_push($lectureThemesArray, $lectureTheme[LECTURE_THEME]);
+            }
+            array_push($lectures, array(LECTURE_AREA => $lectureArea, LECTURE_THEMES => $lectureThemesArray));
+        }
+        return $lectures;
     }
 
 }

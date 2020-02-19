@@ -22,6 +22,7 @@ import { ToastService } from './services/toast/toast.service';
 import { UtilityService } from './services/utility/utility.service';
 
 import { citiesReducer } from './store/reducers/cities.reducer';
+import { lecturesReducer } from './store/reducers/lectures.reducer';
 import { progressReducer } from './store/reducers/progress.reducer';
 import { userReducer } from './store/reducers/user.reducer';
 
@@ -49,7 +50,7 @@ export function fetchStaticData(dataService: DataService) {
         FormsModule,
         HttpClientModule,
         ReactiveFormsModule,
-        StoreModule.forRoot({ cities: citiesReducer, progress: progressReducer, user: userReducer }),
+        StoreModule.forRoot({ cities: citiesReducer, lectures: lecturesReducer, progress: progressReducer, user: userReducer }),
     ],
     providers: [
         CookieService,
