@@ -13,11 +13,15 @@ export class LectureService {
     constructor(private http: HttpClient) { }
 
     getTutorLectures(): Promise<ErrorResponse | IHttpResponse> {
-        return UtilityService.pipeHttpResponse(this.http.get<IHttpResponse>(ENDPOINTS.TUTOR_LECTURE()));
+        return UtilityService.pipeHttpResponse(this.http.get<IHttpResponse>(ENDPOINTS.TUTOR_LECTURES()));
     }
 
     addTutorLecture(params): Promise<ErrorResponse | IHttpResponse> {
-        return UtilityService.pipeHttpResponse(this.http.post<IHttpResponse>(ENDPOINTS.TUTOR_LECTURE(),
+        return UtilityService.pipeHttpResponse(this.http.post<IHttpResponse>(ENDPOINTS.TUTOR_LECTURES(),
             UtilityService.setHttpParams(params)));
+    }
+
+    deleteTutorLecture(tutorLectureId: number): Promise<ErrorResponse | IHttpResponse> {
+        return UtilityService.pipeHttpResponse(this.http.delete<IHttpResponse>(ENDPOINTS.TUTOR_LECTURES(tutorLectureId)));
     }
 }

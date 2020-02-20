@@ -13,11 +13,11 @@ export class SuitabilityService {
     constructor(private http: HttpClient) { }
 
     get(): Promise<ErrorResponse | IHttpResponse> {
-        return UtilityService.pipeHttpResponse(this.http.get<IHttpResponse>(ENDPOINTS.SUITABILITY()));
+        return UtilityService.pipeHttpResponse(this.http.get<IHttpResponse>(ENDPOINTS.SUITABILITIES()));
     }
 
     update(type: string, params, modifyBody: boolean = false): Promise<ErrorResponse | IHttpResponse> {
-        return UtilityService.pipeHttpResponse(this.http.put<IHttpResponse>(ENDPOINTS.SUITABILITY(type),
+        return UtilityService.pipeHttpResponse(this.http.put<IHttpResponse>(ENDPOINTS.SUITABILITIES(type),
           modifyBody ? UtilityService.setHttpParams(params) : params));
     }
 

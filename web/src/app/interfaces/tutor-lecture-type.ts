@@ -6,4 +6,5 @@ export interface TutorLectureType {
     experience: number;
     price: number;
     currency: string;
+    price_pleasure?: string;
 }

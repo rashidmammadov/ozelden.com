@@ -1,12 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { first } from 'rxjs/operators';
+import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogType } from '../../interfaces/confirm-dialog-type';
 import { LectureType } from '../../interfaces/lecture-type';
+import { TableColumnType } from '../../interfaces/table-column-type';
 import { TutorLectureType } from '../../interfaces/tutor-lecture-type';
 import { IHttpResponse } from '../../interfaces/i-http-response';
 import { LectureService } from '../../services/lecture/lecture.service';
 import { UtilityService } from '../../services/utility/utility.service';
+import { ToastService } from '../../services/toast/toast.service';
 import { loaded, loading } from '../../store/actions/progress.action';
+import { MESSAGES } from '../../constants/messages.constant';
 
 @Component({
     selector: 'app-lectures',
@@ -15,39 +22,65 @@ import { loaded, loading } from '../../store/actions/progress.action';
 })
 export class LecturesComponent implements OnInit {
 
-    experience: number;
-    price: number;
+    displayedColumns: TableColumnType[];
     lectures: LectureType[] = [];
-    lectureArea: LectureType;
-    lectureTheme: {lecture_theme: string, average_try: number};
+    lectureForm = new FormGroup({
+        lecture_area: new FormControl('', [Validators.required]),
+        lecture_theme: new FormControl('', [Validators.required]),
+        experience: new FormControl('', [Validators.required]),
+        price: new FormControl('', [Validators.required])
+    });
     tutorLectures: TutorLectureType[];
 
-    constructor(private store: Store<{lectures: LectureType[], progress: boolean}>, private lectureService: LectureService) { }
+    constructor(private store: Store<{lectures: LectureType[], progress: boolean}>, private lectureService: LectureService,
+                private dialog: MatDialog) { }
 
     async ngOnInit() {
+        this.displayedColumns = [{
+            header: 'Ders Alanı',
+            value: 'lecture_area'
+        }, {
+            header: 'Ders Konusu',
+            value: 'lecture_theme'
+        }, {
+            header: 'Tecrübe',
+            value: 'experience'
+        }, {
+            header: 'Fiyat',
+            value: 'price'
+        }, {
+            header: 'Fiyat Durumu',
+            value: 'price_pleasure',
+            icon: 'bad'
+        }, {
+            header: 'İşlemler',
+            value: 'operations',
+            button: 'trash',
+            click: (data) => this.deleteLectureConfirmDialog(data)
+        }];
         await this.getLectures();
         await this.getTutorLectures();
     }
 
     async addLecture() {
-        this.store.select(loading);
-        const params = {
-            lecture_area: this.lectureArea.lecture_area,
-            lecture_theme: this.lectureTheme.lecture_theme,
-            experience: this.experience,
-            price: this.price
-        };
-        const result = await this.lectureService.addTutorLecture(params);
-        UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
-            this.tutorLectures.push(response.data);
-        });
-        this.store.select(loaded);
+        if (this.lectureForm.valid) {
+            let lecturesList: TutorLectureType[] = [...this.tutorLectures];
+            this.store.select(loading);
+            const result = await this.lectureService.addTutorLecture(this.setLectureRequestParams());
+            UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
+                lecturesList.push(response.data);
+            });
+            this.store.select(loaded);
+            this.tutorLectures = lecturesList;
+        } else {
+            ToastService.show(MESSAGES.ERROR.INVALID_FORM)
+        }
     }
 
     async getLectures() {
         this.lectures = await this.store.select('lectures').pipe(first()).toPromise();
         if (this.lectures) {
-            this.lectureArea = this.lectures[0];
+            this.lectureForm.controls.lecture_area.setValue(this.lectures[0]);
             this.changeLectureArea();
         }
     }
@@ -56,14 +89,50 @@ export class LecturesComponent implements OnInit {
         this.store.select(loading);
         const result = await this.lectureService.getTutorLectures();
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
+            response.data.forEach((d: TutorLectureType) => {
+                d.price_pleasure = '-23%'
+            });
             this.tutorLectures = response.data;
         });
         this.store.select(loaded);
     }
 
     public changeLectureArea() {
-        if (this.lectureArea) {
-            this.lectureTheme = this.lectureArea.lecture_themes[1];
+        if (this.lectureForm.controls.lecture_area.valid) {
+            this.lectureForm.controls.lecture_theme.setValue(this.lectureForm.controls.lecture_area.value?.lecture_themes[1]);
+        }
+    }
+
+    public deleteLectureConfirmDialog(lecture: TutorLectureType) {
+        const dialogData: ConfirmDialogType = {
+            title: 'Ders Silme',
+            message: `Bu işlemi onaylarsanız (${lecture.lecture_area} - ${lecture.lecture_theme}) dersi listenizden kaldırılacak`
+        };
+        this.dialog
+            .open(ConfirmDialogComponent, { width: '400px', data: dialogData })
+            .afterClosed().toPromise()
+            .then(result => { result && this.deleteLecture(lecture.tutor_lecture_id) });
+    }
+
+    public deleteLecture = async (tutor_lecture_id: number) => {
+        let lecturesList: TutorLectureType[] = [...this.tutorLectures];
+        this.store.select(loading);
+        const result = await this.lectureService.deleteTutorLecture(tutor_lecture_id);
+        UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
+            ToastService.show(response.message);
+            lecturesList = lecturesList.filter(lecture => lecture.tutor_lecture_id !== tutor_lecture_id);
+        });
+        this.store.select(loaded);
+        this.tutorLectures = lecturesList;
+    };
+
+    private setLectureRequestParams() {
+        const form = this.lectureForm.controls;
+        return {
+            'lecture_area': form.lecture_area.value?.lecture_area,
+            'lecture_theme': form.lecture_theme.value?.lecture_theme,
+            'experience': form.experience.value,
+            'price': form.price.value
         }
     }
 

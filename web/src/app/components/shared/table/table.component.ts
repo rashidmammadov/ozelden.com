@@ -1,16 +1,18 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { TableColumnType } from '../../../interfaces/table-column-type';
 
 @Component({
     selector: 'app-table',
     templateUrl: './table.component.html',
     styleUrls: ['./table.component.scss']
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnChanges {
 
     @Input() public data;
-    displayedColumns: string[] = ['lecture_area', 'lecture_theme', 'experience', 'price'];
+    @Input() public columns: TableColumnType[];
+    displayedColumns: string[] = [];
     dataSource;
 
     @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -18,8 +20,15 @@ export class TableComponent implements OnInit {
     constructor() { }
 
     ngOnInit(): void {
-        this.dataSource = new MatTableDataSource(this.data);
-        this.dataSource.sort = this.sort;
+        this.displayedColumns = [];
+        this.columns.forEach(column => { this.displayedColumns.push(column.value); });
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.data) {
+            this.dataSource = new MatTableDataSource(changes.data.currentValue);
+            this.dataSource.sort = this.sort;
+        }
     }
 
 }

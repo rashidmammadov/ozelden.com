@@ -40,9 +40,10 @@ Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
 
     Route::post('/picture', 'ProfileController@uploadProfilePicture');
 
-    Route::get('/suitability', 'SuitabilityController@get');
-    Route::put('/suitability/{type}', 'SuitabilityController@update');
+    Route::get('/suitabilities', 'SuitabilityController@get');
+    Route::put('/suitabilities/{type}', 'SuitabilityController@update');
 
-    Route::get('/tutor_lecture', 'TutorLectureController@get');
-    Route::post('/tutor_lecture', 'TutorLectureController@set');
+    Route::delete('/tutor_lectures/{tutor_lecture_id}', 'TutorLectureController@delete');
+    Route::get('/tutor_lectures', 'TutorLectureController@get');
+    Route::post('/tutor_lectures', 'TutorLectureController@set');
 });

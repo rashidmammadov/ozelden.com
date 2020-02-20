@@ -1,0 +1,8 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+    <h4>{{data.title}}</h4>
+</div>
+<mat-dialog-content align="center">{{data.message}}</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-raised-button [mat-dialog-close]="false">Vazgeç</button>
+    <button mat-button mat-raised-button color="primary" [mat-dialog-close]="true" autofocus>Onayla</button>
+</mat-dialog-actions>

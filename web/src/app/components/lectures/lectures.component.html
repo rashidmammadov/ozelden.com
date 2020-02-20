@@ -4,44 +4,55 @@
             <mat-card-title fxFlex>Dersleriniz ve Tecrübeleriniz</mat-card-title>
         </mat-card-header>
         <mat-card-content fxLayout="column">
-            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex fxLayoutGap="16px" fxLayoutGap.lt-md="8px">
-                <mat-form-field fxFlex appearance="outline">
-                    <mat-label>Ders Alanı</mat-label>
-                    <mat-select [(ngModel)]="lectureArea" (selectionChange)="changeLectureArea()">
-                        <mat-option *ngFor="let lecture of lectures" [value]="lecture">
-                            {{lecture.lecture_area}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+            <form ngNoForm fxLayout="column" [formGroup]="lectureForm">
+                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex fxLayoutGap="16px" fxLayoutGap.lt-md="8px">
+                    <mat-form-field fxFlex appearance="outline">
+                        <mat-label>Ders Alanı</mat-label>
+                        <mat-select formControlName="lecture_area" (selectionChange)="changeLectureArea()">
+                            <mat-option *ngFor="let lecture of lectures" [value]="lecture">
+                                {{lecture.lecture_area}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
 
-                <mat-form-field *ngIf="lectureArea" fxFlex appearance="outline">
-                    <mat-label>Ders Konusu</mat-label>
-                    <mat-select [(ngModel)]="lectureTheme">
-                        <mat-option *ngFor="let theme of lectureArea.lecture_themes" [value]="theme">
-                            {{theme.lecture_theme}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-hint>Bu ders için ortalama ücret {{lectureTheme.average_try}} ₺`dir</mat-hint>
-                </mat-form-field>
+                    <mat-form-field *ngIf="lectureForm.controls.lecture_area.valid" fxFlex appearance="outline">
+                        <mat-label>Ders Konusu</mat-label>
+                        <mat-select formControlName="lecture_theme">
+                            <mat-option *ngFor="let theme of lectureForm.controls.lecture_area.value?.lecture_themes"
+                                        [value]="theme">
+                                {{theme.lecture_theme}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-hint>
+                            Bu ders için ortalama ücret {{lectureForm.controls.lecture_theme.value?.average_try}} ₺`dir
+                        </mat-hint>
+                    </mat-form-field>
 
-                <mat-form-field fxFlex appearance="outline">
-                    <mat-label>Deneyim</mat-label>
-                    <span matPrefix>Yıl &nbsp;</span>
-                    <input type="number" matInput placeholder="Deneyim" [(ngModel)]="experience" min="0">
-                </mat-form-field>
+                    <mat-form-field fxFlex appearance="outline">
+                        <mat-label>Deneyim</mat-label>
+                        <span matPrefix>Yıl &nbsp;</span>
+                        <input type="number" matInput placeholder="Deneyim" formControlName="experience" min="0">
+                        <mat-error *ngIf="lectureForm.controls.experience.hasError('required')">
+                            Deneyim alanı boş bırakılamaz.
+                        </mat-error>
+                    </mat-form-field>
 
-                <mat-form-field fxFlex appearance="outline">
-                    <mat-label>Saatlik Ücret</mat-label>
-                    <span matPrefix>₺ &nbsp;</span>
-                    <input type="number" matInput placeholder="Saatlik Ücret" [(ngModel)]="price" min="0">
-                </mat-form-field>
+                    <mat-form-field fxFlex appearance="outline">
+                        <mat-label>Saatlik Ücret</mat-label>
+                        <span matPrefix>₺ &nbsp;</span>
+                        <input type="number" matInput placeholder="Saatlik Ücret" formControlName="price" min="0">
+                        <mat-error *ngIf="lectureForm.controls.price.hasError('required')">
+                            Saatlik Ücret alanı boş bırakılamaz.
+                        </mat-error>
+                    </mat-form-field>
 
-                <div fxLayoutAlign="center center">
-                    <button mat-button [disabled]="!lectureArea || !lectureTheme" (click)="addLecture()">Ekle</button>
+                    <div>
+                        <button mat-button [disabled]="!lectureForm.valid" (click)="addLecture()">Listeye Ekle</button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </mat-card-content>
     </mat-card>
 
-    <app-table *ngIf="tutorLectures" [data]="tutorLectures"></app-table>
+    <app-table *ngIf="tutorLectures" [data]="tutorLectures" [columns]="displayedColumns"></app-table>
 </div>

@@ -10,6 +10,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { AppComponent } from './components/app/app.component';
 import { ApplicationComponent } from './components/application/application.component';
+import { ConfirmDialogComponent } from './components/shared/confirm-dialog/confirm-dialog.component';
 import { HomeComponent } from './components/home/home.component';
 import { LecturesComponent } from './components/lectures/lectures.component';
 import { LoginComponent } from './components/login/login.component';
@@ -38,6 +39,7 @@ export function fetchStaticData(dataService: DataService) {
     declarations: [
         AppComponent,
         ApplicationComponent,
+        ConfirmDialogComponent,
         HomeComponent,
         LecturesComponent,
         LoginComponent,
@@ -55,6 +57,9 @@ export function fetchStaticData(dataService: DataService) {
         HttpClientModule,
         ReactiveFormsModule,
         StoreModule.forRoot({ cities: citiesReducer, lectures: lecturesReducer, progress: progressReducer, user: userReducer }),
+    ],
+    entryComponents: [
+        ConfirmDialogComponent
     ],
     providers: [
         CookieService,

@@ -8,6 +8,42 @@ use Illuminate\Database\QueryException;
 class TutorLectureQuery extends Query {
 
     /**
+     * Check if given lecture is already exist on tutor`s lectures list.
+     * @param $tutorId - holds the tutor id.
+     * @param $lectureArea - holds the lecture area.
+     * @param $lectureTheme - holds the lecture theme.
+     * @return mixed
+     */
+    public static function check($tutorId, $lectureArea, $lectureTheme) {
+        try {
+            $query = TutorLecture::where(TUTOR_ID, EQUAL_SIGN, $tutorId)
+                ->where(LECTURE_AREA, EQUAL_SIGN, $lectureArea)
+                ->where(LECTURE_THEME, EQUAL_SIGN, $lectureTheme)
+                ->exists();
+            return $query;
+        } catch (QueryException $e) {
+            self::logException($e, debug_backtrace());
+        }
+    }
+
+    /**
+     * Delete given lecture of tutor from DB.
+     * @param $tutorId - holds the tutor id.
+     * @param $tutorLectureId - holds the tutor lecture id.
+     * @return mixed
+     */
+    public static function delete($tutorId, $tutorLectureId) {
+        try {
+            $query = TutorLecture::where(TUTOR_ID, EQUAL_SIGN, $tutorId)
+                ->where(TUTOR_LECTURE_ID, EQUAL_SIGN, $tutorLectureId)
+                ->delete();
+            return $query;
+        } catch (QueryException $e) {
+            self::logException($e, debug_backtrace());
+        }
+    }
+
+    /**
      * Get all lectures of tutor.
      * @param $tutorId - holds the tutor id.
      * @return mixed

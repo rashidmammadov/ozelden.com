@@ -12,6 +12,23 @@ use Validator;
 class TutorLectureController extends ApiController {
 
     /**
+     * Handle request to delete given tutor`s lecture from lectures list.
+     * @param $tutorLectureId - holds the tutor lecture id.
+     * @return mixed
+     */
+    public function delete($tutorLectureId) {
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+            $tutorId = $user[IDENTIFIER];
+            return $this->deleteTutorLecture($tutorId, $tutorLectureId);
+        } catch(JWTException $e) {
+            $this->setStatusCode(401);
+            $this->setMessage(AUTHENTICATION_ERROR);
+            return $this->respondWithError($this->getMessage());
+        }
+    }
+
+    /**
      * Handle request to returns tutor`s lectures.
      * @return array|mixed
      */
@@ -19,7 +36,7 @@ class TutorLectureController extends ApiController {
         try {
             $user = JWTAuth::parseToken()->authenticate();
             $tutorId = $user[IDENTIFIER];
-            return $this->respondCreated('', $this->getTutorLectures($tutorId));
+            return $this->getTutorLectures($tutorId);
         } catch(JWTException $e) {
             $this->setStatusCode(401);
             $this->setMessage(AUTHENTICATION_ERROR);
@@ -45,6 +62,21 @@ class TutorLectureController extends ApiController {
     }
 
     /**
+     * Send query to delete tutor`s lecture from DB.
+     * @param $tutorId - holds the tutor id.
+     * @param $tutorLectureId - holds the tutor lecture id.
+     * @return mixed
+     */
+    private function deleteTutorLecture($tutorId, $tutorLectureId) {
+        $deletedTutorLecture = TutorLectureQuery::delete($tutorId, $tutorLectureId);
+        if ($deletedTutorLecture) {
+            return $this->respondCreated(LECTURE_DELETED_FROM_LIST_SUCCESSFULLY);
+        } else {
+            return $this->respondWithError(SOMETHING_WRONG_WITH_DB);
+        }
+    }
+
+    /**
      * Send query to get tutor`s lectures.
      * @param $tutorId - holds the tutor id.
      * @return array
@@ -60,7 +92,7 @@ class TutorLectureController extends ApiController {
         } else {
             return $this->respondWithError(SOMETHING_WRONG_WITH_DB);
         }
-        return $tutorLectures;
+        return $this->respondCreated('', $tutorLectures);
     }
 
     /**
@@ -80,12 +112,17 @@ class TutorLectureController extends ApiController {
         if ($validator->fails()) {
             return $this->respondValidationError(FIELDS_VALIDATION_FAILED, $validator->errors());
         } else {
-            $addedTutorLecture = TutorLectureQuery::save($tutorId, $request);
-            if ($addedTutorLecture) {
-                $tutorLecture = new TutorLectureModel($addedTutorLecture);
-                return $this->respondCreated('', $tutorLecture->get());
+            $existLecture = TutorLectureQuery::check($tutorId, $request[LECTURE_AREA], $request[LECTURE_THEME]);
+            if (!$existLecture) {
+                $addedTutorLecture = TutorLectureQuery::save($tutorId, $request);
+                if ($addedTutorLecture) {
+                    $tutorLecture = new TutorLectureModel($addedTutorLecture);
+                    return $this->respondCreated('', $tutorLecture->get());
+                } else {
+                    return $this->respondWithError(SOMETHING_WRONG_WITH_DB);
+                }
             } else {
-                return $this->respondWithError(SOMETHING_WRONG_WITH_DB);
+                return $this->respondWithError(THIS_LECTURE_ALREADY_EXISTS);
             }
         }
     }

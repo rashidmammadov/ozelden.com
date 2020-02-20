@@ -68,6 +68,7 @@ define('LECTURE', 'lecture');
 define('LECTURE_ID', 'lecture_id');
 define('LECTURES_LIST', 'lectures_list');
 define('LECTURE_AREA', 'lecture_area');
+define('LECTURE_DELETED_FROM_LIST_SUCCESSFULLY', 'Ders listeden başarıyla kaldırıldı');
 define('LECTURE_THEME', 'lecture_theme');
 define('LECTURE_THEMES', 'lecture_themes');
 define('LESS_OR_EQUAL_SIGN', '<=');
@@ -108,7 +109,8 @@ define('SOMETHING_WRONG_WITH_DB', 'Veri tabanıyla bağlanmada bir sorun oluştu
 define('SUCCESS', 'success');
 define('SUITABILITY_TYPE', 'suitability_type');
 define('SURNAME', 'surname');
-define('THIS_EMAIL_ALREADY_EXIST', 'Bu email zaten mevcut');
+define('THIS_EMAIL_ALREADY_EXIST', 'Bu email sistemde zaten mevcut');
+define('THIS_LECTURE_ALREADY_EXISTS', 'Bu ders listede zaten mevcut');
 define('TOTAL_COUNT', 'total_count');
 define('TOTAL_DATA', 'total_data');
 define('TOTAL_PAGE', 'total_page');

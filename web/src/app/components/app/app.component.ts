@@ -47,7 +47,11 @@ export class AppComponent {
 
     private setSvgIcons() {
         const svgArray: string[] = [
+            'bad',
+            'good',
             'log-out',
+            'normal',
+            'trash',
             'x-circle'
         ];
         let path: string = 'assets/icons/';
