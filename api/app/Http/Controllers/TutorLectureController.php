@@ -87,6 +87,7 @@ class TutorLectureController extends ApiController {
         if ($tutorLecturesFromDB) {
             foreach ($tutorLecturesFromDB as $tutorLectureFromDB) {
                 $tutorLecture = new TutorLectureModel($tutorLectureFromDB);
+                $tutorLecture->setPricePleasure($tutorLecture);
                 array_push($tutorLectures, $tutorLecture->get());
             }
         } else {

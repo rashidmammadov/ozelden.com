@@ -15,7 +15,7 @@ export class TableComponent implements OnInit, OnChanges {
     displayedColumns: string[] = [];
     dataSource;
 
-    @ViewChild(MatSort, {static: true}) sort: MatSort;
+    @ViewChild(MatSort, { static: true }) sort: MatSort;
 
     constructor() { }
 

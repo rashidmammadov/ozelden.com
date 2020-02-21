@@ -44,14 +44,16 @@ export class LecturesComponent implements OnInit {
             value: 'lecture_theme'
         }, {
             header: 'Tecrübe',
-            value: 'experience'
+            value: 'experience',
+            additional: 'yıl'
         }, {
             header: 'Fiyat',
-            value: 'price'
+            value: 'price',
+            additional: '₺'
         }, {
-            header: 'Fiyat Durumu',
-            value: 'price_pleasure',
-            icon: 'bad'
+            header: 'Ortalama Farkı',
+            value: 'price_difference',
+            icon: 'price_pleasure'
         }, {
             header: 'İşlemler',
             value: 'operations',
@@ -90,7 +92,7 @@ export class LecturesComponent implements OnInit {
         const result = await this.lectureService.getTutorLectures();
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             response.data.forEach((d: TutorLectureType) => {
-                d.price_pleasure = '-23%'
+                d.price_difference = !!d.average_try ? (d.price - d.average_try) : '...';
             });
             this.tutorLectures = response.data;
         });

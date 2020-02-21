@@ -2,6 +2,8 @@
 
 namespace App\Http\Models;
 
+use Illuminate\Support\Facades\Log;
+
 class TutorLectureModel {
 
     private $tutorLectureId;
@@ -11,6 +13,8 @@ class TutorLectureModel {
     private $experience;
     private $price;
     private $currency;
+    private $average_try;
+    private $price_pleasure;
 
     public function __construct($parameters = null) {
         $this->setTutorLectureId($parameters[TUTOR_LECTURE_ID]);
@@ -20,6 +24,7 @@ class TutorLectureModel {
         $this->setExperience($parameters[EXPERIENCE]);
         $this->setPrice($parameters[PRICE]);
         $this->setCurrency($parameters[CURRENCY]);
+        $this->setAverageTry($parameters[AVERAGE_TRY]);
     }
 
     public function get() {
@@ -30,7 +35,9 @@ class TutorLectureModel {
             LECTURE_THEME => $this->getLectureTheme(),
             EXPERIENCE => $this->getExperience(),
             PRICE => $this->getPrice(),
-            CURRENCY => $this->getCurrency()
+            CURRENCY => $this->getCurrency(),
+            AVERAGE_TRY => $this->getAverageTry(),
+            PRICE_PLEASURE => $this->getPricePleasure(),
         );
     }
 
@@ -88,6 +95,43 @@ class TutorLectureModel {
 
     public function setCurrency($currency): void {
         $this->currency = $currency;
+    }
+
+    public function getAverageTry() {
+        return $this->average_try;
+    }
+
+    public function setAverageTry($average_try): void {
+        $this->average_try = $average_try;
+    }
+
+    public function getPricePleasure() {
+        return $this->price_pleasure;
+    }
+
+    public function setPricePleasure(TutorLectureModel $tutorLecture): void {
+        $pleasure = null;
+        $privilege = $tutorLecture->getAverageTry() + ($tutorLecture->getExperience() * 5 + $tutorLecture->getExperience());
+        if ($tutorLecture->getAverageTry()) {
+            if ($tutorLecture->getPrice() >= $tutorLecture->getAverageTry()) {
+                if ($tutorLecture->getPrice() <= $privilege) {
+                    $pleasure = 'good';
+                } else if ($tutorLecture->getPrice() <= ($privilege + 20)) {
+                    $pleasure = 'normal';
+                } else {
+                    $pleasure = 'bad';
+                }
+            } else {
+                if ($tutorLecture->getPrice() > ($tutorLecture->getAverageTry() - 20)) {
+                    $pleasure = 'good';
+                } else if ($tutorLecture->getPrice() > ($tutorLecture->getAverageTry() - 40)) {
+                    $pleasure = 'normal';
+                } else {
+                    $pleasure = 'bad';
+                }
+            }
+        }
+        $this->price_pleasure = $pleasure;
     }
 
 }

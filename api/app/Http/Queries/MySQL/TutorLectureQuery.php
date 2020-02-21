@@ -4,6 +4,7 @@ namespace App\Http\Queries\MySQL;
 
 use App\TutorLecture;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
 
 class TutorLectureQuery extends Query {
 
@@ -51,6 +52,10 @@ class TutorLectureQuery extends Query {
     public static function get($tutorId) {
         try {
             $query = TutorLecture::where(TUTOR_ID, EQUAL_SIGN, $tutorId)
+                ->leftJoin(DB_LECTURE_TABLE, function ($join) {
+                    $join->on(DB_LECTURE_TABLE.'.'.LECTURE_AREA, EQUAL_SIGN, DB_TUTOR_LECTURE_TABLE.'.'.LECTURE_AREA);
+                    $join->on(DB_LECTURE_TABLE.'.'.LECTURE_THEME, EQUAL_SIGN, DB_TUTOR_LECTURE_TABLE.'.'.LECTURE_THEME);
+                })
                 ->get();
             return $query;
         } catch (QueryException $e) {
