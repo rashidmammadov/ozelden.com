@@ -3,11 +3,11 @@
         <img alt="özelden logo" src="./assets/images/logo.png" src.lt-md="./assets/images/logo-mini.png">
     </button>
     <div fxLayout="row" *ngIf="user">
-      <button mat-icon-button matTooltip="Çıkış" (click)="logout()">
-          <mat-icon svgIcon="log-out"></mat-icon>
-      </button>
+        <button mat-icon-button matTooltip="Çıkış" (click)="logout()">
+            <mat-icon svgIcon="log-out"></mat-icon>
+        </button>
     </div>
 </mat-toolbar>
-<div>
+<div class="app-container">
     <router-outlet></router-outlet>
 </div>

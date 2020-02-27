@@ -48,10 +48,16 @@ export class AppComponent {
     private setSvgIcons() {
         const svgArray: string[] = [
             'bad',
+            'female',
             'good',
+            'home',
             'info',
             'log-out',
+            'male',
             'normal',
+            'paperclip',
+            'sliders',
+            'star',
             'trash',
             'x-circle'
         ];

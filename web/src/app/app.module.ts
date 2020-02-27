@@ -33,6 +33,7 @@ import { progressReducer } from './store/reducers/progress.reducer';
 import { userReducer } from './store/reducers/user.reducer';
 
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { InfoCardComponent } from './components/info-card/info-card.component';
 
 export function fetchStaticData(dataService: DataService) {
     return () => dataService.saveOnStore();
@@ -51,7 +52,8 @@ export function fetchStaticData(dataService: DataService) {
         RegisterComponent,
         SuitabilityComponent,
         TableComponent,
-        ThreedsDialogComponent
+        ThreedsDialogComponent,
+        InfoCardComponent
     ],
     imports: [
         AppRoutingModule,

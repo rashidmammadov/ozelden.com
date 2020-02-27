@@ -1,11 +1,23 @@
 <div fxLayout="row" fxLayoutGap="16px">
-    <div fxLayout="column" fxLayoutGap="16px">
-        <a mat-button mat-raised-button routerLink="/app/home">Ana Sayfa</a>
-        <a mat-button mat-raised-button routerLink="/app/paid-service">Hizmetler</a>
-        <a mat-button mat-raised-button routerLink="/app/lectures">Dersler</a>
-        <a mat-button mat-raised-button routerLink="/app/suitability">Uygunluk</a>
+    <div class="sidenav" fxLayout="column">
+        <a class="sidenav-button" routerLinkActive="active" routerLink="/app/home">
+            <mat-icon svgIcon="home"></mat-icon>
+            <p>Ana Sayfa</p>
+        </a>
+        <a class="sidenav-button" routerLinkActive="active" routerLink="/app/paid-service">
+            <mat-icon svgIcon="star"></mat-icon>
+            <p>Hizmetler</p>
+        </a>
+        <a class="sidenav-button" routerLinkActive="active" routerLink="/app/lectures">
+            <mat-icon svgIcon="paperclip"></mat-icon>
+            <p>Dersler</p>
+        </a>
+        <a class="sidenav-button" routerLinkActive="active" routerLink="/app/suitability">
+            <mat-icon svgIcon="sliders"></mat-icon>
+            <p>Uygunluk</p>
+        </a>
     </div>
-    <div fxFlex>
+    <div class="inner-container" fxFlex>
         <router-outlet></router-outlet>
     </div>
 </div>
