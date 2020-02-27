@@ -2,6 +2,7 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.iframe { width: 100%; min-height: 350px; height: auto; }
 .logo img { height: 28px; width: auto; }
 .mat-card-header-text { margin: 0 !important; }
 .mat-card-header .mat-card-title { font-size: 18px !important; }

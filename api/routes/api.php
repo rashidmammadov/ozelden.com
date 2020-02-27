@@ -35,6 +35,10 @@ Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
 
     Route::get('/data/{type}', 'DataController@getData');
 
+    Route::post('/paid', 'PaidServiceController@deposit');
+    Route::post('/deposit_confirmation', 'PaidServiceController@depositConfirmation');
+    Route::get('/paid', 'PaidServiceController@get');
+
     Route::get('/profile', 'ProfileController@getProfile');
     Route::put('/profile', 'ProfileController@updateProfile');
 

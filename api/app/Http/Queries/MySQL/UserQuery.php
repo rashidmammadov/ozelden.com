@@ -41,6 +41,22 @@ class UserQuery extends Query {
     }
 
     /**
+     * find user with given id.
+     * @param string $id - holds the id.
+     * @return mixed
+     */
+    public static function getUserById(string $id) {
+        try {
+            $query = User::where([
+                [IDENTIFIER, EQUAL_SIGN, $id]
+            ])->first();
+            return $query;
+        } catch (QueryException $e) {
+            self::logException($e, debug_backtrace());
+        }
+    }
+
+    /**
      * Save new user on users table with given parameters.
      * @param $user - holds the user data.
      * @return bool

@@ -101,6 +101,8 @@
       <path value="$PROJECT_DIR$/api/vendor/symfony/polyfill-php73" />
       <path value="$PROJECT_DIR$/api/vendor/lcobucci/jwt" />
       <path value="$PROJECT_DIR$/api/vendor/barryvdh/laravel-cors" />
+      <path value="$PROJECT_DIR$/api/vendor/fruitcake/laravel-cors" />
+      <path value="$PROJECT_DIR$/api/vendor/iyzico/iyzipay-php" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />

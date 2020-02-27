@@ -15,7 +15,7 @@ class PaidServiceTable extends Migration {
             $table->integer(TUTOR_ID)->unique()->references(IDENTIFIER)->on(DB_USERS_TABLE);
             $table->integer(BID)->nullable();
             $table->string(BOOST)->nullable();
-            $table->integer(RECOMMEND)->nullable();
+            $table->string(RECOMMEND)->nullable();
             $table->timestamps();
         });
     }

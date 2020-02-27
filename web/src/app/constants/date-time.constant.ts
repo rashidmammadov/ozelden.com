@@ -1,7 +1,8 @@
 export const DATE_TIME = {
     FORMAT: {
       'DATE': 'date',
-      'DATE_TIME': 'date_time'
+      'DATE_TIME': 'date_time',
+      'TIME': 'time'
     },
 
     ONE_SECOND: 1000,

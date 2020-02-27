@@ -49,6 +49,7 @@ export class AppComponent {
         const svgArray: string[] = [
             'bad',
             'good',
+            'info',
             'log-out',
             'normal',
             'trash',

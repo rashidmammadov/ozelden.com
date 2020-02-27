@@ -8,6 +8,7 @@ import { ToastService } from '../toast/toast.service';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { APP } from '../../constants/app.constant';
+import { DATE_TIME } from '../../constants/date-time.constant';
 import { MESSAGES } from '../../constants/messages.constant';
 
 @Injectable({
@@ -43,6 +44,38 @@ export class UtilityService {
             body = body.set(key, params[key])
         });
         return body;
+    }
+
+    public static millisecondsToDate(milliseconds: number | string | Date, format = null): number | string | Date {
+        if (milliseconds) {
+            if (typeof milliseconds === 'string' || typeof milliseconds === 'number') {
+                let date: any = new Date(Number(milliseconds));
+                return UtilityService.convertToFormat(date, format);
+            } else if (format) {
+                return UtilityService.convertToFormat(milliseconds, format);
+            } else {
+                return milliseconds;
+            }
+        } else {
+            return '-';
+        }
+    }
+
+    private static convertToFormat(date, format: string = null) {
+        const day = date.getDate();
+        const monthIndex = date.getMonth();
+        const year = date.getFullYear();
+        const hour = date.getHours() < 10 ? '0' + date.getHours() : date.getHours();
+        const minute = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
+        const second = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+        if (format === DATE_TIME.FORMAT.DATE) {
+            date = `${day} ${DATE_TIME.MONTHS_MAP[monthIndex]} ${year}`;
+        } else if (format === DATE_TIME.FORMAT.DATE_TIME) {
+            date = `${day} ${DATE_TIME.MONTHS_MAP[monthIndex]} ${year} ${hour}:${minute}:${second}`;
+        } else if (format === DATE_TIME.FORMAT.TIME) {
+            date = `${hour}:${minute}:${second}`;
+        }
+        return date;
     }
 
 }

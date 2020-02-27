@@ -1,0 +1,67 @@
+<div align="center">
+    <p>Paket Satın Alma</p>
+</div>
+<mat-dialog-content>
+    <form ngNoForm fxLayout="column" [formGroup]="depositForm">
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>Ödenecek Tutar</mat-label>
+                <span matPrefix>₺ &nbsp;</span>
+                <input matInput placeholder="Ödenecek Tutar" formControlName="price">
+                <mat-error *ngIf="depositForm.controls.price.hasError('required')">
+                    Yatırılacak Tutar alanı boş bırakılamaz.
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <mat-form-field fxFlex appearance="outline">
+            <mat-label>Kart Numarası</mat-label>
+            <input matInput placeholder="Kart Numarası" formControlName="card_number">
+            <mat-error *ngIf="depositForm.controls.card_number.hasError('required')">
+                Kart Numarası alanı boş bırakılamaz.
+            </mat-error>
+            <mat-error *ngIf="depositForm.controls.card_number.hasError('pattern')">
+                Kart Numarası standartlara uymalıdır.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex appearance="outline">
+            <mat-label>Kart Sahibi</mat-label>
+            <input matInput placeholder="Kart Sahibi" formControlName="card_holder_name">
+            <mat-error *ngIf="depositForm.controls.card_holder_name.hasError('required')">
+                Kart Sahibi alanı boş bırakılamaz.
+            </mat-error>
+        </mat-form-field>
+        <div fxFlex fxLayoutGap="3%">
+            <mat-form-field fxFlex="30%" appearance="outline">
+                <mat-label>Ay</mat-label>
+                <mat-select formControlName="expire_month">
+                    <mat-option *ngFor="let month of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]" [value]="month">
+                        {{month}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex="30%" appearance="outline">
+                <mat-label>Yıl</mat-label>
+                <mat-select formControlName="expire_year">
+                    <mat-option *ngFor="let year of availableYears" [value]="year">
+                        {{year}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field fxFlex="30%" fxFlexOffset="4%" appearance="outline">
+                <mat-label>cvc</mat-label>
+                <input matInput placeholder="CVC" formControlName="cvc">
+                <mat-error *ngIf="depositForm.controls.cvc.hasError('required')">
+                    cvc alanı boş bırakılamaz.
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </form>
+    <div>
+        <img style="height: 32px; width: auto" src="assets/images/logo-band@2x.png">
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Vazgeç</button>
+    <button mat-button (click)="deposit()" mat-flat-button class="mat-primary" [disabled]="!depositForm.valid">Onayla</button>
+</mat-dialog-actions>

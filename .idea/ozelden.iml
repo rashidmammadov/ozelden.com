@@ -9,6 +9,8 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/facade/flare-client-php" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/facade/ignition" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/facade/ignition-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/fruitcake/laravel-cors" />
+      <excludeFolder url="file://$MODULE_DIR$/api/vendor/iyzico/iyzipay-php" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/lcobucci/jwt" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/league/commonmark" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/opis/closure" />

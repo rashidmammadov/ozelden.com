@@ -111,7 +111,7 @@ export class LecturesComponent implements OnInit {
             message: `Bu işlemi onaylarsanız (${lecture.lecture_area} - ${lecture.lecture_theme}) dersi listenizden kaldırılacak`
         };
         this.dialog
-            .open(ConfirmDialogComponent, { width: '400px', data: dialogData })
+            .open(ConfirmDialogComponent, { width: '500px', data: dialogData })
             .afterClosed().toPromise()
             .then(result => { result && this.deleteLecture(lecture.tutor_lecture_id) });
     }
