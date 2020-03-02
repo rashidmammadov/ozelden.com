@@ -1,14 +1,58 @@
-<mat-card class="mat-elevation-z4">
-    <div fxLayout="row">
-        <div fxLayout="column">
-            <div mat-card-avatar></div>
-            <h5>Rashid Mammadov</h5>
-            <div fxLayout="row" fxLayoutAlign="space-between center">
-                <mat-icon svgIcon="male"></mat-icon>
-                <span>9.5</span>
-                <span>27 yaş</span>
+<mat-card class="info-card mat-elevation-z4">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+        <div class="general" fxLayout="column" fxLayoutAlign="center center" fxFlex="40">
+            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="16px" fxFlex>
+                <mat-icon class="gender" svgIcon="male" matTooltip="Erkek"></mat-icon>
+                <div mat-card-avatar style="background: url('http://localhost:8000/images/users/1.png') center center; background-size: cover;"></div>
+                <span class="age" matTooltip="27 yaş ">27<br>yaş</span>
             </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras euismod dui velit, ac imperdiet sem lacinia vitae.</p>
+            <p class="title" matTooltip="Meslek">Yazılım Mühendisi</p>
+            <p class="full-name">Rashid Mammadov</p>
+            <div class="overall" fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="32px">
+                <div class="ranking" matTooltip="4.2 Ortalama Puan">
+                    4.2<br>
+                    <p class="sub">ortalama</p>
+                </div>
+                <div class="experience" matTooltip="4 Yıl Deneyim">
+                    4<br>
+                    <p class="sub">deneyim</p>
+                </div>
+                <div class="experience" matTooltip="125 ₺ Ortalama Ücret">
+                    125<br>
+                    <p class="sub">₺ ücret</p>
+                </div>
+            </div>
+            <p class="quote">
+                <mat-icon svgIcon="left-quote"></mat-icon>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras euismod dui velit, ac imperdiet sem lacinia vitae.
+                <mat-icon svgIcon="right-quote"></mat-icon>
+            </p>
+        </div>
+        <div class="detail" fxLayout="column" fxLayoutAlign="space-between center" fxFlex>
+            <div>
+                <div>
+                    <p class="label">Bölgeler/Semtler</p>
+                    <mat-chip-list aria-label="Fish selection">
+                        <mat-chip>İzmir/Bornova</mat-chip>
+                        <mat-chip>İzmir/Konak</mat-chip>
+                        <mat-chip>İzmir/Karşıyaka</mat-chip>
+                    </mat-chip-list>
+                </div>
+                <div>
+                    <p class="label">Dersler</p>
+                    <mat-chip-list aria-label="Fish selection">
+                        <mat-chip>Matematik</mat-chip>
+                        <mat-chip>Fizik</mat-chip>
+                        <mat-chip>Geometri</mat-chip>
+                        <mat-chip>Kimya</mat-chip>
+                    </mat-chip-list>
+                </div>
+            </div>
+            <div class="facility-icons" fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%">
+                <mat-icon svgIcon="free-trial" matTooltip="Ücretsiz Deneme Dersi"></mat-icon>
+                <mat-icon svgIcon="group-discount" matTooltip="Grup Dersi İndirimi"></mat-icon>
+                <mat-icon svgIcon="package-discount" matTooltip="Grup Dersi İndirimi"></mat-icon>
+            </div>
         </div>
     </div>
 </mat-card>

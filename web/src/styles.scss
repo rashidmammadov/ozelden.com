@@ -1,15 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
 @font-face { font-family: GoogleSans; src: url(./GoogleSans-Regular.ttf); font-display: swap; }
-
+@import '~@angular/material/theming';
+@include mat-core();
 $main-color: #722947;
+$sub-color: #d3a67d;
+$green: #2e7d32;
+$app-primary: mat-palette($mat-purple, 700);
+$app-accent: mat-palette($mat-purple, 700);
+$app-theme: mat-light-theme($app-primary, $app-accent);
+@include angular-material-theme($app-theme);
+
+* { font-family: GoogleSans, serif !important; }
 html, body { height: 100%; }
-body { margin: 0; font-family: GoogleSans, serif !important; background-color: #f9f9f9; }
+body { margin: 0; background-color: #f9f9f9; }
 .iframe { width: 100%; min-height: 350px; height: auto; }
 .logo img { height: 28px; width: auto; }
 .app-container { height: calc(100% - 96px); overflow-y: auto; padding: 16px; }
 .mat-card-header-text { margin: 0 !important; }
 .mat-card-header .mat-card-title { font-size: 18px !important; }
 .mat-toolbar { background-color: #fff; position: relative; z-index: 99; }
+.mat-standard-chip {
+    background-color: transparent !important;
+    //border-radius: 8px !important;
+    border: 1px solid rgba(0,0,0,0.14) !important;
+    padding: 0 8px !important;
+    min-height: 28px !important;
+    font-size: 13px;
+}
 
 .sidenav {
     .sidenav-button {
