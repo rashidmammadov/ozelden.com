@@ -4,17 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Profile extends Model {
+class Average extends Model {
 
-    protected $table = DB_PROFILE_TABLE;
+    protected $table = DB_AVERAGE_TABLE;
     protected $primaryKey = USER_ID;
 
     protected $fillable = [
-        USER_ID, PICTURE, PHONE, PROFESSION, DESCRIPTION, COUNTRY, CITY, DISTRICT, ADDRESS, LANGUAGE
+        USER_ID, RANKING_AVG, EXPERIENCE_AVG, PRICE_AVG
     ];
 
     public function user() {
         return $this->belongsTo('App\User');
     }
-
 }

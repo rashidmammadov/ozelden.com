@@ -10,6 +10,9 @@ class SearchModel {
     private $birthday;
     private $sex;
     private $picture;
+    private $profession;
+    private $description;
+    private $average;
     private $regions;
     private $lectures;
 
@@ -20,6 +23,9 @@ class SearchModel {
         $this->setBirthday($parameters[BIRTHDAY]);
         $this->setSex($parameters[SEX]);
         $this->setPicture($parameters[PICTURE]);
+        $this->setProfession($parameters[PROFESSION]);
+        $this->setDescription($parameters[DESCRIPTION]);
+        $this->setAverage($parameters[AVERAGE]);
         $this->setRegions($parameters[REGIONS]);
         $this->setLectures($parameters[LECTURES]);
     }
@@ -32,6 +38,9 @@ class SearchModel {
             BIRTHDAY => $this->getBirthday(),
             SEX => $this->getSex(),
             PICTURE => $this->getPicture(),
+            PROFESSION => $this->getProfession(),
+            DESCRIPTION => $this->getDescription(),
+            AVERAGE => $this->getAverage(),
             REGIONS => $this->getRegions(),
             LECTURES => $this->getLectures()
         );
@@ -83,6 +92,30 @@ class SearchModel {
 
     public function setPicture($picture): void {
         $this->picture = $picture;
+    }
+
+    public function getProfession() {
+        return $this->profession;
+    }
+
+    public function setProfession($profession): void {
+        $this->profession = $profession;
+    }
+
+    public function getDescription() {
+        return $this->description;
+    }
+
+    public function setDescription($description): void {
+        $this->description = $description;
+    }
+
+    public function getAverage() {
+        return $this->average;
+    }
+
+    public function setAverage($average): void {
+        $this->average = $average;
     }
 
     public function getRegions() {

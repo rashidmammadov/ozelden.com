@@ -12,6 +12,8 @@ import { AppComponent } from './components/app/app.component';
 import { ApplicationComponent } from './components/application/application.component';
 import { ConfirmDialogComponent } from './components/shared/confirm-dialog/confirm-dialog.component';
 import { DepositDialogComponent } from './components/shared/deposit-dialog/deposit-dialog.component';
+import { InfoCardComponent } from './components/info-card/info-card.component';
+import { InfoCardsListComponent } from './components/info-cards-list/info-cards-list.component';
 import { HomeComponent } from './components/home/home.component';
 import { PaidServiceComponent } from './components/paid-service/paid-service.component';
 import { LecturesComponent } from './components/lectures/lectures.component';
@@ -33,7 +35,6 @@ import { progressReducer } from './store/reducers/progress.reducer';
 import { userReducer } from './store/reducers/user.reducer';
 
 import { TokenInterceptor } from './interceptors/token.interceptor';
-import { InfoCardComponent } from './components/info-card/info-card.component';
 
 export function fetchStaticData(dataService: DataService) {
     return () => dataService.saveOnStore();
@@ -45,6 +46,8 @@ export function fetchStaticData(dataService: DataService) {
         ApplicationComponent,
         ConfirmDialogComponent,
         DepositDialogComponent,
+        InfoCardComponent,
+        InfoCardsListComponent,
         HomeComponent,
         PaidServiceComponent,
         LecturesComponent,
@@ -52,8 +55,7 @@ export function fetchStaticData(dataService: DataService) {
         RegisterComponent,
         SuitabilityComponent,
         TableComponent,
-        ThreedsDialogComponent,
-        InfoCardComponent
+        ThreedsDialogComponent
     ],
     imports: [
         AppRoutingModule,

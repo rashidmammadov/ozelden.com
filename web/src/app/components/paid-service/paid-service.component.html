@@ -3,7 +3,7 @@
         <mat-card-header fxLayoutAlign="space-between center">
             <mat-card-title fxFlex>Aktif Paketleriniz</mat-card-title>
         </mat-card-header>
-        <mat-card-content>
+        <mat-card-content *ngIf="activePaidService">
             <div>
                 <span>Teklif Sayısı</span>
                 <h3>{{activePaidService.bid || 0}}</h3>

@@ -2,7 +2,8 @@ export const DATE_TIME = {
     FORMAT: {
       'DATE': 'date',
       'DATE_TIME': 'date_time',
-      'TIME': 'time'
+      'TIME': 'time',
+      'TOTAL_YEARS': 'total_years'
     },
 
     ONE_SECOND: 1000,

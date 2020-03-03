@@ -57,6 +57,21 @@ class UserQuery extends Query {
     }
 
     /**
+     * Get users with type tutor.
+     * @return mixed
+     */
+    public static function getTutors() {
+        try {
+            $query = User::where([
+                [TYPE, EQUAL_SIGN, TUTOR]
+            ])->get();
+            return $query;
+        } catch (QueryException $e) {
+            self::logException($e, debug_backtrace());
+        }
+    }
+
+    /**
      * Save new user on users table with given parameters.
      * @param $user - holds the user data.
      * @return bool

@@ -74,6 +74,10 @@ export class UtilityService {
             date = `${day} ${DATE_TIME.MONTHS_MAP[monthIndex]} ${year} ${hour}:${minute}:${second}`;
         } else if (format === DATE_TIME.FORMAT.TIME) {
             date = `${hour}:${minute}:${second}`;
+        } else if (format === DATE_TIME.FORMAT.TOTAL_YEARS) {
+            const currentYear = new Date().getFullYear();
+            const currentMonthIndex = new Date().getMonth();
+            date = currentYear - year - ((monthIndex - currentMonthIndex) >= 0 ? 1 : 0);
         }
         return date;
     }

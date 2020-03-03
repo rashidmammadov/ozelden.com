@@ -14,6 +14,8 @@ class ProfileTable extends Migration {
             $table->integer(USER_ID)->unique()->references(IDENTIFIER)->on(DB_USERS_TABLE);
             $table->string(PICTURE, 100)->nullable();
             $table->string(PHONE, 11)->nullable();
+            $table->string(PROFESSION, 50)->nullable();
+            $table->string(DESCRIPTION, 250)->nullable();
             $table->char(COUNTRY, 20)->nullable()->default(COUNTRY_TURKEY);
             $table->string(CITY, 20)->nullable();
             $table->string(DISTRICT, 30)->nullable();

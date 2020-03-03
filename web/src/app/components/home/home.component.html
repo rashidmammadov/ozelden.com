@@ -1,7 +1,53 @@
-<p>home works!</p>
 <div fxLayout="column" fxLayoutGap="16px">
-    <div fxLayout="row" fxLayoutGap="16px">
-        <app-info-card></app-info-card>
-        <app-info-card></app-info-card>
-    </div>
+    <mat-card class="mat-elevation-z4" fxFlex>
+        <mat-card-content>
+            <form ngNoForm fxLayout="column" [formGroup]="searchForm">
+                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex fxLayoutGap="16px" fxLayoutGap.lt-md="8px">
+                    <mat-form-field fxFlex appearance="outline">
+                        <mat-label>İl</mat-label>
+                        <mat-select formControlName="city" (selectionChange)="changeCity()">
+                            <mat-option *ngFor="let city of cities" [value]="city">
+                                {{city.city_name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field *ngIf="searchForm.controls.city.valid" fxFlex appearance="outline">
+                        <mat-label>İlçe</mat-label>
+                        <mat-select formControlName="district">
+                            <mat-option *ngFor="let district of searchForm.controls.city.value?.districts"
+                                        [value]="district">
+                                {{district}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex appearance="outline">
+                        <mat-label>Ders Alanı</mat-label>
+                        <mat-select formControlName="lecture_area" (selectionChange)="changeLectureArea()">
+                            <mat-option *ngFor="let lecture of lectures" [value]="lecture">
+                                {{lecture.lecture_area}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field *ngIf="searchForm.controls.lecture_area.valid" fxFlex appearance="outline">
+                        <mat-label>Ders Konusu</mat-label>
+                        <mat-select formControlName="lecture_theme">
+                            <mat-option *ngFor="let theme of searchForm.controls.lecture_area.value?.lecture_themes"
+                                        [value]="theme">
+                                {{theme.lecture_theme}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <div>
+                        <button mat-button [disabled]="!searchForm.valid" (click)="search()">Ara</button>
+                    </div>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+    <app-info-cards-list [data]="searchResult" [column]="2"></app-info-cards-list>
 </div>

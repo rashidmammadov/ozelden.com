@@ -7,6 +7,8 @@ class ProfileModel {
     private $user_id;
     private $picture;
     private $phone;
+    private $profession;
+    private $description;
     private $country;
     private $city;
     private $district;
@@ -17,6 +19,8 @@ class ProfileModel {
         $this->setUserId($parameters[USER_ID]);
         $this->setPicture($parameters[PICTURE]);
         $this->setPhone($parameters[PHONE]);
+        $this->setProfession($parameters[PROFESSION]);
+        $this->setDescription($parameters[DESCRIPTION]);
         $this->setCountry($parameters[COUNTRY]);
         $this->setCity($parameters[CITY]);
         $this->setDistrict($parameters[DISTRICT]);
@@ -29,6 +33,8 @@ class ProfileModel {
             USER_ID => $this->getUserId(),
             PICTURE => $this->getPicture(),
             PHONE => $this->getPhone(),
+            PROFESSION => $this->getProfession(),
+            DESCRIPTION => $this->getDescription(),
             COUNTRY => $this->getCountry(),
             CITY => $this->getCity(),
             DISTRICT => $this->getDistrict(),
@@ -60,6 +66,22 @@ class ProfileModel {
 
     public function setPhone($phone): void {
         $this->phone = $phone;
+    }
+
+    public function getProfession() {
+        return $this->profession;
+    }
+
+    public function setProfession($profession): void {
+        $this->profession = $profession;
+    }
+
+    public function getDescription() {
+        return $this->description;
+    }
+
+    public function setDescription($description): void {
+        $this->description = $description;
     }
 
     public function getCountry() {

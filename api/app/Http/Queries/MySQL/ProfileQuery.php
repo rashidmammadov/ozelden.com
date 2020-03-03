@@ -35,6 +35,8 @@ class ProfileQuery extends Query {
             $query = Profile::create([
                 USER_ID => $userId,
                 PHONE => !empty($profile[PHONE]) ? $profile[PHONE] : null,
+                PROFESSION => !empty($profile[PROFESSION]) ? $profile[PROFESSION] : null,
+                DESCRIPTION => !empty($profile[DESCRIPTION]) ? $profile[DESCRIPTION] : null,
                 COUNTRY => !empty($profile[COUNTRY]) ? $profile[COUNTRY] : COUNTRY_TURKEY,
                 CITY => !empty($profile[CITY]) ? $profile[CITY] : null,
                 DISTRICT => !empty($profile[DISTRICT]) ? $profile[DISTRICT] : null,
@@ -58,6 +60,8 @@ class ProfileQuery extends Query {
             Profile::where(USER_ID, EQUAL_SIGN, $userId)
                 ->update([
                     PHONE => !empty($profile[PHONE]) ? $profile[PHONE] : null,
+                    PROFESSION => !empty($profile[PROFESSION]) ? $profile[PROFESSION] : null,
+                    DESCRIPTION => !empty($profile[DESCRIPTION]) ? $profile[DESCRIPTION] : null,
                     COUNTRY => !empty($profile[COUNTRY]) ? $profile[COUNTRY] : COUNTRY_TURKEY,
                     CITY => !empty($profile[CITY]) ? $profile[CITY] : null,
                     DISTRICT => !empty($profile[DISTRICT]) ? $profile[DISTRICT] : null,

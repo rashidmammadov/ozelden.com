@@ -1,10 +1,11 @@
 .info-card {
     .general {
+        padding-right: 16px;
         border-right: 1px solid rgba(0, 0, 0, 0.14);
         .mat-card-avatar {
             height: 80px;
             width: 80px;
-            box-shadow: 0 0 8px 0 #d3a67d;
+            box-shadow: 0 0 8px 0 #555555;
             margin: 8px 0;
         }
 
@@ -62,6 +63,7 @@
             margin: 8px 0;
             text-align: center;
             font-size: 14px;
+            font-style: italic;
             .mat-icon {
                 height: 14px;
                 width: 14px;
@@ -84,6 +86,16 @@
                 height: 20px;
                 width: 20px;
             }
+        }
+    }
+}
+
+@media (max-width: 960px) {
+    .info-card {
+        .general {
+            padding-right: 0;
+            border-right: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.14);
         }
     }
 }

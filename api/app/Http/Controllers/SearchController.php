@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Models\AverageModel;
 use App\Http\Models\SearchModel;
 use App\Http\Models\SuitableRegionModel;
 use App\Http\Models\TutorLectureModel;
 use App\Http\Queries\MySQL\SearchQuery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SearchController extends ApiController {
 
@@ -33,6 +35,9 @@ class SearchController extends ApiController {
                 if ($tutorId) {
                     $tutorConnectionsFromDB = SearchQuery::getTutorConnections($tutorId);
                     $searchResult = new SearchModel($tutorConnectionsFromDB[0]);
+
+                    $average = new AverageModel($tutorConnectionsFromDB[0]);
+                    $searchResult->setAverage($average->get());
 
                     $lectures = $this->getTutorLectures($tutorConnectionsFromDB);
                     $searchResult->setLectures($lectures);
