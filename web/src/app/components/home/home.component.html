@@ -49,5 +49,7 @@
         </mat-card-content>
     </mat-card>
 
-    <app-info-cards-list [data]="searchResult" [column]="2"></app-info-cards-list>
+    <div fxLayout="row" fxFlex>
+        <app-info-cards-list fxFlex [data]="searchResult" [column]="2"></app-info-cards-list>
+    </div>
 </div>

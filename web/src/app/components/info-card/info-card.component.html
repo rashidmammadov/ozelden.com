@@ -4,7 +4,8 @@
             <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="16px" fxFlex>
                 <mat-icon *ngIf="data.sex" class="gender" [svgIcon]="data.sex"
                           [matTooltip]="data.sex === 'female' ? 'Kadın' : 'Erkek'"></mat-icon>
-                <img [alt]="data.name + ' ' + data.surname" mat-card-avatar [src]="data.picture"/>
+                <img [alt]="data.name + ' ' + data.surname" mat-card-avatar
+                     [src]="data.picture || './assets/images/logo-mini.png'"/>
                 <span *ngIf="data.age" class="age" [matTooltip]="data.age + ' yaş'">{{data.age}}<br>yaş</span>
             </div>
             <p *ngIf="data.profession" class="title" matTooltip="Meslek">{{data.profession}}</p>
@@ -16,9 +17,9 @@
                     <p class="sub">ortalama</p>
                 </div>
                 <div *ngIf="data.average.experience_avg" class="experience"
-                     [matTooltip]="data.average.experience_avg + ' Yıl Deneyim'">
+                     [matTooltip]="data.average.experience_avg + ' Yıl Ortalama Deneyim'">
                     {{data.average.experience_avg}}<br>
-                    <p class="sub">deneyim</p>
+                    <p class="sub">yıl deneyim</p>
                 </div>
                 <div *ngIf="data.average.price_avg" class="experience"
                      [matTooltip]="data.average.price_avg + ' ₺ Ortalama Ücret'">
@@ -26,6 +27,7 @@
                     <p class="sub">₺ ücret</p>
                 </div>
             </div>
+          <button mat-raised-button mat-stroked-button>Teklif Al</button>
             <p *ngIf="data.description" class="quote">
                 <mat-icon svgIcon="left-quote"></mat-icon> {{data.description}} <mat-icon svgIcon="right-quote"></mat-icon>
             </p>

@@ -8,7 +8,6 @@ use App\Http\Models\SuitableRegionModel;
 use App\Http\Models\TutorLectureModel;
 use App\Http\Queries\MySQL\SearchQuery;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class SearchController extends ApiController {
 
