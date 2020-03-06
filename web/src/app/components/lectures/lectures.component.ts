@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { first } from 'rxjs/operators';
-import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogType } from '../../interfaces/confirm-dialog-type';
 import { LectureType } from '../../interfaces/lecture-type';
 import { TableColumnType } from '../../interfaces/table-column-type';

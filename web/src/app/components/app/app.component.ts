@@ -63,7 +63,9 @@ export class AppComponent {
             'right-quote',
             'sliders',
             'star',
+            'students',
             'trash',
+            'user-plus',
             'x-circle'
         ];
         let path: string = 'assets/icons/';

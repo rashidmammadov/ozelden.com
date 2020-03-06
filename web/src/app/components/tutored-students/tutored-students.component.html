@@ -1,0 +1,10 @@
+<div fxLayout="column" fxLayoutGap="16px">
+    <div fxLayout="row">
+        <mat-card class="mat-elevation-z4" [fxFlex]="20" fxFlex.lt-md="100" fxLayout="column"
+                  fxLayoutAlign="center center" fxLayoutGap="16px">
+            <mat-icon class="large-icon light-gray" svgIcon="user-plus"></mat-icon>
+            <button mat-raised-button (click)="openNewStudentDialog()">Yeni Öğrenci Ekle</button>
+        </mat-card>
+    </div>
+    <app-grid-list [column]="5" [data]="students" [item]="'app-student-card'"></app-grid-list>
+</div>

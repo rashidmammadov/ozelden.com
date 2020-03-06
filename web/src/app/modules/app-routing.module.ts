@@ -8,6 +8,7 @@ import { LecturesComponent } from '../components/lectures/lectures.component';
 import { LoginComponent } from '../components/login/login.component';
 import { RegisterComponent } from '../components/register/register.component';
 import { SuitabilityComponent } from '../components/suitability/suitability.component';
+import { TutoredStudentsComponent } from '../components/tutored-students/tutored-students.component';
 
 import { AuthGuard } from '../guards/auth.guard';
 
@@ -49,6 +50,10 @@ const routes: Routes = [
             {
                 path: 'suitability',
                 component: SuitabilityComponent
+            },
+            {
+                path: 'tutored-students',
+                component: TutoredStudentsComponent
             }
         ]
     }

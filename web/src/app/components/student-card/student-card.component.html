@@ -1,0 +1,13 @@
+<mat-card *ngIf="data" class="student-card mat-elevation-z4">
+    <div class="general" fxLayout="column" fxLayoutAlign="center center" fxFlex>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="16px" fxFlex>
+            <mat-icon *ngIf="data.sex" class="gender" [svgIcon]="data.sex"
+                      [matTooltip]="data.sex === 'female' ? 'Kadın' : 'Erkek'"></mat-icon>
+            <img [alt]="data.name + ' ' + data.surname" mat-card-avatar
+                 [src]="data.picture || './assets/images/logo-mini.png'"/>
+            <span *ngIf="data.age" class="age" [matTooltip]="data.age + ' yaş'">{{data.age}}<br>yaş</span>
+        </div>
+        <p class="full-name">{{data.name}} {{data.surname}}</p>
+        <button mat-raised-button mat-stroked-button (click)="openEditDialog()">Düzenle</button>
+    </div>
+</mat-card>

@@ -18,6 +18,7 @@ body { margin: 0; background-color: #f9f9f9; }
 .app-container { height: calc(100% - 96px); overflow-y: auto; padding: 16px; }
 .mat-card-header-text { margin: 0 !important; }
 .mat-card-header .mat-card-title { font-size: 18px !important; }
+.mat-icon.large-icon { width: 64px; height: 64px; }
 .mat-toolbar { background-color: #fff; position: relative; z-index: 99; }
 .mat-standard-chip {
     background-color: transparent !important;
@@ -27,6 +28,7 @@ body { margin: 0; background-color: #f9f9f9; }
     min-height: 28px !important;
     font-size: 13px;
 }
+.light-gray { color: #909090; }
 
 .sidenav {
     .sidenav-button {

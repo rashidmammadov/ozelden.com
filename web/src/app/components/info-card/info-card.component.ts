@@ -15,7 +15,7 @@ export class InfoCardComponent implements OnInit {
     constructor() { }
 
     ngOnInit(): void {
-        this.data.birthday && (this.data.age = UtilityService.millisecondsToDate(this.data.birthday, DATE_TIME.FORMAT.TOTAL_YEARS));
+        this.data && this.data.birthday && (this.data.age = UtilityService.millisecondsToDate(this.data.birthday, DATE_TIME.FORMAT.TOTAL_YEARS));
     }
 
 }

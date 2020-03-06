@@ -10,18 +10,21 @@ import { StoreModule } from '@ngrx/store';
 
 import { AppComponent } from './components/app/app.component';
 import { ApplicationComponent } from './components/application/application.component';
-import { ConfirmDialogComponent } from './components/shared/confirm-dialog/confirm-dialog.component';
-import { DepositDialogComponent } from './components/shared/deposit-dialog/deposit-dialog.component';
+import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
+import { DepositDialogComponent } from './components/dialogs/deposit-dialog/deposit-dialog.component';
+import { EditStudentDialogComponent } from './components/dialogs/edit-student-dialog/edit-student-dialog.component';
 import { InfoCardComponent } from './components/info-card/info-card.component';
-import { InfoCardsListComponent } from './components/info-cards-list/info-cards-list.component';
 import { HomeComponent } from './components/home/home.component';
+import { GridListComponent } from './components/shared/grid-list/grid-list.component';
 import { PaidServiceComponent } from './components/paid-service/paid-service.component';
 import { LecturesComponent } from './components/lectures/lectures.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { SuitabilityComponent } from './components/suitability/suitability.component';
+import { StudentCardComponent } from './components/student-card/student-card.component';
 import { TableComponent } from './components/shared/table/table.component';
-import { ThreedsDialogComponent } from './components/shared/threeds-dialog/threeds-dialog.component';
+import { ThreedsDialogComponent } from './components/dialogs/threeds-dialog/threeds-dialog.component';
+import { TutoredStudentsComponent } from './components/tutored-students/tutored-students.component';
 
 import { CookieService } from 'ngx-cookie-service';
 import { Cookie } from './services/cookie/cookie.service';
@@ -46,16 +49,20 @@ export function fetchStaticData(dataService: DataService) {
         ApplicationComponent,
         ConfirmDialogComponent,
         DepositDialogComponent,
+        EditStudentDialogComponent,
         InfoCardComponent,
-        InfoCardsListComponent,
         HomeComponent,
+        GridListComponent,
         PaidServiceComponent,
         LecturesComponent,
         LoginComponent,
         RegisterComponent,
         SuitabilityComponent,
+        StudentCardComponent,
         TableComponent,
-        ThreedsDialogComponent
+        ThreedsDialogComponent,
+        TutoredStudentsComponent,
+        GridListComponent
     ],
     imports: [
         AppRoutingModule,
@@ -71,6 +78,7 @@ export function fetchStaticData(dataService: DataService) {
     entryComponents: [
         ConfirmDialogComponent,
         DepositDialogComponent,
+        EditStudentDialogComponent,
         ThreedsDialogComponent
     ],
     providers: [

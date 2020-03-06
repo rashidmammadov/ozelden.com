@@ -46,6 +46,9 @@ Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
 
     Route::get('/search', 'SearchController@get');
 
+    Route::get('/students', 'StudentController@get');
+    Route::post('/students', 'StudentController@set');
+
     Route::get('/suitabilities', 'SuitabilityController@get');
     Route::put('/suitabilities/{type}', 'SuitabilityController@update');
 

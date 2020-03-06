@@ -1,0 +1,8 @@
+<div fxLayout="column" fxLayoutGap="16px">
+    <div *ngFor="let row of gridView" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+        <div *ngFor="let d of row" [fxFlex]="itemWidth" fxFlex.lt-md="100">
+            <app-info-card *ngIf="item === 'app-info-card'" [data]="d"></app-info-card>
+            <app-student-card *ngIf="item === 'app-student-card'" [data]="d"></app-student-card>
+        </div>
+    </div>
+</div>

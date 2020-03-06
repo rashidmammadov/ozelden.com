@@ -18,6 +18,22 @@ export class UtilityService {
 
     public static injector: Injector;
 
+    public static dataAsGridView(data, column: number) {
+        let groups = [];
+        if (data && data.length) {
+            const groupCount = Math.ceil(data.length / column);
+            let start = 0;
+            let end = column;
+            for (let i = 0; i < groupCount; i++) {
+                let groupItems = data.slice(start, end);
+                groups.push(groupItems);
+                start += column;
+                end += column;
+            }
+        }
+        return groups;
+    }
+
     public static handleResponseFromService(result: IHttpResponse | ErrorResponse, successCallback: (result) => void): void {
         if (!navigator.onLine) {
             ToastService.show(MESSAGES.ERROR.ERR_INTERNET_DISCONNECTED);

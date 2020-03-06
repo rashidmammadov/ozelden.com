@@ -7,4 +7,6 @@ export interface StudentType {
     surname: string;
     birthday: string;
     sex: string;
+    file?: any;
+    age?: number | string | Date;
 }

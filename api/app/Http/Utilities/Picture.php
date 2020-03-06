@@ -11,13 +11,14 @@ class Picture {
     /**
      * Upload picture to folder.
      * @param $file - holds the image file.
-     * @param $primaryName - holds the primary name of image.
      * @param $type - holds the type of picture.
+     * @param $primaryName - holds the primary name of image.
+     * @param $additionalName - holds parameter if additional name added.
      * @return string - the name of uploaded image file.
      */
-    public static function upload($file, $primaryName, $type) {
+    public static function upload($file, $type, $primaryName, $additionalName = false) {
         $currentDate = date('siHdmY');
-        $fileName = $primaryName . '.' . $type;
+        $fileName = $primaryName . ($additionalName ? $currentDate : '') . '.' . $type;
         $dir = 'users/';
         $subPath = env('IMAGES_PATH');
         $path = public_path() . $subPath . $dir . $fileName;

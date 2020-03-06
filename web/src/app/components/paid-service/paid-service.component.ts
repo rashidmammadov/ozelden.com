@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store} from '@ngrx/store';
-import { DepositDialogComponent } from '../shared/deposit-dialog/deposit-dialog.component';
-import { ThreedsDialogComponent } from '../shared/threeds-dialog/threeds-dialog.component';
+import { DepositDialogComponent } from '../dialogs/deposit-dialog/deposit-dialog.component';
+import { ThreedsDialogComponent } from '../dialogs/threeds-dialog/threeds-dialog.component';
 import { PaidService } from '../../services/paid/paid.service';
 import { UtilityService } from '../../services/utility/utility.service';
 import { IHttpResponse } from '../../interfaces/i-http-response';

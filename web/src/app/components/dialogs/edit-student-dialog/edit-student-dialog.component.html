@@ -1,0 +1,62 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+    <h4>Öğrenci Bilgileri</h4>
+</div>
+<mat-dialog-content align="center">
+    <form ngNoForm fxLayout="column" [formGroup]="studentForm">
+        <div fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="4%" fxLayoutGap.lt-md="0">
+            <mat-form-field fxFlex="48%" fxFlex.lt-md appearance="outline">
+                <mat-label>İsim</mat-label>
+                <input matInput placeholder="İsim" formControlName="name">
+                <mat-error *ngIf="studentForm.controls.name.hasError('required')">
+                    İsim alanı boş bırakılamaz.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlex="48%" fxFlex.lt-md appearance="outline">
+                <mat-label>Soyisim</mat-label>
+                <input matInput placeholder="Soyisim" formControlName="surname">
+                <mat-error *ngIf="studentForm.controls.surname.hasError('required')">
+                    Soyisim alanı boş bırakılamaz.
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <mat-label>Cinsiyet</mat-label>
+        <mat-radio-group aria-label="Select a sex" formControlName="sex" fxFlexAlign="row" fxLayoutGap="16px">
+            <mat-radio-button value="female">Kadın</mat-radio-button>
+            <mat-radio-button value="male">Erkek</mat-radio-button>
+        </mat-radio-group>
+
+        <div fxLayout="row" fxFlex fxLayoutGap="8px">
+            <mat-form-field fxFlex="32%" appearance="outline">
+                <mat-label>Gün (Doğum)</mat-label>
+                <mat-select [(value)]="selectedDay" (valueChange)="setBirthday()">
+                    <mat-option *ngFor="let day of days" [value]="day">
+                        {{day}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex="32%" appearance="outline">
+                <mat-label>Ay (Doğum)</mat-label>
+                <mat-select [(value)]="selectedMonth" (valueChange)="setBirthday()">
+                    <mat-option *ngFor="let month of months" [value]="month">
+                        {{MONTHS_MAP[month - 1]}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex="33%" appearance="outline">
+                <mat-label>Yıl (Doğum)</mat-label>
+                <mat-select [(value)]="selectedYear" (valueChange)="setBirthday()">
+                    <mat-option *ngFor="let year of years" [value]="year">
+                        {{year}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-raised-button [mat-dialog-close]="false">Vazgeç</button>
+    <button mat-button mat-raised-button color="primary" type="submit" [disabled]="studentForm.invalid"
+            (click)="onClose()" autofocus>Onayla</button>
+</mat-dialog-actions>

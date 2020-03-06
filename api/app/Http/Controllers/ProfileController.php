@@ -74,7 +74,7 @@ class ProfileController extends ApiController {
             if ($validator->fails()) {
                 return $this->respondValidationError(FIELDS_VALIDATION_FAILED, $validator->errors());
             } else {
-                $picture = Picture::upload($request[BASE64], $userId, $request[FILE_TYPE]);
+                $picture = Picture::upload($request[BASE64], $request[FILE_TYPE], $userId);
                 $result = ProfileQuery::updatePicture($userId, $picture);
                 if ($result) {
                     return $this->respondCreated(PICTURE_UPLOADED_SUCCESSFULLY, $picture);

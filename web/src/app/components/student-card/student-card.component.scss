@@ -1,0 +1,27 @@
+.student-card {
+    .mat-card-avatar {
+        height: 80px;
+        width: 80px;
+        box-shadow: 0 0 8px 0 #555555;
+        margin: 8px 0;
+    }
+
+    .mat-icon.gender {
+        color: #555555;
+        height: 16px;
+        width: 16px;
+    }
+
+    .age {
+        color: #555555;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .full-name {
+        color: #722947;
+        font-size: 18px;
+        font-weight: 700;
+        margin: 8px 0;
+    }
+}
