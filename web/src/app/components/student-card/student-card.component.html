@@ -8,6 +8,9 @@
             <span *ngIf="data.age" class="age" [matTooltip]="data.age + ' yaş'">{{data.age}}<br>yaş</span>
         </div>
         <p class="full-name">{{data.name}} {{data.surname}}</p>
-        <button mat-raised-button mat-stroked-button (click)="openEditDialog()">Düzenle</button>
+        <div fxLayout="row" fxLayoutGap="16px">
+            <button mat-raised-button mat-stroked-button (click)="openEditDialog()">Düzenle</button>
+            <button color="warn" mat-raised-button mat-stroked-button (click)="openDeleteDialog()">Kaldır</button>
+        </div>
     </div>
 </mat-card>

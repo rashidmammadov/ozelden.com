@@ -158,7 +158,7 @@ class Iyzico {
         $request->setBasketId("NO_BASKET_ID");
         $request->setPaymentChannel(PaymentChannel::WEB);
         $request->setPaymentGroup(PaymentGroup::PRODUCT);
-        $request->setCallbackUrl(env('HOST_NAME') . 'api/v1/deposit_confirmation');
+        $request->setCallbackUrl(env('HOST_NAME') . '/api/v1/deposit_confirmation');
         return $request;
     }
 

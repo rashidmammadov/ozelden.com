@@ -26,10 +26,10 @@ class Picture {
         list($newWidth, $newHeight) = self::resize($file);
         try {
             Image::make(file_get_contents($file))->resize($newWidth, $newHeight)->save($path);
+            return env('HOST_NAME') . env('IMAGES_PATH') . $dir . $fileName;
         } catch (ImageException $e) {
             Log::error('Upload Image: ' . $e->getMessage());
         }
-        return $dir . $fileName;
     }
 
     /**

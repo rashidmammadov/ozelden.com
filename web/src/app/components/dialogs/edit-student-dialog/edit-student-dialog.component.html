@@ -2,7 +2,9 @@
     <h4>Öğrenci Bilgileri</h4>
 </div>
 <mat-dialog-content align="center">
-    <form ngNoForm fxLayout="column" [formGroup]="studentForm">
+    <form ngNoForm fxLayout="column" [formGroup]="studentForm" fxLayoutGap="8px">
+        <app-upload-file [file]="studentForm.controls.picture.value" [text]="'Fotoğraf'"
+                         (callback)="setPicture($event)"></app-upload-file>
         <div fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="4%" fxLayoutGap.lt-md="0">
             <mat-form-field fxFlex="48%" fxFlex.lt-md appearance="outline">
                 <mat-label>İsim</mat-label>

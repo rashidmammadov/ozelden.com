@@ -25,6 +25,7 @@ import { StudentCardComponent } from './components/student-card/student-card.com
 import { TableComponent } from './components/shared/table/table.component';
 import { ThreedsDialogComponent } from './components/dialogs/threeds-dialog/threeds-dialog.component';
 import { TutoredStudentsComponent } from './components/tutored-students/tutored-students.component';
+import { UploadFileComponent } from './components/shared/upload-file/upload-file.component';
 
 import { CookieService } from 'ngx-cookie-service';
 import { Cookie } from './services/cookie/cookie.service';
@@ -62,7 +63,7 @@ export function fetchStaticData(dataService: DataService) {
         TableComponent,
         ThreedsDialogComponent,
         TutoredStudentsComponent,
-        GridListComponent
+        UploadFileComponent
     ],
     imports: [
         AppRoutingModule,

@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UtilityService } from '../../../services/utility/utility.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { StudentType } from '../../../interfaces/student-type';
-import {DATE_TIME} from "../../../constants/date-time.constant";
+import { DATE_TIME } from '../../../constants/date-time.constant';
 
 @Component({
     selector: 'app-edit-student-dialog',
@@ -18,6 +19,7 @@ export class EditStudentDialogComponent implements OnInit {
     public selectedDay: number = 1;
     public selectedMonth: number = 1;
     public selectedYear: number = this.currentDate.getFullYear() - 18;
+    public pictureChanged: boolean = false;
     public MONTHS_MAP = DATE_TIME.MONTHS_MAP;
 
     public studentForm = new FormGroup({
@@ -43,6 +45,10 @@ export class EditStudentDialogComponent implements OnInit {
             controls.surname.setValue(this.data.surname);
             controls.sex.setValue(this.data.sex);
             controls.birthday.setValue(this.data.birthday);
+            const bd = new Date(Number(this.data.birthday));
+            this.selectedDay = bd.getDate();
+            this.selectedMonth = bd.getMonth() + 1;
+            this.selectedYear = bd.getFullYear();
         }
     }
 
@@ -55,14 +61,21 @@ export class EditStudentDialogComponent implements OnInit {
         this.studentForm.controls.birthday.setValue(birthday.getTime().toString());
     }
 
+    public setPicture(value: File) {
+        this.studentForm.controls.picture.setValue(value);
+        this.pictureChanged = true;
+    }
+
     private studentFormResult() {
         const form = this.studentForm.controls;
         return {
+            'student_id': this.data?.student_id,
             'name': form.name.value,
             'surname': form.surname.value,
             'sex': form.sex.value,
             'birthday': form.birthday.value,
-            'file': null
+            'file': form.picture.value?.includes('base64') && this.pictureChanged ?
+                  UtilityService.parseBase64(form.picture.value, 'image') : null
         } as StudentType;
     }
 

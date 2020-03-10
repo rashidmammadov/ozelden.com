@@ -144,6 +144,8 @@ define('STUDENTS', 'students');
 define('STUDENT_ID', 'student_id');
 define('STUDENT_HOME', 'student_home');
 define('STUDENT_CREATED_SUCCESSFULLY', 'Öğrenci başarıyla oluşturuldu');
+define('STUDENT_DELETED_SUCCESSFULLY', 'Öğrenci başarıyla kaldırıldı');
+define('STUDENT_UPDATED_SUCCESSFULLY', 'Öğrenci başarıyla güncellendi');
 define('SOMETHING_WRONG_WITH_DB', 'Veri tabanıyla bağlanmada bir sorun oluştu');
 define('SUCCESS', 'success');
 define('SUITABILITY_TYPE', 'suitability_type');

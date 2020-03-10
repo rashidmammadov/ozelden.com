@@ -50,6 +50,17 @@ export class UtilityService {
         }
     }
 
+    public static parseBase64(base64: string, type?: string) {
+        let result = {base64: null, file_type: null};
+        const additional = type ? type.length + 1 : 0;
+        const split = base64.split(',');
+        if (split && split.length) {
+            result.file_type = base64.slice(split[0].indexOf('data:') + 5 + additional, split[0].indexOf(';'));
+            result.base64 = base64;
+        }
+        return result;
+    }
+
     public static pipeHttpResponse(response: Observable<IHttpResponse>): Promise<ErrorResponse | IHttpResponse> {
         return response.pipe(catchError((err) => of(new ErrorResponse(err.error)))).toPromise();
     }

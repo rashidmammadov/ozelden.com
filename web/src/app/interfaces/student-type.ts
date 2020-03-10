@@ -1,7 +1,7 @@
 export interface StudentType {
-    studentId: number;
+    student_id: number;
     type: string;
-    parentId: number;
+    parent_id: number;
     picture: string | null;
     name: string;
     surname: string;

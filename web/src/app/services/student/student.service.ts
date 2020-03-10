@@ -16,7 +16,15 @@ export class StudentService {
         return UtilityService.pipeHttpResponse(this.http.post<IHttpResponse>(ENDPOINTS.STUDENTS(), student));
     }
 
+    deleteTutoredStudent(studentId: number): Promise<ErrorResponse | IHttpResponse> {
+        return UtilityService.pipeHttpResponse(this.http.delete<IHttpResponse>(ENDPOINTS.STUDENTS(studentId)));
+    }
+
     getTutoredStudents(): Promise<ErrorResponse | IHttpResponse> {
         return UtilityService.pipeHttpResponse(this.http.get<IHttpResponse>(ENDPOINTS.STUDENTS()));
+    }
+
+    updateTutoredStudent(student): Promise<ErrorResponse | IHttpResponse> {
+        return UtilityService.pipeHttpResponse(this.http.put<IHttpResponse>(ENDPOINTS.STUDENTS(), student));
     }
 }
