@@ -57,4 +57,6 @@ Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
     Route::delete('/tutor_lectures/{tutor_lecture_id}', 'TutorLectureController@delete');
     Route::get('/tutor_lectures', 'TutorLectureController@get');
     Route::post('/tutor_lectures', 'TutorLectureController@set');
+
+    Route::post('/offers', 'OfferController@set');
 });

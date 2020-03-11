@@ -16,4 +16,8 @@ class TutorLecture extends Model {
     public function user() {
         return $this->belongsTo('App\User');
     }
+
+    public function offer() {
+        return $this->belongsToMany('App\Offer');
+    }
 }

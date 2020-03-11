@@ -10,6 +10,7 @@ export const ENDPOINTS = {
     SEARCH: (queryParams?: string) => `${PREFIX}search?${queryParams}`,
     STUDENTS: (studentId?: number) => `${PREFIX}students` + (studentId ? `/${studentId}` : ''),
     SUITABILITIES: (type?: string) => `${PREFIX}suitabilities` + (type ? `/${type}` : ''),
-    TUTOR_LECTURES: (id?: number) => `${PREFIX}tutor_lectures` + (id ? `/${id}` : '')
+    TUTOR_LECTURES: (id?: number) => `${PREFIX}tutor_lectures` + (id ? `/${id}` : ''),
+    OFFERS: () => `${PREFIX}offers`,
 
 };

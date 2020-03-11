@@ -1,0 +1,46 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+    <h4>Teklif Al ({{data.name}} {{data.surname}})</h4>
+</div>
+<mat-dialog-content align="center">
+    <form ngNoForm fxLayout="column" [formGroup]="offerForm" fxLayoutGap="16px">
+        <mat-form-field>
+            <mat-label>Ders Almak İsteyen</mat-label>
+            <mat-select formControlName="student_id">
+                <mat-option *ngIf="user" [value]="user.id" (click)="setStudentSelected(false)">
+                    <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center">
+                        <span>{{user.name}} {{user.surname}} <b>(Kendim İçin)</b></span>
+                    </div>
+                </mat-option>
+                <mat-optgroup [label]="'Öğrencilerim'">
+                    <mat-option *ngFor="let student of students" [value]="student.student_id" (click)="setStudentSelected(true)">
+                        <div class="student-option" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center">
+                            <img [src]="student.picture">
+                            <span>{{student.name}} {{student.surname}}</span>
+                        </div>
+                    </mat-option>
+                </mat-optgroup>
+            </mat-select>
+            <mat-hint><b>Öğrencilerim</b> sayfasından öğrenci (velisi olarak) ekleyebilirsiniz</mat-hint>
+        </mat-form-field>
+        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+            <mat-form-field fxFlex>
+                <mat-label>Alınmak İstenen Ders</mat-label>
+                <mat-select *ngIf="data" formControlName="tutor_lecture_id">
+                    <mat-option *ngFor="let lecture of data.lectures" [value]="lecture.tutor_lecture_id"
+                                (click)="setOffer(lecture)">
+                        <span>{{lecture.lecture_theme}} ({{lecture.lecture_area}}) - {{lecture.price}} ₺</span>
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex="30">
+                <mat-label>İstenen Teklif (₺)</mat-label>
+                <input matInput placeholder="İstenen Teklif (₺)" [type]="'number'" formControlName="offer">
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-raised-button [mat-dialog-close]="false">Vazgeç</button>
+    <button mat-button mat-raised-button color="primary" [disabled]="offerForm.invalid" (click)="askOffer()" autofocus>Onayla</button>
+</mat-dialog-actions>
+

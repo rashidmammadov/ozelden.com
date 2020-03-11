@@ -10,6 +10,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { AppComponent } from './components/app/app.component';
 import { ApplicationComponent } from './components/application/application.component';
+import { AskOfferDialogComponent } from './components/dialogs/ask-offer-dialog/ask-offer-dialog.component';
 import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
 import { DepositDialogComponent } from './components/dialogs/deposit-dialog/deposit-dialog.component';
 import { EditStudentDialogComponent } from './components/dialogs/edit-student-dialog/edit-student-dialog.component';
@@ -48,6 +49,7 @@ export function fetchStaticData(dataService: DataService) {
     declarations: [
         AppComponent,
         ApplicationComponent,
+        AskOfferDialogComponent,
         ConfirmDialogComponent,
         DepositDialogComponent,
         EditStudentDialogComponent,
@@ -77,6 +79,7 @@ export function fetchStaticData(dataService: DataService) {
         StoreModule.forRoot({ cities: citiesReducer, lectures: lecturesReducer, progress: progressReducer, user: userReducer }),
     ],
     entryComponents: [
+        AskOfferDialogComponent,
         ConfirmDialogComponent,
         DepositDialogComponent,
         EditStudentDialogComponent,

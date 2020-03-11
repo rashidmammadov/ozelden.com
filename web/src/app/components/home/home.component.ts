@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit {
     async ngOnInit() {
         await this.getCities();
         await this.getLectures();
+        await this.search();
     }
 
     async getCities() {
