@@ -14,14 +14,16 @@ class StudentModel {
     private $sex;
 
     public function __construct($parameters = null) {
-        $this->setStudentId($parameters[STUDENT_ID]);
-        $this->setType($parameters[TYPE]);
-        $this->setParentId($parameters[PARENT_ID]);
-        $this->setPicture($parameters[PICTURE]);
-        $this->setName($parameters[NAME]);
-        $this->setSurname($parameters[SURNAME]);
-        $this->setBirthday($parameters[BIRTHDAY]);
-        $this->setSex($parameters[SEX]);
+        if ($parameters) {
+            $this->setStudentId($parameters[STUDENT_ID]);
+            $this->setType($parameters[TYPE]);
+            $this->setParentId($parameters[PARENT_ID]);
+            $this->setPicture($parameters[PICTURE]);
+            $this->setName($parameters[NAME]);
+            $this->setSurname($parameters[SURNAME]);
+            $this->setBirthday($parameters[BIRTHDAY]);
+            $this->setSex($parameters[SEX]);
+        }
     }
 
     public function get() {

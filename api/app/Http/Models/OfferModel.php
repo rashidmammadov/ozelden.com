@@ -15,15 +15,17 @@ class OfferModel {
     private $status;
 
     public function __construct($parameters = null) {
-        $this->setOffer($parameters[OFFER_ID]);
-        $this->setSenderId($parameters[SENDER_ID]);
-        $this->setReceiverId($parameters[RECEIVER_ID]);
-        $this->setStudentId($parameters[STUDENT_ID]);
-        $this->setSenderType($parameters[SENDER_TYPE]);
-        $this->setTutorLectureId($parameters[TUTOR_LECTURE_ID]);
-        $this->setOffer($parameters[OFFER]);
-        $this->setCurrency($parameters[CURRENCY]);
-        $this->setStatus($parameters[STATUS]);
+        if ($parameters) {
+            $this->setOffer($parameters[OFFER_ID]);
+            $this->setSenderId($parameters[SENDER_ID]);
+            $this->setReceiverId($parameters[RECEIVER_ID]);
+            $this->setStudentId($parameters[STUDENT_ID]);
+            $this->setSenderType($parameters[SENDER_TYPE]);
+            $this->setTutorLectureId($parameters[TUTOR_LECTURE_ID]);
+            $this->setOffer($parameters[OFFER]);
+            $this->setCurrency($parameters[CURRENCY]);
+            $this->setStatus($parameters[STATUS]);
+        }
     }
 
     public function get() {

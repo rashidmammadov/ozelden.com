@@ -12,12 +12,14 @@ class FinanceModel {
     private $priceWithCommission;
 
     public function __construct($parameters = null) {
-        $this->setFinanceId($parameters[FINANCE_ID]);
-        $this->setUserId($parameters[USER_ID]);
-        $this->setReferenceCode($parameters[REFERENCE_CODE]);
-        $this->setItem($parameters[ITEM]);
-        $this->setPrice($parameters[PRICE]);
-        $this->setPriceWithCommission($parameters[PRICE_WITH_COMMISSION]);
+        if ($parameters) {
+            $this->setFinanceId($parameters[FINANCE_ID]);
+            $this->setUserId($parameters[USER_ID]);
+            $this->setReferenceCode($parameters[REFERENCE_CODE]);
+            $this->setItem($parameters[ITEM]);
+            $this->setPrice($parameters[PRICE]);
+            $this->setPriceWithCommission($parameters[PRICE_WITH_COMMISSION]);
+        }
     }
 
     public function get() {

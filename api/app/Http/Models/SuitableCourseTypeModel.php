@@ -9,9 +9,11 @@ class SuitableCourseTypeModel {
     private $class;
 
     public function __construct($parameters = null) {
-        $this->setIndividual($parameters[INDIVIDUAL]);
-        $this->setGroup($parameters[GROUP]);
-        $this->setClass($parameters[CLASS_]);
+        if ($parameters) {
+            $this->setIndividual($parameters[INDIVIDUAL]);
+            $this->setGroup($parameters[GROUP]);
+            $this->setClass($parameters[CLASS_]);
+        }
     }
 
     public function get() {

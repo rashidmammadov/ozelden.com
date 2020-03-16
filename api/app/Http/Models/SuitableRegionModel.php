@@ -10,8 +10,10 @@ class SuitableRegionModel {
     private $district;
 
     public function __construct($parameters = null) {
-        $this->setCity($parameters[CITY]);
-        $this->setDistrict($parameters[DISTRICT]);
+        if ($parameters) {
+            $this->setCity($parameters[CITY]);
+            $this->setDistrict($parameters[DISTRICT]);
+        }
     }
 
     public function get() {

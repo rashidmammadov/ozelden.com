@@ -17,17 +17,19 @@ class UserModel {
     private $oneSignalDeviceId;
 
     public function __construct($parameters = null) {
-        $this->setIdentifier($parameters[IDENTIFIER]);
-        $this->setType($parameters[TYPE]);
-        $this->setName($parameters[NAME]);
-        $this->setSurname($parameters[SURNAME]);
-        $this->setBirthday($parameters[BIRTHDAY]);
-        $this->setEmail($parameters[EMAIL]);
-        $this->setIdentityNumber($parameters[IDENTITY_NUMBER]);
-        $this->setSex($parameters[SEX]);
-        $this->setState($parameters[STATE]);
-        $this->setRememberToken($parameters[REMEMBER_TOKEN]);
-        $this->setOneSignalDeviceId($parameters[ONESIGNAL_DEVICE_ID]);
+        if ($parameters) {
+            $this->setIdentifier($parameters[IDENTIFIER]);
+            $this->setType($parameters[TYPE]);
+            $this->setName($parameters[NAME]);
+            $this->setSurname($parameters[SURNAME]);
+            $this->setBirthday($parameters[BIRTHDAY]);
+            $this->setEmail($parameters[EMAIL]);
+            $this->setIdentityNumber($parameters[IDENTITY_NUMBER]);
+            $this->setSex($parameters[SEX]);
+            $this->setState($parameters[STATE]);
+            $this->setRememberToken($parameters[REMEMBER_TOKEN]);
+            $this->setOneSignalDeviceId($parameters[ONESIGNAL_DEVICE_ID]);
+        }
     }
 
     public function get() {

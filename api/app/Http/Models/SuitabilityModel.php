@@ -10,10 +10,12 @@ class SuitabilityModel {
     private $regions;
 
     public function __construct($parameters = null) {
-        $this->setCourseType($parameters[COURSE_TYPE]);
-        $this->setFacility($parameters[FACILITY]);
-        $this->setLocation($parameters[LOCATION]);
-        $this->setRegions($parameters[REGIONS]);
+        if ($parameters) {
+            $this->setCourseType($parameters[COURSE_TYPE]);
+            $this->setFacility($parameters[FACILITY]);
+            $this->setLocation($parameters[LOCATION]);
+            $this->setRegions($parameters[REGIONS]);
+        }
     }
 
     public function get() {

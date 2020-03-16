@@ -9,9 +9,11 @@ class AverageModel {
     private $priceAvg;
 
     public function __construct($parameters = null) {
-        $this->setRankingAvg($parameters[RANKING_AVG]);
-        $this->setExperienceAvg($parameters[EXPERIENCE_AVG]);
-        $this->setPriceAvg($parameters[PRICE_AVG]);
+        if ($parameters) {
+            $this->setRankingAvg($parameters[RANKING_AVG]);
+            $this->setExperienceAvg($parameters[EXPERIENCE_AVG]);
+            $this->setPriceAvg($parameters[PRICE_AVG]);
+        }
     }
 
     public function get() {

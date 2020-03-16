@@ -11,9 +11,11 @@ class SuitableFacilityModel {
     private $packageDiscount;
 
     public function __construct($parameters = null) {
-        $this->setDemo($parameters[DEMO]);
-        $this->setGroupDiscount($parameters[GROUP_DISCOUNT]);
-        $this->setPackageDiscount($parameters[PACKAGE_DISCOUNT]);
+        if ($parameters) {
+            $this->setDemo($parameters[DEMO]);
+            $this->setGroupDiscount($parameters[GROUP_DISCOUNT]);
+            $this->setPackageDiscount($parameters[PACKAGE_DISCOUNT]);
+        }
     }
 
     public function get() {

@@ -17,17 +17,19 @@ class SearchModel {
     private $lectures;
 
     public function __construct($parameters = null) {
-        $this->setId($parameters[IDENTIFIER]);
-        $this->setName($parameters[NAME]);
-        $this->setSurname($parameters[SURNAME]);
-        $this->setBirthday($parameters[BIRTHDAY]);
-        $this->setSex($parameters[SEX]);
-        $this->setPicture($parameters[PICTURE]);
-        $this->setProfession($parameters[PROFESSION]);
-        $this->setDescription($parameters[DESCRIPTION]);
-        $this->setAverage($parameters[AVERAGE]);
-        $this->setRegions($parameters[REGIONS]);
-        $this->setLectures($parameters[LECTURES]);
+        if ($parameters) {
+            $this->setId($parameters[IDENTIFIER]);
+            $this->setName($parameters[NAME]);
+            $this->setSurname($parameters[SURNAME]);
+            $this->setBirthday($parameters[BIRTHDAY]);
+            $this->setSex($parameters[SEX]);
+            $this->setPicture($parameters[PICTURE]);
+            $this->setProfession($parameters[PROFESSION]);
+            $this->setDescription($parameters[DESCRIPTION]);
+            $this->setAverage($parameters[AVERAGE]);
+            $this->setRegions($parameters[REGIONS]);
+            $this->setLectures($parameters[LECTURES]);
+        }
     }
 
     public function get() {

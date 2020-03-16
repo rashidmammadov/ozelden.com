@@ -14,9 +14,11 @@ class PaidServiceModel {
     private $recommend;
 
     public function __construct($parameters = null) {
-        $this->setBid($parameters[BID]);
-        $this->setBoost($parameters[BOOST]);
-        $this->setRecommend($parameters[RECOMMEND]);
+        if ($parameters) {
+            $this->setBid($parameters[BID]);
+            $this->setBoost($parameters[BOOST]);
+            $this->setRecommend($parameters[RECOMMEND]);
+        }
     }
 
     public function get() {

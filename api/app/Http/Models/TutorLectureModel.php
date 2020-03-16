@@ -17,14 +17,16 @@ class TutorLectureModel {
     private $price_pleasure;
 
     public function __construct($parameters = null) {
-        $this->setTutorLectureId($parameters[TUTOR_LECTURE_ID]);
-        $this->setTutorId($parameters[TUTOR_ID]);
-        $this->setLectureArea($parameters[LECTURE_AREA]);
-        $this->setLectureTheme($parameters[LECTURE_THEME]);
-        $this->setExperience($parameters[EXPERIENCE]);
-        $this->setPrice($parameters[PRICE]);
-        $this->setCurrency($parameters[CURRENCY]);
-        $this->setAverageTry($parameters[AVERAGE_TRY]);
+        if ($parameters) {
+            $this->setTutorLectureId($parameters[TUTOR_LECTURE_ID]);
+            $this->setTutorId($parameters[TUTOR_ID]);
+            $this->setLectureArea($parameters[LECTURE_AREA]);
+            $this->setLectureTheme($parameters[LECTURE_THEME]);
+            $this->setExperience($parameters[EXPERIENCE]);
+            $this->setPrice($parameters[PRICE]);
+            $this->setCurrency($parameters[CURRENCY]);
+            $this->setAverageTry($parameters[AVERAGE_TRY]);
+        }
     }
 
     public function get() {

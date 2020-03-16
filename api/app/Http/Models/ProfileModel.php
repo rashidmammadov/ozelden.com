@@ -16,16 +16,18 @@ class ProfileModel {
     private $language;
 
     public function __construct($parameters = null) {
-        $this->setUserId($parameters[USER_ID]);
-        $this->setPicture($parameters[PICTURE]);
-        $this->setPhone($parameters[PHONE]);
-        $this->setProfession($parameters[PROFESSION]);
-        $this->setDescription($parameters[DESCRIPTION]);
-        $this->setCountry($parameters[COUNTRY]);
-        $this->setCity($parameters[CITY]);
-        $this->setDistrict($parameters[DISTRICT]);
-        $this->setAddress($parameters[ADDRESS]);
-        $this->setLanguage($parameters[LANGUAGE]);
+        if ($parameters) {
+            $this->setUserId($parameters[USER_ID]);
+            $this->setPicture($parameters[PICTURE]);
+            $this->setPhone($parameters[PHONE]);
+            $this->setProfession($parameters[PROFESSION]);
+            $this->setDescription($parameters[DESCRIPTION]);
+            $this->setCountry($parameters[COUNTRY]);
+            $this->setCity($parameters[CITY]);
+            $this->setDistrict($parameters[DISTRICT]);
+            $this->setAddress($parameters[ADDRESS]);
+            $this->setLanguage($parameters[LANGUAGE]);
+        }
     }
 
     public function get() {

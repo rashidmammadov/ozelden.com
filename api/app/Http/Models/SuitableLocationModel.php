@@ -14,12 +14,14 @@ class SuitableLocationModel {
     private $overInternet;
 
     public function __construct($parameters = null) {
-        $this->setStudentHome($parameters[STUDENT_HOME]);
-        $this->setTutorHome($parameters[TUTOR_HOME]);
-        $this->setEtude($parameters[ETUDE]);
-        $this->setCourse($parameters[COURSE]);
-        $this->setLibrary($parameters[LIBRARY]);
-        $this->setOverInternet($parameters[OVER_INTERNET]);
+        if ($parameters) {
+            $this->setStudentHome($parameters[STUDENT_HOME]);
+            $this->setTutorHome($parameters[TUTOR_HOME]);
+            $this->setEtude($parameters[ETUDE]);
+            $this->setCourse($parameters[COURSE]);
+            $this->setLibrary($parameters[LIBRARY]);
+            $this->setOverInternet($parameters[OVER_INTERNET]);
+        }
     }
 
     public function get() {
