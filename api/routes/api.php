@@ -58,5 +58,6 @@ Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
     Route::get('/tutor_lectures', 'TutorLectureController@get');
     Route::post('/tutor_lectures', 'TutorLectureController@set');
 
+    Route::get('/offers', 'OfferController@get');
     Route::post('/offers', 'OfferController@set');
 });

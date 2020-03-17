@@ -4,7 +4,7 @@
         <td mat-cell *matCellDef="let element">
             <div fxLayoutGap="8px" fxLayoutAlign="start center">
                 <mat-icon *ngIf="!!column.icon" [svgIcon]="element[column.icon]"></mat-icon>
-                <span *ngIf="!column.button">{{element[column.value]}}</span>
+                <span *ngIf="!column.button">{{column.calc ? column.calc(element[column.value]) : element[column.value]}}</span>
                 <span *ngIf="!!column.additional">{{column.additional}}</span>
             </div>
             <button *ngIf="!!column.button" mat-icon-button (click)="column.click(element)">

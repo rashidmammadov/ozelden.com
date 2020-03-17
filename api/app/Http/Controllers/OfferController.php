@@ -3,13 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Http\Models\OfferModel;
+use App\Http\Models\StudentModel;
+use App\Http\Models\TutorLectureModel;
+use App\Http\Models\UserModel;
 use App\Http\Queries\MySQL\OfferQuery;
+use App\Http\Queries\MySQL\StudentQuery;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Validator;
 
 class OfferController extends ApiController {
+
+    /**
+     * Handle request to get user`s offers.
+     * @return mixed
+     */
+    public function get() {
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+            return $this->getOffers($user);
+        } catch (JWTException $e) {
+            $this->setStatusCode(401);
+            $this->setMessage(AUTHENTICATION_ERROR);
+            return $this->respondWithError($e->getMessage());
+        }
+    }
 
     /**
      * Handle request to send offer.
@@ -35,6 +56,55 @@ class OfferController extends ApiController {
             $this->setStatusCode(401);
             $this->setMessage(AUTHENTICATION_ERROR);
             return $this->respondWithError($e->getMessage());
+        }
+    }
+
+    /**
+     * Get offers from DB of related user.
+     * @param $user - holds the user.
+     * @return mixed
+     */
+    private function getOffers($user) {
+        $offersFromDB = OfferQuery::getOffers($user[IDENTIFIER], $user[TYPE], 20);
+        if ($offersFromDB) {
+            $offers = array();
+            foreach ($offersFromDB as $offerFromDB) {
+                $offer = new OfferModel($offerFromDB);
+
+                if ($offer->getReceiverId() == $user[IDENTIFIER]) {
+                    /** @var  $sender */
+                    $sender = new UserModel();
+                    $sender->setName($offerFromDB[NAME]);
+                    $sender->setSurname($offerFromDB[SURNAME]);
+                    $offer->setSender($sender->get());
+                } else if ($offer->getSenderId() == $user[IDENTIFIER]) {
+                    /** @var  $receiver */
+                    $receiver = new UserModel();
+                    $receiver->setName($offerFromDB[NAME]);
+                    $receiver->setSurname($offerFromDB[SURNAME]);
+                    $offer->setReceiver($receiver->get());
+                }
+
+                /** @var  $student */
+                if ($offer->getStudentId()) {
+                    $studentFromDB = StudentQuery::getStudentById($offer->getStudentId());
+                    if ($studentFromDB) {
+                        $student = new StudentModel($studentFromDB);
+                        $offer->setStudent($student->get());
+                    }
+                }
+
+                /** @var  $tutorLecture */
+                $tutorLecture = new TutorLectureModel();
+                $tutorLecture->setLectureArea($offerFromDB[LECTURE_AREA]);
+                $tutorLecture->setLectureTheme($offerFromDB[LECTURE_THEME]);
+                $offer->setTutorLecture($tutorLecture->get());
+
+                array_push($offers, $offer->get());
+            }
+            return $this->respondWithPagination('', $offersFromDB, $offers);
+        } else {
+            return $this->respondWithError(SOMETHING_WRONG_WITH_DB);
         }
     }
 

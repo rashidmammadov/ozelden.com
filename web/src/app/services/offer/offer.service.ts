@@ -12,6 +12,10 @@ export class OfferService {
 
     constructor(private http: HttpClient) { }
 
+    get(): Promise<ErrorResponse | IHttpResponse> {
+        return UtilityService.pipeHttpResponse(this.http.get<IHttpResponse>(ENDPOINTS.OFFERS()));
+    }
+
     send(offer): Promise<ErrorResponse | IHttpResponse> {
         return UtilityService.pipeHttpResponse(this.http.post<IHttpResponse>(ENDPOINTS.OFFERS(), offer));
     }

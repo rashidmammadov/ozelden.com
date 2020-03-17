@@ -48,6 +48,7 @@ export class AppComponent {
     private setSvgIcons() {
         const svgArray: string[] = [
             'bad',
+            'dislike',
             'female',
             'free-trial',
             'good',
@@ -55,9 +56,11 @@ export class AppComponent {
             'home',
             'info',
             'left-quote',
+            'like',
             'log-out',
             'male',
             'normal',
+            'offers',
             'package-discount',
             'paperclip',
             'right-quote',

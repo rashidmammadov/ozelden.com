@@ -17,6 +17,7 @@ import { EditStudentDialogComponent } from './components/dialogs/edit-student-di
 import { InfoCardComponent } from './components/info-card/info-card.component';
 import { HomeComponent } from './components/home/home.component';
 import { GridListComponent } from './components/shared/grid-list/grid-list.component';
+import { OffersComponent } from './components/offers/offers.component';
 import { PaidServiceComponent } from './components/paid-service/paid-service.component';
 import { LecturesComponent } from './components/lectures/lectures.component';
 import { LoginComponent } from './components/login/login.component';
@@ -56,6 +57,7 @@ export function fetchStaticData(dataService: DataService) {
         InfoCardComponent,
         HomeComponent,
         GridListComponent,
+        OffersComponent,
         PaidServiceComponent,
         LecturesComponent,
         LoginComponent,
