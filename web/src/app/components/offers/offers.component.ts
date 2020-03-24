@@ -7,6 +7,8 @@ import { TableColumnType } from '../../interfaces/table-column-type';
 import { TutorLectureType } from '../../interfaces/tutor-lecture-type';
 import { UserType } from '../../interfaces/user-type';
 import { StudentType } from '../../interfaces/student-type';
+import { DATE_TIME } from '../../constants/date-time.constant';
+import { TYPES } from '../../constants/types.constant';
 
 @Component({
     selector: 'app-offers',
@@ -17,7 +19,9 @@ export class OffersComponent implements OnInit {
 
     columns: TableColumnType[] = [{
         header: 'Teklif Tipi',
-        value: 'sender_type'
+        value: 'offer_type',
+        icon: 'offer_type',
+        calc: d => TYPES.OFFER_TYPE[d]
     }, {
         header: 'Teklif Gönderen',
         value: 'sender',
@@ -40,7 +44,12 @@ export class OffersComponent implements OnInit {
         additional: '₺'
     }, {
         header: 'Durum',
-        value: 'status'
+        value: 'status',
+        calc: d => TYPES.OFFER_STATUS[d]
+    }, {
+        header: 'Tarih',
+        value: 'updated_at',
+        calc: d => UtilityService.millisecondsToDate(d, DATE_TIME.FORMAT.DATE_TIME)
     }];
     offers: OfferType[] = [];
 

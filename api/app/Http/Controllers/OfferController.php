@@ -8,9 +8,8 @@ use App\Http\Models\TutorLectureModel;
 use App\Http\Models\UserModel;
 use App\Http\Queries\MySQL\OfferQuery;
 use App\Http\Queries\MySQL\StudentQuery;
-use App\User;
+use App\Http\Utilities\CustomDate;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Validator;
@@ -100,6 +99,14 @@ class OfferController extends ApiController {
                 $tutorLecture->setLectureTheme($offerFromDB[LECTURE_THEME]);
                 $offer->setTutorLecture($tutorLecture->get());
 
+                if ($user[TYPE] !== $offerFromDB[SENDER_TYPE]) {
+                    $offer->setOfferType(OFFER_IN);
+                } else {
+                    $offer->setOfferType(OFFER_OUT);
+                }
+
+                $offer->setUpdatedAt(CustomDate::dateToMillisecond($offerFromDB[UPDATED_AT]));
+
                 array_push($offers, $offer->get());
             }
             return $this->respondWithPagination('', $offersFromDB, $offers);
@@ -118,7 +125,7 @@ class OfferController extends ApiController {
         $offer = new OfferModel($request);
         $offer->setSenderId($sender[IDENTIFIER]);
         $offer->setSenderType($sender[TYPE]);
-        $offerResultFromDB = OfferQuery::save($offer->get());
+        $offerResultFromDB = OfferQuery::create($offer->get());
         if ($offerResultFromDB) {
             $offerModel = new OfferModel($offerResultFromDB);
             return $this->respondCreated(OFFER_SENT_SUCCESSFULLY, $offerModel->get());

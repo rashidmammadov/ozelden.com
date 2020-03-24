@@ -10,6 +10,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { AppComponent } from './components/app/app.component';
 import { ApplicationComponent } from './components/application/application.component';
+import { AddAnnouncementComponentBottomSheet } from './components/sheets/add-announcement-bottom-sheet/add-announcement-component-bottom-sheet.component';
 import { AskOfferDialogComponent } from './components/dialogs/ask-offer-dialog/ask-offer-dialog.component';
 import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
 import { DepositDialogComponent } from './components/dialogs/deposit-dialog/deposit-dialog.component';
@@ -50,6 +51,7 @@ export function fetchStaticData(dataService: DataService) {
     declarations: [
         AppComponent,
         ApplicationComponent,
+        AddAnnouncementComponentBottomSheet,
         AskOfferDialogComponent,
         ConfirmDialogComponent,
         DepositDialogComponent,
@@ -67,7 +69,8 @@ export function fetchStaticData(dataService: DataService) {
         TableComponent,
         ThreedsDialogComponent,
         TutoredStudentsComponent,
-        UploadFileComponent
+        UploadFileComponent,
+        AddAnnouncementComponentBottomSheet
     ],
     imports: [
         AppRoutingModule,
@@ -81,6 +84,7 @@ export function fetchStaticData(dataService: DataService) {
         StoreModule.forRoot({ cities: citiesReducer, lectures: lecturesReducer, progress: progressReducer, user: userReducer }),
     ],
     entryComponents: [
+        AddAnnouncementComponentBottomSheet,
         AskOfferDialogComponent,
         ConfirmDialogComponent,
         DepositDialogComponent,

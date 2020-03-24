@@ -17,6 +17,8 @@ class OfferModel {
     private $offer;
     private $currency;
     private $status;
+    private $offerType;
+    private $updatedAt;
 
     public function __construct($parameters = null) {
         if ($parameters) {
@@ -33,6 +35,8 @@ class OfferModel {
             $this->setOffer($parameters[OFFER]);
             $this->setCurrency($parameters[CURRENCY]);
             $this->setStatus($parameters[STATUS]);
+//            $this->setOfferType($parameters[OFFER_TYPE]);
+            $this->setUpdatedAt($parameters[UPDATED_AT]);
         }
     }
 
@@ -50,7 +54,9 @@ class OfferModel {
             TUTOR_LECTURE => $this->getTutorLecture(),
             OFFER => $this->getOffer(),
             CURRENCY => $this->getCurrency(),
-            STATUS => $this->getStatus()
+            STATUS => $this->getStatus(),
+            OFFER_TYPE => $this->getOfferType(),
+            UPDATED_AT => $this->getUpdatedAt()
         );
     }
 
@@ -156,6 +162,22 @@ class OfferModel {
 
     public function setStatus($status): void {
         $this->status = $status;
+    }
+
+    public function getOfferType() {
+        return $this->offerType;
+    }
+
+    public function setOfferType($offerType): void {
+        $this->offerType = $offerType;
+    }
+
+    public function getUpdatedAt() {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt($updatedAt): void {
+        $this->updatedAt = $updatedAt;
     }
 
 }

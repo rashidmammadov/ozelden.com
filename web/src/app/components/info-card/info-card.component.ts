@@ -1,9 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AskOfferDialogComponent } from '../dialogs/ask-offer-dialog/ask-offer-dialog.component';
+import { Store } from '@ngrx/store';
 import { UtilityService } from '../../services/utility/utility.service';
 import { InfoType } from '../../interfaces/info-type';
+import { UserType } from '../../interfaces/user-type';
 import { DATE_TIME } from '../../constants/date-time.constant';
+import { first } from 'rxjs/operators';
+import { TYPES } from '../../constants/types.constant';
 
 @Component({
     selector: 'app-info-card',
@@ -13,10 +17,13 @@ import { DATE_TIME } from '../../constants/date-time.constant';
 export class InfoCardComponent implements OnInit {
 
     @Input() public data: InfoType;
+    user: UserType;
+    TYPES = TYPES;
 
-    constructor(private dialog: MatDialog) { }
+    constructor(private dialog: MatDialog, private store: Store<{user: UserType}>) { }
 
-    ngOnInit(): void {
+    async ngOnInit() {
+        await this.getUser();
         this.data && this.data.birthday &&
             (this.data.age = UtilityService.millisecondsToDate(this.data.birthday, DATE_TIME.FORMAT.TOTAL_YEARS));
     }
@@ -28,5 +35,9 @@ export class InfoCardComponent implements OnInit {
             data: this.data
         });
     }
+
+    private getUser = async () => {
+        this.user = await this.store.select('user').pipe(first()).toPromise();
+    };
 
 }

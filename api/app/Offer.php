@@ -13,19 +13,19 @@ class Offer extends Model {
         OFFER_ID, SENDER_ID, RECEIVER_ID, STUDENT_ID, SENDER_TYPE, TUTOR_LECTURE_ID, OFFER, CURRENCY, STATUS
     ];
 
-    public function sender() {
+    public function senderId() {
         return $this->belongsToMany('App\User');
     }
 
-    public function receiver() {
+    public function receiverId() {
         return $this->belongsToMany('App\User');
     }
 
-    public function student() {
+    public function studentId() {
         return $this->belongsToMany('App\Student');
     }
 
-    public function tutorLecture() {
+    public function tutorLectureId() {
         return $this->belongsToMany('App\TutorLecture');
     }
 }

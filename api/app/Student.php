@@ -13,6 +13,10 @@ class Student extends Model {
         STUDENT_ID, TYPE, PARENT_ID, PICTURE, NAME, SURNAME, BIRTHDAY, SEX
     ];
 
+    public function announcement() {
+        return $this->belongsToMany('App\Announcement');
+    }
+
     public function user() {
         return $this->belongsTo('App\User');
     }

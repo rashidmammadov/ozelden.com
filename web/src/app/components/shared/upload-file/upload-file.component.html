@@ -1,10 +1,10 @@
-<div fxLayout="column" fxLayoutGap="4px">
+<div fxLayout="column" fxLayoutGap="4px" fxLayoutAlign="center center">
     <mat-label *ngIf="text">{{text}}</mat-label>
     <div class="file-container" align="center" *ngIf="preview">
         <img id="image-preview" alt="{{text}}" [src]="preview">
     </div>
     <div *ngIf="!hideButton" fxLayout="row" fxLayoutGap="4px">
-        <a mat-raised-button mat-button (click)="fileInput.click()" fxFlex>Dosya Seç</a>
+        <a mat-raised-button mat-button (click)="fileInput.click()">Dosya Seç</a>
     </div>
     <input #fileInput id="image-input" type="file" accept="image/*" (change)="handleFileSelection($event)" [hidden]="true">
 </div>

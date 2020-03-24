@@ -8,6 +8,7 @@ use App\Http\Models\SuitableRegionModel;
 use App\Http\Models\TutorLectureModel;
 use App\Http\Queries\MySQL\SearchQuery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SearchController extends ApiController {
 
@@ -17,7 +18,9 @@ class SearchController extends ApiController {
      * @return mixed
      */
     public function get(Request $request) {
-        return $this->getTutorSearch($request);
+        if ($request[SEARCH_TYPE] == TUTOR) {
+            return $this->getTutorSearch($request);
+        }
     }
 
     /**
@@ -32,19 +35,21 @@ class SearchController extends ApiController {
             foreach ($searchResultsFromDB->items() as $item) {
                 $tutorId = $item[TUTOR_ID];
                 if ($tutorId) {
-                    $tutorConnectionsFromDB = SearchQuery::getTutorConnections($tutorId);
-                    $searchResult = new SearchModel($tutorConnectionsFromDB[0]);
+                    $tutorConnectionsFromDB = SearchQuery::getTutorConnections($tutorId, $request);
+                    if ($tutorConnectionsFromDB && count($tutorConnectionsFromDB)) {
+                        $searchResult = new SearchModel($tutorConnectionsFromDB[0]);
 
-                    $average = new AverageModel($tutorConnectionsFromDB[0]);
-                    $searchResult->setAverage($average->get());
+                        $average = new AverageModel($tutorConnectionsFromDB[0]);
+                        $searchResult->setAverage($average->get());
 
-                    $lectures = $this->getTutorLectures($tutorConnectionsFromDB);
-                    $searchResult->setLectures($lectures);
+                        $lectures = $this->getTutorLectures($tutorConnectionsFromDB);
+                        $searchResult->setLectures($lectures);
 
-                    $regions = $this->getTutorRegions($tutorConnectionsFromDB);
-                    $searchResult->setRegions($regions);
+                        $regions = $this->getTutorRegions($tutorConnectionsFromDB);
+                        $searchResult->setRegions($regions);
 
-                    array_push($data, $searchResult->get());
+                        array_push($data, $searchResult->get());
+                    }
                 }
             }
             return $this->respondWithPagination('', $searchResultsFromDB, $data);

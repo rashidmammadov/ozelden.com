@@ -2,7 +2,32 @@
     <mat-card class="mat-elevation-z4" fxFlex>
         <mat-card-content>
             <form ngNoForm fxLayout="column" [formGroup]="searchForm">
-                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex fxLayoutGap="16px" fxLayoutGap.lt-md="8px">
+                <div *ngIf="!changeMode" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between center" fxLayoutGap="8px">
+                    <mat-chip-list aria-label="Filters">
+                        <mat-chip (click)="changeMode = true">
+                            {{searchForm.controls.city.value?.city_name}}/{{searchForm.controls.district.value}}
+                        </mat-chip>
+                        <mat-chip (click)="changeMode = true">
+                            {{searchForm.controls.lecture_theme.value?.lecture_theme}} ({{searchForm.controls.lecture_area.value?.lecture_area}})
+                        </mat-chip>
+                        <mat-chip *ngIf="searchForm.controls.min_price.value" (click)="changeMode = true">
+                            Minimum Fiyat: {{searchForm.controls.min_price.value}}₺
+                        </mat-chip>
+                        <mat-chip *ngIf="searchForm.controls.max_price.value" (click)="changeMode = true">
+                            Maksimum Fiyat: {{searchForm.controls.max_price.value}}₺
+                        </mat-chip>
+                        <mat-chip (click)="changeMode = true">
+                            Tercih Edilen Cinsiyet: {{gendersMap[searchForm.controls.sex.value]}}
+                        </mat-chip>
+                        <mat-chip (click)="changeMode = true">
+                            Tercih Edilen Sıralama: {{ordersMap[searchForm.controls.order.value]}}
+                        </mat-chip>
+                    </mat-chip-list>
+                    <button mat-button mat-raised-button (click)="changeMode = true">
+                        Filteleri Değiş  <mat-icon svgIcon="filter"></mat-icon>
+                    </button>
+                </div>
+                <div *ngIf="changeMode" fxLayout="row" fxLayout.lt-sm="column" fxFlex fxLayoutGap="16px" fxLayoutGap.lt-md="8px">
                     <mat-form-field fxFlex appearance="outline">
                         <mat-label>İl</mat-label>
                         <mat-select formControlName="city" (selectionChange)="changeCity()">
@@ -40,17 +65,51 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
+                </div>
+                <div *ngIf="changeMode" fxLayout="row" fxLayout.lt-sm="column" fxFlex fxLayoutGap="16px" fxLayoutGap.lt-md="8px">
+                    <mat-form-field *ngIf="searchForm.controls.lecture_area.valid" fxFlex appearance="outline">
+                        <mat-label>Minimum Fiyat (₺)</mat-label>
+                        <input matInput type="number" [min]="0" [max]="9999" formControlName="min_price">
+                    </mat-form-field>
 
-                    <div>
-                        <button mat-button [disabled]="!searchForm.valid" (click)="search()">Ara</button>
-                    </div>
+                    <mat-form-field *ngIf="searchForm.controls.lecture_area.valid" fxFlex appearance="outline">
+                        <mat-label>Maksimum Fiyat (₺)</mat-label>
+                        <input matInput type="number" [min]="0" [max]="9999" formControlName="max_price">
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex appearance="outline">
+                        <mat-label>Cinsiyet</mat-label>
+                        <mat-select formControlName="sex">
+                            <mat-option *ngFor="let gender of genders" [value]="gender.value">
+                                {{gender.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex appearance="outline">
+                        <mat-label>Sıralama</mat-label>
+                        <mat-select formControlName="order">
+                            <mat-option *ngFor="let order of orders" [value]="order.value">
+                                {{order.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div *ngIf="changeMode" fxLayoutAlign="end">
+                    <button mat-button mat-raised-button [disabled]="!searchForm.valid" (click)="search(false)">
+                        Ara <mat-icon svgIcon="search"></mat-icon>
+                    </button>
                 </div>
             </form>
         </mat-card-content>
     </mat-card>
 
     <div fxLayout="row" fxFlex>
-        <app-grid-list fxFlex [data]="searchResult" [column]="2" [item]="'app-info-card'"></app-grid-list>
-<!--        <app-info-cards-list fxFlex [data]="searchResult" [column]="2"></app-info-cards-list>-->
+        <app-grid-list fxFlex="50" fxFlex.lt-md="100" [data]="searchResult" [column]="1" [item]="'app-info-card'"></app-grid-list>
     </div>
+
+    <button class="announcement-button" matTooltip="İlan Olarak Kaydet" mat-fab [disabled]="!searchForm.valid"
+            (click)="openAddAnnouncementBottomSheet()" *ngIf="user && user.type === TYPES.TUTORED">
+        <mat-icon svgIcon="announcement"></mat-icon>
+    </button>
 </div>

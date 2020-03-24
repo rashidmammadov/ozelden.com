@@ -28,6 +28,8 @@ class OfferQuery extends Query {
                         $join->on(DB_USERS_TABLE.'.'.IDENTIFIER, EQUAL_SIGN, DB_OFFER_TABLE.'.'.SENDER_ID);
                     }
                 })
+                ->select('*', DB_OFFER_TABLE.'.'.UPDATED_AT)
+                ->orderBy(DB_OFFER_TABLE.'.'.UPDATED_AT, 'desc')
                 ->paginate($itemPerPage);
             return $query;
         } catch (QueryException $e) {
@@ -40,7 +42,7 @@ class OfferQuery extends Query {
      * @param $offer - holds the offer detail.
      * @return mixed
      */
-    public static function save($offer) {
+    public static function create($offer) {
         try {
             $query = Offer::create([
                 OFFER_ID => $offer[OFFER_ID],

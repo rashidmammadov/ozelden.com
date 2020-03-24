@@ -84,12 +84,12 @@ export class AskOfferDialogComponent implements OnInit {
     }
 
     private setOfferRequestParams() {
-        const form = this.offerForm.controls;
+        const controls = this.offerForm.controls;
         return {
-            'receiver_id': form.receiver_id.value,
-            'student_id': this.studentSelected ? form.student_id.value : null,
-            'tutor_lecture_id': form.tutor_lecture_id.value,
-            'offer': form.offer.value,
+            'receiver_id': controls.receiver_id.value,
+            'student_id': this.studentSelected ? controls.student_id.value : null,
+            'tutor_lecture_id': controls.tutor_lecture_id.value,
+            'offer': controls.offer.value,
         }
     }
 

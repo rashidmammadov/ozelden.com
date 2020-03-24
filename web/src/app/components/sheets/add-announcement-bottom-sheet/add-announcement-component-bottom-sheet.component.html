@@ -1,0 +1,54 @@
+<div fxLayout="column" fxLayoutGap="16px">
+    <div fxLayout="column" fxLayoutAlign="center center">
+        <h4>İlan Oluşturma</h4>
+        <span align="center">Sizin için en uygun ders verenler size ulaşması için ücretsiz olarak arama sonuçlarınızı ilan olarak kaydedin.</span>
+    </div>
+    <div align="center">
+        <form ngNoForm fxLayout="column" [formGroup]="announcementForm" fxLayoutGap="16px">
+            <div *ngIf="data">
+                <p class="label">Arama Filtreleri</p>
+                <mat-chip-list aria-label="Filters">
+                    <mat-chip [matTooltip]="data.city + '/' + (data.district || 'Hepsi')">
+                        {{data.city}}/{{data.district || 'Hepsi'}}
+                    </mat-chip>
+                    <mat-chip [matTooltip]="(data.lecture_theme || 'Tüm Konular') + ' (' + data.lecture_area + ')'">
+                        {{(data.lecture_theme || 'Tüm Konular')}} ({{data.lecture_area}})
+                    </mat-chip>
+                    <mat-chip *ngIf="data.min_price" [matTooltip]="'Minimum Fiyat: ' + data.min_price +  '₺'">
+                        Minimum Fiyat: {{data.min_price}}₺
+                    </mat-chip>
+                    <mat-chip *ngIf="data.max_price" [matTooltip]="'Maksimum Fiyat: ' + data.max_price +  '₺'">
+                        Maksimum Fiyat: {{data.max_price}}₺
+                    </mat-chip>
+                    <mat-chip [matTooltip]="'Tercih Edilen Cinsiyet: ' + gendersMap[data.sex] +  '₺'">
+                        Tercih Edilen Cinsiyet: {{gendersMap[data.sex]}}
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+            <mat-form-field appearance="outline">
+                <mat-label>İlan kimin için</mat-label>
+                <mat-select formControlName="student_id">
+                    <mat-option *ngIf="user" [value]="user.id" (click)="setStudentSelected(false)">
+                        <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center">
+                            <span>{{user.name}} {{user.surname}} <b>(Kendim İçin)</b></span>
+                        </div>
+                    </mat-option>
+                    <mat-optgroup [label]="'Öğrencilerim'">
+                        <mat-option *ngFor="let student of students" [value]="student.student_id" (click)="setStudentSelected(true)">
+                            <div class="student-option" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center">
+                                <img [src]="student.picture">
+                                <span>{{student.name}} {{student.surname}}</span>
+                            </div>
+                        </mat-option>
+                    </mat-optgroup>
+                </mat-select>
+                <mat-hint><b>Öğrencilerim</b> sayfasından öğrenci (velisi olarak) ekleyebilirsiniz</mat-hint>
+            </mat-form-field>
+        </form>
+    </div>
+    <div fxLayoutAlign="end" fxLayoutGap="8px">
+        <button mat-button mat-raised-button (click)="close($event)">Vazgeç</button>
+        <button mat-button mat-raised-button color="primary" [disabled]="announcementForm.invalid"
+                (click)="addAnnouncement()" autofocus>Onayla</button>
+    </div>
+</div>

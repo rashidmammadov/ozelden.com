@@ -1,6 +1,6 @@
 export interface TableColumnType {
     header: string;
-    value: string;
+    value?: string;
     additional?: string;
     button?: string;
     icon?: string;

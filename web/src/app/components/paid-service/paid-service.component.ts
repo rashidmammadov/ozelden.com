@@ -6,7 +6,7 @@ import { ThreedsDialogComponent } from '../dialogs/threeds-dialog/threeds-dialog
 import { PaidService } from '../../services/paid/paid.service';
 import { UtilityService } from '../../services/utility/utility.service';
 import { IHttpResponse } from '../../interfaces/i-http-response';
-import { PaidServiceType } from '../../constants/paid-service-type';
+import { PaidServiceType } from '../../interfaces/paid-service-type';
 import { loaded, loading } from '../../store/actions/progress.action';
 import { DATE_TIME } from '../../constants/date-time.constant';
 import { PAID } from '../../constants/paid.constant';

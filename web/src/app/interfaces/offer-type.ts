@@ -16,4 +16,6 @@ export interface OfferType {
     offer: number;
     currency?: string;
     status: number;
+    offer_type?: string;
+    updated_at?: string;
 }

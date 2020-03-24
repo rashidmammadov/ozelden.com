@@ -5,6 +5,7 @@ namespace App\Http\Queries\MySQL;
 use App\SuitableRegion;
 use App\User;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
 
 class SearchQuery extends Query {
 
@@ -16,6 +17,13 @@ class SearchQuery extends Query {
      */
     public static function searchTutor($params, $itemPerPage) {
         try {
+            $orderColumn = RANKING_AVG;
+            $orderType = 'desc';
+            if ($params[ORDER]) {
+                $exploded = explode(COMMA_SIGN, $params[ORDER]);
+                $orderColumn = $exploded[0];
+                $orderType = $exploded[1];
+            }
             $query = SuitableRegion::where(function ($query) use ($params) {
                     $query->where(DB_SUITABLE_REGION_TABLE.'.'.CITY, EQUAL_SIGN, urldecode($params[CITY]));
                     if (!is_null($params[DISTRICT])) {
@@ -24,6 +32,9 @@ class SearchQuery extends Query {
                 })
                 ->leftJoin(DB_TUTOR_LECTURE_TABLE, function ($join) use ($params) {
                     $join->on(DB_TUTOR_LECTURE_TABLE.'.'.TUTOR_ID, EQUAL_SIGN, DB_SUITABLE_REGION_TABLE.'.'.TUTOR_ID);
+                })
+                ->leftJoin(DB_AVERAGE_TABLE, function ($join) {
+                    $join->on(DB_AVERAGE_TABLE.'.'.USER_ID, EQUAL_SIGN, DB_TUTOR_LECTURE_TABLE.'.'.TUTOR_ID);
                 })
                 ->where(function ($query) use ($params) {
                     $query->where(DB_TUTOR_LECTURE_TABLE.'.'.LECTURE_AREA, EQUAL_SIGN, urldecode($params[LECTURE_AREA]));
@@ -35,10 +46,11 @@ class SearchQuery extends Query {
                     $query->where(DB_SUITABLE_REGION_TABLE.'.'.CITY, EQUAL_SIGN, urldecode($params[CITY]))
                         ->where(DB_SUITABLE_REGION_TABLE.'.'.DISTRICT, EQUAL_SIGN, 'Hepsi');
                 })
-                ->orWhere(function ($query) use ($params) {
+                ->where(function ($query) use ($params) {
                     $query->where(DB_TUTOR_LECTURE_TABLE.'.'.LECTURE_AREA, EQUAL_SIGN, urldecode($params[LECTURE_AREA]))
                         ->where(DB_TUTOR_LECTURE_TABLE.'.'.LECTURE_THEME, EQUAL_SIGN, 'Tüm Konular');
                 })
+                ->orderBy($orderColumn, $orderType)
                 ->select(DB_SUITABLE_REGION_TABLE.'.'.TUTOR_ID)
                 ->distinct()
                 ->paginate($itemPerPage);
@@ -51,9 +63,10 @@ class SearchQuery extends Query {
     /**
      * Get tutor connected tables from DB.
      * @param $tutorId - holds the tutor id.
+     * @param $filters - holds the filters.
      * @return mixed
      */
-    public static function getTutorConnections($tutorId) {
+    public static function getTutorConnections($tutorId, $filters) {
         try {
             $query = User::where(DB_USERS_TABLE.'.'.IDENTIFIER, EQUAL_SIGN, $tutorId)
                 ->leftJoin(DB_PROFILE_TABLE, function ($join) {
@@ -67,6 +80,17 @@ class SearchQuery extends Query {
                 })
                 ->leftJoin(DB_TUTOR_LECTURE_TABLE, function ($join) {
                     $join->on(DB_TUTOR_LECTURE_TABLE.'.'.TUTOR_ID, EQUAL_SIGN, DB_USERS_TABLE.'.'.IDENTIFIER);
+                })
+                ->where(function ($query) use ($filters) {
+                    if ($filters[MIN_PRICE]) {
+                        $query->where(DB_AVERAGE_TABLE.'.'.PRICE_AVG, EQUAL_OR_GREATER_SIGN, $filters[MIN_PRICE]);
+                    }
+                    if ($filters[MAX_PRICE]) {
+                        $query->where(DB_AVERAGE_TABLE.'.'.PRICE_AVG, EQUAL_OR_LESS_SIGN, $filters[MAX_PRICE]);
+                    }
+                    if ($filters[SEX]) {
+                        $query->where(DB_USERS_TABLE.'.'.SEX, EQUAL_SIGN, $filters[SEX]);
+                    }
                 })
                 ->get();
             return $query;

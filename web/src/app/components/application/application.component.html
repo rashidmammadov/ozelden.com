@@ -1,28 +1,8 @@
 <div fxLayout="row" fxLayoutGap="16px">
-    <div class="sidenav" fxLayout="column" fxHide.lt-md>
-        <a class="sidenav-button" routerLinkActive="active" routerLink="/app/home">
-            <mat-icon svgIcon="home"></mat-icon>
-            <p>Ana Sayfa</p>
-        </a>
-        <a class="sidenav-button" routerLinkActive="active" routerLink="/app/offers">
-            <mat-icon svgIcon="offers"></mat-icon>
-            <p>Teklifler</p>
-        </a>
-        <a class="sidenav-button" routerLinkActive="active" routerLink="/app/tutored-students">
-            <mat-icon svgIcon="students"></mat-icon>
-            <p>Öğrencilerim</p>
-        </a>
-        <a class="sidenav-button" routerLinkActive="active" routerLink="/app/paid-service">
-            <mat-icon svgIcon="star"></mat-icon>
-            <p>Hizmetler</p>
-        </a>
-        <a class="sidenav-button" routerLinkActive="active" routerLink="/app/lectures">
-            <mat-icon svgIcon="paperclip"></mat-icon>
-            <p>Derslerim</p>
-        </a>
-        <a class="sidenav-button" routerLinkActive="active" routerLink="/app/suitability">
-            <mat-icon svgIcon="sliders"></mat-icon>
-            <p>Uygunluk</p>
+    <div *ngIf="buttons" class="sidenav" fxLayout="column" fxHide.lt-md>
+        <a *ngFor="let button of buttons" class="sidenav-button" routerLinkActive="active" [routerLink]="button.routerLink">
+            <mat-icon [svgIcon]="button.icon"></mat-icon>
+            <p>{{button.title}}</p>
         </a>
     </div>
     <div class="inner-container" fxFlex>
