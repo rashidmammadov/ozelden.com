@@ -21,26 +21,46 @@
                     {{data.average.experience_avg}}<br>
                     <p class="sub">yıl deneyim</p>
                 </div>
-                <div *ngIf="data.average.price_avg" class="experience"
+                <div *ngIf="data.average.price_avg" class="price"
                      [matTooltip]="data.average.price_avg + ' ₺ Ortalama Ücret'">
                     {{data.average.price_avg}}<br>
                     <p class="sub">₺ ücret</p>
                 </div>
             </div>
+            <div *ngIf="data.expectation" class="overall" fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="32px">
+                <div *ngIf="data.expectation.min_price || data.expectation.max_price" class="price-expectation"
+                       matTooltip="fiyat beklentisi (₺)">
+                    {{data.expectation.min_price}}
+                    {{data.expectation.min_price && data.expectation.max_price ? ' - ' : ''}}
+                    {{data.expectation.max_price}}<br>
+                    <p class="sub">fiyat beklentisi (₺)</p>
+                </div>
+            </div>
             <button *ngIf="user && user.type === TYPES.TUTORED" mat-raised-button mat-stroked-button
                     (click)="openAskOfferDialog()">Teklif Al</button>
+            <button *ngIf="user && user.type === TYPES.TUTOR" mat-raised-button mat-stroked-button
+                    (click)="openMakeOfferDialog()">Teklif Gönder</button>
             <p *ngIf="data.description" class="quote">
                 <mat-icon svgIcon="left-quote"></mat-icon> {{data.description}} <mat-icon svgIcon="right-quote"></mat-icon>
             </p>
         </div>
         <div class="detail" fxLayout="column" fxLayoutAlign="space-between start" fxFlex>
             <div fxLayout="column" fxLayoutGap="8px">
+                <div *ngIf="data.student">
+                    <p class="label">Öğrenci</p>
+                    <mat-chip-list aria-label="Student">
+                        <mat-chip>
+                            <img mat-card-avatar [src]="data.student.picture || './assets/images/logo-mini.png'">
+                            {{data.student.name}} {{data.student.surname}} ({{data.student.age}} yaş)
+                        </mat-chip>
+                    </mat-chip-list>
+                </div>
                 <div *ngIf="data.lectures">
                     <p class="label">Dersler</p>
-                    <mat-chip-list aria-label="Fish selection">
+                    <mat-chip-list aria-label="Lectures">
                         <mat-chip *ngFor="let lecture of data.lectures"
                                   [matTooltip]="lecture.lecture_theme + ' (' + lecture.lecture_area + ')'">
-                            {{lecture.lecture_theme}}
+                            {{lecture.lecture_theme}} ({{lecture.lecture_area}})
                         </mat-chip>
                     </mat-chip-list>
                 </div>

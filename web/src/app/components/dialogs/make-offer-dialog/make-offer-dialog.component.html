@@ -1,0 +1,36 @@
+<div fxLayout="column" fxLayoutAlign="center center">
+    <h4>Teklif Gönder</h4>
+    <p class="mat-card-subtitle" style="margin-top: 0;">
+        Öğrenci: {{data.student ? data.student.name + ' ' + data.student.surname + ' (Veli: ' + data.name + ' ' + data.surname + ')' :
+            data.name + ' ' + data.surname}}
+    </p>
+</div>
+<mat-dialog-content align="center">
+    <form ngNoForm fxLayout="column" [formGroup]="offerForm" fxLayoutGap="16px">
+        <mat-form-field appearance="outline">
+            <mat-label>Kalan Teklif Sayısı</mat-label>
+            <input matInput placeholder="Kalan Teklif Sayısı" [type]="'number'" [value]="remainingBids" [disabled]="true">
+            <mat-hint><b>Hizmetler</b> sayfasından daha fazla teklif hakkı ekleyebilirsiniz</mat-hint>
+        </mat-form-field>
+        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>Teklif Gönderilen Ders</mat-label>
+                <mat-select *ngIf="data" formControlName="tutor_lecture_id">
+                    <mat-option *ngFor="let lecture of lectures" [value]="lecture.tutor_lecture_id"
+                                (click)="setOffer(lecture)">
+                        <span>{{lecture.lecture_theme}} ({{lecture.lecture_area}}) - {{lecture.price}} ₺</span>
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex="30" appearance="outline">
+                <mat-label>Gönderilen Teklif (₺)</mat-label>
+                <input matInput placeholder="Gönderilen Teklif (₺)" [type]="'number'" min="1" formControlName="offer">
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-raised-button [mat-dialog-close]="false">Vazgeç</button>
+    <button mat-button mat-raised-button color="primary" [disabled]="offerForm.invalid || !remainingBids"
+            (click)="sendOffer()" autofocus>Onayla</button>
+</mat-dialog-actions>

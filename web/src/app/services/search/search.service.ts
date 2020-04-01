@@ -12,8 +12,8 @@ export class SearchService {
 
     constructor(private http: HttpClient) { }
 
-    get(params): Promise<ErrorResponse | IHttpResponse> {
-        let queryParams = ['page=1'];
+    get(page, params): Promise<ErrorResponse | IHttpResponse> {
+        let queryParams = [`page=${page}`];
         Object.keys(params).forEach((key: string) => {
             !!params[key] && queryParams.push(`${key}=${params[key]}`);
         });

@@ -1,24 +1,4 @@
 <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
-    <mat-card class="mat-elevation-z4" fxFlex="25" fxFlex.lt-md="0">
-        <mat-card-header fxLayoutAlign="space-between center">
-            <mat-card-title fxFlex>Aktif Paketleriniz</mat-card-title>
-        </mat-card-header>
-        <mat-card-content *ngIf="activePaidService">
-            <div>
-                <span>Teklif Sayısı</span>
-                <h3>{{activePaidService.bid || 0}}</h3>
-            </div>
-            <div>
-                <span>Üste Çıkarma Geçerlilik Tarihi</span>
-                <h3>{{activePaidService.readableBoost}}</h3>
-            </div>
-            <div>
-                <span>Önerilme Geçerlilik Tarihi</span>
-                <h3>{{activePaidService.readableRecommend}}</h3>
-            </div>
-        </mat-card-content>
-    </mat-card>
-
     <mat-card class="mat-elevation-z4" fxFlex="50" fxFlex.lt-md="0">
         <mat-card-header fxLayoutAlign="space-between center">
             <mat-card-title>Paketinizi Oluşturun</mat-card-title>
@@ -36,9 +16,6 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-icon svgIcon="info"
-                          matTooltip="Teklifler ders arayanlara kolayca teklif sunmanı sağlamaktadır">
-                </mat-icon>
             </div>
 
             <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="space-between center">
@@ -49,14 +26,10 @@
                     <mat-select [(ngModel)]="boost.selected" [disabled]="!boost.checked"
                                 (selectionChange)="checkTotalPrice()">
                         <mat-option *ngFor="let item of boost.list" [value]="item.key">
-                          {{item.value}} gün
+                            {{item.value}} gün
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-icon svgIcon="info"
-                          matTooltip="Üste çıkarma ile aramalarda üst sıralarda yer alırsınız ve
-                              ders arayanların size kolayca ulaşmasını sağlar">
-                </mat-icon>
             </div>
 
             <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="space-between center">
@@ -71,10 +44,6 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-icon svgIcon="info"
-                          matTooltip="Önerilme sayesinde sistem sizi ders arayanlara otomatik olarak önerir
-                              (bildirim ve email gönderir) ve telefon numaranızı görebilirler">
-                </mat-icon>
             </div>
         </mat-card-content>
         <mat-divider></mat-divider>
@@ -82,5 +51,45 @@
             <p>Toplam Ücret: {{totalPrice}} ₺</p>
             <button mat-button mat-raised-button color="primary" [disabled]="!totalPrice" (click)="openDepositDialog()">Ödeme Yap</button>
         </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="mat-elevation-z4 active-paid-services" fxFlex="50" fxFlex.lt-md="100">
+        <mat-card-header fxLayoutAlign="space-between center">
+            <mat-card-title fxFlex>Aktif Paketleriniz</mat-card-title>
+        </mat-card-header>
+        <mat-card-content *ngIf="activePaidService">
+            <div class="paid-service" fxLayout="row" fxLayoutAlign="space-between start">
+                <div fxLayout="column" fxFlex="40">
+                    <span>Teklif Sayısı</span>
+                    <h3>{{activePaidService.bid || 0}}</h3>
+                </div>
+                <span class="info" fxFlex="60">
+                    <mat-icon svgIcon="info"></mat-icon>
+                    Teklifler ders arayanlara kolayca teklif sunmanı sağlamaktadır
+                </span>
+            </div>
+            <div class="paid-service" fxLayout="row" fxLayoutAlign="space-between start">
+                <div fxLayout="column" fxFlex="40">
+                    <span>Üste Çıkarma Geçerlilik Tarihi</span>
+                    <h3>{{activePaidService.readableBoost}}</h3>
+                </div>
+                <span class="info" fxFlex="60">
+                    <mat-icon svgIcon="info"></mat-icon>
+                    Üste çıkarma ile aramalarda üst sıralarda yer alırsınız ve
+                              ders arayanların size kolayca ulaşmasını sağlar
+                </span>
+            </div>
+            <div class="paid-service" fxLayout="row" fxLayoutAlign="space-between start">
+                <div fxLayout="column" fxFlex="40">
+                    <span>Önerilme Geçerlilik Tarihi</span>
+                    <h3>{{activePaidService.readableRecommend}}</h3>
+                </div>
+                <span class="info" fxFlex="60">
+                    <mat-icon svgIcon="info"></mat-icon>
+                    Önerilme sayesinde sistem sizi ders arayanlara otomatik olarak önerir
+                              (bildirim ve email gönderir) ve telefon numaranızı görebilirler
+                </span>
+            </div>
+        </mat-card-content>
     </mat-card>
 </div>

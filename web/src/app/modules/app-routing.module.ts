@@ -8,6 +8,7 @@ import { PaidServiceComponent } from '../components/paid-service/paid-service.co
 import { LecturesComponent } from '../components/lectures/lectures.component';
 import { LoginComponent } from '../components/login/login.component';
 import { RegisterComponent } from '../components/register/register.component';
+import { SettingsComponent } from '../components/settings/settings.component';
 import { SuitabilityComponent } from '../components/suitability/suitability.component';
 import { TutoredStudentsComponent } from '../components/tutored-students/tutored-students.component';
 
@@ -51,6 +52,10 @@ const routes: Routes = [
             {
                 path: 'lectures',
                 component: LecturesComponent
+            },
+            {
+                path: 'settings',
+                component: SettingsComponent
             },
             {
                 path: 'suitability',

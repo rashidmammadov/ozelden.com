@@ -2,6 +2,7 @@
 
 namespace App\Http\Queries\MySQL;
 
+use App\Announcement;
 use App\SuitableRegion;
 use App\User;
 use Illuminate\Database\QueryException;
@@ -52,7 +53,47 @@ class SearchQuery extends Query {
                 })
                 ->orderBy($orderColumn, $orderType)
                 ->select(DB_SUITABLE_REGION_TABLE.'.'.TUTOR_ID)
-                ->distinct()
+                ->distinct(DB_SUITABLE_REGION_TABLE.'.'.TUTOR_ID)
+                ->paginate($itemPerPage);
+            return $query;
+        } catch (QueryException $e) {
+            self::logException($e, debug_backtrace());
+        }
+    }
+
+    /**
+     * Search query in tutored table on DB with given parameters.
+     * @param $params - holds the filter parameters.
+     * @param $itemPerPage - holds the search result per page.
+     * @return mixed
+     */
+    public static function searchTutored($params, $itemPerPage) {
+        try {
+            $query = Announcement::where(function ($query) use ($params) {
+                    $query->where(DB_ANNOUNCEMENT_TABLE.'.'.CITY, EQUAL_SIGN, urldecode($params[CITY]));
+                    $query->where(DB_ANNOUNCEMENT_TABLE.'.'.LECTURE_AREA, EQUAL_SIGN, urldecode($params[LECTURE_AREA]));
+                    if (!is_null($params[DISTRICT])) {
+                        $query->where(DB_ANNOUNCEMENT_TABLE.'.'.DISTRICT, EQUAL_SIGN, urldecode($params[DISTRICT]));
+                    }
+                    if (!is_null($params[LECTURE_THEME])) {
+                        $query->where(DB_ANNOUNCEMENT_TABLE.'.'.LECTURE_THEME, EQUAL_SIGN, urldecode($params[LECTURE_THEME]));
+                    }
+                })
+                ->leftJoin(DB_USERS_TABLE, function ($join) {
+                    $join->on(DB_USERS_TABLE.'.'.IDENTIFIER, EQUAL_SIGN, DB_ANNOUNCEMENT_TABLE.'.'.TUTORED_ID);
+                })
+                ->leftJoin(DB_PROFILE_TABLE, function ($join) {
+                    $join->on(DB_PROFILE_TABLE.'.'.USER_ID, EQUAL_SIGN, DB_USERS_TABLE.'.'.IDENTIFIER);
+                })
+                ->orWhere(function ($query) use ($params) {
+                    $query->where(DB_ANNOUNCEMENT_TABLE.'.'.CITY, EQUAL_SIGN, urldecode($params[CITY]))
+                        ->where(DB_ANNOUNCEMENT_TABLE.'.'.DISTRICT, EQUAL_SIGN, 'Hepsi');
+                })
+                ->where(function ($query) use ($params) {
+                    $query->where(DB_ANNOUNCEMENT_TABLE.'.'.LECTURE_AREA, EQUAL_SIGN, urldecode($params[LECTURE_AREA]))
+                        ->where(DB_ANNOUNCEMENT_TABLE.'.'.LECTURE_THEME, EQUAL_SIGN, 'Tüm Konular');
+                })
+                ->select('*', DB_ANNOUNCEMENT_TABLE.'.'.CITY, DB_ANNOUNCEMENT_TABLE.'.'.DISTRICT)
                 ->paginate($itemPerPage);
             return $query;
         } catch (QueryException $e) {
@@ -69,6 +110,13 @@ class SearchQuery extends Query {
     public static function getTutorConnections($tutorId, $filters) {
         try {
             $query = User::where(DB_USERS_TABLE.'.'.IDENTIFIER, EQUAL_SIGN, $tutorId)
+                ->where(DB_USERS_TABLE.'.'.TYPE, EQUAL_SIGN, TUTOR)
+                ->where(DB_USERS_TABLE.'.'.STATE, EQUAL_SIGN, USER_STATE_ACTIVE)
+                ->where(function ($query) use ($filters) {
+                    if ($filters[SEX]) {
+                        $query->where(DB_USERS_TABLE.'.'.SEX, EQUAL_SIGN, $filters[SEX]);
+                    }
+                })
                 ->leftJoin(DB_PROFILE_TABLE, function ($join) {
                     $join->on(DB_PROFILE_TABLE.'.'.USER_ID, EQUAL_SIGN, DB_USERS_TABLE.'.'.IDENTIFIER);
                 })
@@ -87,9 +135,6 @@ class SearchQuery extends Query {
                     }
                     if ($filters[MAX_PRICE]) {
                         $query->where(DB_AVERAGE_TABLE.'.'.PRICE_AVG, EQUAL_OR_LESS_SIGN, $filters[MAX_PRICE]);
-                    }
-                    if ($filters[SEX]) {
-                        $query->where(DB_USERS_TABLE.'.'.SEX, EQUAL_SIGN, $filters[SEX]);
                     }
                 })
                 ->get();

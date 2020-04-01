@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Models\AverageModel;
+use App\Http\Models\ExpectationModel;
 use App\Http\Models\SearchModel;
+use App\Http\Models\StudentModel;
 use App\Http\Models\SuitableRegionModel;
 use App\Http\Models\TutorLectureModel;
 use App\Http\Queries\MySQL\SearchQuery;
+use App\Http\Queries\MySQL\StudentQuery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class SearchController extends ApiController {
 
@@ -20,6 +25,8 @@ class SearchController extends ApiController {
     public function get(Request $request) {
         if ($request[SEARCH_TYPE] == TUTOR) {
             return $this->getTutorSearch($request);
+        } else if ($request[SEARCH_TYPE] == TUTORED) {
+            return $this->getTutoredSearch($request);
         }
     }
 
@@ -55,6 +62,56 @@ class SearchController extends ApiController {
             return $this->respondWithPagination('', $searchResultsFromDB, $data);
         } else {
             return $this->respondWithError(NO_RESULT_TO_SHOW);
+        }
+    }
+
+    /**
+     * Holds request to return search result of tutored.
+     * @param Request $request
+     * @return mixed
+     */
+    private function getTutoredSearch(Request $request) {
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+            if ($user[TYPE] == TUTOR) {
+                $searchResultsFromDB = SearchQuery::searchTutored($request, 20);
+                if ($searchResultsFromDB) {
+                    $data = array();
+                    foreach ($searchResultsFromDB->items() as $item) {
+                        $searchResult = new SearchModel($item);
+
+                        $expectation = new ExpectationModel($item);
+                        $searchResult->setExpectation($expectation->get());
+
+                        $lectures = array();
+                        $lecture = new TutorLectureModel($item);
+                        array_push($lectures, $lecture->get());
+                        $searchResult->setLectures($lectures);
+
+                        $regions = array();
+                        $region = new SuitableRegionModel($item);
+                        array_push($regions, $region->get());
+                        $searchResult->setRegions($regions);
+
+                        if ($item[STUDENT_ID]) {
+                            $studentFromDB = StudentQuery::getStudentById($item[STUDENT_ID]);
+                            $student = new StudentModel($studentFromDB);
+                            $searchResult->setStudent($student->get());
+                        }
+
+                        array_push($data, $searchResult->get());
+                    }
+                    return $this->respondWithPagination('', $searchResultsFromDB, $data);
+                } else {
+                    return $this->respondWithError(NO_RESULT_TO_SHOW);
+                }
+            } else {
+                return $this->respondWithError(PERMISSION_DENIED);
+            }
+        } catch (JWTException $e) {
+            $this->setStatusCode(401);
+            $this->setMessage(AUTHENTICATION_ERROR);
+            return $this->respondWithError($e->getMessage());
         }
     }
 

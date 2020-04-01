@@ -13,6 +13,7 @@ import { ApplicationComponent } from './components/application/application.compo
 import { AddAnnouncementComponentBottomSheet } from './components/sheets/add-announcement-bottom-sheet/add-announcement-component-bottom-sheet.component';
 import { AskOfferDialogComponent } from './components/dialogs/ask-offer-dialog/ask-offer-dialog.component';
 import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
+import { DecideOfferDialogComponent } from './components/dialogs/decide-offer-dialog/decide-offer-dialog.component';
 import { DepositDialogComponent } from './components/dialogs/deposit-dialog/deposit-dialog.component';
 import { EditStudentDialogComponent } from './components/dialogs/edit-student-dialog/edit-student-dialog.component';
 import { InfoCardComponent } from './components/info-card/info-card.component';
@@ -20,9 +21,12 @@ import { HomeComponent } from './components/home/home.component';
 import { GridListComponent } from './components/shared/grid-list/grid-list.component';
 import { OffersComponent } from './components/offers/offers.component';
 import { PaidServiceComponent } from './components/paid-service/paid-service.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { LecturesComponent } from './components/lectures/lectures.component';
 import { LoginComponent } from './components/login/login.component';
+import { MakeOfferDialogComponent } from './components/dialogs/make-offer-dialog/make-offer-dialog.component';
 import { RegisterComponent } from './components/register/register.component';
+import { SettingsComponent } from './components/settings/settings.component';
 import { SuitabilityComponent } from './components/suitability/suitability.component';
 import { StudentCardComponent } from './components/student-card/student-card.component';
 import { TableComponent } from './components/shared/table/table.component';
@@ -38,6 +42,7 @@ import { UtilityService } from './services/utility/utility.service';
 
 import { citiesReducer } from './store/reducers/cities.reducer';
 import { lecturesReducer } from './store/reducers/lectures.reducer';
+import { offersCountReducer } from './store/reducers/offers-count.reducer';
 import { progressReducer } from './store/reducers/progress.reducer';
 import { userReducer } from './store/reducers/user.reducer';
 
@@ -54,6 +59,7 @@ export function fetchStaticData(dataService: DataService) {
         AddAnnouncementComponentBottomSheet,
         AskOfferDialogComponent,
         ConfirmDialogComponent,
+        DecideOfferDialogComponent,
         DepositDialogComponent,
         EditStudentDialogComponent,
         InfoCardComponent,
@@ -61,16 +67,18 @@ export function fetchStaticData(dataService: DataService) {
         GridListComponent,
         OffersComponent,
         PaidServiceComponent,
+        ProfileComponent,
         LecturesComponent,
         LoginComponent,
+        MakeOfferDialogComponent,
         RegisterComponent,
+        SettingsComponent,
         SuitabilityComponent,
         StudentCardComponent,
         TableComponent,
         ThreedsDialogComponent,
         TutoredStudentsComponent,
-        UploadFileComponent,
-        AddAnnouncementComponentBottomSheet
+        UploadFileComponent
     ],
     imports: [
         AppRoutingModule,
@@ -81,14 +89,22 @@ export function fetchStaticData(dataService: DataService) {
         FormsModule,
         HttpClientModule,
         ReactiveFormsModule,
-        StoreModule.forRoot({ cities: citiesReducer, lectures: lecturesReducer, progress: progressReducer, user: userReducer }),
+        StoreModule.forRoot({
+            cities: citiesReducer,
+            lectures: lecturesReducer,
+            offersCount: offersCountReducer,
+            progress: progressReducer,
+            user: userReducer
+        }),
     ],
     entryComponents: [
         AddAnnouncementComponentBottomSheet,
         AskOfferDialogComponent,
         ConfirmDialogComponent,
+        DecideOfferDialogComponent,
         DepositDialogComponent,
         EditStudentDialogComponent,
+        MakeOfferDialogComponent,
         ThreedsDialogComponent
     ],
     providers: [

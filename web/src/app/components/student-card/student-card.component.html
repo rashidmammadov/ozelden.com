@@ -10,7 +10,7 @@
         <p class="full-name">{{data.name}} {{data.surname}}</p>
         <div fxLayout="row" fxLayoutGap="16px">
             <button mat-raised-button mat-stroked-button (click)="openEditDialog()">Düzenle</button>
-            <button color="warn" mat-raised-button mat-stroked-button (click)="openDeleteDialog()">Kaldır</button>
+            <button class="button-red" mat-raised-button mat-stroked-button (click)="openDeleteDialog()">Kaldır</button>
         </div>
     </div>
 </mat-card>

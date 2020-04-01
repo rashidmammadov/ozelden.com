@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { Store } from '@ngrx/store';
@@ -24,14 +24,20 @@ export class HomeComponent implements OnInit {
 
     cities: CityType[] = [];
     lectures: LectureType[] = [];
-    searchResult: InfoType[];
+    searchResult: InfoType[] = [];
     genders = SELECTORS.GENDERS;
     orders = SELECTORS.ORDERS;
     gendersMap = {};
     ordersMap = {};
     changeMode: boolean = true;
     user: UserType;
+    maxPosition = 0;
+    page: number = 1;
+    loaded: number = 0;
+    total: number = 0;
+    total_page: number = 0;
     TYPES = TYPES;
+
     searchForm = new FormGroup({
         city: new FormControl('', [Validators.required]),
         district: new FormControl('', [Validators.required]),
@@ -88,12 +94,23 @@ export class HomeComponent implements OnInit {
         this.bottomSheet.open(AddAnnouncementComponentBottomSheet, {data: this.setSearchRequestParams()});
     }
 
-    public search = async (changeMode?: boolean) => {
+    public search = async (changeMode: boolean, clear?: boolean) => {
+        if (clear) {
+            this.page = 1;
+            this.searchResult = [];
+        }
         this.store.select(loading);
-        const result = await this.searchService.get(this.setSearchRequestParams());
+        const result = await this.searchService.get(this.page, this.setSearchRequestParams());
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
-            this.searchResult = response.data;
             this.changeMode = changeMode;
+            this.page = response.current_page;
+            this.loaded = (response.current_page * response.limit) <= response.total_data ?
+                (response.current_page * response.limit) : response.total_data;
+            this.total = response.total_data;
+            this.total_page = response.total_page;
+            if (response.data && response.data.length) {
+                this.page === 1 ? (this.searchResult = response.data) : (this.searchResult = this.searchResult.concat(response.data));
+            }
         });
         this.store.select(loaded);
     };
@@ -105,7 +122,7 @@ export class HomeComponent implements OnInit {
     private setSearchRequestParams() {
         const form = this.searchForm.controls;
         return {
-            'search_type': TYPES.TUTOR,
+            'search_type': this.user && this.user.type === TYPES.TUTOR ? TYPES.TUTORED : TYPES.TUTOR,
             'city': form.city.value?.city_name,
             'district': form.district.value?.toLowerCase() !== 'hepsi' ? form.district.value : null,
             'lecture_area': form.lecture_area.value?.lecture_area,
@@ -116,6 +133,22 @@ export class HomeComponent implements OnInit {
             'sex': form.sex.value,
             'order': form.order.value
         }
+    }
+
+    private async loadMore(maxPosition: number, customHeight: number = 128) {
+        const pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
+        pos > maxPosition && (maxPosition = pos);
+        const max = document.documentElement.scrollHeight;
+        if ((maxPosition + customHeight) > max) {
+            this.page++;
+            await this.search(this.changeMode);
+        }
+    }
+
+    @HostListener('window:scroll', ['$event'])
+    async onWindowScroll() {
+        const onProgress = await this.store.select('progress').pipe(first()).toPromise();
+        !onProgress && (this.loaded < this.total) && (this.page < this.total_page) && this.loadMore(this.maxPosition);
     }
 
 }

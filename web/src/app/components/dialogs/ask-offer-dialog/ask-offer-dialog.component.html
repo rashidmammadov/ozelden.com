@@ -1,9 +1,12 @@
-<div fxLayout="row" fxLayoutAlign="center center">
-    <h4>Teklif Al ({{data.name}} {{data.surname}})</h4>
+<div fxLayout="column" fxLayoutAlign="center center">
+    <h4>Teklif Al</h4>
+    <p class="mat-card-subtitle" style="margin-top: 0">
+        Öğretmen: {{data.name}} {{data.surname}}
+    </p>
 </div>
 <mat-dialog-content align="center">
     <form ngNoForm fxLayout="column" [formGroup]="offerForm" fxLayoutGap="16px">
-        <mat-form-field>
+        <mat-form-field appearance="outline">
             <mat-label>Ders Almak İsteyen</mat-label>
             <mat-select formControlName="student_id">
                 <mat-option *ngIf="user" [value]="user.id" (click)="setStudentSelected(false)">
@@ -23,7 +26,7 @@
             <mat-hint><b>Öğrencilerim</b> sayfasından öğrenci (velisi olarak) ekleyebilirsiniz</mat-hint>
         </mat-form-field>
         <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
-            <mat-form-field fxFlex>
+            <mat-form-field fxFlex appearance="outline">
                 <mat-label>Alınmak İstenen Ders</mat-label>
                 <mat-select *ngIf="data" formControlName="tutor_lecture_id">
                     <mat-option *ngFor="let lecture of data.lectures" [value]="lecture.tutor_lecture_id"
@@ -32,9 +35,9 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field fxFlex="30">
+            <mat-form-field fxFlex="30" appearance="outline">
                 <mat-label>İstenen Teklif (₺)</mat-label>
-                <input matInput placeholder="İstenen Teklif (₺)" [type]="'number'" formControlName="offer">
+                <input matInput placeholder="İstenen Teklif (₺)" [type]="'number'" min="1" formControlName="offer">
             </mat-form-field>
         </div>
     </form>

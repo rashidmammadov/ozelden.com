@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { DecideOfferDialogComponent } from '../dialogs/decide-offer-dialog/decide-offer-dialog.component';
 import { IHttpResponse } from '../../interfaces/i-http-response';
 import { OfferService } from '../../services/offer/offer.service';
 import { OfferType } from '../../interfaces/offer-type';
+import { PaginationType } from '../../interfaces/pagination-type';
 import { UtilityService } from '../../services/utility/utility.service';
 import { TableColumnType } from '../../interfaces/table-column-type';
 import { TutorLectureType } from '../../interfaces/tutor-lecture-type';
@@ -9,6 +13,8 @@ import { UserType } from '../../interfaces/user-type';
 import { StudentType } from '../../interfaces/student-type';
 import { DATE_TIME } from '../../constants/date-time.constant';
 import { TYPES } from '../../constants/types.constant';
+import { loaded, loading } from '../../store/actions/progress.action';
+import { first } from 'rxjs/operators';
 
 @Component({
     selector: 'app-offers',
@@ -17,6 +23,7 @@ import { TYPES } from '../../constants/types.constant';
 })
 export class OffersComponent implements OnInit {
 
+    user: UserType;
     columns: TableColumnType[] = [{
         header: 'Teklif Tipi',
         value: 'offer_type',
@@ -25,15 +32,15 @@ export class OffersComponent implements OnInit {
     }, {
         header: 'Teklif Gönderen',
         value: 'sender',
-        calc: (d: UserType) => d && (d.name || d.surname) ? `${d.name} ${d.surname}` : 'Ben'
+        calc: (d: UserType) => d && d.id !== this.user.id ? `${d.name} ${d.surname}` : 'Ben'
     }, {
         header: 'Öğrenci',
         value: 'student',
-        calc: (d: StudentType) => d && (d.name || d.surname) ? `${d.name} ${d.surname}` : 'Kendi İçin'
+        calc: (d: StudentType) => d && (d.name || d.surname) ? `${d.name} ${d.surname}` : '-'
     }, {
-        header: 'Teklif Gönderilen',
+        header: 'Teklif Alan',
         value: 'receiver',
-        calc: (d: UserType) => d && (d.name || d.surname) ? `${d.name} ${d.surname}` : 'Ben'
+        calc: (d: UserType) => d && d.id !== this.user.id ? `${d.name} ${d.surname}` : 'Ben'
     }, {
         header: 'Teklif Verilen Ders',
         value: 'tutor_lecture',
@@ -43,27 +50,59 @@ export class OffersComponent implements OnInit {
         value: 'offer',
         additional: '₺'
     }, {
-        header: 'Durum',
-        value: 'status',
-        calc: d => TYPES.OFFER_STATUS[d]
-    }, {
         header: 'Tarih',
         value: 'updated_at',
-        calc: d => UtilityService.millisecondsToDate(d, DATE_TIME.FORMAT.DATE_TIME)
+        calc: d => UtilityService.millisecondsToDate(d, DATE_TIME.FORMAT.DATE)
+    }, {
+        header: 'Durum',
+        value: 'status',
+        button: true,
+        class: (d) => d === 1 ? 'button-green' : (d === 99 ? 'button-red' : ''),
+        click: (d) => this.openDecideOfferDialog(d),
+        calc: d => TYPES.OFFER_STATUS[d]
     }];
+    pagination: PaginationType = {} as PaginationType;
+    page: number = 1;
     offers: OfferType[] = [];
 
-    constructor(private offerService: OfferService) { }
+    constructor(private offerService: OfferService, private dialog: MatDialog,
+                private store: Store<{progress: boolean, user: UserType}>) { }
 
     async ngOnInit() {
-        await this.fetchOffers();
+        await this.fetchUser();
+        await this.fetchOffers(this.page);
     }
 
-    private fetchOffers = async () => {
-        const result = await this.offerService.get();
+    async changePage(page) {
+        await this.fetchOffers(page);
+    }
+
+    private fetchOffers = async (page: number) => {
+        this.store.select(loading);
+        const result = await this.offerService.get(page);
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             this.offers = response.data;
+            this.pagination.current_page = response.current_page;
+            this.pagination.limit = response.limit;
+            this.pagination.total_data = response.total_data;
+            this.pagination.total_page = response.total_page;
         });
+        this.store.select(loaded);
+    };
+
+    private fetchUser = async () => {
+        this.user = await this.store.select('user').pipe(first()).toPromise();
+    };
+
+    private openDecideOfferDialog(offer: OfferType) {
+        this.dialog.open(DecideOfferDialogComponent, {
+              width: '500px',
+              disableClose: true,
+              data: offer
+          })
+          .afterClosed()
+          .toPromise()
+          .then((result: number) => { result && (offer.status = result); });
     }
 
 }

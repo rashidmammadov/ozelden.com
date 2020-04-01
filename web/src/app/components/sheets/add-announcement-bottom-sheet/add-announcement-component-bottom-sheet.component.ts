@@ -97,9 +97,9 @@ export class AddAnnouncementComponentBottomSheet implements OnInit {
         return {
             'student_id': this.studentSelected ? controls.student_id.value : null,
             'city': controls.city.value,
-            'district': controls.district.value,
+            'district': controls.district.value || 'Hepsi',
             'lecture_area': controls.lecture_area.value,
-            'lecture_theme': controls.lecture_theme.value,
+            'lecture_theme': controls.lecture_theme.value || 'Tüm Konular',
             'min_price': controls.min_price.value,
             'max_price': controls.max_price.value,
             'sex': controls.sex.value

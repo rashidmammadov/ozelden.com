@@ -22,7 +22,7 @@ class OfferModel {
 
     public function __construct($parameters = null) {
         if ($parameters) {
-            $this->setOffer($parameters[OFFER_ID]);
+            $this->setOfferId($parameters[OFFER_ID]);
             $this->setSenderId($parameters[SENDER_ID]);
 //            $this->setSender($parameters[SENDER]);
             $this->setReceiverId($parameters[RECEIVER_ID]);

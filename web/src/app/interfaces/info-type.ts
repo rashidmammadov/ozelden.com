@@ -1,5 +1,7 @@
 import { AverageType } from './average-type';
+import { ExpectationType } from './expectation-type';
 import { RegionType } from './region-type';
+import { StudentType } from './student-type';
 import { TutorLectureType } from './tutor-lecture-type';
 
 export interface InfoType {
@@ -15,4 +17,6 @@ export interface InfoType {
     average?: AverageType;
     regions?: RegionType[];
     lectures?: TutorLectureType[];
+    expectation?: ExpectationType;
+    student?: StudentType;
 }

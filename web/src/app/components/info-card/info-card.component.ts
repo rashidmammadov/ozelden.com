@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AskOfferDialogComponent } from '../dialogs/ask-offer-dialog/ask-offer-dialog.component';
+import { MakeOfferDialogComponent } from '../dialogs/make-offer-dialog/make-offer-dialog.component';
 import { Store } from '@ngrx/store';
 import { UtilityService } from '../../services/utility/utility.service';
 import { InfoType } from '../../interfaces/info-type';
@@ -24,12 +25,24 @@ export class InfoCardComponent implements OnInit {
 
     async ngOnInit() {
         await this.getUser();
-        this.data && this.data.birthday &&
-            (this.data.age = UtilityService.millisecondsToDate(this.data.birthday, DATE_TIME.FORMAT.TOTAL_YEARS));
+        if (this.data) {
+            this.data.birthday &&
+                (this.data.age = UtilityService.millisecondsToDate(this.data.birthday, DATE_TIME.FORMAT.TOTAL_YEARS));
+            this.data.student && this.data.student.birthday &&
+                (this.data.student.age = UtilityService.millisecondsToDate(this.data.student.birthday, DATE_TIME.FORMAT.TOTAL_YEARS));
+        }
     }
 
     public openAskOfferDialog() {
         this.dialog.open(AskOfferDialogComponent, {
+            width: '500px',
+            disableClose: true,
+            data: this.data
+        });
+    }
+
+    public openMakeOfferDialog() {
+        this.dialog.open(MakeOfferDialogComponent, {
             width: '500px',
             disableClose: true,
             data: this.data

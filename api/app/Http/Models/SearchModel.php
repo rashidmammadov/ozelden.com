@@ -15,6 +15,8 @@ class SearchModel {
     private $average;
     private $regions;
     private $lectures;
+    private $expectation;
+    private $student;
 
     public function __construct($parameters = null) {
         if ($parameters) {
@@ -28,6 +30,7 @@ class SearchModel {
             $this->setDescription($parameters[DESCRIPTION]);
             $this->setAverage($parameters[AVERAGE]);
             $this->setRegions($parameters[REGIONS]);
+            $this->setExpectation($parameters[EXPECTATION]);
             $this->setLectures($parameters[LECTURES]);
         }
     }
@@ -44,7 +47,9 @@ class SearchModel {
             DESCRIPTION => $this->getDescription(),
             AVERAGE => $this->getAverage(),
             REGIONS => $this->getRegions(),
-            LECTURES => $this->getLectures()
+            LECTURES => $this->getLectures(),
+            EXPECTATION => $this->getExpectation(),
+            STUDENT => $this->getStudent()
         );
     }
 
@@ -134,6 +139,23 @@ class SearchModel {
 
     public function setLectures($lectures): void {
         $this->lectures = $lectures;
+    }
+
+
+    public function getExpectation() {
+        return $this->expectation;
+    }
+
+    public function setExpectation($expectation): void {
+        $this->expectation = $expectation;
+    }
+
+    public function getStudent() {
+        return $this->student;
+    }
+
+    public function setStudent($student): void {
+        $this->student = $student;
     }
 
 }

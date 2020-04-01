@@ -6,5 +6,5 @@ export interface IHttpResponse {
     total_data?: number;
     total_page?: number;
     current_page?: number;
-    limit?: string;
+    limit?: number;
 }

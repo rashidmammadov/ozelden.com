@@ -61,5 +61,7 @@ Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
     Route::post('/tutor_lectures', 'TutorLectureController@set');
 
     Route::get('/offers', 'OfferController@get');
+    Route::get('/received_offers_count', 'OfferController@getReceivedOffersCount');
     Route::post('/offers', 'OfferController@set');
+    Route::put('/offers/{offerId}', 'OfferController@updateStatus');
 });

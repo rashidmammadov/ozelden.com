@@ -57,7 +57,7 @@ export class LecturesComponent implements OnInit {
         }, {
             header: 'İşlemler',
             value: 'operations',
-            button: 'trash',
+            icon_button: 'trash',
             click: (data) => this.deleteLectureConfirmDialog(data)
         }];
         await this.getLectures();

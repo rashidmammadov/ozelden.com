@@ -12,11 +12,19 @@ export class OfferService {
 
     constructor(private http: HttpClient) { }
 
-    get(): Promise<ErrorResponse | IHttpResponse> {
-        return UtilityService.pipeHttpResponse(this.http.get<IHttpResponse>(ENDPOINTS.OFFERS()));
+    get(page?: number): Promise<ErrorResponse | IHttpResponse> {
+        return UtilityService.pipeHttpResponse(this.http.get<IHttpResponse>(ENDPOINTS.OFFERS(page, null)));
+    }
+
+    getReceivedOffersCount(): Promise<ErrorResponse | IHttpResponse> {
+        return UtilityService.pipeHttpResponse(this.http.get<IHttpResponse>(ENDPOINTS.RECEIVED_OFFERS_COUNT()));
     }
 
     send(offer): Promise<ErrorResponse | IHttpResponse> {
         return UtilityService.pipeHttpResponse(this.http.post<IHttpResponse>(ENDPOINTS.OFFERS(), offer));
+    }
+
+    updateOfferStatus(offer_id: number, status): Promise<ErrorResponse | IHttpResponse> {
+        return UtilityService.pipeHttpResponse(this.http.put<IHttpResponse>(ENDPOINTS.OFFERS(null, offer_id), status));
     }
 }
