@@ -13,7 +13,6 @@ import { UtilityService } from '../../services/utility/utility.service';
 import { set } from '../../store/actions/user.action';
 import { loaded, loading } from '../../store/actions/progress.action';
 import { APP } from '../../constants/app.constant';
-import { DATE_TIME } from '../../constants/date-time.constant';
 import { REGEX } from '../../constants/regex.constant';
 import { TYPES } from '../../constants/types.constant';
 
@@ -29,14 +28,6 @@ export class RegisterComponent implements OnInit {
         {value: TYPES.TUTOR, name: 'Ders Vermek İstiyorum (Öğretmen)'},
         {value: TYPES.TUTORED, name: 'Ders Almak İstiyorum (Öğrenci)'}
     ];
-    public currentDate = new Date();
-    public days: number[] = [];
-    public months: number[] = [];
-    public years: number[] = [];
-    public selectedDay: number = 1;
-    public selectedMonth: number = 1;
-    public selectedYear: number = this.currentDate.getFullYear() - 18;
-    public MONTHS_MAP = DATE_TIME.MONTHS_MAP;
     private user: UserType;
 
     registerForm = new FormGroup({
@@ -56,19 +47,16 @@ export class RegisterComponent implements OnInit {
     });
 
     constructor(private dataService: DataService, private store: Store<{cities: CityType[], progress: boolean, user: UserType}>,
-                private authService: AuthService, private router: Router) {
-        for (let i = 1; i <= 31; i++) this.days.push(i);
-        for (let i = 1; i <= 12; i++) this.months.push(i);
-        for (let i = this.currentDate.getFullYear(); i >= this.currentDate.getFullYear() - 70; i--) this.years.push(i);
-    }
+                private authService: AuthService, private router: Router) { }
 
     ngOnInit() {
         setTimeout(() => this.getCities());
     }
 
-    public setBirthday() {
-        const birthday = new Date(this.selectedYear, this.selectedMonth - 1, this.selectedDay);
-        this.registerForm.controls.birthday.setValue(birthday.getTime().toString());
+    setBirthday(date) {
+        if (date) {
+            this.registerForm.controls.birthday.setValue(date);
+        }
     }
 
     public register = async () => {
@@ -91,21 +79,21 @@ export class RegisterComponent implements OnInit {
     };
 
     private setRegisterRequestParams() {
-        const form = this.registerForm.controls;
+        const controls = this.registerForm.controls;
         return {
-            'name': form.name.value,
-            'surname': form.surname.value,
-            'email': form.email.value,
-            'phone' : form.phone.value,
-            'type': form.type.value,
-            'password': form.password.value,
-            'password_confirmation': form.password_confirmation.value,
-            'identity_number': form.identity_number.value,
-            'sex': form.sex.value,
-            'birthday': form.birthday.value,
-            'city': form.city.value?.city_name,
-            'district': form.district.value,
-            'address': form.address.value
+            'name': controls.name.value,
+            'surname': controls.surname.value,
+            'email': controls.email.value,
+            'phone' : controls.phone.value,
+            'type': controls.type.value,
+            'password': controls.password.value,
+            'password_confirmation': controls.password_confirmation.value,
+            'identity_number': controls.identity_number.value,
+            'sex': controls.sex.value,
+            'birthday': controls.birthday.value,
+            'city': controls.city.value?.city_name,
+            'district': controls.district.value,
+            'address': controls.address.value
         }
     }
 

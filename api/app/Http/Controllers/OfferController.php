@@ -216,7 +216,7 @@ class OfferController extends ApiController {
                         return $this->respondWithError(NO_SUFFICIENT_BIDS);
                     }
                 } else {
-                    return $this->respondWithError(SOMETHING_WRONG_WITH_DB);
+                    return $this->respondWithError(NO_SUFFICIENT_BIDS);
                 }
             } else {
                 return $this->updateOfferStatus($offerId, $user, $request);

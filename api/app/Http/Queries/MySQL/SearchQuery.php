@@ -93,7 +93,10 @@ class SearchQuery extends Query {
                     $query->where(DB_ANNOUNCEMENT_TABLE.'.'.LECTURE_AREA, EQUAL_SIGN, urldecode($params[LECTURE_AREA]))
                         ->where(DB_ANNOUNCEMENT_TABLE.'.'.LECTURE_THEME, EQUAL_SIGN, 'Tüm Konular');
                 })
-                ->select('*', DB_ANNOUNCEMENT_TABLE.'.'.CITY, DB_ANNOUNCEMENT_TABLE.'.'.DISTRICT)
+                ->select('*', DB_ANNOUNCEMENT_TABLE.'.'.CITY,
+                        DB_ANNOUNCEMENT_TABLE.'.'.DISTRICT,
+                        DB_ANNOUNCEMENT_TABLE.'.'.UPDATED_AT)
+                ->orderBy(DB_ANNOUNCEMENT_TABLE.'.'.UPDATED_AT, 'desc')
                 ->paginate($itemPerPage);
             return $query;
         } catch (QueryException $e) {

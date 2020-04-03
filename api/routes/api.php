@@ -34,6 +34,7 @@ Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
     Route::get('/auth', 'UserController@refresh');
     Route::put('/auth', 'UserController@login');
     Route::post('/auth', 'UserController@register');
+    Route::put('/user', 'UserController@update');
 
     Route::get('/data/{type}', 'DataController@getData');
 
@@ -44,7 +45,7 @@ Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
     Route::get('/profile', 'ProfileController@getProfile');
     Route::put('/profile', 'ProfileController@updateProfile');
 
-    Route::post('/picture', 'ProfileController@uploadProfilePicture');
+    Route::put('/picture', 'ProfileController@uploadProfilePicture');
 
     Route::get('/search', 'SearchController@get');
 
@@ -64,4 +65,5 @@ Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
     Route::get('/received_offers_count', 'OfferController@getReceivedOffersCount');
     Route::post('/offers', 'OfferController@set');
     Route::put('/offers/{offerId}', 'OfferController@updateStatus');
+
 });

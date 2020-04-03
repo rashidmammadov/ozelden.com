@@ -64,38 +64,13 @@
                           </mat-error>
                       </mat-form-field>
 
-                      <mat-label>Cinsiyet</mat-label>
+                      <mat-label class="custom-mat-label">Cinsiyet</mat-label>
                       <mat-radio-group aria-label="Select a sex" formControlName="sex" fxFlexAlign="row" fxLayoutGap="16px">
                           <mat-radio-button value="female">Kadın</mat-radio-button>
                           <mat-radio-button value="male">Erkek</mat-radio-button>
                       </mat-radio-group>
 
-                      <div fxLayout="row" fxFlex fxLayoutGap="8px">
-                          <mat-form-field fxFlex="32%" appearance="outline">
-                              <mat-label>Gün (Doğum)</mat-label>
-                              <mat-select [(value)]="selectedDay" (valueChange)="setBirthday()">
-                                  <mat-option *ngFor="let day of days" [value]="day">
-                                      {{day}}
-                                  </mat-option>
-                              </mat-select>
-                          </mat-form-field>
-                          <mat-form-field fxFlex="32%" appearance="outline">
-                              <mat-label>Ay (Doğum)</mat-label>
-                              <mat-select [(value)]="selectedMonth" (valueChange)="setBirthday()">
-                                  <mat-option *ngFor="let month of months" [value]="month">
-                                      {{MONTHS_MAP[month - 1]}}
-                                  </mat-option>
-                              </mat-select>
-                          </mat-form-field>
-                          <mat-form-field fxFlex="33%" appearance="outline">
-                              <mat-label>Yıl (Doğum)</mat-label>
-                              <mat-select [(value)]="selectedYear" (valueChange)="setBirthday()">
-                                  <mat-option *ngFor="let year of years" [value]="year">
-                                      {{year}}
-                                  </mat-option>
-                              </mat-select>
-                          </mat-form-field>
-                      </div>
+                      <app-select-date-as-list (callback)="setBirthday($event)"></app-select-date-as-list>
 
                       <div fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="4%" fxLayoutGap.lt-md="0">
                           <mat-form-field fxFlex="48%" fxFlex.lt-md appearance="outline">
@@ -143,7 +118,8 @@
 
                       <mat-form-field appearance="outline" fxFlex>
                           <mat-label>Adres</mat-label>
-                          <textarea matInput placeholder="Adres" formControlName="address"></textarea>
+                          <textarea matInput placeholder="Adres" formControlName="address" maxlength="200"></textarea>
+                          <mat-hint align="end">{{registerForm.controls.address?.value?.length || 0}} / 200</mat-hint>
                           <mat-error *ngIf="registerForm.controls.address.hasError('required')">
                               Adres alanı boş bırakılamaz.
                           </mat-error>

@@ -26,6 +26,7 @@ import { LecturesComponent } from './components/lectures/lectures.component';
 import { LoginComponent } from './components/login/login.component';
 import { MakeOfferDialogComponent } from './components/dialogs/make-offer-dialog/make-offer-dialog.component';
 import { RegisterComponent } from './components/register/register.component';
+import { SelectDateAsListComponent } from './components/shared/select-date-as-list/select-date-as-list.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SuitabilityComponent } from './components/suitability/suitability.component';
 import { StudentCardComponent } from './components/student-card/student-card.component';
@@ -72,6 +73,7 @@ export function fetchStaticData(dataService: DataService) {
         LoginComponent,
         MakeOfferDialogComponent,
         RegisterComponent,
+        SelectDateAsListComponent,
         SettingsComponent,
         SuitabilityComponent,
         StudentCardComponent,

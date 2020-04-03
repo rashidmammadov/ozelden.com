@@ -8,11 +8,15 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 export class UploadFileComponent implements OnChanges {
     @Input() text: string;
     @Input() file: string;
-    @Input() hideButton: boolean = false;
-    @Output() callback = new EventEmitter();
+    @Input() hideSelectButton: boolean = false;
+    @Input() hideUploadButton: boolean = false;
+    @Input() height: string = '128px';
+    @Output() callbackSelection = new EventEmitter();
+    @Output() callbackUpload = new EventEmitter();
     preview: string | ArrayBuffer = this.file;
     selectedFile: File;
     selectedFileName: string;
+    disableUploadButton: boolean = true;
 
     constructor() { }
 
@@ -24,6 +28,8 @@ export class UploadFileComponent implements OnChanges {
             } else {
                 this.toBase64(changedFile);
             }
+        } else {
+            this.preview = './assets/images/logo-mini.png';
         }
     }
 
@@ -33,12 +39,20 @@ export class UploadFileComponent implements OnChanges {
             const reader = new FileReader();
             this.selectedFile = targetElement.files[0];
             this.selectedFileName = targetElement.files[0].name;
+            this.disableUploadButton = false;
 
             reader.onload = (event: ProgressEvent) => {
                 this.preview = (<FileReader>event.target).result;
                 this.changeValue(this.preview);
             };
             reader.readAsDataURL(targetElement.files[0]);
+        }
+    }
+
+    handleFileUpload(): void {
+        if (this.selectedFile) {
+            this.callbackUpload.emit(this.preview);
+            this.disableUploadButton = true;
         }
     }
 
@@ -51,7 +65,7 @@ export class UploadFileComponent implements OnChanges {
     };
 
     private changeValue(value) {
-        this.callback.emit(value);
+        this.callbackSelection.emit(value);
     }
 
 }

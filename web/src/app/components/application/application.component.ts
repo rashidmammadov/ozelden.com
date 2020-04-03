@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {select, Store} from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { OfferService } from '../../services/offer/offer.service';
 import { UtilityService } from '../../services/utility/utility.service';
 import { IHttpResponse } from '../../interfaces/i-http-response';

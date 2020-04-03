@@ -95,4 +95,27 @@ class UserQuery extends Query {
         }
     }
 
+    /**
+     * Update user`s data on db with given parameters.
+     * @param $userId - holds the user id.
+     * @param $user - holds the user data.
+     * @return bool
+     */
+    public static function update($userId, $user) {
+        try {
+            User::where(IDENTIFIER, EQUAL_SIGN, $userId)
+                ->update([
+                    NAME => !empty($user[NAME]) ? $user[NAME] : null,
+                    SURNAME => !empty($user[SURNAME]) ? $user[SURNAME] : null,
+                    EMAIL => !empty($user[EMAIL]) ? $user[EMAIL] : null,
+                    IDENTITY_NUMBER => !empty($user[IDENTITY_NUMBER]) ? $user[IDENTITY_NUMBER] : null,
+                    SEX => !empty($user[SEX]) ? $user[SEX] : null,
+                    BIRTHDAY => !empty($user[BIRTHDAY]) ? $user[BIRTHDAY] : null
+                ]);
+            return true;
+        } catch (QueryException $e) {
+            self::logException($e, debug_backtrace());
+        }
+    }
+
 }

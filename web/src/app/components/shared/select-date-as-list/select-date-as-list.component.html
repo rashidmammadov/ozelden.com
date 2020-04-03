@@ -1,0 +1,28 @@
+<div fxLayout="row" fxLayoutGap="8px">
+    <mat-form-field fxFlex="32%" appearance="outline">
+        <mat-label>Gün (Doğum)</mat-label>
+        <mat-select [(value)]="selectedDay" (valueChange)="changeSelectedDate()">
+            <mat-option *ngFor="let day of days" [value]="day">
+                {{day}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field fxFlex="32%" appearance="outline">
+        <mat-label>Ay (Doğum)</mat-label>
+        <mat-select [(value)]="selectedMonth" (valueChange)="changeSelectedDate()">
+            <mat-option *ngFor="let month of months" [value]="month">
+                {{MONTHS_MAP[month - 1]}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field fxFlex="33%" appearance="outline">
+        <mat-label>Yıl (Doğum)</mat-label>
+        <mat-select [(value)]="selectedYear" (valueChange)="changeSelectedDate()">
+            <mat-option *ngFor="let year of years" [value]="year">
+                {{year}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>

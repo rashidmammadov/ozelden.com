@@ -1,10 +1,12 @@
-<div fxLayout="column" fxLayoutGap="4px" fxLayoutAlign="center center">
+<div fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="center center">
     <mat-label *ngIf="text">{{text}}</mat-label>
-    <div class="file-container" align="center" *ngIf="preview">
+    <div class="file-container" [style]="'height:' + height" align="center" *ngIf="preview">
         <img id="image-preview" alt="{{text}}" [src]="preview">
     </div>
-    <div *ngIf="!hideButton" fxLayout="row" fxLayoutGap="4px">
-        <a mat-raised-button mat-button (click)="fileInput.click()">Dosya Seç</a>
+    <div fxLayout="row" fxLayoutGap="8px">
+        <a *ngIf="!hideSelectButton" mat-raised-button (click)="fileInput.click()">Dosya Seç</a>
+        <a *ngIf="!hideUploadButton" mat-raised-button color="primary" (click)="handleFileUpload()"
+            [disabled]="disableUploadButton">Yükle</a>
     </div>
     <input #fileInput id="image-input" type="file" accept="image/*" (change)="handleFileSelection($event)" [hidden]="true">
 </div>

@@ -150,6 +150,42 @@ class UserController extends ApiController {
     }
 
     /**
+     * Handle request to update given user`s data.
+     * @param Request $request
+     * @return mixed
+     */
+    public function update(Request $request) {
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+            $userId = $user[IDENTIFIER];
+            $rules = array (
+                NAME => 'required|max:100',
+                SURNAME => 'required|max:100',
+                EMAIL => 'required|email|max:100',
+                IDENTITY_NUMBER => 'required|max:11',
+                SEX => 'required|max:10',
+                BIRTHDAY => 'required'
+            );
+
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return $this->respondValidationError(FIELDS_VALIDATION_FAILED, $validator->errors());
+            } else {
+                $userUpdated = UserQuery::update($userId, $request);
+                if ($userUpdated) {
+                    return $this->respondCreated(CHANGES_UPDATED_SUCCESSFULLY);
+                } else {
+                    return $this->respondWithError(SOMETHING_WRONG_WITH_DB);
+                }
+            }
+        } catch (JWTException $e) {
+            $this->setStatusCode(401);
+            $this->setMessage(AUTHENTICATION_ERROR);
+            return $this->respondWithError($e->getMessage());
+        }
+    }
+
+    /**
      * Sign user if exist and send email if user registered.
      * @param Request $request
      * @param boolean $newUser
