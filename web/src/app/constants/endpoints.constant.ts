@@ -10,6 +10,7 @@ export const ENDPOINTS = {
     PAID: () => `${PREFIX}paid`,
     PICTURE: () => `${PREFIX}picture`,
     PROFILE: () => `${PREFIX}profile`,
+    MISSING_FIELDS: () => `${PREFIX}missing_fields`,
     RECEIVED_OFFERS_COUNT: () => `${PREFIX}received_offers_count`,
     SEARCH: (queryParams?: string) => `${PREFIX}search?${queryParams}`,
     STUDENTS: (studentId?: number) => `${PREFIX}students` + (studentId ? `/${studentId}` : ''),

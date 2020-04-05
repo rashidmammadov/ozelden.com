@@ -47,6 +47,7 @@ export class AppComponent {
 
     private setSvgIcons() {
         const svgArray: string[] = [
+            'alert-triangle',
             'announcement',
             'bad',
             'bell',

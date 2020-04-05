@@ -9,6 +9,22 @@ use Illuminate\Support\Facades\Log;
 class ProfileQuery extends Query {
 
     /**
+     * Check if given user`s has picture.
+     * @param $userId - holds the user id.
+     * @return mixed
+     */
+    public static function checkPicture($userId) {
+        try {
+            $query = Profile::where(USER_ID, EQUAL_SIGN, $userId)
+                ->where(PICTURE, NOT_EQUAL_SIGN, null)
+                ->exists();
+            return $query;
+        } catch (QueryException $e) {
+            self::logException($e, debug_backtrace());
+        }
+    }
+
+    /**
      * Get profile detail of user by given user`s id.
      * @param $userId - holds the user id.
      * @return mixed

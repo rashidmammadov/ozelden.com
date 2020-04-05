@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { OfferService } from '../../services/offer/offer.service';
+import { UserService } from '../../services/user/user.service';
 import { UtilityService } from '../../services/utility/utility.service';
 import { IHttpResponse } from '../../interfaces/i-http-response';
 import { UserType } from '../../interfaces/user-type';
@@ -20,7 +21,7 @@ export class ApplicationComponent implements OnInit {
     buttons = [];
 
     constructor(private store: Store<{offersCount: number, user: UserType}>,
-                private offerService: OfferService) {
+                private offerService: OfferService, private userService: UserService) {
         store.pipe(select('offersCount')).subscribe(data => {
             setTimeout(() => this.offersCount = data, 0);
         });

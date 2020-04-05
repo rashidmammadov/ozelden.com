@@ -4,6 +4,7 @@ import { first } from 'rxjs/operators';
 import { IHttpResponse } from '../../interfaces/i-http-response';
 import { SuitabilityService} from '../../services/suitability/suitability.service';
 import { ToastService } from '../../services/toast/toast.service';
+import { UserService } from '../../services/user/user.service';
 import { UtilityService } from '../../services/utility/utility.service';
 import { CityType } from '../../interfaces/city-type';
 import { CourseType } from '../../interfaces/course-type';
@@ -33,7 +34,7 @@ export class SuitabilityComponent implements OnInit {
         regions: false
     };
 
-    constructor(private suitabilityService: SuitabilityService,
+    constructor(private suitabilityService: SuitabilityService, private userService: UserService,
                 private store: Store<{cities: CityType[], progress: boolean}>) { }
 
     async ngOnInit() {
@@ -49,6 +50,9 @@ export class SuitabilityComponent implements OnInit {
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             ToastService.show(response.message);
             this.watchingSuitableChange(type, false);
+            if (type === 'regions') {
+                this.userService.updateMissingFields('region', !(this.regions && this.regions.length));
+            }
         });
         this.store.select(loaded);
     }

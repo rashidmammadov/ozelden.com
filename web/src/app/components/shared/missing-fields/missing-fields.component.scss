@@ -1,0 +1,16 @@
+.missing-fields {
+    position: relative;
+    z-index: 9;
+    width: 30% !important;
+    display: inline !important;
+    .missing-field {
+        background-color: rgba(211,166,125,0.14);
+        border: 1px solid #d3a67d;
+        opacity: 0.9;
+        color: #d3a67d;
+        position: relative;
+        margin-bottom: 8px;
+        max-width: 100% !important;
+        font-size: 14px;
+    }
+}

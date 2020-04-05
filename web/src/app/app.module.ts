@@ -22,9 +22,11 @@ import { GridListComponent } from './components/shared/grid-list/grid-list.compo
 import { OffersComponent } from './components/offers/offers.component';
 import { PaidServiceComponent } from './components/paid-service/paid-service.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { PieChartComponent } from './components/graphs/pie-chart/pie-chart.component';
 import { LecturesComponent } from './components/lectures/lectures.component';
 import { LoginComponent } from './components/login/login.component';
 import { MakeOfferDialogComponent } from './components/dialogs/make-offer-dialog/make-offer-dialog.component';
+import { MissingFieldsComponent } from './components/shared/missing-fields/missing-fields.component';
 import { RegisterComponent } from './components/register/register.component';
 import { SelectDateAsListComponent } from './components/shared/select-date-as-list/select-date-as-list.component';
 import { SettingsComponent } from './components/settings/settings.component';
@@ -43,6 +45,7 @@ import { UtilityService } from './services/utility/utility.service';
 
 import { citiesReducer } from './store/reducers/cities.reducer';
 import { lecturesReducer } from './store/reducers/lectures.reducer';
+import { missingFieldsReducer } from './store/reducers/missing-fields.reducer';
 import { offersCountReducer } from './store/reducers/offers-count.reducer';
 import { progressReducer } from './store/reducers/progress.reducer';
 import { userReducer } from './store/reducers/user.reducer';
@@ -68,10 +71,12 @@ export function fetchStaticData(dataService: DataService) {
         GridListComponent,
         OffersComponent,
         PaidServiceComponent,
+        PieChartComponent,
         ProfileComponent,
         LecturesComponent,
         LoginComponent,
         MakeOfferDialogComponent,
+        MissingFieldsComponent,
         RegisterComponent,
         SelectDateAsListComponent,
         SettingsComponent,
@@ -94,6 +99,7 @@ export function fetchStaticData(dataService: DataService) {
         StoreModule.forRoot({
             cities: citiesReducer,
             lectures: lecturesReducer,
+            missingFields: missingFieldsReducer,
             offersCount: offersCountReducer,
             progress: progressReducer,
             user: userReducer

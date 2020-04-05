@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Models\MissingFieldsModel;
 use App\Http\Models\UserModel;
 use App\Http\Queries\MySQL\ProfileQuery;
+use App\Http\Queries\MySQL\SuitabilityQuery;
+use App\Http\Queries\MySQL\TutorLectureQuery;
 use App\Http\Queries\MySQL\UserQuery;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response as Res;
@@ -13,6 +16,44 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use Validator;
 
 class UserController extends ApiController {
+
+    /**
+     * Handle request to returns user`s missing fields.
+     * @return mixed
+     */
+    public function getMissingFields() {
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+            $userId = $user[IDENTIFIER];
+            $userType = $user[TYPE];
+
+            $missingFields = new MissingFieldsModel();
+            if ($userType == TUTOR) {
+                $picture = ProfileQuery::checkPicture($userId);
+                $lectures = TutorLectureQuery::get($userId);
+                $regions = SuitabilityQuery::getRegions($userId);
+                if (!$picture) {
+                    $missingFields->setPicture(true);
+                }
+                if (!$lectures || !count($lectures)) {
+                    $missingFields->setLecture(true);
+                }
+                if (!$regions || !count($regions)) {
+                    $missingFields->setRegion(true);
+                }
+            } else if ($userType == TUTORED) {
+                $picture = ProfileQuery::checkPicture($userId);
+                if (!$picture) {
+                    $missingFields->setPicture(true);
+                }
+            }
+            return $this->respondCreated('', $missingFields->get());
+        } catch (JWTException $e) {
+            $this->setStatusCode(401);
+            $this->setMessage(AUTHENTICATION_ERROR);
+            return $this->respondWithError($e->getMessage());
+        }
+    }
 
     /**
      * Authorized user to login.

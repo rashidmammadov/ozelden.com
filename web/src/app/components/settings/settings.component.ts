@@ -59,6 +59,7 @@ export class SettingsComponent implements OnInit {
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             ToastService.show(response.message);
             this.profile.picture = response.data;
+            this.userService.updateMissingFields('picture', false);
         });
         this.store.select(loaded);
     };

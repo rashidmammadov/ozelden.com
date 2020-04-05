@@ -6,10 +6,12 @@ import { first } from 'rxjs/operators';
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogType } from '../../interfaces/confirm-dialog-type';
 import { LectureType } from '../../interfaces/lecture-type';
+import { MissingFieldsType } from '../../interfaces/missing-fields-type';
 import { TableColumnType } from '../../interfaces/table-column-type';
 import { TutorLectureType } from '../../interfaces/tutor-lecture-type';
 import { IHttpResponse } from '../../interfaces/i-http-response';
 import { LectureService } from '../../services/lecture/lecture.service';
+import { UserService } from '../../services/user/user.service';
 import { UtilityService } from '../../services/utility/utility.service';
 import { ToastService } from '../../services/toast/toast.service';
 import { loaded, loading } from '../../store/actions/progress.action';
@@ -31,8 +33,10 @@ export class LecturesComponent implements OnInit {
         price: new FormControl('', [Validators.required])
     });
     tutorLectures: TutorLectureType[];
+    missingFields: MissingFieldsType;
 
-    constructor(private store: Store<{lectures: LectureType[], progress: boolean}>, private lectureService: LectureService,
+    constructor(private store: Store<{missingFields: MissingFieldsType, lectures: LectureType[], progress: boolean}>,
+                private lectureService: LectureService, private userService: UserService,
                 private dialog: MatDialog) { }
 
     async ngOnInit() {
@@ -71,6 +75,7 @@ export class LecturesComponent implements OnInit {
             const result = await this.lectureService.addTutorLecture(this.setLectureRequestParams());
             UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
                 lecturesList.push(response.data);
+                this.userService.updateMissingFields('lecture', false);
             });
             this.store.select(loaded);
             this.tutorLectures = lecturesList;
@@ -123,6 +128,7 @@ export class LecturesComponent implements OnInit {
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             ToastService.show(response.message);
             lecturesList = lecturesList.filter(lecture => lecture.tutor_lecture_id !== tutor_lecture_id);
+            this.userService.updateMissingFields('lecture', true);
         });
         this.store.select(loaded);
         this.tutorLectures = lecturesList;
