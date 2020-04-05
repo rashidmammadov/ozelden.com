@@ -13,5 +13,11 @@ export const TYPES = {
     OFFER_TYPE: {
         'offer-in': 'Gelen',
         'offer-out': 'Gönderilen'
+    },
+
+    GENDERS: {
+        'female': 'Kadın',
+        'male': 'Erkek'
     }
+
 };

@@ -25,6 +25,8 @@ export class HomeComponent implements OnInit {
     cities: CityType[] = [];
     lectures: LectureType[] = [];
     searchResult: InfoType[] = [];
+    pieChartData;
+    barChartData;
     genders = SELECTORS.GENDERS;
     orders = SELECTORS.ORDERS;
     gendersMap = {};
@@ -60,6 +62,9 @@ export class HomeComponent implements OnInit {
         await this.getCities();
         await this.getLectures();
         await this.search(true);
+        this.pieChartData = [{key: 'male', value: '52'}, {key: 'female', value: '48'}];
+        this.barChartData = [{key: '<50', value: 20}, {key: '50-100', value: 48}, {key: '100-150', value: 5},
+            {key: '150-200', value: 10}, {key: '>200', value: 1}];
     }
 
     async getCities() {

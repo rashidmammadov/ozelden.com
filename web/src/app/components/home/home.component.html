@@ -105,8 +105,12 @@
         </mat-card-content>
     </mat-card>
 
-    <div fxLayout="row" fxFlex>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
         <app-grid-list fxFlex="50" fxFlex.lt-md="100" [data]="searchResult" [column]="1" [item]="'app-info-card'"></app-grid-list>
+        <mat-card class="mat-elevation-z4" fxLayout="row" fxLayout.lt-md="column" fxFlex="50" fxFlex.lt-md="100">
+            <app-pie-chart fxFlex [data]="pieChartData"></app-pie-chart>
+            <app-bar-chart-horizontal fxFlex [data]="barChartData"></app-bar-chart-horizontal>
+        </mat-card>
     </div>
 
     <button class="announcement-button" matTooltip="İlan Olarak Kaydet" mat-fab [disabled]="!searchForm.valid"

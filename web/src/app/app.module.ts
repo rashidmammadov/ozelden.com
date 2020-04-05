@@ -12,6 +12,7 @@ import { AppComponent } from './components/app/app.component';
 import { ApplicationComponent } from './components/application/application.component';
 import { AddAnnouncementComponentBottomSheet } from './components/sheets/add-announcement-bottom-sheet/add-announcement-component-bottom-sheet.component';
 import { AskOfferDialogComponent } from './components/dialogs/ask-offer-dialog/ask-offer-dialog.component';
+import { BarChartHorizontalComponent } from './components/graphs/bar-chart-horizontal/bar-chart-horizontal.component';
 import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
 import { DecideOfferDialogComponent } from './components/dialogs/decide-offer-dialog/decide-offer-dialog.component';
 import { DepositDialogComponent } from './components/dialogs/deposit-dialog/deposit-dialog.component';
@@ -62,6 +63,7 @@ export function fetchStaticData(dataService: DataService) {
         ApplicationComponent,
         AddAnnouncementComponentBottomSheet,
         AskOfferDialogComponent,
+        BarChartHorizontalComponent,
         ConfirmDialogComponent,
         DecideOfferDialogComponent,
         DepositDialogComponent,

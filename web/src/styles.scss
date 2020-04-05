@@ -101,3 +101,39 @@ p.small { font-size: 12px; color: #909090; margin: 4px; }
 table.mat-table {
     width: 100%;
 }
+
+.bar-chart-horizontal {
+    .bar {
+        fill: $main-color;
+    }
+    .label {
+        font-size: 12px;
+        &.inner {
+            fill: #fff;
+            text-anchor: end;
+        }
+        &.outer {
+            fill: #555555;
+            text-anchor: start;
+        }
+    }
+    .tick {
+        text { font-size: 9px; fill: #555555; }
+    }
+}
+
+.pie-chart {
+    .slices {
+        path.focus { transition: ease .3s; transform: scale(1.05); }
+    }
+    .labels {
+        text { font-size: 12px; fill: #555555; }
+    }
+    .lines {
+        polyline { fill: none; stroke: #555555; stroke-width: 1px; }
+    }
+    .legend {
+        text { fill: #555555; text-anchor: middle; font-size: 12px; }
+        text.value { font-size: 16px; font-weight: bold; }
+    }
+}
