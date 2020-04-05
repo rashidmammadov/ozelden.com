@@ -78,7 +78,9 @@ export class AppComponent {
             'sliders',
             'star',
             'students',
+            'target',
             'trash',
+            'trending-up',
             'user-plus',
             'x-circle'
         ];

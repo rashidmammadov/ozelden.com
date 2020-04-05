@@ -22,7 +22,7 @@
     </table>
     <mat-card *ngIf="pagination" class="custom-pagination" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
         <span>Toplam: {{pagination.total_data}}</span>
-        <button [disabled]="pagination.total_page <= 1" (click)="changePage(pagination.current_page - 1)"
+        <button [disabled]="pagination.current_page === 1" (click)="changePage(pagination.current_page - 1)"
                 mat-icon-button>
             <mat-icon svgIcon="left-chevron"></mat-icon>
         </button>

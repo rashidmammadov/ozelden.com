@@ -17,6 +17,7 @@ class SearchModel {
     private $lectures;
     private $expectation;
     private $student;
+    private $boost;
 
     public function __construct($parameters = null) {
         if ($parameters) {
@@ -49,7 +50,8 @@ class SearchModel {
             REGIONS => $this->getRegions(),
             LECTURES => $this->getLectures(),
             EXPECTATION => $this->getExpectation(),
-            STUDENT => $this->getStudent()
+            STUDENT => $this->getStudent(),
+            BOOST => $this->getBoost()
         );
     }
 
@@ -156,6 +158,14 @@ class SearchModel {
 
     public function setStudent($student): void {
         $this->student = $student;
+    }
+
+    public function getBoost() {
+        return $this->boost;
+    }
+
+    public function setBoost($boost): void {
+        $this->boost = $boost;
     }
 
 }

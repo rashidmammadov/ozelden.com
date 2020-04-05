@@ -3,6 +3,7 @@
 namespace App\Http\Queries\MySQL;
 
 use App\Announcement;
+use App\Http\Utilities\CustomDate;
 use App\SuitableRegion;
 use App\User;
 use Illuminate\Database\QueryException;
@@ -37,6 +38,10 @@ class SearchQuery extends Query {
                 ->leftJoin(DB_AVERAGE_TABLE, function ($join) {
                     $join->on(DB_AVERAGE_TABLE.'.'.USER_ID, EQUAL_SIGN, DB_TUTOR_LECTURE_TABLE.'.'.TUTOR_ID);
                 })
+                ->leftJoin(DB_PAID_SERVICE_TABLE, function ($join) {
+                    $join->on(DB_PAID_SERVICE_TABLE.'.'.TUTOR_ID, EQUAL_SIGN, DB_TUTOR_LECTURE_TABLE.'.'.TUTOR_ID)
+                        ->where(DB_PAID_SERVICE_TABLE.'.'.BOOST, EQUAL_OR_GREATER_SIGN, CustomDate::currentMilliseconds());
+                })
                 ->where(function ($query) use ($params) {
                     $query->where(DB_TUTOR_LECTURE_TABLE.'.'.LECTURE_AREA, EQUAL_SIGN, urldecode($params[LECTURE_AREA]));
                     if (!is_null($params[LECTURE_THEME])) {
@@ -51,8 +56,9 @@ class SearchQuery extends Query {
                     $query->where(DB_TUTOR_LECTURE_TABLE.'.'.LECTURE_AREA, EQUAL_SIGN, urldecode($params[LECTURE_AREA]))
                         ->where(DB_TUTOR_LECTURE_TABLE.'.'.LECTURE_THEME, EQUAL_SIGN, 'Tüm Konular');
                 })
+                ->orderBy(DB_PAID_SERVICE_TABLE.'.'.BOOST, 'desc')
                 ->orderBy($orderColumn, $orderType)
-                ->select(DB_SUITABLE_REGION_TABLE.'.'.TUTOR_ID)
+                ->select(DB_SUITABLE_REGION_TABLE.'.'.TUTOR_ID, DB_PAID_SERVICE_TABLE.'.'.BOOST)
                 ->distinct(DB_SUITABLE_REGION_TABLE.'.'.TUTOR_ID)
                 ->paginate($itemPerPage);
             return $query;

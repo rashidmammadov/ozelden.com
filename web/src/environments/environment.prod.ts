@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    api: 'http://localhost:8000/api/v1/',
+    api: 'https://api.ozelden.com/api/v1/',
 };

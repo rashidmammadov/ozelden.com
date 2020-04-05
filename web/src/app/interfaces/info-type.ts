@@ -19,4 +19,5 @@ export interface InfoType {
     lectures?: TutorLectureType[];
     expectation?: ExpectationType;
     student?: StudentType;
+    boost?: boolean;
 }

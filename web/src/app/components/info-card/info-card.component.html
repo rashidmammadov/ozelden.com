@@ -9,7 +9,10 @@
                 <span *ngIf="data.age" class="age" [matTooltip]="data.age + ' yaş'">{{data.age}}<br>yaş</span>
             </div>
             <p *ngIf="data.profession" class="title" matTooltip="Meslek">{{data.profession}}</p>
-            <p class="full-name">{{data.name}} {{data.surname}}</p>
+            <p class="full-name" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+                <span>{{data.name}} {{data.surname}}</span>
+                <mat-icon *ngIf="data.boost" matTooltip="Öne Çıkan" svgIcon="trending-up"></mat-icon>
+            </p>
             <div *ngIf="data.average" class="overall" fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="32px">
                 <div *ngIf="data.average.ranking_avg" class="ranking"
                      [matTooltip]="data.average.ranking_avg + ' Ortalama Puan'">

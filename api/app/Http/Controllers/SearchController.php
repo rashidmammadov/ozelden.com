@@ -46,6 +46,8 @@ class SearchController extends ApiController {
                     if ($tutorConnectionsFromDB && count($tutorConnectionsFromDB)) {
                         $searchResult = new SearchModel($tutorConnectionsFromDB[0]);
 
+                        !is_null($item[BOOST]) && $searchResult->setBoost(true);
+
                         $average = new AverageModel($tutorConnectionsFromDB[0]);
                         $searchResult->setAverage($average->get());
 
