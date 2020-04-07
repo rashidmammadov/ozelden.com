@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { Store } from '@ngrx/store';
 import { UtilityService } from '../../services/utility/utility.service';
+import { ReportService } from '../../services/report/report.service';
 import { SearchService } from '../../services/search/search.service';
 import { AddAnnouncementComponentBottomSheet } from '../sheets/add-announcement-bottom-sheet/add-announcement-component-bottom-sheet.component';
 import { CityType } from '../../interfaces/city-type';
@@ -25,6 +26,7 @@ export class HomeComponent implements OnInit {
     cities: CityType[] = [];
     lectures: LectureType[] = [];
     searchResult: InfoType[] = [];
+    reports: {total_count: number, average_price: number, gender_distribution: any, price_distribution: any} = {};
     pieChartData;
     barChartData;
     genders = SELECTORS.GENDERS;
@@ -52,7 +54,8 @@ export class HomeComponent implements OnInit {
     });
 
     constructor(private store: Store<{cities: CityType[], lectures: LectureType[], progress: boolean, user: UserType}>,
-                private searchService: SearchService, private bottomSheet: MatBottomSheet) {
+                private searchService: SearchService, private bottomSheet: MatBottomSheet,
+                private reportService: ReportService) {
         SELECTORS.GENDERS.forEach(gender => { this.gendersMap[gender.value] = gender.name; });
         SELECTORS.ORDERS.forEach(gender => { this.ordersMap[gender.value] = gender.name; });
     }
@@ -62,9 +65,7 @@ export class HomeComponent implements OnInit {
         await this.getCities();
         await this.getLectures();
         await this.search(true);
-        this.pieChartData = [{key: 'male', value: '52'}, {key: 'female', value: '48'}];
-        this.barChartData = [{key: '<50', value: 20}, {key: '50-100', value: 48}, {key: '100-150', value: 5},
-            {key: '150-200', value: 10}, {key: '>200', value: 1}];
+        await this.fetchReports();
     }
 
     async getCities() {
@@ -118,11 +119,35 @@ export class HomeComponent implements OnInit {
             }
         });
         this.store.select(loaded);
+        if (clear) {
+            this.fetchReports();
+        }
+    };
+
+    private fetchReports = async () => {
+        const result = await this.reportService.get(null, this.setReportRequestParams());
+        UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
+            this.reports.total_count = response.data.total_count;
+            this.reports.average_price = response.data.average_price;
+            this.reports.gender_distribution = response.data.gender_distribution;
+            this.reports.price_distribution = response.data.price_distribution;
+        });
     };
 
     private getUser = async () => {
         this.user = await this.store.select('user').pipe(first()).toPromise();
     };
+
+    private setReportRequestParams() {
+        const form = this.searchForm.controls;
+        return {
+            'city': form.city.value?.city_name,
+            'district': form.district.value?.toLowerCase() !== 'hepsi' ? form.district.value : null,
+            'lecture_area': form.lecture_area.value?.lecture_area,
+            'lecture_theme': form.lecture_theme.value?.lecture_theme.toLowerCase() !== 'tüm konular' ?
+              form.lecture_theme.value?.lecture_theme : null
+        }
+    }
 
     private setSearchRequestParams() {
         const form = this.searchForm.controls;

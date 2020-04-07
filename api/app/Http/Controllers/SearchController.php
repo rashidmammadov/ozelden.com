@@ -11,7 +11,6 @@ use App\Http\Models\TutorLectureModel;
 use App\Http\Queries\MySQL\SearchQuery;
 use App\Http\Queries\MySQL\StudentQuery;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 

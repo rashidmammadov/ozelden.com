@@ -49,6 +49,9 @@ Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
 
     Route::put('/picture', 'ProfileController@uploadProfilePicture');
 
+    Route::get('/reports', 'ReportController@get');
+    Route::get('/reports/{type}', 'ReportController@get');
+
     Route::get('/search', 'SearchController@get');
 
     Route::delete('/students/{student_id}', 'StudentController@delete');

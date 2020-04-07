@@ -12,6 +12,8 @@ export const ENDPOINTS = {
     PROFILE: () => `${PREFIX}profile`,
     MISSING_FIELDS: () => `${PREFIX}missing_fields`,
     RECEIVED_OFFERS_COUNT: () => `${PREFIX}received_offers_count`,
+    REPORTS: (type?: string, queryParams?: string) => `${PREFIX}reports` + (type ? `/${type}` : '') +
+        (queryParams ? `?${queryParams}` : ''),
     SEARCH: (queryParams?: string) => `${PREFIX}search?${queryParams}`,
     STUDENTS: (studentId?: number) => `${PREFIX}students` + (studentId ? `/${studentId}` : ''),
     SUITABILITIES: (type?: string) => `${PREFIX}suitabilities` + (type ? `/${type}` : ''),
