@@ -121,8 +121,8 @@ export class BarChartHorizontalComponent implements OnChanges {
         d3.select('app-bar-chart-horizontal .bar[bar="' + d.key + '"]').attr('opacity', 1);
 
         const event = d3.event;
-        tooltip.style('left', GraphService.getTooltipXPosition(event, margin, width))
-            .style('top', GraphService.getTooltipYPosition(event, margin))
+        tooltip.style('left', GraphService.getTooltipXPosition(event))
+            .style('top', GraphService.getTooltipYPosition(event))
             .style('display', 'inline-block')
             .html(GraphService.prepareTooltipHTML(d));
     }

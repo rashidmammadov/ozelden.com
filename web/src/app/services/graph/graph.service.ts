@@ -17,12 +17,12 @@ export class GraphService {
         return HTMLTags.join('<br/>');
     }
 
-    public static getTooltipXPosition(event, margin, width) {
+    public static getTooltipXPosition(event) {
         let xPosition = event.layerX + 16;
         return `${xPosition}px`;
     }
 
-    public static getTooltipYPosition(event, margin) {
+    public static getTooltipYPosition(event) {
         let yPosition = event.layerY + 16;
         return `${yPosition}px`;
     }
