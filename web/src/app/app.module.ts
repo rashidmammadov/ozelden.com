@@ -52,6 +52,7 @@ import { progressReducer } from './store/reducers/progress.reducer';
 import { userReducer } from './store/reducers/user.reducer';
 
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import {GraphService} from "./services/graph/graph.service";
 
 export function fetchStaticData(dataService: DataService) {
     return () => dataService.saveOnStore();
@@ -127,6 +128,7 @@ export function fetchStaticData(dataService: DataService) {
 export class AppModule {
     constructor(private injector: Injector) {
         Cookie.injector = injector;
+        GraphService.injector = injector;
         UtilityService.injector = injector;
         ToastService.injector = injector;
     }

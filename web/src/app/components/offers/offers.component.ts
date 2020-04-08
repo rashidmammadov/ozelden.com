@@ -32,7 +32,7 @@ export class OffersComponent implements OnInit {
     }, {
         header: 'Teklif Gönderen',
         value: 'sender',
-        calc: (d: UserType) => d && d.id !== this.user.id ? `${d.name} ${d.surname}` : 'Ben'
+        calc: (d: UserType) => d && Number(d.id) !== Number(this.user.id) ? `${d.name} ${d.surname}` : 'Ben'
     }, {
         header: 'Öğrenci',
         value: 'student',
@@ -40,7 +40,7 @@ export class OffersComponent implements OnInit {
     }, {
         header: 'Teklif Alan',
         value: 'receiver',
-        calc: (d: UserType) => d && d.id !== this.user.id ? `${d.name} ${d.surname}` : 'Ben'
+        calc: (d: UserType) => d && Number(d.id) !== Number(this.user.id) ? `${d.name} ${d.surname}` : 'Ben'
     }, {
         header: 'Teklif Verilen Ders',
         value: 'tutor_lecture',

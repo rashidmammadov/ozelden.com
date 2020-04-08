@@ -50,6 +50,10 @@ export class UtilityService {
         }
     }
 
+    public static isValid(value) {
+        return value !== null && value !== undefined;
+    }
+
     public static parseBase64(base64: string, type?: string) {
         let result = {base64: null, file_type: null};
         const additional = type ? type.length + 1 : 0;

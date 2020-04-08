@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostListener, Input, OnChanges, ViewChild } from '@angular/core';
 import * as d3 from 'd3';
+import {GraphService} from "../../../services/graph/graph.service";
 
 let element;
 let svg;
@@ -9,6 +10,7 @@ let margin: { top: number, right: number, bottom: number, left: number };
 let xAxis;
 let yAxis;
 let maxValue;
+let tooltip;
 const DIVIDER = 16;
 @Component({
     selector: 'app-bar-chart-horizontal',
@@ -57,6 +59,11 @@ export class BarChartHorizontalComponent implements OnChanges {
         svg = d3.select(element).append('svg').classed('bar-chart-horizontal', true)
             .attr('width', width).attr('height', height)
             .append('g').attr('transform', 'translate(' + margin.left * 3 + ',' + 0 + ')');
+
+        d3.select('app-bar-chart-horizontal .directive-tooltip').remove();
+        tooltip = d3.select(element).append('div')
+            .attr('class', 'directive-tooltip')
+            .style('display', 'none');
     }
 
     private draw(data) {
@@ -78,9 +85,13 @@ export class BarChartHorizontalComponent implements OnChanges {
 
             bars.enter().append('rect')
                 .attr('class', 'bar')
+                .attr('bar', (d) => d.key)
                 .attr('width', (d) => {return xAxis(d.value); } )
                 .attr('y', (d) => { return yAxis(d.key); })
-                .attr('height', yAxis.bandwidth());
+                .attr('height', yAxis.bandwidth())
+                .on('mouseover', this.mouseover)
+                .on('mousemove', this.mouseover)
+                .on('mouseout', this.mouseout);
 
             bars.exit().remove();
     }
@@ -103,6 +114,22 @@ export class BarChartHorizontalComponent implements OnChanges {
     private drawYAxis() {
         svg.append('g')
             .call(d3.axisLeft(yAxis));
+    }
+
+    mouseover(d) {
+        d3.selectAll('app-bar-chart-horizontal .bar').attr('opacity', 0.5);
+        d3.select('app-bar-chart-horizontal .bar[bar="' + d.key + '"]').attr('opacity', 1);
+
+        const event = d3.event;
+        tooltip.style('left', GraphService.getTooltipXPosition(event, margin, width))
+            .style('top', GraphService.getTooltipYPosition(event, margin))
+            .style('display', 'inline-block')
+            .html(GraphService.prepareTooltipHTML(d));
+    }
+
+    mouseout() {
+        d3.selectAll('app-bar-chart-horizontal .bar').attr('opacity', 1);
+        tooltip.style('display', 'none');
     }
 
 }

@@ -9,6 +9,7 @@ import { AddAnnouncementComponentBottomSheet } from '../sheets/add-announcement-
 import { CityType } from '../../interfaces/city-type';
 import { IHttpResponse } from '../../interfaces/i-http-response';
 import { InfoType } from '../../interfaces/info-type';
+import { OverallReportType } from '../../interfaces/overall-report-type';
 import { LectureType } from '../../interfaces/lecture-type';
 import { UserType } from '../../interfaces/user-type';
 import { first } from 'rxjs/operators';
@@ -26,9 +27,7 @@ export class HomeComponent implements OnInit {
     cities: CityType[] = [];
     lectures: LectureType[] = [];
     searchResult: InfoType[] = [];
-    reports: {total_count: number, average_price: number, gender_distribution: any, price_distribution: any} = {};
-    pieChartData;
-    barChartData;
+    reports: OverallReportType = <OverallReportType>{};
     genders = SELECTORS.GENDERS;
     orders = SELECTORS.ORDERS;
     gendersMap = {};
@@ -127,10 +126,10 @@ export class HomeComponent implements OnInit {
     private fetchReports = async () => {
         const result = await this.reportService.get(null, this.setReportRequestParams());
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
-            this.reports.total_count = response.data.total_count;
-            this.reports.average_price = response.data.average_price;
-            this.reports.gender_distribution = response.data.gender_distribution;
-            this.reports.price_distribution = response.data.price_distribution;
+            this.reports.total_count = response.data.total_count || 0;
+            this.reports.average_price = response.data.average_price || 0;
+            this.reports.gender_distribution = response.data.gender_distribution || [];
+            this.reports.price_distribution = response.data.price_distribution || [];
         });
     };
 

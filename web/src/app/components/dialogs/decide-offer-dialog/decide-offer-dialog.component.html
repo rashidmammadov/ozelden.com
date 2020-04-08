@@ -17,19 +17,19 @@
                 Kalan teklif hakkınız: <b>{{remainingBids}}</b>
             </span>
         </div>
-        <div *ngIf="user && user.id === data.receiver.id">
-            <p class="small">*Bu teklifi onaylarsanız kullanıcı sizin iletişim bilgilerinize ulaşabilecek.</p>
-            <p *ngIf="user.type === TYPES.TUTOR" class="small">*Bu teklifi onaylamak için hesabınızda teklif hakkı bulunması gerekiyor.</p>
-            <p *ngIf="user.type === TYPES.TUTOR" class="small">*<b>Hizmetler</b> sayfasından daha fazla teklif hakkı ekleyebilirsiniz.</p>
+        <div *ngIf="user && user.id.toFixed() === data.receiver.id.toFixed()">
+            <p class="small">* Bu teklifi onaylarsanız kullanıcı sizin iletişim bilgilerinize ulaşabilecek.</p>
+            <p *ngIf="user.type === TYPES.TUTOR" class="small">* Bu teklifi onaylamak için hesabınızda teklif hakkı bulunması gerekiyor.</p>
+            <p *ngIf="user.type === TYPES.TUTOR" class="small">* <b>Hizmetler</b> sayfasından daha fazla teklif hakkı ekleyebilirsiniz.</p>
         </div>
     </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button *ngIf="user && user.id === data.receiver.id" class="button-green" mat-raised-button
+    <button *ngIf="user && user.id.toFixed() === data.receiver.id.toFixed()" class="button-green" mat-raised-button
             (click)="makeDecideForOffer(1)" [disabled]="data.status !== 0">
         <mat-icon svgIcon="like"></mat-icon> Onayla
     </button>
-    <button *ngIf="user && user.id === data.receiver.id" class="button-red" mat-raised-button
+    <button *ngIf="user && user.id.toFixed() === data.receiver.id.toFixed()" class="button-red" mat-raised-button
             (click)="makeDecideForOffer(99)" [disabled]="data.status !== 0">
         <mat-icon svgIcon="dislike"></mat-icon> Reddet
     </button>
