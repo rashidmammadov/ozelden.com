@@ -18,6 +18,7 @@ class SearchModel {
     private $expectation;
     private $student;
     private $boost;
+    private $recommend;
 
     public function __construct($parameters = null) {
         if ($parameters) {
@@ -51,7 +52,8 @@ class SearchModel {
             LECTURES => $this->getLectures(),
             EXPECTATION => $this->getExpectation(),
             STUDENT => $this->getStudent(),
-            BOOST => $this->getBoost()
+            BOOST => $this->getBoost(),
+            RECOMMEND => $this->getRecommend()
         );
     }
 
@@ -166,6 +168,14 @@ class SearchModel {
 
     public function setBoost($boost): void {
         $this->boost = $boost;
+    }
+
+    public function getRecommend() {
+        return $this->recommend;
+    }
+
+    public function setRecommend($recommend): void {
+        $this->recommend = $recommend;
     }
 
 }

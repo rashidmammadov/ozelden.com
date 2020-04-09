@@ -20,4 +20,5 @@ export interface InfoType {
     expectation?: ExpectationType;
     student?: StudentType;
     boost?: boolean;
+    recommend?: boolean;
 }

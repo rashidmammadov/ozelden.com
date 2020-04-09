@@ -19,4 +19,12 @@ export class SearchService {
         });
         return UtilityService.pipeHttpResponse(this.http.get<IHttpResponse>(ENDPOINTS.SEARCH(encodeURI(queryParams.join('&')))));
     }
+
+    recommended(params): Promise<ErrorResponse | IHttpResponse> {
+        let queryParams = [];
+        Object.keys(params).forEach((key: string) => {
+            !!params[key] && queryParams.push(`${key}=${params[key]}`);
+        });
+        return UtilityService.pipeHttpResponse(this.http.get<IHttpResponse>(ENDPOINTS.RECOMMENDED(encodeURI(queryParams.join('&')))));
+    }
 }

@@ -64,6 +64,7 @@ export class HomeComponent implements OnInit {
         await this.getCities();
         await this.getLectures();
         await this.search(true);
+        await this.fetchRecommended();
         await this.fetchReports();
     }
 
@@ -131,6 +132,10 @@ export class HomeComponent implements OnInit {
             this.reports.gender_distribution = response.data.gender_distribution || [];
             this.reports.price_distribution = response.data.price_distribution || [];
         });
+    };
+
+    private fetchRecommended = async () => {
+        const result = await this.searchService.recommended(this.setSearchRequestParams());
     };
 
     private getUser = async () => {

@@ -11,6 +11,7 @@ use App\Http\Models\TutorLectureModel;
 use App\Http\Queries\MySQL\SearchQuery;
 use App\Http\Queries\MySQL\StudentQuery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
@@ -39,26 +40,8 @@ class SearchController extends ApiController {
         if ($searchResultsFromDB) {
             $data = array();
             foreach ($searchResultsFromDB->items() as $item) {
-                $tutorId = $item[TUTOR_ID];
-                if ($tutorId) {
-                    $tutorConnectionsFromDB = SearchQuery::getTutorConnections($tutorId, $request);
-                    if ($tutorConnectionsFromDB && count($tutorConnectionsFromDB)) {
-                        $searchResult = new SearchModel($tutorConnectionsFromDB[0]);
-
-                        !is_null($item[BOOST]) && $searchResult->setBoost(true);
-
-                        $average = new AverageModel($tutorConnectionsFromDB[0]);
-                        $searchResult->setAverage($average->get());
-
-                        $lectures = $this->getTutorLectures($tutorConnectionsFromDB);
-                        $searchResult->setLectures($lectures);
-
-                        $regions = $this->getTutorRegions($tutorConnectionsFromDB);
-                        $searchResult->setRegions($regions);
-
-                        array_push($data, $searchResult->get());
-                    }
-                }
+                $searchResult = $this->prepareTutorSearchResult($item, $request);
+                array_push($data, $searchResult);
             }
             return $this->respondWithPagination('', $searchResultsFromDB, $data);
         } else {
@@ -113,6 +96,50 @@ class SearchController extends ApiController {
             $this->setStatusCode(401);
             $this->setMessage(AUTHENTICATION_ERROR);
             return $this->respondWithError($e->getMessage());
+        }
+    }
+
+    public function getRecommendedTutors(Request $request) {
+        $recommendedTutorsFromDB = SearchQuery::getRecommendedTutors($request);
+        if ($recommendedTutorsFromDB) {
+            $data = array();
+            foreach ($recommendedTutorsFromDB as $recommendTutorFromDB) {
+                $searchResult = $this->prepareTutorSearchResult($recommendTutorFromDB);
+                array_push($data, $searchResult);
+                return $this->respondCreated('', $data);
+            }
+        } else {
+            return $this->respondWithError(NO_RESULT_TO_SHOW);
+        }
+    }
+
+    /**
+     * Prepare tutor`s search result from db.
+     * @param $tutor - holds the tutor data.
+     * @param null $request
+     * @return array
+     */
+    private function prepareTutorSearchResult($tutor, $request = null) {
+        $tutorId = $tutor[TUTOR_ID];
+        if ($tutorId) {
+            $tutorConnectionsFromDB = SearchQuery::getTutorConnections($tutorId, $request);
+            if ($tutorConnectionsFromDB && count($tutorConnectionsFromDB)) {
+                $searchResult = new SearchModel($tutorConnectionsFromDB[0]);
+
+                !is_null($tutor[BOOST]) && $searchResult->setBoost(true);
+                !is_null($tutor[RECOMMEND]) && $searchResult->setRecommend(true);
+
+                $average = new AverageModel($tutorConnectionsFromDB[0]);
+                $searchResult->setAverage($average->get());
+
+                $lectures = $this->getTutorLectures($tutorConnectionsFromDB);
+                $searchResult->setLectures($lectures);
+
+                $regions = $this->getTutorRegions($tutorConnectionsFromDB);
+                $searchResult->setRegions($regions);
+
+                return $searchResult->get();
+            }
         }
     }
 

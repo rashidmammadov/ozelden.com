@@ -116,13 +116,13 @@ class SearchQuery extends Query {
      * @param $filters - holds the filters.
      * @return mixed
      */
-    public static function getTutorConnections($tutorId, $filters) {
+    public static function getTutorConnections($tutorId, $filters = null) {
         try {
             $query = User::where(DB_USERS_TABLE.'.'.IDENTIFIER, EQUAL_SIGN, $tutorId)
                 ->where(DB_USERS_TABLE.'.'.TYPE, EQUAL_SIGN, TUTOR)
                 ->where(DB_USERS_TABLE.'.'.STATE, EQUAL_SIGN, USER_STATE_ACTIVE)
                 ->where(function ($query) use ($filters) {
-                    if ($filters[SEX]) {
+                    if ($filters && $filters[SEX]) {
                         $query->where(DB_USERS_TABLE.'.'.SEX, EQUAL_SIGN, $filters[SEX]);
                     }
                 })
@@ -139,13 +139,39 @@ class SearchQuery extends Query {
                     $join->on(DB_TUTOR_LECTURE_TABLE.'.'.TUTOR_ID, EQUAL_SIGN, DB_USERS_TABLE.'.'.IDENTIFIER);
                 })
                 ->where(function ($query) use ($filters) {
-                    if ($filters[MIN_PRICE]) {
+                    if ($filters && $filters[MIN_PRICE]) {
                         $query->where(DB_AVERAGE_TABLE.'.'.PRICE_AVG, EQUAL_OR_GREATER_SIGN, $filters[MIN_PRICE]);
                     }
-                    if ($filters[MAX_PRICE]) {
+                    if ($filters && $filters[MAX_PRICE]) {
                         $query->where(DB_AVERAGE_TABLE.'.'.PRICE_AVG, EQUAL_OR_LESS_SIGN, $filters[MAX_PRICE]);
                     }
                 })
+                ->get();
+            return $query;
+        } catch (QueryException $e) {
+            self::logException($e, debug_backtrace());
+        }
+    }
+
+    /**
+     * Get recommended tutor`s from db is exists and bigger than current date.
+     * @param $params = holds filters params.
+     * @return mixed
+     */
+    public static function getRecommendedTutors($params) {
+        try {
+            $query = SuitableRegion::where(function ($query) use ($params) {
+                    if (!is_null($params[CITY])) {
+                        $query->where(DB_SUITABLE_REGION_TABLE . '.' . CITY, EQUAL_SIGN, urldecode($params[CITY]));
+                    }
+                })
+                ->leftJoin(DB_PAID_SERVICE_TABLE, function ($join) {
+                    $join->on(DB_PAID_SERVICE_TABLE.'.'.TUTOR_ID, EQUAL_SIGN, DB_SUITABLE_REGION_TABLE.'.'.TUTOR_ID)
+                        ->where(DB_PAID_SERVICE_TABLE.'.'.RECOMMEND, EQUAL_OR_GREATER_SIGN, CustomDate::currentMilliseconds());
+                })
+                ->orderBy(DB_PAID_SERVICE_TABLE.'.'.RECOMMEND, 'desc')
+                ->select(DB_SUITABLE_REGION_TABLE.'.'.TUTOR_ID, DB_PAID_SERVICE_TABLE.'.'.RECOMMEND)
+                ->distinct(DB_SUITABLE_REGION_TABLE.'.'.TUTOR_ID)
                 ->get();
             return $query;
         } catch (QueryException $e) {
