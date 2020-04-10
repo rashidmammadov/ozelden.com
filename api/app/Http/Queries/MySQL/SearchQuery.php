@@ -58,7 +58,7 @@ class SearchQuery extends Query {
                 })
                 ->orderBy(DB_PAID_SERVICE_TABLE.'.'.BOOST, 'desc')
                 ->orderBy($orderColumn, $orderType)
-                ->select(DB_SUITABLE_REGION_TABLE.'.'.TUTOR_ID, DB_PAID_SERVICE_TABLE.'.'.BOOST)
+                ->select(DB_SUITABLE_REGION_TABLE.'.'.TUTOR_ID, DB_PAID_SERVICE_TABLE.'.'.BOOST, DB_PAID_SERVICE_TABLE.'.'.RECOMMEND)
                 ->distinct(DB_SUITABLE_REGION_TABLE.'.'.TUTOR_ID)
                 ->paginate($itemPerPage);
             return $query;
@@ -166,11 +166,11 @@ class SearchQuery extends Query {
                     }
                 })
                 ->leftJoin(DB_PAID_SERVICE_TABLE, function ($join) {
-                    $join->on(DB_PAID_SERVICE_TABLE.'.'.TUTOR_ID, EQUAL_SIGN, DB_SUITABLE_REGION_TABLE.'.'.TUTOR_ID)
-                        ->where(DB_PAID_SERVICE_TABLE.'.'.RECOMMEND, EQUAL_OR_GREATER_SIGN, CustomDate::currentMilliseconds());
+                    $join->on(DB_PAID_SERVICE_TABLE.'.'.TUTOR_ID, EQUAL_SIGN, DB_SUITABLE_REGION_TABLE.'.'.TUTOR_ID);
                 })
+                ->where(DB_PAID_SERVICE_TABLE.'.'.RECOMMEND, EQUAL_OR_GREATER_SIGN, CustomDate::currentMilliseconds())
                 ->orderBy(DB_PAID_SERVICE_TABLE.'.'.RECOMMEND, 'desc')
-                ->select(DB_SUITABLE_REGION_TABLE.'.'.TUTOR_ID, DB_PAID_SERVICE_TABLE.'.'.RECOMMEND)
+                ->select(DB_SUITABLE_REGION_TABLE.'.'.TUTOR_ID, DB_PAID_SERVICE_TABLE.'.'.BOOST, DB_PAID_SERVICE_TABLE.'.'.RECOMMEND)
                 ->distinct(DB_SUITABLE_REGION_TABLE.'.'.TUTOR_ID)
                 ->get();
             return $query;

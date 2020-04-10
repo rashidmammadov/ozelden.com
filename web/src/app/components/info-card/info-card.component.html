@@ -1,4 +1,4 @@
-<mat-card *ngIf="data" class="info-card mat-elevation-z4">
+<mat-card [id]="'info-card-' + data.id" *ngIf="data" class="info-card mat-elevation-z4">
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
         <div class="general" fxLayout="column" fxLayoutAlign="center center" fxFlex="45">
             <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="16px" fxFlex>
@@ -11,6 +11,7 @@
             <p *ngIf="data.profession" class="title" matTooltip="Meslek">{{data.profession}}</p>
             <p class="full-name" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
                 <span>{{data.name}} {{data.surname}}</span>
+                <mat-icon *ngIf="data.recommend" matTooltip="Önerilen" svgIcon="recommend"></mat-icon>
                 <mat-icon *ngIf="data.boost" matTooltip="Öne Çıkan" svgIcon="trending-up"></mat-icon>
             </p>
             <div *ngIf="data.average" class="overall" fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="32px">

@@ -18,6 +18,7 @@ import { APP } from '../../constants/app.constant';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
     progress: boolean;
     user: UserType;
 
@@ -71,6 +72,7 @@ export class AppComponent {
             'offers',
             'package-discount',
             'paperclip',
+            'recommend',
             'right-chevron',
             'right-circle',
             'right-quote',

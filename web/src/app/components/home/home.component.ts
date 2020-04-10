@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
     cities: CityType[] = [];
     lectures: LectureType[] = [];
     searchResult: InfoType[] = [];
+    recommends: InfoType[] = [];
     reports: OverallReportType = <OverallReportType>{};
     genders = SELECTORS.GENDERS;
     orders = SELECTORS.ORDERS;
@@ -63,9 +64,7 @@ export class HomeComponent implements OnInit {
         await this.getUser();
         await this.getCities();
         await this.getLectures();
-        await this.search(true);
-        await this.fetchRecommended();
-        await this.fetchReports();
+        await this.search(true, true);
     }
 
     async getCities() {
@@ -120,6 +119,7 @@ export class HomeComponent implements OnInit {
         });
         this.store.select(loaded);
         if (clear) {
+            this.fetchRecommended();
             this.fetchReports();
         }
     };
@@ -135,12 +135,22 @@ export class HomeComponent implements OnInit {
     };
 
     private fetchRecommended = async () => {
-        const result = await this.searchService.recommended(this.setSearchRequestParams());
+        const result = await this.searchService.recommended(this.setRecommendRequestParams());
+        UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
+            this.recommends = response.data;
+        });
     };
 
     private getUser = async () => {
         this.user = await this.store.select('user').pipe(first()).toPromise();
     };
+
+    private setRecommendRequestParams() {
+        const form = this.searchForm.controls;
+        return {
+            'city': form.city.value?.city_name
+        }
+    }
 
     private setReportRequestParams() {
         const form = this.searchForm.controls;
@@ -149,7 +159,7 @@ export class HomeComponent implements OnInit {
             'district': form.district.value?.toLowerCase() !== 'hepsi' ? form.district.value : null,
             'lecture_area': form.lecture_area.value?.lecture_area,
             'lecture_theme': form.lecture_theme.value?.lecture_theme.toLowerCase() !== 'tüm konular' ?
-              form.lecture_theme.value?.lecture_theme : null
+                form.lecture_theme.value?.lecture_theme : null
         }
     }
 

@@ -99,6 +99,11 @@ class SearchController extends ApiController {
         }
     }
 
+    /**
+     * Handle request to get recommended tutors.
+     * @param Request $request
+     * @return mixed
+     */
     public function getRecommendedTutors(Request $request) {
         $recommendedTutorsFromDB = SearchQuery::getRecommendedTutors($request);
         if ($recommendedTutorsFromDB) {
@@ -106,8 +111,8 @@ class SearchController extends ApiController {
             foreach ($recommendedTutorsFromDB as $recommendTutorFromDB) {
                 $searchResult = $this->prepareTutorSearchResult($recommendTutorFromDB);
                 array_push($data, $searchResult);
-                return $this->respondCreated('', $data);
             }
+            return $this->respondCreated('', $data);
         } else {
             return $this->respondWithError(NO_RESULT_TO_SHOW);
         }
