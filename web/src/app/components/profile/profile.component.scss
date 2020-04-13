@@ -1,0 +1,59 @@
+.profile {
+    .general {
+        padding: 16px;
+        .mat-card-avatar {
+            height: 80px;
+            width: 80px;
+            box-shadow: 0 0 8px 0 #555555;
+            margin: 8px 0;
+        }
+
+        .full-name {
+            color: #722947;
+            font-size: 18px;
+            font-weight: 700;
+            margin: 8px 0;
+            .mat-icon {
+                color: #d3a67d;
+                height: 18px;
+                width: 18px;
+            }
+        }
+
+        .age {
+            color: #555555;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .mat-icon.gender {
+            color: #555555;
+            height: 16px;
+            width: 16px;
+        }
+
+        .mat-icon.location {
+            color: #555555;
+            height: 16px;
+            width: 16px;
+        }
+
+        .title {
+            color: #555555;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .quote {
+            color: #555555;
+            margin: 8px 0;
+            //text-align: center;
+            font-size: 14px;
+            font-style: italic;
+            .mat-icon {
+                height: 14px;
+                width: 14px;
+            }
+        }
+    }
+}

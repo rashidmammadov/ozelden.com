@@ -63,6 +63,18 @@ p.small { font-size: 12px; color: #909090; margin: 4px; }
         border-radius: 50%;
         margin: 0 6px 0 -6px;
     }
+
+    .additional {
+        height: auto;
+        width: auto;
+        padding: 6px;
+        margin: 0 -8px 0 4px;
+        //border-radius: 50%;
+        background-color: #555555;
+        color: #fff;
+        font-size: 10px;
+        font-weight: bold;
+    }
 }
 .light-gray { color: #909090; }
 .link { cursor: pointer; outline: none; }

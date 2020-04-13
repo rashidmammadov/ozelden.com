@@ -66,6 +66,7 @@ export class AppComponent {
             'like',
             'log-out',
             'male',
+            'map-pin',
             'normal',
             'offer-in',
             'offer-out',

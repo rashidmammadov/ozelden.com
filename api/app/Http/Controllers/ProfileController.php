@@ -3,7 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Models\ProfileModel;
+use App\Http\Models\SuitableRegionModel;
+use App\Http\Models\TutorLectureModel;
+use App\Http\Models\UserModel;
+use App\Http\Models\UserProfileModel;
 use App\Http\Queries\MySQL\ProfileQuery;
+use App\Http\Queries\MySQL\SuitabilityQuery;
+use App\Http\Queries\MySQL\TutorLectureQuery;
+use App\Http\Utilities\CustomDate;
 use App\Http\Utilities\Picture;
 use Illuminate\Http\Request;
 use JWTAuth;
@@ -31,6 +38,52 @@ class ProfileController extends ApiController {
             $this->setStatusCode(401);
             $this->setMessage(AUTHENTICATION_ERROR);
             return $this->respondWithError($e->getMessage());
+        }
+    }
+
+    /**
+     * Get profile of given user.
+     * @param $id - holds the user id.
+     * @return mixed
+     */
+    public function getProfileWithId($id) {
+        $profileFromDB = ProfileQuery::getProfileConnections($id);
+        if ($profileFromDB) {
+            $profile = new UserProfileModel($profileFromDB);
+            if ($profileFromDB[BOOST] && $profileFromDB[BOOST] > CustomDate::currentMilliseconds()) {
+                $profile->setBoost(true);
+            }
+            if ($profileFromDB[RECOMMEND] && $profileFromDB[RECOMMEND] > CustomDate::currentMilliseconds()) {
+                $profile->setRecommend(true);
+            }
+
+            if ($profileFromDB[TYPE] == TUTOR) {
+                $tutorLecturesFromDB = TutorLectureQuery::get($id);
+                if ($tutorLecturesFromDB) {
+                    $tutorLectures = array();
+                    foreach ($tutorLecturesFromDB as $tutorLectureFromDB) {
+                        $tutorLecture = new TutorLectureModel($tutorLectureFromDB);
+                        array_push($tutorLectures, $tutorLecture->get());
+                    }
+                    $profile->setTutorLectures($tutorLectures);
+                }
+            }
+
+            if ($profileFromDB[TYPE] == TUTOR) {
+                $tutorSuitableRegionsFromDB = SuitabilityQuery::getRegions($id);
+                if ($tutorSuitableRegionsFromDB) {
+                    $tutorSuitableRegions = array();
+                    foreach ($tutorSuitableRegionsFromDB as $tutorSuitableRegionFromDB) {
+                        $region = new SuitableRegionModel($tutorSuitableRegionFromDB);
+                        array_push($tutorSuitableRegions, $region->get());
+                    }
+                    $profile->setTutorSuitableRegions($tutorSuitableRegions);
+                }
+            }
+
+            return $this->respondCreated('', $profile->get());
+        } else {
+            return $this->respondWithError(SOMETHING_WRONG_WITH_DB);
         }
     }
 

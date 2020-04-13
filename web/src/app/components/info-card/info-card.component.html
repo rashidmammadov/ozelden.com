@@ -1,7 +1,8 @@
-<mat-card [id]="'info-card-' + data.id" *ngIf="data" class="info-card mat-elevation-z4">
+<mat-card *ngIf="data" [id]="'info-card-' + data.id" class="info-card mat-elevation-z4">
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
         <div class="general" fxLayout="column" fxLayoutAlign="center center" fxFlex="45">
-            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="16px" fxFlex>
+            <div [routerLink]="['/app/profile', data.id]" class="link" fxLayout="row" fxLayoutAlign="center center"
+                 fxLayoutGap="16px" fxFlex>
                 <mat-icon *ngIf="data.sex" class="gender" [svgIcon]="data.sex"
                           [matTooltip]="data.sex === 'female' ? 'Kadın' : 'Erkek'"></mat-icon>
                 <img [alt]="data.name + ' ' + data.surname" mat-card-avatar
@@ -9,7 +10,8 @@
                 <span *ngIf="data.age" class="age" [matTooltip]="data.age + ' yaş'">{{data.age}}<br>yaş</span>
             </div>
             <p *ngIf="data.profession" class="title" matTooltip="Meslek">{{data.profession}}</p>
-            <p class="full-name" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+            <p [routerLink]="['/app/profile', data.id]" class="link full-name" fxLayout="row"
+                fxLayoutAlign="center center" fxLayoutGap="8px">
                 <span>{{data.name}} {{data.surname}}</span>
                 <mat-icon *ngIf="data.recommend" matTooltip="Önerilen" svgIcon="recommend"></mat-icon>
                 <mat-icon *ngIf="data.boost" matTooltip="Öne Çıkan" svgIcon="trending-up"></mat-icon>
@@ -65,6 +67,7 @@
                         <mat-chip *ngFor="let lecture of data.lectures"
                                   [matTooltip]="lecture.lecture_theme + ' (' + lecture.lecture_area + ')'">
                             {{lecture.lecture_theme}} ({{lecture.lecture_area}})
+                            <span class="additional">{{lecture.price}} ₺</span>
                         </mat-chip>
                     </mat-chip-list>
                 </div>

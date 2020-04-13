@@ -2,7 +2,9 @@
 
 namespace App\Http\Queries\MySQL;
 
+use App\Http\Utilities\CustomDate;
 use App\Profile;
+use App\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
 
@@ -18,6 +20,31 @@ class ProfileQuery extends Query {
             $query = Profile::where(USER_ID, EQUAL_SIGN, $userId)
                 ->where(PICTURE, NOT_EQUAL_SIGN, null)
                 ->exists();
+            return $query;
+        } catch (QueryException $e) {
+            self::logException($e, debug_backtrace());
+        }
+    }
+
+    /**
+     * Get user`s profile with connected tables from DB.
+     * @param $userId - holds the user id.
+     * @return mixed
+     */
+    public static function getProfileConnections($userId) {
+        try {
+            $query = User::where(DB_USERS_TABLE.'.'.IDENTIFIER, EQUAL_SIGN, $userId)
+                ->where(DB_USERS_TABLE.'.'.STATE, EQUAL_SIGN, USER_STATE_ACTIVE)
+                ->leftJoin(DB_PROFILE_TABLE, function ($join) {
+                    $join->on(DB_PROFILE_TABLE.'.'.USER_ID, EQUAL_SIGN, DB_USERS_TABLE.'.'.IDENTIFIER);
+                })
+                ->leftJoin(DB_AVERAGE_TABLE, function ($join) {
+                    $join->on(DB_AVERAGE_TABLE.'.'.USER_ID, EQUAL_SIGN, DB_USERS_TABLE.'.'.IDENTIFIER);
+                })
+                ->leftJoin(DB_PAID_SERVICE_TABLE, function ($join) {
+                    $join->on(DB_PAID_SERVICE_TABLE.'.'.TUTOR_ID, EQUAL_SIGN, DB_USERS_TABLE.'.'.IDENTIFIER);
+                })
+                ->first();
             return $query;
         } catch (QueryException $e) {
             self::logException($e, debug_backtrace());

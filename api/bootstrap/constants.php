@@ -189,6 +189,8 @@ define('TUTOR_HOME', 'tutor_home');
 define('TUTOR_ID', 'tutor_id');
 define('TUTOR_LECTURE_ID', 'tutor_lecture_id');
 define('TUTOR_LECTURE', 'tutor_lecture');
+define('TUTOR_LECTURES', 'tutor_lectures');
+define('TUTOR_SUITABLE_REGIONS', 'tutor_suitable_regions');
 define('TYPE', 'type');
 define('OFFER', 'offer');
 define('OFFER_ID', 'offer_id');

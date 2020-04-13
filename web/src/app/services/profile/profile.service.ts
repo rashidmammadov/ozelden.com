@@ -12,8 +12,8 @@ export class ProfileService {
 
     constructor(private http: HttpClient) { }
 
-    get(): Promise<ErrorResponse | IHttpResponse> {
-        return UtilityService.pipeHttpResponse(this.http.get<IHttpResponse>(ENDPOINTS.PROFILE()));
+    get(id?: number): Promise<ErrorResponse | IHttpResponse> {
+        return UtilityService.pipeHttpResponse(this.http.get<IHttpResponse>(ENDPOINTS.PROFILE(id)));
     }
 
     update(profile): Promise<ErrorResponse | IHttpResponse> {
