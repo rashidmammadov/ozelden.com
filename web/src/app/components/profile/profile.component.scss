@@ -56,4 +56,19 @@
             }
         }
     }
+
+    .statistics {
+        .statistic {
+            .mat-icon { height: 40px; width: 40px; color: #d3a67d; }
+            h3 { margin: 0; color: #555555; }
+        }
+    }
+
+    .detail {
+        .label {
+            margin: 8px 0;
+            font-size: 14px;
+            color: #555555;
+        }
+    }
 }

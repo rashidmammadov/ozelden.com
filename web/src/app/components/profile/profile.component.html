@@ -1,49 +1,156 @@
-<div *ngIf="profile" class="profile" fxLayout="column" fxFlex="50" fxFlex.lt-md fxLayoutGap="16px">
-    <mat-card class="general mat-elevation-z4">
-        <div fxLayout="row" fxLayoutGap="16px">
-            <img [alt]="profile.name + ' ' + profile.surname" mat-card-avatar
-                 [src]="profile.picture || './assets/images/logo-mini.png'">
-            <div fxLayout="column" fxLayoutGap="8px">
-                <div class="full-name" fxLayoutGap="8px">
-                    <span>{{profile.name}} {{profile.surname}}</span>
-                    <mat-icon *ngIf="profile.recommend" matTooltip="Önerilen" svgIcon="recommend"></mat-icon>
-                    <mat-icon *ngIf="profile.boost" matTooltip="Öne Çıkan" svgIcon="trending-up"></mat-icon>
-                </div>
-                <div fxLayoutGap="8px">
-                    <span *ngIf="profile.profession" class="title" matTooltip="Meslek">{{profile.profession}}</span>
-                    <mat-icon class="gender" [svgIcon]="profile.sex"
-                              [matTooltip]="profile.sex === 'female' ? 'Kadın' : 'Erkek'"></mat-icon>
-                    <span *ngIf="profile.age" class="age" [matTooltip]="profile.age + ' yaş'">{{profile.age}} yaş</span>
-                </div>
-                <div fxLayoutGap="4px">
-                    <mat-icon class="location" svgIcon="map-pin"></mat-icon>
-                    <span class="title" [matTooltip]="profile.city + '/' + profile.district">
-                        {{profile.city}}/{{profile.district}}
-                    </span>
+<div *ngIf="profile" class="profile" fxLayout="column" fxFlex="60" fxFlex.lt-md fxLayoutGap="16px">
+    <div>
+        <p class="custom-title">Genel Bilgiler</p>
+        <mat-card class="general mat-elevation-z4">
+            <div fxLayout="row" fxLayoutGap="16px">
+                <img [alt]="profile.name + ' ' + profile.surname" mat-card-avatar
+                     [src]="profile.picture || './assets/images/logo-mini.png'">
+                <div fxLayout="column" fxLayoutGap="8px">
+                    <div class="full-name" fxLayoutGap="8px">
+                        <span>{{profile.name}} {{profile.surname}} ({{profile.type === 'tutor' ? 'Ders Veren' : 'Ders Alan'}})</span>
+                        <mat-icon *ngIf="profile.recommend" matTooltip="Önerilen" svgIcon="recommend"></mat-icon>
+                        <mat-icon *ngIf="profile.boost" matTooltip="Öne Çıkan" svgIcon="trending-up"></mat-icon>
+                    </div>
+                    <div fxLayoutGap="8px">
+                        <span *ngIf="profile.profession" class="title" matTooltip="Meslek">{{profile.profession}}</span>
+                        <mat-icon class="gender" [svgIcon]="profile.sex"
+                                  [matTooltip]="profile.sex === 'female' ? 'Kadın' : 'Erkek'"></mat-icon>
+                        <span *ngIf="profile.age" class="age" [matTooltip]="profile.age + ' yaş'">{{profile.age}} yaş</span>
+                    </div>
+                    <div fxLayoutGap="4px">
+                        <mat-icon class="location" svgIcon="map-pin"></mat-icon>
+                        <span class="title" [matTooltip]="profile.city + '/' + profile.district">
+                            {{profile.city}}/{{profile.district}}
+                        </span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <p *ngIf="profile.description" class="quote">
-            <mat-icon svgIcon="left-quote"></mat-icon> {{profile.description}} <mat-icon svgIcon="right-quote"></mat-icon>
-        </p>
-    </mat-card>
+            <p *ngIf="profile.description" class="quote">
+                <mat-icon svgIcon="left-quote"></mat-icon> {{profile.description}} <mat-icon svgIcon="right-quote"></mat-icon>
+            </p>
+        </mat-card>
+    </div>
 
-    <mat-card *ngIf="profile.tutor_lectures" class="mat-elevation-z4">
-        <mat-chip-list aria-label="Lectures">
-            <mat-chip *ngFor="let lecture of profile.tutor_lectures"
-                      [matTooltip]="lecture.lecture_theme + ' (' + lecture.lecture_area + ')'">
-                {{lecture.lecture_theme}} ({{lecture.lecture_area}})
-                <span class="additional">{{lecture.price}} ₺</span>
-            </mat-chip>
-        </mat-chip-list>
-    </mat-card>
+    <div *ngIf="profile.tutor_statistics">
+        <p class="custom-title">İstatistikler</p>
+        <mat-card class="statistics mat-elevation-z4">
+            <div fxLayout="column" fxLayoutGap="16px">
+                <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="8px">
+                    <div class="statistic" fxLayout="column" fxLayoutAlign="center center" fxFlex>
+                        <mat-icon svgIcon="price-tag"></mat-icon>
+                        <span class="mat-small">Ortalama Fiyat</span>
+                        <h3>{{profile.tutor_statistics.price_avg || '-'}} ₺</h3>
+                    </div>
 
-    <mat-card *ngIf="profile.tutor_lectures" class="mat-elevation-z4">
-        <mat-chip-list aria-label="Regions">
-            <mat-chip *ngFor="let region of profile.tutor_suitable_regions"
-                      [matTooltip]="region.city + '/' + region.district">
-                {{region.city}}/{{region.district}}
-            </mat-chip>
-        </mat-chip-list>
-    </mat-card>
+                    <div class="statistic" fxLayout="column" fxLayoutAlign="center center" fxFlex>
+                        <mat-icon svgIcon="experience-tag"></mat-icon>
+                        <span class="mat-small">Ortalama Deneyim</span>
+                        <h3>{{profile.tutor_statistics.experience_avg || '-'}} yıl</h3>
+                    </div>
+
+                    <div class="statistic" fxLayout="column" fxLayoutAlign="center center" fxFlex>
+                        <mat-icon svgIcon="ranking-tag"></mat-icon>
+                        <span class="mat-small">Değerlendirme</span>
+                        <h3>{{profile.tutor_statistics.ranking_avg || '-'}}</h3>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="8px">
+                    <div class="statistic" fxLayout="column" fxLayoutAlign="center center" fxFlex>
+                        <mat-icon svgIcon="offer-tag"></mat-icon>
+                        <span class="mat-small">Alınan Teklifler</span>
+                        <h3>{{profile.tutor_statistics.offers_count || '-'}} adet</h3>
+                    </div>
+
+                    <div class="statistic" fxLayout="column" fxLayoutAlign="center center" fxFlex>
+                        <mat-icon svgIcon="student-tag"></mat-icon>
+                        <span class="mat-small">Öğrenci Sayısı</span>
+                        <h3>{{profile.tutor_statistics.students_count || '-'}} kişi</h3>
+                    </div>
+
+                    <div class="statistic" fxLayout="column" fxLayoutAlign="center center" fxFlex>
+                        <mat-icon svgIcon="calendar"></mat-icon>
+                        <span class="mat-small">Kayıt Tarihi</span>
+                        <h3>{{profile.tutor_statistics.register_date_readable || '-'}}</h3>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+
+    <div *ngIf="profile.tutored_announcements && profile.tutored_announcements.length">
+        <p class="custom-title">İgilendiği Dersler</p>
+        <mat-card class="mat-elevation-z4">
+            <mat-chip-list aria-label="Lectures">
+                <mat-chip *ngFor="let announcement of profile.tutored_announcements"
+                          [matTooltip]="announcement.lecture_theme + ' (' + announcement.lecture_area + ')'">
+                    {{announcement.lecture_theme}} ({{announcement.lecture_area}})
+                    <span *ngIf="announcement.min_price || announcement.max_price" class="additional">
+                        {{announcement.min_price}}
+                        {{announcement.min_price && announcement.max_price ? '-' : ''}}
+                        {{announcement.max_price}} ₺
+                    </span>
+                </mat-chip>
+            </mat-chip-list>
+        </mat-card>
+    </div>
+
+    <div *ngIf="profile.tutor_lectures">
+        <p class="custom-title">Verdiği Dersler</p>
+        <mat-card class="mat-elevation-z4">
+            <mat-chip-list aria-label="Lectures">
+                <mat-chip *ngFor="let lecture of profile.tutor_lectures"
+                          [matTooltip]="lecture.lecture_theme + ' (' + lecture.lecture_area + ')'">
+                    {{lecture.lecture_theme}} ({{lecture.lecture_area}})
+                    <span class="additional">{{lecture.price}} ₺</span>
+                </mat-chip>
+            </mat-chip-list>
+        </mat-card>
+    </div>
+
+    <div *ngIf="profile.tutor_suitability">
+        <p class="custom-title">Detaylı Bilgiler</p>
+        <mat-card class="detail mat-elevation-z4">
+            <div fxLayout="column" fxLayoutGap="8px">
+                <div *ngIf="course_types">
+                    <p class="label">Ders Uygunluk Şekilleri</p>
+                    <mat-chip-list aria-label="Course Type">
+                        <mat-chip *ngFor="let course_type of course_types"
+                                  [matTooltip]="course_type">
+                            {{course_type}}
+                        </mat-chip>
+                    </mat-chip-list>
+                    <p *ngIf="!course_types.length" class="light-gray">Henüz belirtilmemiş...</p>
+                </div>
+                <div *ngIf="facilities">
+                    <p class="label">Promosyon/Kolaylık</p>
+                    <mat-chip-list aria-label="Facility">
+                        <mat-chip *ngFor="let facility of facilities"
+                                  [matTooltip]="facility">
+                            {{facility}}
+                        </mat-chip>
+                    </mat-chip-list>
+                    <p *ngIf="!facilities.length" class="light-gray">Henüz belirtilmemiş...</p>
+                </div>
+                <div *ngIf="locations">
+                    <p class="label">Ders Verilecek Mekanlar</p>
+                    <mat-chip-list aria-label="Facility">
+                        <mat-chip *ngFor="let location of locations"
+                                  [matTooltip]="location">
+                            {{location}}
+                        </mat-chip>
+                    </mat-chip-list>
+                    <p *ngIf="!locations.length" class="light-gray">Henüz belirtilmemiş...</p>
+                </div>
+                <div *ngIf="profile.tutor_suitability.regions">
+                    <p class="label">Ders Verilen Semtler</p>
+                    <mat-chip-list aria-label="Regions">
+                        <mat-chip *ngFor="let region of profile.tutor_suitability.regions"
+                                  [matTooltip]="region.city + '/' + region.district">
+                            {{region.city}}/{{region.district}}
+                        </mat-chip>
+                    </mat-chip-list>
+                </div>
+            </div>
+        </mat-card>
+    </div>
 </div>

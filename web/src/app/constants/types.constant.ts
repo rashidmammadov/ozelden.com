@@ -18,6 +18,27 @@ export const TYPES = {
     GENDERS: {
         'female': 'Kadın',
         'male': 'Erkek'
+    },
+
+    SUITABILITIES: {
+        COURSE_TYPE: {
+            'individual': 'Birebir Ders',
+            'group': 'Grup Dersi',
+            'class': 'Sınıf Dersi'
+        },
+        FACILITY: {
+            'demo': 'Ücretsiz Deneme Dersi',
+            'group_discount': 'Grup Dersi İndirimi',
+            'package_discount': 'Paket Program İndirimi'
+        },
+        LOCATION: {
+            'student_home': 'Öğrenci Evi',
+            'tutor_home': 'Öğretmen Evi',
+            'etude': 'Etüt Merkezi',
+            'course': 'Dershane/Sınıf',
+            'library': 'Kütüphane',
+            'over_internet': 'İnternet Üzerinden (Online)'
+        }
     }
 
 };

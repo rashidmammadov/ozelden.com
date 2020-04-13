@@ -54,4 +54,20 @@ class AnnouncementQuery extends Query {
             self::logException($e, debug_backtrace());
         }
     }
+
+    /**
+     * Get all announcements of user from db.
+     * @param $tutoredId - holds the user id.
+     * @return mixed
+     */
+    public static function get($tutoredId) {
+        try {
+            $query = Announcement::where(TUTORED_ID, EQUAL_SIGN, $tutoredId)
+                ->where(STATUS, EQUAL_SIGN, ANNOUNCEMENT_STATUS_ACTIVE)
+                ->get();
+            return $query;
+        } catch (QueryException $e) {
+            self::logException($e, debug_backtrace());
+        }
+    }
 }

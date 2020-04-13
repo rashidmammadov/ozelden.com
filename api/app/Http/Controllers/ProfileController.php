@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Models\AnnouncementModel;
+use App\Http\Models\AverageModel;
 use App\Http\Models\ProfileModel;
+use App\Http\Models\SuitabilityModel;
+use App\Http\Models\SuitableCourseTypeModel;
+use App\Http\Models\SuitableFacilityModel;
+use App\Http\Models\SuitableLocationModel;
 use App\Http\Models\SuitableRegionModel;
 use App\Http\Models\TutorLectureModel;
 use App\Http\Models\UserModel;
 use App\Http\Models\UserProfileModel;
+use App\Http\Queries\MySQL\AnnouncementQuery;
+use App\Http\Queries\MySQL\OfferQuery;
 use App\Http\Queries\MySQL\ProfileQuery;
 use App\Http\Queries\MySQL\SuitabilityQuery;
 use App\Http\Queries\MySQL\TutorLectureQuery;
@@ -50,14 +58,38 @@ class ProfileController extends ApiController {
         $profileFromDB = ProfileQuery::getProfileConnections($id);
         if ($profileFromDB) {
             $profile = new UserProfileModel($profileFromDB);
-            if ($profileFromDB[BOOST] && $profileFromDB[BOOST] > CustomDate::currentMilliseconds()) {
-                $profile->setBoost(true);
-            }
-            if ($profileFromDB[RECOMMEND] && $profileFromDB[RECOMMEND] > CustomDate::currentMilliseconds()) {
-                $profile->setRecommend(true);
-            }
+            if ($profile->getType() == TUTORED) {
+                $announcementsFromDB = AnnouncementQuery::get($id);
+                if ($announcementsFromDB) {
+                    $announcements = array();
+                    foreach ($announcementsFromDB as $announcementFromDB) {
+                        $announcement = new AnnouncementModel($announcementFromDB);
+                        array_push($announcements, $announcement->get());
+                    }
+                    $profile->setTutoredAnnouncements($announcements);
+                }
+            } else if ($profile->getType() == TUTOR) {
+                if ($profileFromDB[BOOST] && $profileFromDB[BOOST] > CustomDate::currentMilliseconds()) {
+                    $profile->setBoost(true);
+                }
+                if ($profileFromDB[RECOMMEND] && $profileFromDB[RECOMMEND] > CustomDate::currentMilliseconds()) {
+                    $profile->setRecommend(true);
+                }
 
-            if ($profileFromDB[TYPE] == TUTOR) {
+                /** @var  $average */
+                $average = new AverageModel();
+                $offersCount = OfferQuery::getReceivedOffersCount($id);
+
+                $average->setPriceAvg($profileFromDB[PRICE_AVG]);
+                $average->setExperienceAvg($profileFromDB[EXPERIENCE_AVG]);
+                $average->setRankingAvg($profileFromDB[RANKING_AVG]);
+                if ($offersCount) {
+                    $average->setOffersCount($offersCount);
+                }
+                $average->setRegisterDate(CustomDate::dateToMillisecond($profileFromDB[CREATED_AT]));
+                $profile->setTutorStatistics($average->get());
+
+                /** @var  $tutorLecturesFromDB */
                 $tutorLecturesFromDB = TutorLectureQuery::get($id);
                 if ($tutorLecturesFromDB) {
                     $tutorLectures = array();
@@ -67,18 +99,31 @@ class ProfileController extends ApiController {
                     }
                     $profile->setTutorLectures($tutorLectures);
                 }
-            }
 
-            if ($profileFromDB[TYPE] == TUTOR) {
-                $tutorSuitableRegionsFromDB = SuitabilityQuery::getRegions($id);
-                if ($tutorSuitableRegionsFromDB) {
-                    $tutorSuitableRegions = array();
-                    foreach ($tutorSuitableRegionsFromDB as $tutorSuitableRegionFromDB) {
-                        $region = new SuitableRegionModel($tutorSuitableRegionFromDB);
-                        array_push($tutorSuitableRegions, $region->get());
-                    }
-                    $profile->setTutorSuitableRegions($tutorSuitableRegions);
+                /** @var  $tutorSuitability */
+                $tutorSuitability = new SuitabilityModel();
+
+                $courseTypeFromDB = SuitabilityQuery::getCourseType($id);
+                $courseType = new SuitableCourseTypeModel($courseTypeFromDB);
+                $tutorSuitability->setCourseType($courseType->get());
+
+                $facilityFromDB = SuitabilityQuery::getFacility($id);
+                $facility = new SuitableFacilityModel($facilityFromDB);
+                $tutorSuitability->setFacility($facility->get());
+
+                $locationFromDB = SuitabilityQuery::getLocation($id);
+                $location = new SuitableLocationModel($locationFromDB);
+                $tutorSuitability->setLocation($location->get());
+
+                $regionsFromDB = SuitabilityQuery::getRegions($id);
+                $regions = array();
+                foreach ($regionsFromDB as $regionFromDB) {
+                    $region = new SuitableRegionModel($regionFromDB);
+                    array_push($regions, $region->get());
                 }
+                $tutorSuitability->setRegions($regions);
+
+                $profile->setTutorSuitability($tutorSuitability->get());
             }
 
             return $this->respondCreated('', $profile->get());

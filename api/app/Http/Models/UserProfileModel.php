@@ -5,6 +5,7 @@ namespace App\Http\Models;
 class UserProfileModel {
 
     private $id;
+    private $type;
     private $picture;
     private $name;
     private $surname;
@@ -16,12 +17,15 @@ class UserProfileModel {
     private $city;
     private $district;
     private $description;
+    private $tutoredAnnouncements;
+    private $tutorStatistics;
     private $tutorLectures;
-    private $tutorSuitableRegions;
+    private $tutorSuitability;
 
     public function __construct($parameters = null) {
         if ($parameters) {
             $this->setId($parameters[IDENTIFIER]);
+            $this->setType($parameters[TYPE]);
             $this->setPicture($parameters[PICTURE]);
             $this->setName($parameters[NAME]);
             $this->setSurname($parameters[SURNAME]);
@@ -37,6 +41,7 @@ class UserProfileModel {
     public function get() {
         return array(
             IDENTIFIER => $this->getId(),
+            TYPE => $this->getType(),
             PICTURE => $this->getPicture(),
             NAME => $this->getName(),
             SURNAME => $this->getSurname(),
@@ -48,8 +53,10 @@ class UserProfileModel {
             CITY => $this->getCity(),
             DISTRICT => $this->getDistrict(),
             DESCRIPTION => $this->getDescription(),
+            TUTORED_ANNOUNCEMENTS => $this->getTutoredAnnouncements(),
+            TUTOR_STATISTICS => $this->getTutorStatistics(),
             TUTOR_LECTURES => $this->getTutorLectures(),
-            TUTOR_SUITABLE_REGIONS => $this->getTutorSuitableRegions()
+            TUTOR_SUITABILITY => $this->getTutorSuitability()
         );
     }
 
@@ -59,6 +66,14 @@ class UserProfileModel {
 
     public function setId($id): void {
         $this->id = $id;
+    }
+
+    public function getType() {
+        return $this->type;
+    }
+
+    public function setType($type): void {
+        $this->type = $type;
     }
 
     public function getPicture() {
@@ -149,6 +164,21 @@ class UserProfileModel {
         $this->description = $description;
     }
 
+    public function getTutoredAnnouncements() {
+        return $this->tutoredAnnouncements;
+    }
+
+    public function setTutoredAnnouncements($tutoredAnnouncements): void {
+        $this->tutoredAnnouncements = $tutoredAnnouncements;
+    }
+
+    public function getTutorStatistics() {
+        return $this->tutorStatistics;
+    }
+
+    public function setTutorStatistics($tutorStatistics): void {
+        $this->tutorStatistics = $tutorStatistics;
+    }
 
     public function getTutorLectures() {
         return $this->tutorLectures;
@@ -159,12 +189,12 @@ class UserProfileModel {
     }
 
 
-    public function getTutorSuitableRegions() {
-        return $this->tutorSuitableRegions;
+    public function getTutorSuitability() {
+        return $this->tutorSuitability;
     }
 
-    public function setTutorSuitableRegions($tutorSuitableRegions): void {
-        $this->tutorSuitableRegions = $tutorSuitableRegions;
+    public function setTutorSuitability($tutorSuitability): void {
+        $this->tutorSuitability = $tutorSuitability;
     }
 
 }

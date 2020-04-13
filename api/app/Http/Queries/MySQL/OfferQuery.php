@@ -43,6 +43,21 @@ class OfferQuery extends Query {
     }
 
     /**
+     * Query to get user`s total received offers count.
+     * @param $userId = holds the user id.
+     * @return mixed
+     */
+    public static function getReceivedOffersCount($userId) {
+        try {
+            $query = Offer::where(RECEIVER_ID, EQUAL_SIGN, $userId)
+                ->count();
+            return $query;
+        } catch (QueryException $e) {
+            self::logException($e, debug_backtrace());
+        }
+    }
+
+    /**
      * Get waiting offers of given user.
      * @param $userId - holds the user id.
      * @return mixed

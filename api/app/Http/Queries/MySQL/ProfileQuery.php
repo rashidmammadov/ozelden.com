@@ -44,6 +44,7 @@ class ProfileQuery extends Query {
                 ->leftJoin(DB_PAID_SERVICE_TABLE, function ($join) {
                     $join->on(DB_PAID_SERVICE_TABLE.'.'.TUTOR_ID, EQUAL_SIGN, DB_USERS_TABLE.'.'.IDENTIFIER);
                 })
+                ->select('*', DB_USERS_TABLE.'.'.CREATED_AT)
                 ->first();
             return $query;
         } catch (QueryException $e) {

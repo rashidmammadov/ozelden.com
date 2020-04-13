@@ -17,20 +17,20 @@
                 <mat-icon *ngIf="data.boost" matTooltip="Öne Çıkan" svgIcon="trending-up"></mat-icon>
             </p>
             <div *ngIf="data.average" class="overall" fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="32px">
+                <div *ngIf="data.average.price_avg" class="price"
+                       [matTooltip]="data.average.price_avg + ' ₺ Ortalama Ücret'">
+                    {{data.average.price_avg}}<br>
+                    <p class="sub">₺ ücret</p>
+                </div>
+                <div *ngIf="data.average.experience_avg" class="experience"
+                       [matTooltip]="data.average.experience_avg + ' Yıl Ortalama Deneyim'">
+                    {{data.average.experience_avg}}<br>
+                    <p class="sub">yıl deneyim</p>
+                </div>
                 <div *ngIf="data.average.ranking_avg" class="ranking"
                      [matTooltip]="data.average.ranking_avg + ' Ortalama Puan'">
                     {{data.average.ranking_avg}}<br>
                     <p class="sub">ortalama</p>
-                </div>
-                <div *ngIf="data.average.experience_avg" class="experience"
-                     [matTooltip]="data.average.experience_avg + ' Yıl Ortalama Deneyim'">
-                    {{data.average.experience_avg}}<br>
-                    <p class="sub">yıl deneyim</p>
-                </div>
-                <div *ngIf="data.average.price_avg" class="price"
-                     [matTooltip]="data.average.price_avg + ' ₺ Ortalama Ücret'">
-                    {{data.average.price_avg}}<br>
-                    <p class="sub">₺ ücret</p>
                 </div>
             </div>
             <div *ngIf="data.expectation" class="overall" fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="32px">
@@ -47,7 +47,10 @@
             <button *ngIf="user && user.type === TYPES.TUTOR" mat-raised-button mat-stroked-button
                     (click)="openMakeOfferDialog()">Teklif Gönder</button>
             <p *ngIf="data.description" class="quote">
-                <mat-icon svgIcon="left-quote"></mat-icon> {{data.description}} <mat-icon svgIcon="right-quote"></mat-icon>
+                <mat-icon svgIcon="left-quote"></mat-icon>
+                      {{data.description.length > 200 && !showMore ? data.description.slice(0, 200) + '...' : data.description}}
+                      <a *ngIf="data.description.length > 200 && !showMore" (click)="showMore = true">daha fazla</a>
+                <mat-icon svgIcon="right-quote"></mat-icon>
             </p>
         </div>
         <div class="detail" fxLayout="column" fxLayoutAlign="space-between start" fxFlex>
@@ -67,7 +70,7 @@
                         <mat-chip *ngFor="let lecture of data.lectures"
                                   [matTooltip]="lecture.lecture_theme + ' (' + lecture.lecture_area + ')'">
                             {{lecture.lecture_theme}} ({{lecture.lecture_area}})
-                            <span class="additional">{{lecture.price}} ₺</span>
+                            <span *ngIf="lecture.price" class="additional">{{lecture.price}} ₺</span>
                         </mat-chip>
                     </mat-chip-list>
                 </div>
@@ -81,11 +84,6 @@
                     </mat-chip-list>
                 </div>
             </div>
-<!--            <div class="facility-icons" fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%">-->
-<!--                <mat-icon svgIcon="free-trial" matTooltip="Ücretsiz Deneme Dersi"></mat-icon>-->
-<!--                <mat-icon svgIcon="group-discount" matTooltip="Grup Dersi İndirimi"></mat-icon>-->
-<!--                <mat-icon svgIcon="package-discount" matTooltip="Grup Dersi İndirimi"></mat-icon>-->
-<!--            </div>-->
         </div>
     </div>
 </mat-card>

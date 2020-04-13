@@ -1,7 +1,9 @@
 <div class="carousel" fxLayout="column" fxLayoutGap="16px">
-    <p *ngIf="data && data.length && title">{{title}}</p>
-    <app-info-card [id]="'item-' + activeIndex" class="animated fade-in-right" [style.touch-action]="'pan-y'"
-                   [data]="activeItem"></app-info-card>
+    <div>
+        <p *ngIf="data && data.length && title" class="custom-title">{{title}}</p>
+        <app-info-card [id]="'item-' + activeIndex" class="animated fade-in-right" [style.touch-action]="'pan-y'"
+                       [data]="activeItem"></app-info-card>
+    </div>
     <div fxLayout="row" fxLayoutAlign="center center">
         <div class="carousel-button" [ngClass]="{'active': i === activeIndex}" *ngFor="let item of items; let i = index"
               (click)="changeItem(i)">&#x25cf;</div>

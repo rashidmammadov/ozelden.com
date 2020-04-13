@@ -19,6 +19,7 @@ export class InfoCardComponent implements OnChanges {
 
     @Input() public data: InfoType;
     user: UserType;
+    showMore: boolean;
     TYPES = TYPES;
 
     constructor(private dialog: MatDialog, private store: Store<{user: UserType}>) { }
