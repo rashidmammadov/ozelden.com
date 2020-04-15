@@ -50,13 +50,13 @@ export class StudentCardComponent implements OnInit {
     }
 
     private deleteStudent = async () => {
-        this.store.select(loading);
-        const result = await this.studentService.deleteTutoredStudent(this.data.student_id);
-        UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
-            this.data = null;
-            ToastService.show(response.message);
-        });
-        this.store.select(loaded);
+        // this.store.select(loading);
+        // const result = await this.studentService.deleteTutoredStudent(this.data.student_id);
+        // UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
+        //     this.data = null;
+        //     ToastService.show(response.message);
+        // });
+        // this.store.select(loaded);
     };
 
     private updateStudent = async (student: StudentType) => {

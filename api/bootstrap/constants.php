@@ -5,7 +5,7 @@ define('ANNOUNCEMENT_ID', 'announcement_id');
 define('ANNOUNCEMENT_ALREADY_EXIST_WITH_SAME_PARAMETERS', 'Benzer filteler ile bir ilanınız zaten mevcut');
 define('ANNOUNCEMENT_CREATED_SUCCESSFULLY', 'İlan başarıyla eklendi');
 define('ANNOUNCEMENT_STATUS_ACTIVE', 1);
-define('AUTHENTICATION_ERROR', 'Kimlik doğrulama hatası oluştu');
+define('AUTHENTICATION_ERROR', 'Kimlik doğrulama hatası oluştu, lütfen tekrar deneyin');
 define('AVAILABLE', 'available');
 define('AVERAGE', 'average');
 define('AVERAGE_PRICE', 'average_price');

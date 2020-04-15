@@ -6,6 +6,7 @@ import { HomeComponent } from '../components/home/home.component';
 import { OffersComponent } from '../components/offers/offers.component';
 import { PaidServiceComponent } from '../components/paid-service/paid-service.component';
 import { ProfileComponent } from '../components/profile/profile.component';
+import { LandingComponent } from '../components/landing/landing.component';
 import { LecturesComponent } from '../components/lectures/lectures.component';
 import { LoginComponent } from '../components/login/login.component';
 import { RegisterComponent } from '../components/register/register.component';
@@ -20,8 +21,7 @@ const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'login',
-        // component: LandingComponent,
+        component: LandingComponent,
         canActivate: [AuthGuard]
     },
     {
@@ -77,7 +77,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [ RouterModule.forRoot(routes) ],
+    imports: [ RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled', onSameUrlNavigation: 'reload' }) ],
     exports: [ RouterModule ],
     providers: [ ProfileResolver ]
 })

@@ -25,6 +25,7 @@ import { OffersComponent } from './components/offers/offers.component';
 import { PaidServiceComponent } from './components/paid-service/paid-service.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PieChartComponent } from './components/graphs/pie-chart/pie-chart.component';
+import { LandingComponent } from './components/landing/landing.component';
 import { LecturesComponent } from './components/lectures/lectures.component';
 import { LoginComponent } from './components/login/login.component';
 import { MakeOfferDialogComponent } from './components/dialogs/make-offer-dialog/make-offer-dialog.component';
@@ -78,6 +79,7 @@ export function fetchStaticData(dataService: DataService) {
         PaidServiceComponent,
         PieChartComponent,
         ProfileComponent,
+        LandingComponent,
         LecturesComponent,
         LoginComponent,
         MakeOfferDialogComponent,

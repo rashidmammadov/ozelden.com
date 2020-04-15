@@ -55,13 +55,16 @@ export class AppComponent {
             'calendar',
             'dislike',
             'experience-tag',
+            'facebook',
             'female',
             'filter',
             'free-trial',
             'good',
             'group-discount',
+            'heart',
             'home',
             'info',
+            'instagram',
             'left-chevron',
             'left-circle',
             'left-quote',
@@ -76,6 +79,7 @@ export class AppComponent {
             'offers',
             'package-discount',
             'paperclip',
+            'pie-chart',
             'price-tag',
             'ranking-tag',
             'recommend',
@@ -84,6 +88,7 @@ export class AppComponent {
             'right-quote',
             'search',
             'settings',
+            'shield',
             'sliders',
             'star',
             'student-tag',
@@ -91,8 +96,10 @@ export class AppComponent {
             'target',
             'trash',
             'trending-up',
+            'twitter',
             'user-plus',
-            'x-circle'
+            'x-circle',
+            'youtube'
         ];
         let path: string = 'assets/icons/';
         svgArray.forEach((svg: string) => {

@@ -15,6 +15,7 @@ import { DATE_TIME } from '../../constants/date-time.constant';
 import { TYPES } from '../../constants/types.constant';
 import { loaded, loading } from '../../store/actions/progress.action';
 import { first } from 'rxjs/operators';
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-offers',
@@ -32,7 +33,8 @@ export class OffersComponent implements OnInit {
     }, {
         header: 'Teklif Gönderen',
         value: 'sender',
-        calc: (d: UserType) => d && Number(d.id) !== Number(this.user.id) ? `${d.name} ${d.surname}` : 'Ben'
+        calc: (d: UserType) => d && Number(d.id) !== Number(this.user.id) ? `${d.name} ${d.surname}` : 'Ben',
+        click: (d) => this.router.navigateByUrl(`/app/profile/${d.sender_id}`)
     }, {
         header: 'Öğrenci',
         value: 'student',
@@ -40,7 +42,8 @@ export class OffersComponent implements OnInit {
     }, {
         header: 'Teklif Alan',
         value: 'receiver',
-        calc: (d: UserType) => d && Number(d.id) !== Number(this.user.id) ? `${d.name} ${d.surname}` : 'Ben'
+        calc: (d: UserType) => d && Number(d.id) !== Number(this.user.id) ? `${d.name} ${d.surname}` : 'Ben',
+        click: (d) => this.router.navigateByUrl(`/app/profile/${d.receiver_id}`)
     }, {
         header: 'Teklif Verilen Ders',
         value: 'tutor_lecture',
@@ -66,7 +69,7 @@ export class OffersComponent implements OnInit {
     offers: OfferType[] = [];
 
     constructor(private offerService: OfferService, private dialog: MatDialog,
-                private store: Store<{progress: boolean, user: UserType}>) { }
+                private store: Store<{progress: boolean, user: UserType}>, private router: Router) { }
 
     async ngOnInit() {
         await this.fetchUser();

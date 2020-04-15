@@ -3,7 +3,8 @@
         <ng-container *ngFor="let column of columns" matColumnDef="{{column.value}}">
             <th mat-header-cell *matHeaderCellDef> {{column.header}} </th>
             <td mat-cell *matCellDef="let element">
-                <div *ngIf="!column.icon_button && !column.button" fxLayoutGap="8px" fxLayoutAlign="start center">
+                <div *ngIf="!column.icon_button && !column.button" fxLayoutGap="8px" fxLayoutAlign="start center"
+                     (click)="!!column.click ? column.click(element) : null" [ngClass]="{'link': !!column.click}">
                     <mat-icon *ngIf="!!column.icon" [svgIcon]="element[column.icon]"></mat-icon>
                     <span *ngIf="!column.button">{{column.calc ? column.calc(element[column.value]) : element[column.value]}}</span>
                     <span *ngIf="!!column.additional">{{column.additional}}</span>
@@ -11,7 +12,8 @@
                 <button *ngIf="!!column.icon_button" mat-icon-button (click)="column.click(element)">
                     <mat-icon [svgIcon]="column.icon_button" [matTooltip]="column.header"></mat-icon>
                 </button>
-                <button [class]="column.class(element[column.value])" *ngIf="!!column.button" mat-raised-button (click)="column.click(element)">
+                <button [class]="column.class(element[column.value])" *ngIf="!!column.button" mat-raised-button
+                        (click)="column.click(element)">
                     <span>{{column.calc ? column.calc(element[column.value]) : element[column.value]}}</span>
                     <span *ngIf="!!column.additional">{{column.additional}}</span>
                 </button>
