@@ -15,11 +15,13 @@ export const ENDPOINTS = {
     RECOMMENDED: (queryParams?: string) => `${PREFIX}recommended?${queryParams}`,
     REPORTS: (type?: string, queryParams?: string) => `${PREFIX}reports` + (type ? `/${type}` : '') +
           (queryParams ? `?${queryParams}` : ''),
+    RESET_PASSWORD: () => `${PREFIX}reset_password`,
     SEARCH: (queryParams?: string) => `${PREFIX}search?${queryParams}`,
     STUDENTS: (studentId?: number) => `${PREFIX}students` + (studentId ? `/${studentId}` : ''),
     SUITABILITIES: (type?: string) => `${PREFIX}suitabilities` + (type ? `/${type}` : ''),
     TUTOR_LECTURES: (id?: number) => `${PREFIX}tutor_lectures` + (id ? `/${id}` : ''),
     OFFERS: (page?: number, offer_id?: number) => `${PREFIX}offers` + (page ? `?page=${page}` : '') + (offer_id ? `/${offer_id}` : ''),
+    UPDATE_PASSWORD: () => `${PREFIX}update_password`,
     USER: () => `${PREFIX}user`,
 
 };

@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Models\MissingFieldsModel;
 use App\Http\Models\UserModel;
+use App\Http\Queries\MySQL\ApiQuery;
 use App\Http\Queries\MySQL\ProfileQuery;
 use App\Http\Queries\MySQL\SuitabilityQuery;
 use App\Http\Queries\MySQL\TutorLectureQuery;
 use App\Http\Queries\MySQL\UserQuery;
+use App\Http\Utilities\Email;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response as Res;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -191,6 +194,33 @@ class UserController extends ApiController {
     }
 
     /**
+     * Handle request to reset password of user with given email.
+     * @param Request $request - hold the user`s email address.
+     * @return mixed
+     */
+    public function resetPassword(Request $request) {
+        $rules = array (
+            EMAIL => 'required'
+        );
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $this->respondValidationError(FIELDS_VALIDATION_FAILED, $validator->errors());
+        } else {
+            $checkEmail = UserQuery::checkEmail($request[EMAIL]);
+            if (!$checkEmail) {
+                return $this->respondWithError(USER_DOES_NOT_EXIST);
+            } else {
+                $emailResult = $this->setNewPassword($request[EMAIL]);
+                if ($emailResult) {
+                    return $this->respondCreated(PASSWORD_SEND_TO_MAIL);
+                } else {
+                    return $this->respondWithError(SOMETHING_WRONG_WITH_EMAIL);
+                }
+            }
+        }
+    }
+
+    /**
      * Handle request to update given user`s data.
      * @param Request $request
      * @return mixed
@@ -227,6 +257,57 @@ class UserController extends ApiController {
     }
 
     /**
+     * Update password of user.
+     * @param Request $request
+     * @return mixed
+     */
+    public function updatePassword(Request $request) {
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+            $rules = array(
+                PASSWORD => 'required',
+                PASSWORD_CONFIRMATION => 'required'
+            );
+
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return $this->respondValidationError(FIELDS_VALIDATION_FAILED, $validator->errors());
+            } else {
+                if ($request[PASSWORD] != $request[PASSWORD_CONFIRMATION]) {
+                    return $this->respondWithError(PASSWORD_VALIDATION_FAILED);
+                } else {
+                    UserQuery::updateUserPassword($user[EMAIL], $request[PASSWORD]);
+                    $user->remember_token = NULL;
+                    $user->save();
+                    return $this->respondCreated(PASSWORD_UPDATED_SUCCESSFULLY);
+                }
+            }
+        } catch(JWTException $e) {
+            $this->setStatusCode(401);
+            $this->setMessage(AUTHENTICATION_ERROR);
+            return $this->respondWithError($this->getMessage());
+        }
+    }
+
+    /**
+     * Set random new password for user which is forgot password.
+     * @param $email - holds the user`s email address.
+     * @return bool
+     */
+    private function setNewPassword($email) {
+        $lowerCases = 'abcdefghijklmnopqrstuvwxyz';
+        $upperCases = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $digits = '1234567890';
+        $newPassword = $this->randomKeys($upperCases, 2) . $this->randomKeys($digits, 2) . $this->randomKeys($lowerCases, 2);
+        UserQuery::updateUserPassword($email, $newPassword);
+        $data = array(
+            EMAIL => $email,
+            PASSWORD => $newPassword
+        );
+        return Email::send(EMAIL_TYPE_RESET_PASSWORD, $data);
+    }
+
+    /**
      * Sign user if exist and send email if user registered.
      * @param Request $request
      * @param boolean $newUser
@@ -242,10 +323,25 @@ class UserController extends ApiController {
         $user->remember_token = $token;
         $user->save();
         if ($newUser) {
-            // TODO:
-            // Email::send(WELCOME_EMAIL, $request);
+            Email::send(EMAIL_TYPE_WELCOME, $request);
         }
         $userModel = new UserModel($user);
         return $this->respondCreated(LOGGED_IN_SUCCESSFULLY, $userModel->get());
+    }
+
+    /**
+     * Set random key.
+     * @param $keys - holds the keys array.
+     * @param $limit - holds the key limit.
+     * @return string
+     */
+    private function randomKeys($keys, $limit) {
+        $pass = array();
+        $keyLength = strlen($keys) - 1;
+        for ($i = 0; $i < $limit; $i++) {
+            $n = rand(0, $keyLength);
+            $pass[] = $keys[$n];
+        }
+        return implode($pass);
     }
 }

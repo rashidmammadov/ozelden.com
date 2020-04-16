@@ -26,8 +26,8 @@
                     </mat-form-field>
 
                     <div fxLayout="column" fxLayoutGap="8px">
-                        <a mat-flat-button mat-button>Şifremi Unuttum</a>
-                        <button mat-flat-button color="primary" type="sumbit" mat-button (click)="login()"
+                        <a mat-flat-button (click)="resetPasswordDialog()">Şifremi Unuttum</a>
+                        <button mat-flat-button color="primary" type="sumbit" (click)="login()"
                               [disabled]="!loginForm.valid">Giriş Yap</button>
                     </div>
                 </form>

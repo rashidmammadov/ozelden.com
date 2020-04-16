@@ -36,6 +36,8 @@ Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
     Route::post('/auth', 'UserController@register');
 
     Route::get('/missing_fields', 'UserController@getMissingFields');
+    Route::post('/reset_password', 'UserController@resetPassword');
+    Route::put('/update_password', 'UserController@updatePassword');
     Route::put('/user', 'UserController@update');
 
     Route::get('/data/{type}', 'DataController@getData');

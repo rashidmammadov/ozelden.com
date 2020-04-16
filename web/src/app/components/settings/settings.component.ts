@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+import { Cookie } from '../../services/cookie/cookie.service';
 import { ProfileService } from '../../services/profile/profile.service';
 import { UtilityService } from '../../services/utility/utility.service';
 import { UserService } from '../../services/user/user.service';
@@ -12,6 +14,8 @@ import { UserType } from '../../interfaces/user-type';
 import { loaded, loading } from '../../store/actions/progress.action';
 import { first } from 'rxjs/operators';
 import { set } from '../../store/actions/user.action';
+import { APP } from '../../constants/app.constant';
+import { REGEX } from '../../constants/regex.constant';
 
 @Component({
     selector: 'app-settings',
@@ -33,6 +37,11 @@ export class SettingsComponent implements OnInit {
         birthday: new FormControl('', [Validators.required]),
     });
 
+    passwordForm: FormGroup = new FormGroup({
+        password: new FormControl('', [Validators.required, Validators.pattern(REGEX.PASSWORD)]),
+        password_confirmation: new FormControl('', [Validators.required, Validators.pattern(REGEX.PASSWORD)])
+    });
+
     profileForm = new FormGroup({
         profession: new FormControl(''),
         phone: new FormControl('', [Validators.required]),
@@ -43,7 +52,8 @@ export class SettingsComponent implements OnInit {
     });
 
     constructor(private store: Store<{cities: CityType[], progress: boolean, user: UserType}>,
-                private profileService: ProfileService, private userService: UserService) { }
+                private profileService: ProfileService, private userService: UserService,
+                private router: Router) { }
 
     async ngOnInit() {
         await this.getUser();
@@ -69,6 +79,20 @@ export class SettingsComponent implements OnInit {
         this.updateProfile();
         this.updateUser();
         this.store.select(loaded);
+    };
+
+    updatePassword = async () => {
+        if (this.passwordForm.valid) {
+            this.store.dispatch(loading());
+            const result = await this.userService.updatePassword(this.setPasswordFormData());
+            UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
+                Cookie.delete(APP.COOKIE_KEY);
+                this.store.dispatch(set({user: null}));
+                ToastService.show(response.message);
+                this.router.navigateByUrl('login');
+            });
+            this.store.dispatch(loaded());
+        }
     };
 
     setBirthday(date) {
@@ -141,6 +165,14 @@ export class SettingsComponent implements OnInit {
             controls.identity_number.value === this.user.identity_number &&
             controls.sex.value === this.user.sex &&
             controls.birthday.value === this.user.birthday);
+    }
+
+    private setPasswordFormData() {
+        let form = this.passwordForm.controls;
+        return {
+            'password': form.password.value,
+            'password_confirmation': form.password_confirmation.value
+        }
     }
 
     private setProfileRequestParams() {

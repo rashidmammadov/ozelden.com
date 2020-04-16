@@ -42,7 +42,7 @@ export class UtilityService {
         } else if ((result as IHttpResponse).status === 'error') {
             ToastService.show((result as IHttpResponse).message)
         } else if (result instanceof ErrorResponse) {
-            ToastService.show(result.message);
+            ToastService.show(result.message || MESSAGES.ERROR.INTERNAL_ERROR);
             if (result.status_code === 401) {
                 Cookie.delete(APP.COOKIE_KEY);
                 UtilityService.injector.get(Router).navigateByUrl('login');

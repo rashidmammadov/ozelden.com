@@ -118,4 +118,14 @@ class UserQuery extends Query {
         }
     }
 
+    /**
+     * @description query to update user` password.
+     * @param integer $email - the given user`s email
+     * @param string $newPassword - updated password
+     */
+    public static function updateUserPassword($email, $newPassword) {
+        User::where(EMAIL, EQUAL_SIGN, $email)
+            ->update([PASSWORD => \Hash::make($newPassword)]);
+    }
+
 }

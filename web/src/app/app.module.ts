@@ -55,6 +55,7 @@ import { progressReducer } from './store/reducers/progress.reducer';
 import { userReducer } from './store/reducers/user.reducer';
 
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { ForgotPasswordDialogComponent } from './components/dialogs/forgot-password-dialog/forgot-password-dialog.component';
 
 export function fetchStaticData(dataService: DataService) {
     return () => dataService.saveOnStore();
@@ -92,7 +93,8 @@ export function fetchStaticData(dataService: DataService) {
         TableComponent,
         ThreedsDialogComponent,
         TutoredStudentsComponent,
-        UploadFileComponent
+        UploadFileComponent,
+        ForgotPasswordDialogComponent
     ],
     imports: [
         AppRoutingModule,

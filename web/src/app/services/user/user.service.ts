@@ -21,14 +21,24 @@ export class UserService {
         return UtilityService.pipeHttpResponse(this.http.get<IHttpResponse>(ENDPOINTS.MISSING_FIELDS()));
     }
 
+    resetPassword(params): Promise<ErrorResponse | IHttpResponse> {
+        return UtilityService.pipeHttpResponse(this.http.post<IHttpResponse>(ENDPOINTS.RESET_PASSWORD(),
+            UtilityService.setHttpParams(params)));
+    }
+
     update(user): Promise<ErrorResponse | IHttpResponse> {
         return UtilityService.pipeHttpResponse(this.http.put<IHttpResponse>(ENDPOINTS.USER(),
             UtilityService.setHttpParams(user)));
+    }
+
+    updatePassword(params): Promise<ErrorResponse | IHttpResponse> {
+        return UtilityService.pipeHttpResponse(this.http.put<IHttpResponse>(ENDPOINTS.UPDATE_PASSWORD(),
+            UtilityService.setHttpParams(params)));
     }
 
     updateMissingFields = async (type: string, value: boolean) => {
         let missingFields = await this.store.select('missingFields').pipe(first()).toPromise();
         missingFields[type] = value;
         this.store.dispatch(setMissingFields({ missingFields: missingFields }));
-    }
+    };
 }
