@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutGap="16px">
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
-        <div fxLayout="column" fxFlex fxFlex.lt-md="0" fxLayoutGap="8px">
+        <div fxLayout="column" fxFlex.gt-md fxLayoutGap="8px">
             <div fxLayoutAlign="space-between center">
                 <p class="custom-title">Ders Uygunluk Şekilleri</p>
                 <button mat-button mat-raised-button color="primary" [disabled]="!changeList.course_type"
@@ -18,13 +18,13 @@
             </mat-card>
         </div>
 
-        <div fxLayout="column" fxFlex fxFlex.lt-md="0" fxLayoutGap="8px">
+        <div fxLayout="column" fxFlex.gt-md fxLayoutGap="8px">
             <div fxLayoutAlign="space-between center">
                 <p class="custom-title">Promosyon/Kolaylık</p>
                 <button mat-button mat-raised-button color="primary" [disabled]="!changeList.facility"
                         (click)="updateSuitability('facility')">Güncelle</button>
             </div>
-            <mat-card class="mat-elevation-z4" fxFlex>
+            <mat-card class="mat-elevation-z4" fxFlex.gt-md>
                 <mat-card-content *ngIf="location" fxLayout="column">
                     <mat-checkbox (ngModelChange)="watchingSuitableChange('facility')"
                                   [(ngModel)]="facility.demo">Ücretsiz Deneme Dersi</mat-checkbox>
@@ -38,13 +38,13 @@
     </div>
 
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
-        <div fxLayout="column" fxFlex fxFlex.lt-md="0" fxLayoutGap="8px">
+        <div fxLayout="column" fxFlex.gt-md fxLayoutGap="8px">
             <div fxLayoutAlign="space-between center">
                 <p class="custom-title">Ders Verilecek Mekanlar</p>
                 <button mat-button mat-raised-button color="primary"  [disabled]="!changeList.location"
                         (click)="updateSuitability('location')">Güncelle</button>
             </div>
-            <mat-card class="mat-elevation-z4" fxFlex>
+            <mat-card class="mat-elevation-z4" fxFlex.gt-md>
                 <mat-card-content *ngIf="location" fxLayout="column">
                     <mat-checkbox (ngModelChange)="watchingSuitableChange('location')"
                                   [(ngModel)]="location.student_home">Öğrenci Evi</mat-checkbox>
@@ -62,16 +62,16 @@
             </mat-card>
         </div>
 
-        <div fxLayout="column" fxFlex fxFlex.lt-md="0" fxLayoutGap="8px">
+        <div fxLayout="column" fxFlex.gt-md fxLayoutGap="8px">
             <div fxLayoutAlign="space-between center">
                 <p class="custom-title">Ders Verilecek Semtler</p>
                 <button mat-button mat-raised-button color="primary" [disabled]="!changeList.regions"
                         (click)="updateSuitability('regions')">Güncelle</button>
             </div>
-            <mat-card class="mat-elevation-z4" fxFlex>
+            <mat-card class="mat-elevation-z4" fxFlex.gt-md>
                 <mat-card-content fxLayout="column">
-                    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex fxLayoutGap="16px" fxLayoutGap.lt-md="8px">
-                        <mat-form-field fxFlex fxFlex.lt-md appearance="outline">
+                    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px" fxLayoutGap.lt-md="8px">
+                        <mat-form-field fxFlex.gt-md appearance="outline">
                             <mat-label>İl</mat-label>
                             <mat-select [(ngModel)]="city" (selectionChange)="changeCity()">
                                 <mat-option *ngFor="let city of cities" [value]="city">
@@ -80,7 +80,7 @@
                             </mat-select>
                         </mat-form-field>
 
-                        <mat-form-field *ngIf="city" fxFlex fxFlex.lt-md appearance="outline">
+                        <mat-form-field *ngIf="city" fxFlex.gt-md appearance="outline">
                             <mat-label>İlçe</mat-label>
                             <mat-select [(ngModel)]="district">
                                 <mat-option *ngFor="let district of city.districts" [value]="district">

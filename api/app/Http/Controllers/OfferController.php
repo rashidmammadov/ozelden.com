@@ -11,6 +11,7 @@ use App\Http\Queries\MySQL\OfferQuery;
 use App\Http\Queries\MySQL\PaidServiceQuery;
 use App\Http\Queries\MySQL\StudentQuery;
 use App\Http\Utilities\CustomDate;
+use App\Http\Utilities\Email;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use JWTAuth;
@@ -239,6 +240,7 @@ class OfferController extends ApiController {
         $offerResultFromDB = OfferQuery::create($offer->get());
         if ($offerResultFromDB) {
             $offerModel = new OfferModel($offerResultFromDB);
+            Email::send(EMAIL_TYPE_OFFER, $offerModel->getOfferId());
             return $this->respondCreated(OFFER_SENT_SUCCESSFULLY, $offerModel->get());
         } else {
             return $this->respondWithError(SOMETHING_WRONG_WITH_DB);
@@ -255,6 +257,7 @@ class OfferController extends ApiController {
     private function updateOfferStatus($offerId, $user, $request) {
         $offerStatusResult = OfferQuery::updateStatus($offerId, $user[IDENTIFIER], $request[STATUS]);
         if ($offerStatusResult) {
+            Email::send(EMAIL_TYPE_OFFER_STATUS, $offerId);
             return $this->respondCreated(OFFER_STATUS_UPDATED_SUCCESSFULLY);
         } else {
             return $this->respondWithError(PERMISSION_DENIED);

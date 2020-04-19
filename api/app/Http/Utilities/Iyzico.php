@@ -5,8 +5,6 @@ namespace App\Http\Utilities;
 use App\Http\Models\PaidServiceModel;
 use App\Http\Models\ProfileModel;
 use App\Http\Models\UserModel;
-use App\Http\Queries\MySQL\PaidServiceQuery;
-use App\Http\Queries\MySQL\UserQuery;
 use Illuminate\Support\Facades\Log;
 use Iyzipay\Model\Address;
 use Iyzipay\Model\BasketItem;
@@ -41,6 +39,7 @@ class Iyzico {
     }
 
     public function confirmPayment($response) {
+        Log::info('User: ' . $response['conversationId'] . ' starts confirm payment');
         $request = new CreateThreedsPaymentRequest();
         $request->setLocale(Locale::TR);
         $request->setConversationId($response['conversationId']);
@@ -50,7 +49,7 @@ class Iyzico {
 
         $threeDSPayment = ThreedsPayment::create($request, $this->getOptions());
         if ($threeDSPayment->getErrorCode()) {
-            Log::error('IYZICO says: ' . $threeDSPayment->getErrorMessage());
+            Log::error('IYZICO says: user ' . $response['conversationId'] . ' => ' . $threeDSPayment->getErrorMessage());
             return '<div align="center" style="width: 100%; height: calc(100% - 64px); background: #fbfbfb; padding: 32px 0; font-family: Ubuntu, sans-serif;">
                 <h3 style="color: #f44336;">Hatalı</h3>
                 <h2 style="color: #303030; font-weight: 100;">' . $message .'</h2>
@@ -66,6 +65,7 @@ class Iyzico {
     }
 
     public function startThreeDSInitialize(UserModel $user, ProfileModel $profile, $paymentDetail, $ipAddress) {
+        Log::info('User: ' . $user->getIdentifier() . ' starts 3DS initialize');
         $request = $this->payment($paymentDetail[PRICE], $user->getIdentifier());
 
         $paymentCard = $this->paymentCard($paymentDetail);
@@ -82,8 +82,9 @@ class Iyzico {
 
         $threeDSInitialize = ThreedsInitialize::create($request, $this->getOptions());
         if ($threeDSInitialize->getErrorCode()) {
-            Log::error('IYZICO says: ' . $threeDSInitialize->getErrorMessage());
+            Log::error('IYZICO says: user ' . $user->getIdentifier() . ' => ' . $threeDSInitialize->getErrorMessage());
         } else {
+            Log::info('IYZICO says: user ' . $user->getIdentifier() . ' => successfully initialized payment');
             return $threeDSInitialize->getHtmlContent();
         }
     }

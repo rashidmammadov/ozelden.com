@@ -6,7 +6,7 @@
             </mat-card-header>
             <mat-card-content>
                 <form ngNoForm fxLayout="column" [formGroup]="loginForm">
-                    <mat-form-field fxFlex="100%" appearance="outline">
+                    <mat-form-field appearance="outline">
                         <mat-label>Email</mat-label>
                         <input matInput placeholder="Email" [type]="'email'" formControlName="email">
                         <mat-error *ngIf="loginForm.controls.email.hasError('required')">
@@ -17,7 +17,7 @@
                         </mat-error>
                     </mat-form-field>
 
-                    <mat-form-field fxFlex="100%" appearance="outline">
+                    <mat-form-field appearance="outline">
                         <mat-label>Şifre</mat-label>
                         <input matInput placeholder="Şifre" [type]="'password'" formControlName="password">
                         <mat-error *ngIf="loginForm.controls.password.hasError('required')">

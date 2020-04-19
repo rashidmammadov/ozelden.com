@@ -13,7 +13,7 @@
             <mat-hint><b>Hizmetler</b> sayfasından daha fazla teklif hakkı ekleyebilirsiniz</mat-hint>
         </mat-form-field>
         <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
-            <mat-form-field fxFlex appearance="outline">
+            <mat-form-field fxFlex.gt-md appearance="outline">
                 <mat-label>Teklif Gönderilen Ders</mat-label>
                 <mat-select *ngIf="data" formControlName="tutor_lecture_id">
                     <mat-option *ngFor="let lecture of lectures" [value]="lecture.tutor_lecture_id"
@@ -22,7 +22,7 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field fxFlex="30" appearance="outline">
+            <mat-form-field fxFlex.gt-md="30" appearance="outline">
                 <mat-label>Gönderilen Teklif (₺)</mat-label>
                 <input matInput placeholder="Gönderilen Teklif (₺)" [type]="'number'" min="1" formControlName="offer">
             </mat-form-field>

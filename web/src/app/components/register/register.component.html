@@ -6,8 +6,8 @@
             </mat-card-header>
             <mat-card-content>
                 <form ngNoForm fxLayout="column" [formGroup]="registerForm">
-                      <div fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="4%" fxLayoutGap.lt-md="0">
-                          <mat-form-field fxFlex="48%" fxFlex.lt-md appearance="outline">
+                      <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="4%" fxLayoutGap.lt-md="0">
+                          <mat-form-field fxFlex.gt-md="48%" appearance="outline">
                               <mat-label>İsim</mat-label>
                               <input matInput placeholder="İsim" formControlName="name">
                               <mat-error *ngIf="registerForm.controls.name.hasError('required')">
@@ -15,7 +15,7 @@
                               </mat-error>
                           </mat-form-field>
 
-                          <mat-form-field fxFlex="48%" fxFlex.lt-md appearance="outline">
+                          <mat-form-field fxFlex.gt-md="48%" appearance="outline">
                               <mat-label>Soyisim</mat-label>
                               <input matInput placeholder="Soyisim" formControlName="surname">
                               <mat-error *ngIf="registerForm.controls.surname.hasError('required')">
@@ -24,7 +24,7 @@
                           </mat-form-field>
                       </div>
 
-                      <mat-form-field fxFlex appearance="outline">
+                      <mat-form-field fxFlex.gt-md appearance="outline">
                           <mat-label>Kullanıcı Tipi</mat-label>
                           <mat-select formControlName="type">
                               <mat-option *ngFor="let userType of userTypes" [value]="userType.value">
@@ -33,8 +33,8 @@
                           </mat-select>
                       </mat-form-field>
 
-                      <div fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="4%" fxLayoutGap.lt-md="0">
-                          <mat-form-field fxFlex="48%" fxFlex.lt-md appearance="outline">
+                      <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="4%" fxLayoutGap.lt-md="0">
+                          <mat-form-field fxFlex.gt-md="48%" appearance="outline">
                               <mat-label>Email</mat-label>
                               <input matInput placeholder="Email" [type]="'email'" formControlName="email">
                               <mat-error *ngIf="registerForm.controls.email.hasError('required')">
@@ -45,7 +45,7 @@
                               </mat-error>
                           </mat-form-field>
 
-                          <mat-form-field fxFlex="48%" fxFlex.lt-md appearance="outline">
+                          <mat-form-field fxFlex.gt-md="48%" appearance="outline">
                               <mat-label>Telefon</mat-label>
                               <span matPrefix>+90 &nbsp;</span>
                               <input type="tel" matInput placeholder="Telefon" maxlength="10" formControlName="phone">
@@ -56,7 +56,7 @@
                           </mat-form-field>
                       </div>
 
-                      <mat-form-field fxFlex appearance="outline">
+                      <mat-form-field fxFlex.gt-md appearance="outline">
                           <mat-label>Kimlik Numarası</mat-label>
                           <input matInput placeholder="Kimlik Numarası" formControlName="identity_number">
                           <mat-error *ngIf="registerForm.controls.identity_number.hasError('required')">
@@ -72,8 +72,8 @@
 
                       <app-select-date-as-list (callback)="setBirthday($event)"></app-select-date-as-list>
 
-                      <div fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="4%" fxLayoutGap.lt-md="0">
-                          <mat-form-field fxFlex="48%" fxFlex.lt-md appearance="outline">
+                      <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="4%" fxLayoutGap.lt-md="0">
+                          <mat-form-field fxFlex.gt-md="48%" appearance="outline">
                               <mat-label>Şifre</mat-label>
                               <input matInput placeholder="Şifre" [type]="'password'" formControlName="password">
                               <mat-error *ngIf="registerForm.controls.password.hasError('required')">
@@ -84,7 +84,7 @@
                               </mat-error>
                           </mat-form-field>
 
-                          <mat-form-field fxFlex="48%" fxFlex.lt-md appearance="outline">
+                          <mat-form-field fxFlex.gt-md="48%" appearance="outline">
                               <mat-label>Şifre Onayı</mat-label>
                               <input matInput placeholder="Şifre Onayı" [type]="'password'" formControlName="password_confirmation">
                               <mat-error *ngIf="registerForm.controls.password_confirmation.hasError('required')">
@@ -96,8 +96,8 @@
                           </mat-form-field>
                       </div>
 
-                      <div fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="4%" fxLayoutGap.lt-md="8px">
-                          <mat-form-field fxFlex="48%" fxFlex.lt-md appearance="outline">
+                      <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="4%" fxLayoutGap.lt-md="8px">
+                          <mat-form-field fxFlex.gt-md="48%" appearance="outline">
                               <mat-label>İl</mat-label>
                               <mat-select formControlName="city">
                                   <mat-option *ngFor="let city of cities" [value]="city">
@@ -106,7 +106,7 @@
                               </mat-select>
                           </mat-form-field>
 
-                          <mat-form-field fxFlex="48%" fxFlex.lt-md appearance="outline">
+                          <mat-form-field fxFlex.gt-md="48%" appearance="outline">
                               <mat-label>İlçe</mat-label>
                               <mat-select formControlName="district">
                                   <mat-option *ngFor="let district of registerForm.controls.city.value.districts" [value]="district">
@@ -116,7 +116,7 @@
                           </mat-form-field>
                       </div>
 
-                      <mat-form-field appearance="outline" fxFlex>
+                      <mat-form-field appearance="outline" fxFlex.gt-md>
                           <mat-label>Adres</mat-label>
                           <textarea matInput placeholder="Adres" formControlName="address" maxlength="200"></textarea>
                           <mat-hint align="end">{{registerForm.controls.address?.value?.length || 0}} / 200</mat-hint>

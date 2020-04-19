@@ -1,8 +1,7 @@
 <mat-card *ngIf="data" [id]="'info-card-' + data.id" class="info-card mat-elevation-z4">
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
-        <div class="general" fxLayout="column" fxLayoutAlign="center center" fxFlex="45">
-            <div [routerLink]="['/app/profile', data.id]" class="link" fxLayout="row" fxLayoutAlign="center center"
-                 fxLayoutGap="16px" fxFlex>
+        <div class="general" fxLayout="column" fxLayoutAlign="center center" fxFlex.gt-md="45">
+            <div [routerLink]="['/app/profile', data.id]" class="link" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="16px">
                 <mat-icon *ngIf="data.sex" class="gender" [svgIcon]="data.sex"
                           [matTooltip]="data.sex === 'female' ? 'Kadın' : 'Erkek'"></mat-icon>
                 <img [alt]="data.name + ' ' + data.surname" mat-card-avatar
@@ -53,7 +52,7 @@
                 <mat-icon svgIcon="right-quote"></mat-icon>
             </p>
         </div>
-        <div class="detail" fxLayout="column" fxLayoutAlign="space-between start" fxFlex>
+        <div class="detail" fxLayout="column" fxLayoutAlign="space-between start" fxFlex.gt-md>
             <div fxLayout="column" fxLayoutGap="8px">
                 <div *ngIf="data.student">
                     <p class="label">Öğrenci</p>

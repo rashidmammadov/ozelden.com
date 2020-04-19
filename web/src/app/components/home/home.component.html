@@ -1,5 +1,5 @@
 <div fxLayout="column" fxLayoutGap="16px">
-    <mat-card class="mat-elevation-z4" fxFlex>
+    <mat-card class="mat-elevation-z4" fxFlex.gt-md>
         <mat-card-content>
             <form ngNoForm fxLayout="column" [formGroup]="searchForm">
                 <div *ngIf="!changeMode" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between center" fxLayoutGap="8px">
@@ -27,8 +27,8 @@
                         Filteleri Değiş  <mat-icon svgIcon="filter"></mat-icon>
                     </button>
                 </div>
-                <div *ngIf="changeMode" fxLayout="row" fxLayout.lt-sm="column" fxFlex fxLayoutGap="16px" fxLayoutGap.lt-md="8px">
-                    <mat-form-field fxFlex appearance="outline">
+                <div *ngIf="changeMode" fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px" fxLayoutGap.lt-md="8px">
+                    <mat-form-field fxFlex.gt-md appearance="outline">
                         <mat-label>İl</mat-label>
                         <mat-select formControlName="city" (selectionChange)="changeCity()">
                             <mat-option *ngFor="let city of cities" [value]="city">
@@ -37,7 +37,7 @@
                         </mat-select>
                     </mat-form-field>
 
-                    <mat-form-field *ngIf="searchForm.controls.city.valid" fxFlex appearance="outline">
+                    <mat-form-field *ngIf="searchForm.controls.city.valid" fxFlex.gt-md appearance="outline">
                         <mat-label>İlçe</mat-label>
                         <mat-select formControlName="district">
                             <mat-option *ngFor="let district of searchForm.controls.city.value?.districts"
@@ -47,7 +47,7 @@
                         </mat-select>
                     </mat-form-field>
 
-                    <mat-form-field fxFlex appearance="outline">
+                    <mat-form-field fxFlex.gt-md appearance="outline">
                         <mat-label>Ders Alanı</mat-label>
                         <mat-select formControlName="lecture_area" (selectionChange)="changeLectureArea()">
                             <mat-option *ngFor="let lecture of lectures" [value]="lecture">
@@ -56,7 +56,7 @@
                         </mat-select>
                     </mat-form-field>
 
-                    <mat-form-field *ngIf="searchForm.controls.lecture_area.valid" fxFlex appearance="outline">
+                    <mat-form-field *ngIf="searchForm.controls.lecture_area.valid" fxFlex.gt-md appearance="outline">
                         <mat-label>Ders Konusu</mat-label>
                         <mat-select formControlName="lecture_theme">
                             <mat-option *ngFor="let theme of searchForm.controls.lecture_area.value?.lecture_themes"
@@ -67,18 +67,18 @@
                     </mat-form-field>
                 </div>
                 <div *ngIf="changeMode && user && user.type === TYPES.TUTORED" fxLayout="row" fxLayout.lt-sm="column"
-                      fxFlex fxLayoutGap="16px" fxLayoutGap.lt-md="8px">
-                    <mat-form-field *ngIf="searchForm.controls.lecture_area.valid" fxFlex appearance="outline">
+                      fxLayoutGap="16px" fxLayoutGap.lt-md="8px">
+                    <mat-form-field *ngIf="searchForm.controls.lecture_area.valid" fxFlex.gt-md appearance="outline">
                         <mat-label>Minimum Fiyat (₺)</mat-label>
                         <input matInput type="number" [min]="0" [max]="9999" formControlName="min_price">
                     </mat-form-field>
 
-                    <mat-form-field *ngIf="searchForm.controls.lecture_area.valid" fxFlex appearance="outline">
+                    <mat-form-field *ngIf="searchForm.controls.lecture_area.valid" fxFlex.gt-md appearance="outline">
                         <mat-label>Maksimum Fiyat (₺)</mat-label>
                         <input matInput type="number" [min]="0" [max]="9999" formControlName="max_price">
                     </mat-form-field>
 
-                    <mat-form-field fxFlex appearance="outline">
+                    <mat-form-field fxFlex.gt-md appearance="outline">
                         <mat-label>Cinsiyet</mat-label>
                         <mat-select formControlName="sex">
                             <mat-option *ngFor="let gender of genders" [value]="gender.value">
@@ -87,7 +87,7 @@
                         </mat-select>
                     </mat-form-field>
 
-                    <mat-form-field fxFlex appearance="outline">
+                    <mat-form-field fxFlex.gt-md appearance="outline">
                         <mat-label>Sıralama</mat-label>
                         <mat-select formControlName="order">
                             <mat-option *ngFor="let order of orders" [value]="order.value">
@@ -106,8 +106,8 @@
     </mat-card>
 
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
-        <app-grid-list fxHide.lt-md fxFlex="50" [data]="searchResult" [column]="1" [item]="'app-info-card'"></app-grid-list>
-        <div fxLayout="column" fxFlex="50" fxFlex.lt-md="100" fxLayoutGap="16px">
+        <app-grid-list fxHide.lt-md fxFlex.gt-md="50" [data]="searchResult" [column]="1" [item]="'app-info-card'"></app-grid-list>
+        <div fxLayout="column" fxFlex.gt-md="50" fxLayoutGap="16px">
             <div>
                 <p class="custom-title">Seçili Semt Ve Ders Filtreleri İle Raporlar</p>
                 <mat-card class="mat-elevation-z4 overall-report" fxLayout="column" fxLayoutGap="16px">
@@ -124,18 +124,18 @@
                     <div fxLayout="row">
                         <div fxLayout="column" fxFlex>
                             <span class="mat-small">Cinsiyet Dağılımı</span>
-                            <app-pie-chart *ngIf="reports" fxFlex [data]="reports.gender_distribution"></app-pie-chart>
+                            <app-pie-chart *ngIf="reports" fxFlex.gt-md [data]="reports.gender_distribution"></app-pie-chart>
                         </div>
                         <div fxLayout="column" fxFlex>
                             <span class="mat-small">Ders Sayısı / Fiyat Aralığı</span>
-                            <app-bar-chart-horizontal *ngIf="reports" fxFlex [data]="reports.price_distribution"></app-bar-chart-horizontal>
+                            <app-bar-chart-horizontal *ngIf="reports" fxFlex.gt-md [data]="reports.price_distribution"></app-bar-chart-horizontal>
                         </div>
                     </div>
                 </mat-card>
             </div>
             <app-carousel [title]="'Bu Bölgede Önerilenler'" [data]="recommends"></app-carousel>
         </div>
-        <app-grid-list fxHide.gt-md fxFlex [data]="searchResult" [column]="1" [item]="'app-info-card'"></app-grid-list>
+        <app-grid-list fxHide.gt-md fxFlex.gt-md [data]="searchResult" [column]="1" [item]="'app-info-card'"></app-grid-list>
     </div>
 
     <button class="announcement-button" matTooltip="İlan Olarak Kaydet" color="primary" mat-fab [disabled]="!searchForm.valid"

@@ -26,7 +26,7 @@
             <mat-hint><b>Öğrencilerim</b> sayfasından öğrenci (velisi olarak) ekleyebilirsiniz</mat-hint>
         </mat-form-field>
         <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
-            <mat-form-field fxFlex appearance="outline">
+            <mat-form-field fxFlex.gt-md appearance="outline">
                 <mat-label>Alınmak İstenen Ders</mat-label>
                 <mat-select *ngIf="data" formControlName="tutor_lecture_id">
                     <mat-option *ngFor="let lecture of data.lectures" [value]="lecture.tutor_lecture_id"
@@ -35,7 +35,7 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field fxFlex="30" appearance="outline">
+            <mat-form-field fxFlex.gt-md="30" appearance="outline">
                 <mat-label>İstenen Teklif (₺)</mat-label>
                 <input matInput placeholder="İstenen Teklif (₺)" [type]="'number'" min="1" formControlName="offer">
             </mat-form-field>

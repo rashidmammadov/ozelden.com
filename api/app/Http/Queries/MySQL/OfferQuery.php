@@ -17,25 +17,61 @@ class OfferQuery extends Query {
         try {
             $query = Offer::where(SENDER_ID, EQUAL_SIGN, $userId)
                 ->orWhere(RECEIVER_ID, EQUAL_SIGN, $userId)
-                ->leftJoin(DB_TUTOR_LECTURE_TABLE, function ($join) use ($userId) {
+                ->leftJoin(DB_TUTOR_LECTURE_TABLE, function ($join) {
                     $join->on(DB_TUTOR_LECTURE_TABLE.'.'.TUTOR_LECTURE_ID, EQUAL_SIGN, DB_OFFER_TABLE.'.'.TUTOR_LECTURE_ID);
                 })
-                ->leftJoin(DB_USERS_TABLE.' as '.SENDER, function ($join) use ($userId) {
+                ->leftJoin(DB_USERS_TABLE.' as '.SENDER, function ($join) {
                     $join->on(SENDER.'.'.IDENTIFIER, EQUAL_SIGN, DB_OFFER_TABLE.'.'.SENDER_ID);
                 })
-                ->leftJoin(DB_USERS_TABLE.' as '.RECEIVER, function ($join) use ($userId) {
+                ->leftJoin(DB_USERS_TABLE.' as '.RECEIVER, function ($join) {
                     $join->on(RECEIVER.'.'.IDENTIFIER, EQUAL_SIGN, DB_OFFER_TABLE.'.'.RECEIVER_ID);
                 })
                 ->select('*', DB_OFFER_TABLE.'.'.UPDATED_AT, DB_OFFER_TABLE.'.'.CREATED_AT,
                     SENDER.'.'.IDENTIFIER.' as '.SENDER.'_'.IDENTIFIER,
+                    SENDER.'.'.EMAIL.' as '.SENDER.'_'.EMAIL,
                     SENDER.'.'.NAME.' as '.SENDER.'_'.NAME,
                     SENDER.'.'.SURNAME.' as '.SENDER.'_'.SURNAME,
                     RECEIVER.'.'.IDENTIFIER.' as '.RECEIVER.'_'.IDENTIFIER,
+                    RECEIVER.'.'.EMAIL.' as '.RECEIVER.'_'.EMAIL,
                     RECEIVER.'.'.NAME.' as '.RECEIVER.'_'.NAME,
                     RECEIVER.'.'.SURNAME.' as '.RECEIVER.'_'.SURNAME
                 )
                 ->orderBy(DB_OFFER_TABLE.'.'.CREATED_AT, 'desc')
                 ->paginate($itemPerPage);
+            return $query;
+        } catch (QueryException $e) {
+            self::logException($e, debug_backtrace());
+        }
+    }
+
+    /**
+     * get offer from db with given offer id.
+     * @param $offerId - holds the given offer id.
+     * @return mixed
+     */
+    public static function getOffer($offerId) {
+        try {
+            $query = Offer::where(OFFER_ID, EQUAL_SIGN, $offerId)
+                ->leftJoin(DB_TUTOR_LECTURE_TABLE, function ($join) {
+                    $join->on(DB_TUTOR_LECTURE_TABLE.'.'.TUTOR_LECTURE_ID, EQUAL_SIGN, DB_OFFER_TABLE.'.'.TUTOR_LECTURE_ID);
+                })
+                ->leftJoin(DB_USERS_TABLE.' as '.SENDER, function ($join) {
+                    $join->on(SENDER.'.'.IDENTIFIER, EQUAL_SIGN, DB_OFFER_TABLE.'.'.SENDER_ID);
+                })
+                ->leftJoin(DB_USERS_TABLE.' as '.RECEIVER, function ($join) {
+                    $join->on(RECEIVER.'.'.IDENTIFIER, EQUAL_SIGN, DB_OFFER_TABLE.'.'.RECEIVER_ID);
+                })
+                ->select('*', DB_OFFER_TABLE.'.'.UPDATED_AT, DB_OFFER_TABLE.'.'.CREATED_AT,
+                    SENDER.'.'.IDENTIFIER.' as '.SENDER.'_'.IDENTIFIER,
+                    SENDER.'.'.EMAIL.' as '.SENDER.'_'.EMAIL,
+                    SENDER.'.'.NAME.' as '.SENDER.'_'.NAME,
+                    SENDER.'.'.SURNAME.' as '.SENDER.'_'.SURNAME,
+                    RECEIVER.'.'.IDENTIFIER.' as '.RECEIVER.'_'.IDENTIFIER,
+                    RECEIVER.'.'.EMAIL.' as '.RECEIVER.'_'.EMAIL,
+                    RECEIVER.'.'.NAME.' as '.RECEIVER.'_'.NAME,
+                    RECEIVER.'.'.SURNAME.' as '.RECEIVER.'_'.SURNAME
+                )
+                ->first();
             return $query;
         } catch (QueryException $e) {
             self::logException($e, debug_backtrace());

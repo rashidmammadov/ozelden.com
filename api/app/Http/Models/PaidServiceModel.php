@@ -5,7 +5,9 @@ namespace App\Http\Models;
 use App\Http\Queries\MySQL\FinanceQuery;
 use App\Http\Queries\MySQL\PaidServiceQuery;
 use App\Http\Utilities\CustomDate;
+use App\Http\Utilities\Email;
 use App\Http\Utilities\Packages;
+use Illuminate\Support\Facades\Log;
 
 class PaidServiceModel {
 
@@ -64,7 +66,7 @@ class PaidServiceModel {
             } else if ($package[GROUP] == 'BOOST') {
                 $currentBoost = $paidServiceModel->getBoost();
                 $additionalBoost = $package[VALUE] * CustomDate::$oneDay;
-                if ($currentBoost) {
+                if ($currentBoost && (intval($currentBoost) >= CustomDate::currentMilliseconds())) {
                     $updatedBoost = intval($currentBoost) + intval($additionalBoost);
                 } else {
                     $updatedBoost = CustomDate::currentMilliseconds() + intval($additionalBoost);
@@ -73,7 +75,7 @@ class PaidServiceModel {
             } else if ($package[GROUP] == 'RECOMMEND') {
                 $currentRecommend = $paidServiceModel->getRecommend();
                 $additionalRecommend = $package[VALUE] * CustomDate::$oneDay;
-                if ($currentRecommend) {
+                if ($currentRecommend && (intval($currentRecommend) >= CustomDate::currentMilliseconds())) {
                     $updatedRecommend = intval($currentRecommend) + intval($additionalRecommend);
                 } else {
                     $updatedRecommend = CustomDate::currentMilliseconds() + intval($additionalRecommend);
@@ -87,6 +89,8 @@ class PaidServiceModel {
             $finance->setPrice($paymentItem->getPrice());
             $finance->setPriceWithCommission($paymentItem->getMerchantPayoutAmount());
             FinanceQuery::save($finance->get());
+            Log::info('User ' . $userId . ' => successfully confirm payment ' . $paymentItem->getPaymentTransactionId() . '-' . $paymentItem->getItemId());
+            Email::send(EMAIL_TYPE_PAID_SERVICE, $finance->get());
         }
         PaidServiceQuery::update($userId, $paidServiceModel->get());
     }

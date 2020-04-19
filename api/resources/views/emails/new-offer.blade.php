@@ -11,13 +11,10 @@
 </div>
 <div style="width: auto; background: #f9f9f9; color: #303030; margin: 0 5%; padding: 32px 16px; font-size: 14px; -webkit-box-shadow: 0 4px 16px 4px #909090;
 -moz-box-shadow: 0 4px 16px 4px #909090 ; box-shadow: 0 4px 16px 4px #909090;" align="center">
-    <h3 style="color: #722947;">Merhaba, Hoş geldiniz!</h3>
-    <p>Sevgili <b>{{$name}} {{$surname}}</b> hemen ozelden.com`a gir ve istediğin özel dersi {{$type == 'tutor' ? 'vermeye' : 'almaya'}} başla.
-    </p>
-    <p>Giriş için aşağıdaki bilgileri kullanabilirsin: </p>
-    <p><b>Email:</b> {{$email}}</p>
-    <p><b>Şifre:</b> {{$password}}</p>
-    <a href="https://ozelden.com" style="background: #d3a67d; color: #fff; border: 0; padding: 8px 32px; border-radius: 4px; font-weight: 600; cursor: pointer; text-decoration: none;">Giriş Yap</a>
+    <h3 style="color: #722947;">Yeni teklif</h3>
+    <p><b>{{$name}} {{$surname}}</b> isimli kullanıcı size <b>{{$lecture_theme}} ({{$lecture_area}})</b> dersi için <b>{{$offer}}₺</b>'lik teklif sunuyor</p>
+    <p>Teklifi değerlendirmek için sisteme giriş yapın.</p>
+    <a href="https://ozelden.com/app/offers" style="background: #d3a67d; color: #fff; border: 0; padding: 8px 32px; border-radius: 4px; font-weight: 600; cursor: pointer; text-decoration: none;">Teklifleri Gör</a>
 </div>
 <div align="center" style="background: #722947; width: auto; margin: 0 5%; padding: 8px; border-radius: 0 0 8px 8px;">
     <p style="font-size: 14px; margin: 0 0 8px 0; color: #fff; text-decoration: none;">ozelden.com</p>
@@ -27,3 +24,5 @@
 </div>
 </body>
 </html>
+
+
