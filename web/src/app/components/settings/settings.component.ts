@@ -64,14 +64,14 @@ export class SettingsComponent implements OnInit {
     }
 
     uploadProfilePicture = async (file) => {
-        this.store.select(loading);
+        this.store.dispatch(loading());
         const result = await this.profileService.uploadPicture(UtilityService.parseBase64(file, 'image'));
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             ToastService.show(response.message);
             this.profile.picture = response.data;
             this.userService.updateMissingFields('picture', false);
         });
-        this.store.select(loaded);
+        this.store.dispatch(loaded());
     };
 
     updateSettings = async () => {
@@ -102,12 +102,12 @@ export class SettingsComponent implements OnInit {
     }
 
     private fetchProfile = async () => {
-        this.store.select(loading);
+        this.store.dispatch(loading());
         const result = await this.profileService.get();
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             this.profile = response.data;
         });
-        this.store.select(loaded);
+        this.store.dispatch(loaded());
     };
 
     private getUser = async () => {

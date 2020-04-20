@@ -104,7 +104,7 @@ export class HomeComponent implements OnInit {
             this.page = 1;
             this.searchResult = [];
         }
-        this.store.select(loading);
+        this.store.dispatch(loading());
         const result = await this.searchService.get(this.page, this.setSearchRequestParams());
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             this.changeMode = changeMode;
@@ -117,7 +117,7 @@ export class HomeComponent implements OnInit {
                 this.page === 1 ? (this.searchResult = response.data) : (this.searchResult = this.searchResult.concat(response.data));
             }
         });
-        this.store.select(loaded);
+        this.store.dispatch(loaded());
         if (clear) {
             this.fetchRecommended();
             this.fetchReports();

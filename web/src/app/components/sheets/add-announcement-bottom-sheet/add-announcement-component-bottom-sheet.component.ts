@@ -59,13 +59,13 @@ export class AddAnnouncementComponentBottomSheet implements OnInit {
     }
 
     addAnnouncement = async () => {
-        this.store.select(loading);
+        this.store.dispatch(loading());
         const result = await this.announcementService.send(this.setAnnouncementRequestParams());
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             ToastService.show(response.message);
             this.close(undefined as MouseEvent);
         });
-        this.store.select(loaded);
+        this.store.dispatch(loaded());
     };
 
     close(event: MouseEvent): void {
@@ -78,14 +78,14 @@ export class AddAnnouncementComponentBottomSheet implements OnInit {
     }
 
     private fetchStudents = async () => {
-        this.store.select(loading);
+        this.store.dispatch(loading());
         const result = await this.studentService.getTutoredStudents();
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             this.students = response.data;
             this.announcementForm.controls.student_id.setValue(this.students.length ? this.students[0].student_id : this.user.id);
             this.setStudentSelected(!!this.students.length);
         });
-        this.store.select(loaded);
+        this.store.dispatch(loaded());
     };
 
     private getUser = async () => {

@@ -8,6 +8,9 @@
         </button>
     </div>
 </mat-toolbar>
-<div class="app-container">
+<div *ngIf="progress" class="custom-progress">
+    <img src="./assets/images/loading.gif">
+</div>
+<div class="app-container" [class.blur-filter]="progress">
     <router-outlet></router-outlet>
 </div>

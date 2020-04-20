@@ -67,7 +67,7 @@ export class RegisterComponent implements OnInit {
                 this.user = response.data;
                 Cookie.set(APP.COOKIE_KEY, this.user.remember_token);
                 this.store.dispatch(set({user: this.user}));
-                this.router.navigateByUrl('app/home');
+                this.router.navigateByUrl('app/settings');
             });
             this.store.dispatch(loaded());
         }

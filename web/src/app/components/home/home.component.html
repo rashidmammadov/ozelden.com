@@ -106,7 +106,18 @@
     </mat-card>
 
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
-        <app-grid-list fxHide.lt-md fxFlex.gt-md="50" [data]="searchResult" [column]="1" [item]="'app-info-card'"></app-grid-list>
+        <div fxLayout="column" fxFlex.gt-md="50">
+            <p *ngIf="user && user.type === TYPES.TUTORED" class="custom-title">
+                Size uygun sonuçları bulamıyorsanız ders verenlerin size ulaşabilmesi için
+                <button (click)="openAddAnnouncementBottomSheet()" color="primary" mat-icon-button>
+                    <mat-icon svgIcon="announcement"></mat-icon>
+                </button>
+                butonuna tıklayarak arama filteleri ile ücretsiz ilan oluşturabilirsiniz.
+            </p>
+            <app-grid-list [data]="searchResult" [column]="1" [item]="'app-info-card'"></app-grid-list>
+            <app-warning-messages *ngIf="!searchResult || !searchResult.length"
+                                  [message]="'NO_RESULT_WITH_GIVEN_FILTERS'"></app-warning-messages>
+        </div>
         <div fxLayout="column" fxFlex.gt-md="50" fxLayoutGap="16px">
             <div>
                 <p class="custom-title">Seçili Semt Ve Ders Filtreleri İle Raporlar</p>

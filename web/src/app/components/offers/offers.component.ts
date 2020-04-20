@@ -81,7 +81,7 @@ export class OffersComponent implements OnInit {
     }
 
     private fetchOffers = async (page: number) => {
-        this.store.select(loading);
+        this.store.dispatch(loading());
         const result = await this.offerService.get(page);
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             this.offers = response.data;
@@ -90,7 +90,7 @@ export class OffersComponent implements OnInit {
             this.pagination.total_data = response.total_data;
             this.pagination.total_page = response.total_page;
         });
-        this.store.select(loaded);
+        this.store.dispatch(loaded());
     };
 
     private fetchUser = async () => {

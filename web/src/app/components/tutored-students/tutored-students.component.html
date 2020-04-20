@@ -7,4 +7,5 @@
         </mat-card>
     </div>
     <app-grid-list [column]="5" [data]="students" [item]="'app-student-card'"></app-grid-list>
+    <app-warning-messages *ngIf="!students || !students.length" [message]="'NO_STUDENTS_AS_PARENT'"></app-warning-messages>
 </div>

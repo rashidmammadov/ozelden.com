@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Models\MissingFieldsModel;
+use App\Http\Models\PaidServiceModel;
 use App\Http\Models\UserModel;
 use App\Http\Queries\MySQL\ApiQuery;
+use App\Http\Queries\MySQL\PaidServiceQuery;
 use App\Http\Queries\MySQL\ProfileQuery;
 use App\Http\Queries\MySQL\SuitabilityQuery;
 use App\Http\Queries\MySQL\TutorLectureQuery;
@@ -184,6 +186,11 @@ class UserController extends ApiController {
                     $saveUserQueryResult = UserQuery::save($request);
                     if ($saveUserQueryResult) {
                         ProfileQuery::saveDefault($saveUserQueryResult[IDENTIFIER], $request);
+                        if ($request[TYPE] == TUTOR) {
+                            $paidService = new PaidServiceModel();
+                            $paidService->setBid(3);
+                            PaidServiceQuery::update($saveUserQueryResult[IDENTIFIER], $paidService->get());
+                        }
                         return $this->sign($request, true);
                     } else {
                         return $this->respondWithError(SOMETHING_WRONG_WITH_DB);

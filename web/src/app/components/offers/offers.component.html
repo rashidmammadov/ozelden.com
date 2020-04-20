@@ -1,3 +1,4 @@
 <div fxLayout="column">
     <app-table [data]="offers" [columns]="columns" [pagination]="pagination" (pageChanged)="changePage($event)"></app-table>
+    <app-warning-messages *ngIf="!offers || !offers.length" [message]="'NO_OFFERS_YET'"></app-warning-messages>
 </div>

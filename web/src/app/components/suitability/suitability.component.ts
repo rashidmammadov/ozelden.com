@@ -45,7 +45,7 @@ export class SuitabilityComponent implements OnInit {
     async updateSuitability(type: string) {
         let params = {};
         params[type] = this[type];
-        this.store.select(loading);
+        this.store.dispatch(loading());
         const result = await this.suitabilityService.update(type, params);
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             ToastService.show(response.message);
@@ -54,7 +54,7 @@ export class SuitabilityComponent implements OnInit {
                 this.userService.updateMissingFields('region', !(this.regions && this.regions.length));
             }
         });
-        this.store.select(loaded);
+        this.store.dispatch(loaded());
     }
 
     public addRegion() {
@@ -96,7 +96,7 @@ export class SuitabilityComponent implements OnInit {
     };
 
     private getSuitability = async () => {
-        this.store.select(loading);
+        this.store.dispatch(loading());
         const result = await this.suitabilityService.get();
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             this.course_type = response.data.course_type;
@@ -104,7 +104,7 @@ export class SuitabilityComponent implements OnInit {
             this.location = response.data.location;
             this.regions = response.data.regions;
         });
-        this.store.select(loaded);
+        this.store.dispatch(loaded());
     }
 
 }

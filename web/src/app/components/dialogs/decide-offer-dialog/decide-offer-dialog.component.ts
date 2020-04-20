@@ -36,25 +36,25 @@ export class DecideOfferDialogComponent implements OnInit {
 
     makeDecideForOffer = async (decision: number) => {
         let offersCount = await this.store.select('offersCount').pipe(first()).toPromise();
-        this.store.select(loading);
+        this.store.dispatch(loading());
         const result = await this.offerService.updateOfferStatus(this.data.offer_id, { status: decision });
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             this.store.dispatch(setOffersCount({ offersCount: (offersCount - 1) }));
             ToastService.show(response.message);
             this.dialogRef.close(decision);
         });
-        this.store.select(loaded);
+        this.store.dispatch(loaded());
     };
 
     private fetchPaidServices = async () => {
-        this.store.select(loading);
+        this.store.dispatch(loading());
         const result = await this.paidService.get();
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             if (response.data && response.data.bid) {
                 this.remainingBids = response.data.bid;
             }
         });
-        this.store.select(loaded);
+        this.store.dispatch(loaded());
     };
 
     private getUser = async () => {

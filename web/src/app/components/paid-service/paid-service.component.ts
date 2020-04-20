@@ -72,7 +72,7 @@ export class PaidServiceComponent implements OnInit {
     }
 
     private getActivePaidServices = async () => {
-        this.store.select(loading);
+        this.store.dispatch(loading());
         const result = await this.paidService.get();
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             this.activePaidService = response.data;
@@ -81,18 +81,18 @@ export class PaidServiceComponent implements OnInit {
             this.activePaidService.readableRecommend =
                 UtilityService.millisecondsToDate(this.activePaidService.recommend, DATE_TIME.FORMAT.DATE);
         });
-        this.store.select(loaded);
+        this.store.dispatch(loaded());
     };
 
     private deposit = async (params) => {
-        this.store.select(loading);
+        this.store.dispatch(loading());
         const result = await this.paidService.deposit(params);
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             this.dialog
                 .open(ThreedsDialogComponent, { width: '500px', disableClose: true, data: response.data })
                 .afterClosed().toPromise().then(() => location.reload());
         });
-        this.store.select(loaded);
+        this.store.dispatch(loaded());
     };
 
 }

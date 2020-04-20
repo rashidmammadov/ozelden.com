@@ -39,13 +39,13 @@ export class MakeOfferDialogComponent implements OnInit {
     }
 
     sendOffer = async () => {
-        this.store.select(loading);
+        this.store.dispatch(loading());
         const result = await this.offerService.send(this.setOfferRequestParams());
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             ToastService.show(response.message);
             this.dialogRef.close(true);
         });
-        this.store.select(loaded);
+        this.store.dispatch(loaded());
     };
 
     setOffer(lecture: TutorLectureType) {
@@ -53,24 +53,24 @@ export class MakeOfferDialogComponent implements OnInit {
     }
 
     private fetchLectures = async () => {
-        this.store.select(loading);
+        this.store.dispatch(loading());
         const result = await this.lectureService.getTutorLectures();
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             this.lectures = response.data;
             this.prepareForm();
         });
-        this.store.select(loaded);
+        this.store.dispatch(loaded());
     };
 
     private fetchPaidServices = async () => {
-        this.store.select(loading);
+        this.store.dispatch(loading());
         const result = await this.paidService.get();
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             if (response.data && response.data.bid) {
                 this.remainingBids = response.data.bid;
             }
         });
-        this.store.select(loaded);
+        this.store.dispatch(loaded());
     };
 
     private prepareForm() {

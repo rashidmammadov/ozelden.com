@@ -35,7 +35,7 @@ export class TutoredStudentsComponent implements OnInit {
     }
 
     private addNewStudent = async (student: StudentType) => {
-        this.store.select(loading);
+        this.store.dispatch(loading());
         const result = await this.studentService.addTutoredStudent(student);
         let students = [...this.students];
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
@@ -43,16 +43,16 @@ export class TutoredStudentsComponent implements OnInit {
             ToastService.show(response.message);
         });
         this.students = students;
-        this.store.select(loaded);
+        this.store.dispatch(loaded());
     };
 
     private fetchStudents = async () => {
-        this.store.select(loading);
+        this.store.dispatch(loading());
         const result = await this.studentService.getTutoredStudents();
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             this.students = response.data;
         });
-        this.store.select(loaded);
+        this.store.dispatch(loaded());
     };
 
 }

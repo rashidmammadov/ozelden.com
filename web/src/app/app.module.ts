@@ -18,6 +18,7 @@ import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/conf
 import { DecideOfferDialogComponent } from './components/dialogs/decide-offer-dialog/decide-offer-dialog.component';
 import { DepositDialogComponent } from './components/dialogs/deposit-dialog/deposit-dialog.component';
 import { EditStudentDialogComponent } from './components/dialogs/edit-student-dialog/edit-student-dialog.component';
+import { ForgotPasswordDialogComponent } from './components/dialogs/forgot-password-dialog/forgot-password-dialog.component';
 import { InfoCardComponent } from './components/info-card/info-card.component';
 import { HomeComponent } from './components/home/home.component';
 import { GridListComponent } from './components/shared/grid-list/grid-list.component';
@@ -39,6 +40,7 @@ import { TableComponent } from './components/shared/table/table.component';
 import { ThreedsDialogComponent } from './components/dialogs/threeds-dialog/threeds-dialog.component';
 import { TutoredStudentsComponent } from './components/tutored-students/tutored-students.component';
 import { UploadFileComponent } from './components/shared/upload-file/upload-file.component';
+import { WarningMessagesComponent } from './components/shared/warning-messages/warning-messages.component';
 
 import { CookieService } from 'ngx-cookie-service';
 import { Cookie } from './services/cookie/cookie.service';
@@ -55,7 +57,6 @@ import { progressReducer } from './store/reducers/progress.reducer';
 import { userReducer } from './store/reducers/user.reducer';
 
 import { TokenInterceptor } from './interceptors/token.interceptor';
-import { ForgotPasswordDialogComponent } from './components/dialogs/forgot-password-dialog/forgot-password-dialog.component';
 
 export function fetchStaticData(dataService: DataService) {
     return () => dataService.saveOnStore();
@@ -73,6 +74,7 @@ export function fetchStaticData(dataService: DataService) {
         DecideOfferDialogComponent,
         DepositDialogComponent,
         EditStudentDialogComponent,
+        ForgotPasswordDialogComponent,
         InfoCardComponent,
         HomeComponent,
         GridListComponent,
@@ -94,7 +96,7 @@ export function fetchStaticData(dataService: DataService) {
         ThreedsDialogComponent,
         TutoredStudentsComponent,
         UploadFileComponent,
-        ForgotPasswordDialogComponent
+        WarningMessagesComponent
     ],
     imports: [
         AppRoutingModule,

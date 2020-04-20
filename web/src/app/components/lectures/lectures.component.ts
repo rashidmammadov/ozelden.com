@@ -71,13 +71,13 @@ export class LecturesComponent implements OnInit {
     async addLecture() {
         if (this.lectureForm.valid) {
             let lecturesList: TutorLectureType[] = [...this.tutorLectures];
-            this.store.select(loading);
+            this.store.dispatch(loading());
             const result = await this.lectureService.addTutorLecture(this.setLectureRequestParams());
             UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
                 lecturesList.push(response.data);
                 this.userService.updateMissingFields('lecture', false);
             });
-            this.store.select(loaded);
+            this.store.dispatch(loaded());
             this.tutorLectures = lecturesList;
         } else {
             ToastService.show(MESSAGES.ERROR.INVALID_FORM)
@@ -93,7 +93,7 @@ export class LecturesComponent implements OnInit {
     }
 
     async getTutorLectures() {
-        this.store.select(loading);
+        this.store.dispatch(loading());
         const result = await this.lectureService.getTutorLectures();
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             response.data.forEach((d: TutorLectureType) => {
@@ -101,7 +101,7 @@ export class LecturesComponent implements OnInit {
             });
             this.tutorLectures = response.data;
         });
-        this.store.select(loaded);
+        this.store.dispatch(loaded());
     }
 
     public changeLectureArea() {
@@ -123,14 +123,14 @@ export class LecturesComponent implements OnInit {
 
     public deleteLecture = async (tutor_lecture_id: number) => {
         let lecturesList: TutorLectureType[] = [...this.tutorLectures];
-        this.store.select(loading);
+        this.store.dispatch(loading());
         const result = await this.lectureService.deleteTutorLecture(tutor_lecture_id);
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             ToastService.show(response.message);
             lecturesList = lecturesList.filter(lecture => lecture.tutor_lecture_id !== tutor_lecture_id);
             this.userService.updateMissingFields('lecture', true);
         });
-        this.store.select(loaded);
+        this.store.dispatch(loaded());
         this.tutorLectures = lecturesList;
     };
 

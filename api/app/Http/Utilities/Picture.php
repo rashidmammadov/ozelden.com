@@ -20,13 +20,14 @@ class Picture {
         $currentDate = date('siHdmY');
         $fileName = $primaryName . ($additionalName ? $currentDate : '') . '.' . $type;
         $dir = 'users/';
+        $prePath = env('IMAGES_PRE_PATH');
         $subPath = env('IMAGES_PATH');
-        $path = public_path() . $subPath . $dir . $fileName;
+        $path = public_path() . $prePath . $subPath . $dir . $fileName;
 
         list($newWidth, $newHeight) = self::resize($file);
         try {
             Image::make(file_get_contents($file))->resize($newWidth, $newHeight)->save($path);
-            return env('HOST_NAME') . env('IMAGES_PATH') . $dir . $fileName;
+            return env('IMAGES_HOST') . env('IMAGES_PATH') . $dir . $fileName;
         } catch (ImageException $e) {
             Log::error('Upload Image: ' . $e->getMessage());
         }

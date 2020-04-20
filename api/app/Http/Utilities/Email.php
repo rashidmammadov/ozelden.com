@@ -107,16 +107,16 @@ class Email {
             PASSWORD => $data[PASSWORD]
         );
         try {
-            Log::info('Welcome email sending to ' . $user[EMAIL]);
+            Log::info('Reset password email sending to ' . $user[EMAIL]);
             Mail::send('emails/reset-password', $user, function ($message) use ($user) {
                 $message->subject('🔐 Şifre Yenileme');
                 $message->from(NO_REPLY, 'ozelden.com takımı');
                 $message->to($user[EMAIL]);
             });
-            Log::info('Welcome email sent to ' . $user[EMAIL] . ' successfully');
+            Log::info('Reset password email sent to ' . $user[EMAIL] . ' successfully');
             return true;
         } catch (\Exception $e) {
-            Log::error('Welcome email to ' .  $user[EMAIL] . ': ' . $e->getMessage());
+            Log::error('Reset password email to ' .  $user[EMAIL] . ': ' . $e->getMessage());
         }
     }
 
@@ -129,16 +129,16 @@ class Email {
             PASSWORD => $data[PASSWORD]
         );
         try {
-            Log::info('Reset password email sending to ' . $user[EMAIL]);
+            Log::info('Welcome email sending to ' . $user[EMAIL]);
             Mail::send('emails/welcome', $user, function ($message) use ($user) {
                 $message->subject('🎉 Hoş Geldiniz!');
                 $message->from(NO_REPLY, 'ozelden.com takımı');
                 $message->to($user[EMAIL]);
             });
-            Log::info('Reset password email sent to ' . $user[EMAIL] . ' successfully');
+            Log::info('Welcome email sent to ' . $user[EMAIL] . ' successfully');
             return true;
         } catch (\Exception $e) {
-            Log::error('Reset password email to ' .  $user[EMAIL] . ': ' . $e->getMessage());
+            Log::error('Welcome email to ' .  $user[EMAIL] . ': ' . $e->getMessage());
         }
     }
 

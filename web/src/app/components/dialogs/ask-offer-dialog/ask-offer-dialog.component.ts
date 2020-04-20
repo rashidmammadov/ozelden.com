@@ -43,13 +43,13 @@ export class AskOfferDialogComponent implements OnInit {
     }
 
     askOffer = async () => {
-        this.store.select(loading);
+        this.store.dispatch(loading());
         const result = await this.offerService.send(this.setOfferRequestParams());
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             ToastService.show(response.message);
             this.dialogRef.close(true);
         });
-        this.store.select(loaded);
+        this.store.dispatch(loaded());
     };
 
     setStudentSelected(selected?: boolean) {
@@ -61,12 +61,12 @@ export class AskOfferDialogComponent implements OnInit {
     }
 
     private fetchStudents = async () => {
-        this.store.select(loading);
+        this.store.dispatch(loading());
         const result = await this.studentService.getTutoredStudents();
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             this.students = response.data;
         });
-        this.store.select(loaded);
+        this.store.dispatch(loaded());
     };
 
     private getUser = async () => {

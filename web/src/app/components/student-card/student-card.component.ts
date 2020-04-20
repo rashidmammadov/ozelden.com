@@ -50,17 +50,17 @@ export class StudentCardComponent implements OnInit {
     }
 
     private deleteStudent = async () => {
-        // this.store.select(loading);
+        // this.store.dispatch(loading());
         // const result = await this.studentService.deleteTutoredStudent(this.data.student_id);
         // UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
         //     this.data = null;
         //     ToastService.show(response.message);
         // });
-        // this.store.select(loaded);
+        // this.store.dispatch(loaded());
     };
 
     private updateStudent = async (student: StudentType) => {
-        this.store.select(loading);
+        this.store.dispatch(loading());
         const result = await this.studentService.updateTutoredStudent(student);
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             student.file && student.file.base64 && (this.data.picture = student.file.base64);
@@ -71,7 +71,7 @@ export class StudentCardComponent implements OnInit {
             this.data.age = UtilityService.millisecondsToDate(student.birthday, DATE_TIME.FORMAT.TOTAL_YEARS);
             ToastService.show(response.message);
         });
-        this.store.select(loaded);
+        this.store.dispatch(loaded());
     };
 
 }

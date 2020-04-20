@@ -55,4 +55,5 @@
     </mat-card>
 
     <app-table *ngIf="tutorLectures" [data]="tutorLectures" [columns]="displayedColumns"></app-table>
+    <app-warning-messages *ngIf="!tutorLectures || !tutorLectures.length" [message]="'NO_LECTURES_IN_LIST'"></app-warning-messages>
 </div>

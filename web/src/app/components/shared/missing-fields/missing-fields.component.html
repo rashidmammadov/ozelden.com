@@ -1,19 +1,18 @@
 <div *ngIf="missingFields" class="missing-fields">
     <mat-card *ngIf="missingFields.picture" routerLink="/app/settings" class="missing-field link mat-elevation-z4"
-              fxLayout="row" fxLayoutGap="16px"
-              fxFlex="30%" fxFlex.lt-md>
+              fxLayout="row" fxLayoutGap="16px" fxFlex.gt-md="30%">
         <mat-icon fxFlex="24px" svgIcon="alert-triangle"></mat-icon>
         <span>Aramalarda dikkat çekmek ve güven sağlamak için <b>Ayarlar</b>
               sayfasından profil fotoğrafınızı eklemeniz gerekiyor.</span>
     </mat-card>
     <mat-card *ngIf="missingFields.lecture" routerLink="/app/lectures" class="missing-field link mat-elevation-z4"
-              fxLayout="row" fxLayoutGap="16px" fxFlex="30%" fxFlex.lt-md>
+              fxLayout="row" fxLayoutGap="16px" fxFlex.gt-md="30%">
         <mat-icon fxFlex="24px" svgIcon="alert-triangle"></mat-icon>
         <span>Ders verebilmek ve aramalarda gözükebilmek için <b>Derslerim</b>
             sayfasından ders veya dersler eklemeniz gerekiyor.</span>
     </mat-card>
     <mat-card *ngIf="missingFields.region" routerLink="/app/suitability" class="missing-field link mat-elevation-z4"
-              fxLayout="row" fxLayoutGap="16px" fxFlex="30%" fxFlex.lt-md>
+              fxLayout="row" fxLayoutGap="16px" fxFlex.gt-md="30%">
         <mat-icon fxFlex="24px" svgIcon="alert-triangle"></mat-icon>
         <span>Ders verebilmek ve aramalarda gözükebilmek için <b>Uygunluk</b>
               sayfasından semt veya semtler eklemeniz gerekiyor.</span>
