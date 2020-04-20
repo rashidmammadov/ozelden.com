@@ -28,6 +28,14 @@
             <p *ngIf="profile.description" class="quote">
                 <mat-icon svgIcon="left-quote"></mat-icon> {{profile.description}} <mat-icon svgIcon="right-quote"></mat-icon>
             </p>
+            <p class="mat-small">İletişim Bilgileri</p>
+            <mat-chip-list aria-label="Lectures">
+                <mat-chip matTooltip="Telefon" [class.blur-filter]="!profile.phone">{{'+90' + (profile.phone || '5000000000')}}</mat-chip>
+                <mat-chip matTooltip="Email" [class.blur-filter]="!profile.email">{{profile.email || 'info@ozelden.com'}}</mat-chip>
+            </mat-chip-list>
+            <p *ngIf="!profile.phone && !profile.email" class="light-gray">
+                İletişim biliglerine ulaşabilmeniz için kullanıcı ile aranızda en az bir tane onaylanmış teklif olması lazım.
+            </p>
         </mat-card>
     </div>
 
@@ -38,39 +46,39 @@
                 <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="8px">
                     <div class="statistic" fxLayout="column" fxLayoutAlign="center center" fxFlex>
                         <mat-icon svgIcon="price-tag"></mat-icon>
-                        <span class="mat-small">Ortalama Fiyat</span>
-                        <h3>{{profile.tutor_statistics.price_avg || '-'}} ₺</h3>
+                        <span class="mat-small" align="center">Ortalama Ders Ücreti</span>
+                        <h3 align="center">{{profile.tutor_statistics.price_avg || '-'}} ₺</h3>
                     </div>
 
                     <div class="statistic" fxLayout="column" fxLayoutAlign="center center" fxFlex>
                         <mat-icon svgIcon="experience-tag"></mat-icon>
-                        <span class="mat-small">Ortalama Deneyim</span>
-                        <h3>{{profile.tutor_statistics.experience_avg || '-'}} yıl</h3>
+                        <span class="mat-small" align="center">Ortalama Deneyim</span>
+                        <h3 align="center">{{profile.tutor_statistics.experience_avg || '-'}} yıl</h3>
                     </div>
 
                     <div class="statistic" fxLayout="column" fxLayoutAlign="center center" fxFlex>
                         <mat-icon svgIcon="ranking-tag"></mat-icon>
-                        <span class="mat-small">Değerlendirme</span>
-                        <h3>{{profile.tutor_statistics.ranking_avg || '-'}}</h3>
+                        <span class="mat-small" align="center">Değerlendirme</span>
+                        <h3 align="center">{{profile.tutor_statistics.ranking_avg || '-'}}</h3>
                     </div>
                 </div>
                 <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="8px">
                     <div class="statistic" fxLayout="column" fxLayoutAlign="center center" fxFlex>
                         <mat-icon svgIcon="offer-tag"></mat-icon>
-                        <span class="mat-small">Alınan Teklifler</span>
-                        <h3>{{profile.tutor_statistics.offers_count || '-'}} adet</h3>
+                        <span class="mat-small" align="center">Alınan Teklifler</span>
+                        <h3 align="center">{{profile.tutor_statistics.offers_count || '-'}} adet</h3>
                     </div>
 
                     <div class="statistic" fxLayout="column" fxLayoutAlign="center center" fxFlex>
                         <mat-icon svgIcon="student-tag"></mat-icon>
-                        <span class="mat-small">Öğrenci Sayısı</span>
-                        <h3>{{profile.tutor_statistics.students_count || '-'}} kişi</h3>
+                        <span class="mat-small" align="center">Öğrenci Sayısı</span>
+                        <h3 align="center">{{profile.tutor_statistics.students_count || '-'}} öğrenci</h3>
                     </div>
 
                     <div class="statistic" fxLayout="column" fxLayoutAlign="center center" fxFlex>
                         <mat-icon svgIcon="calendar"></mat-icon>
-                        <span class="mat-small">Kayıt Tarihi</span>
-                        <h3>{{profile.tutor_statistics.register_date_readable || '-'}}</h3>
+                        <span class="mat-small" align="center">Kayıt Tarihi</span>
+                        <h3 align="center">{{profile.tutor_statistics.register_date_readable || '-'}}</h3>
                     </div>
                 </div>
             </div>

@@ -18,9 +18,11 @@ use App\Http\Queries\MySQL\OfferQuery;
 use App\Http\Queries\MySQL\ProfileQuery;
 use App\Http\Queries\MySQL\SuitabilityQuery;
 use App\Http\Queries\MySQL\TutorLectureQuery;
+use App\Http\Queries\MySQL\TutorStudentQuery;
 use App\Http\Utilities\CustomDate;
 use App\Http\Utilities\Picture;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Validator;
@@ -58,6 +60,19 @@ class ProfileController extends ApiController {
         $profileFromDB = ProfileQuery::getProfileConnections($id);
         if ($profileFromDB) {
             $profile = new UserProfileModel($profileFromDB);
+            $currentUserId = null;
+            try {
+                $user = JWTAuth::parseToken()->authenticate();
+                $currentUserId = $user[IDENTIFIER];
+                $relation = TutorStudentQuery::checkRelationIfExist($id, $currentUserId);
+                if ($relation) {
+                    $profile->setPhone($profileFromDB[PHONE]);
+                    $profile->setEmail($profileFromDB[EMAIL]);
+                }
+            } catch (JWTException $e) {
+                Log::error($e->getMessage());
+            }
+
             if ($profile->getType() == TUTORED) {
                 $announcementsFromDB = AnnouncementQuery::get($id);
                 if ($announcementsFromDB) {
@@ -74,17 +89,24 @@ class ProfileController extends ApiController {
                 }
                 if ($profileFromDB[RECOMMEND] && $profileFromDB[RECOMMEND] > CustomDate::currentMilliseconds()) {
                     $profile->setRecommend(true);
+
+                    $profile->setPhone($profileFromDB[PHONE]);
+                    $profile->setEmail($profileFromDB[EMAIL]);
                 }
 
                 /** @var  $average */
                 $average = new AverageModel();
                 $offersCount = OfferQuery::getReceivedOffersCount($id);
+                $studentsCount = TutorStudentQuery::getStudentsCount($id);
 
                 $average->setPriceAvg($profileFromDB[PRICE_AVG]);
                 $average->setExperienceAvg($profileFromDB[EXPERIENCE_AVG]);
                 $average->setRankingAvg($profileFromDB[RANKING_AVG]);
                 if ($offersCount) {
                     $average->setOffersCount($offersCount);
+                }
+                if ($studentsCount) {
+                    $average->setStudentsCount($studentsCount);
                 }
                 $average->setRegisterDate(CustomDate::dateToMillisecond($profileFromDB[CREATED_AT]));
                 $profile->setTutorStatistics($average->get());

@@ -9,6 +9,8 @@ class UserProfileModel {
     private $picture;
     private $name;
     private $surname;
+    private $phone;
+    private $email;
     private $boost;
     private $recommend;
     private $profession;
@@ -45,6 +47,8 @@ class UserProfileModel {
             PICTURE => $this->getPicture(),
             NAME => $this->getName(),
             SURNAME => $this->getSurname(),
+            PHONE => $this->getPhone(),
+            EMAIL => $this->getEmail(),
             BOOST => $this->getBoost(),
             RECOMMEND => $this->getRecommend(),
             PROFESSION => $this->getProfession(),
@@ -98,6 +102,23 @@ class UserProfileModel {
 
     public function setSurname($surname): void {
         $this->surname = $surname;
+    }
+
+
+    public function getPhone() {
+        return $this->phone;
+    }
+
+    public function setPhone($phone): void {
+        $this->phone = $phone;
+    }
+
+    public function getEmail() {
+        return $this->email;
+    }
+
+    public function setEmail($email): void {
+        $this->email = $email;
     }
 
     public function getBoost() {

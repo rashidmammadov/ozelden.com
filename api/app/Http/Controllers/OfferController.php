@@ -6,10 +6,12 @@ use App\Http\Models\OfferModel;
 use App\Http\Models\PaidServiceModel;
 use App\Http\Models\StudentModel;
 use App\Http\Models\TutorLectureModel;
+use App\Http\Models\TutorStudentModel;
 use App\Http\Models\UserModel;
 use App\Http\Queries\MySQL\OfferQuery;
 use App\Http\Queries\MySQL\PaidServiceQuery;
 use App\Http\Queries\MySQL\StudentQuery;
+use App\Http\Queries\MySQL\TutorStudentQuery;
 use App\Http\Utilities\CustomDate;
 use App\Http\Utilities\Email;
 use Illuminate\Http\Request;
@@ -257,10 +259,32 @@ class OfferController extends ApiController {
     private function updateOfferStatus($offerId, $user, $request) {
         $offerStatusResult = OfferQuery::updateStatus($offerId, $user[IDENTIFIER], $request[STATUS]);
         if ($offerStatusResult) {
+            if ($request[STATUS] == OFFER_STATUS_APPROVED) {
+                $this->setTutorStudent($offerId);
+            }
             Email::send(EMAIL_TYPE_OFFER_STATUS, $offerId);
             return $this->respondCreated(OFFER_STATUS_UPDATED_SUCCESSFULLY);
         } else {
             return $this->respondWithError(PERMISSION_DENIED);
+        }
+    }
+
+    /**
+     * If offer status is approved add student as tutor student.
+     * @param $offerId - holds the offer id.
+     */
+    private function setTutorStudent($offerId) {
+        $offer = OfferQuery::getOffer($offerId);
+        if ($offer && $offer[STATUS] == OFFER_STATUS_APPROVED) {
+            $tutorStudentModel = new TutorStudentModel();
+            $tutorId = $offer[SENDER_TYPE] == TUTOR ? $offer[SENDER.'_'.IDENTIFIER] : $offer[RECEIVER.'_'.IDENTIFIER];
+            $userId = $offer[SENDER_TYPE] == TUTOR ? $offer[RECEIVER.'_'.IDENTIFIER] : $offer[SENDER.'_'.IDENTIFIER];
+            $studentId = $offer[STUDENT_ID];
+            $tutorStudentModel->setTutorId($tutorId);
+            $tutorStudentModel->setUserId($userId);
+            $tutorStudentModel->setStudentId($studentId);
+            $tutorStudentModel->setOfferId($offerId);
+            TutorStudentQuery::create($tutorStudentModel->get());
         }
     }
 

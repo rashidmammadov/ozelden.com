@@ -9,6 +9,8 @@ export interface UserProfileType {
     picture?: string;
     name: string;
     surname: string;
+    phone?: string;
+    email?: string;
     boost?: boolean;
     recommend?: boolean;
     profession?: string;

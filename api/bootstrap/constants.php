@@ -61,6 +61,7 @@ define('DB_SUITABLE_LOCATION_TABLE', 'suitable_location');
 define('DB_SUITABLE_REGION_TABLE', 'suitable_region');
 define('DB_STUDENT_TABLE', 'student');
 define('DB_TUTOR_LECTURE_TABLE', 'tutor_lecture');
+define('DB_TUTOR_STUDENT_TABLE', 'tutor_student');
 define('DB_OFFER_TABLE', 'offer');
 define('DB_USERS_TABLE', 'users');
 define('DEMO', 'demo');

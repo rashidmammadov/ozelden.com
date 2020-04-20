@@ -106,7 +106,7 @@
     </mat-card>
 
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
-        <div fxLayout="column" fxFlex.gt-md="50">
+        <div fxHide.lt-md fxLayout="column" fxFlex.gt-md="50">
             <p *ngIf="user && user.type === TYPES.TUTORED" class="custom-title">
                 Size uygun sonuçları bulamıyorsanız ders verenlerin size ulaşabilmesi için
                 <button (click)="openAddAnnouncementBottomSheet()" color="primary" mat-icon-button>
@@ -146,7 +146,18 @@
             </div>
             <app-carousel [title]="'Bu Bölgede Önerilenler'" [data]="recommends"></app-carousel>
         </div>
-        <app-grid-list fxHide.gt-md fxFlex.gt-md [data]="searchResult" [column]="1" [item]="'app-info-card'"></app-grid-list>
+        <div fxHide.gt-md fxLayout="column" fxFlex.gt-md="50">
+            <p *ngIf="user && user.type === TYPES.TUTORED" class="custom-title">
+                Size uygun sonuçları bulamıyorsanız ders verenlerin size ulaşabilmesi için
+                <button (click)="openAddAnnouncementBottomSheet()" color="primary" mat-icon-button>
+                    <mat-icon svgIcon="announcement"></mat-icon>
+                </button>
+                butonuna tıklayarak arama filteleri ile ücretsiz ilan oluşturabilirsiniz.
+            </p>
+            <app-grid-list [data]="searchResult" [column]="1" [item]="'app-info-card'"></app-grid-list>
+            <app-warning-messages *ngIf="!searchResult || !searchResult.length"
+                                [message]="'NO_RESULT_WITH_GIVEN_FILTERS'"></app-warning-messages>
+        </div>
     </div>
 
     <button class="announcement-button" matTooltip="İlan Olarak Kaydet" color="primary" mat-fab [disabled]="!searchForm.valid"
