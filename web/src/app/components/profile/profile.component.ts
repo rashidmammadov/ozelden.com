@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
+import { AskOfferDialogComponent } from '../dialogs/ask-offer-dialog/ask-offer-dialog.component';
+import { MakeOfferDialogComponent } from '../dialogs/make-offer-dialog/make-offer-dialog.component';
 import { ActivatedRoute } from '@angular/router';
 import { UtilityService } from '../../services/utility/utility.service';
 import { first } from 'rxjs/operators';
 import { UserProfileType } from '../../interfaces/user-profile-type';
+import { UserType } from '../../interfaces/user-type';
 import { DATE_TIME } from '../../constants/date-time.constant';
 import { TYPES } from '../../constants/types.constant';
+import {InfoType} from "../../interfaces/info-type";
 
 @Component({
     selector: 'app-profile',
@@ -18,11 +23,31 @@ export class ProfileComponent implements OnInit {
     course_types: [];
     facilities: [];
     locations: [];
+    user: UserType;
+    TYPES = TYPES;
 
-    constructor(private store: Store<{progress: boolean}>, private activatedRoute: ActivatedRoute) { }
+    constructor(private store: Store<{progress: boolean, user: UserType}>, private activatedRoute: ActivatedRoute,
+                private dialog: MatDialog) { }
 
     async ngOnInit() {
+        await this.getUser();
         await this.fetchProfile();
+    }
+
+    public openAskOfferDialog() {
+        this.dialog.open(AskOfferDialogComponent, {
+            width: '500px',
+            disableClose: true,
+            data: this.prepareOfferData()
+        });
+    }
+
+    public openMakeOfferDialog() {
+        this.dialog.open(MakeOfferDialogComponent, {
+            width: '500px',
+            disableClose: true,
+            data: this.prepareOfferData()
+        });
     }
 
     private fetchProfile = async () => {
@@ -35,9 +60,22 @@ export class ProfileComponent implements OnInit {
         }
     };
 
+    private getUser = async () => {
+        this.user = await this.store.select('user').pipe(first()).toPromise();
+    };
+
     private prepareAge() {
         this.profile.birthday &&
             (this.profile.age = UtilityService.millisecondsToDate(this.profile.birthday, DATE_TIME.FORMAT.TOTAL_YEARS));
+    }
+
+    private prepareOfferData() {
+        return {
+            'id': this.profile.id,
+            'name': this.profile.name,
+            'surname': this.profile.surname,
+            'lectures': this.profile.tutor_lectures
+        } as InfoType;
     }
 
     private prepareStatisticsRegisterDate() {

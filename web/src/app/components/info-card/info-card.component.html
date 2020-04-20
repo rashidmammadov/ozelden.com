@@ -41,9 +41,9 @@
                     <p class="sub">fiyat beklentisi (₺)</p>
                 </div>
             </div>
-            <button *ngIf="user && user.type === TYPES.TUTORED" mat-raised-button mat-stroked-button
+            <button *ngIf="user && user.type === TYPES.TUTORED" mat-raised-button
                     (click)="openAskOfferDialog()">Teklif Al</button>
-            <button *ngIf="user && user.type === TYPES.TUTOR" mat-raised-button mat-stroked-button
+            <button *ngIf="user && user.type === TYPES.TUTOR" mat-raised-button
                     (click)="openMakeOfferDialog()">Teklif Gönder</button>
             <p *ngIf="data.description" class="quote">
                 <mat-icon svgIcon="left-quote"></mat-icon>
