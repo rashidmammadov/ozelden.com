@@ -89,11 +89,11 @@
                             </mat-select>
                         </mat-form-field>
 
-                        <div>
+                        <div align="center">
                             <button mat-button [disabled]="!city || !district" (click)="addRegion()">Ekle</button>
                         </div>
                     </div>
-                    <mat-chip-list *ngIf="regions" aria-label="Region selection">
+                    <mat-chip-list class="m-top-16" *ngIf="regions" aria-label="Region selection">
                         <mat-chip *ngFor="let region of regions" [removable]="true" (removed)="removeRegion(region)">
                             {{region.city}}/{{region.district}}
                             <mat-icon matChipRemove svgIcon="x-circle"></mat-icon>

@@ -10,7 +10,7 @@ class Offer extends Model {
     protected $primaryKey = OFFER_ID;
 
     protected $fillable = [
-        OFFER_ID, SENDER_ID, RECEIVER_ID, STUDENT_ID, SENDER_TYPE, TUTOR_LECTURE_ID, OFFER, CURRENCY, STATUS
+        OFFER_ID, SENDER_ID, RECEIVER_ID, STUDENT_ID, SENDER_TYPE, TUTOR_LECTURE_ID, OFFER, CURRENCY, DESCRIPTION, STATUS
     ];
 
     public function senderId() {

@@ -28,7 +28,8 @@ export class AskOfferDialogComponent implements OnInit {
         student_id: new FormControl(''),
         receiver_id: new FormControl('', [Validators.required]),
         tutor_lecture_id: new FormControl('', [Validators.required]),
-        offer: new FormControl('', [Validators.required])
+        offer: new FormControl('', [Validators.required]),
+        description: new FormControl()
     });
 
     constructor(public dialogRef: MatDialogRef<AskOfferDialogComponent>,
@@ -90,6 +91,7 @@ export class AskOfferDialogComponent implements OnInit {
             'student_id': this.studentSelected ? controls.student_id.value : null,
             'tutor_lecture_id': controls.tutor_lecture_id.value,
             'offer': controls.offer.value,
+            'description': controls.description.value
         }
     }
 

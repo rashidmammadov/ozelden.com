@@ -21,15 +21,24 @@ export class AppComponent {
 
     progress: boolean;
     user: UserType;
+    buttons = [];
+    offersCount: number = 0;
 
     constructor(private domSanitizer: DomSanitizer, public matIconRegistry: MatIconRegistry,
-                private store: Store<{progress: boolean, user: UserType}>, private authService: AuthService,
+                private store: Store<{progress: boolean, offersCount: number, user: UserType}>,
+                private authService: AuthService,
                 private router: Router) {
         store.pipe(select('user')).subscribe(data => {
-            setTimeout(() => this.user = data, 0);
+            setTimeout(() => {
+                this.user = data;
+                this.buttons = UtilityService.prepareNavButtons(this.user);
+            }, 0);
         });
         store.pipe(select('progress')).subscribe(data => {
             setTimeout(() => this.progress = data, 0);
+        });
+        store.pipe(select('offersCount')).subscribe(data => {
+            setTimeout(() => this.offersCount = data, 0);
         });
         this.setSvgIcons();
     }
@@ -72,6 +81,7 @@ export class AppComponent {
             'log-out',
             'male',
             'map-pin',
+            'menu',
             'normal',
             'offer-in',
             'offer-out',
@@ -98,6 +108,7 @@ export class AppComponent {
             'trending-up',
             'twitter',
             'user-plus',
+            'x',
             'x-circle',
             'youtube'
         ];

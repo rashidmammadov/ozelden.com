@@ -64,6 +64,10 @@ p.small { font-size: 12px; color: #909090; margin: 4px; }
 .mat-card { height: fit-content !important; }
 .mat-card-header-text { margin: 0 !important; }
 .mat-card-header .mat-card-title { font-size: 18px !important; }
+.mat-drawer.mat-drawer-end { position: fixed; width: 50%; }
+.mat-drawer-inner-container {
+    button.active { color: $main-color; }
+}
 .mat-fab.announcement-button { position: fixed !important; bottom: 32px !important; right: 32px !important; z-index: 9; }
 .mat-form-field-infix { width: auto !important; }
 .mat-icon.large-icon { width: 64px; height: 64px; }
@@ -147,6 +151,8 @@ p.small { font-size: 12px; color: #909090; margin: 4px; }
     }
 }
 
+.sidenav-close { height: 40px; padding: 8px 16px; }
+
 .student-option {
     img {
         max-height: 32px;
@@ -162,9 +168,9 @@ p.small { font-size: 12px; color: #909090; margin: 4px; }
     margin: 8px;
 }
 
-table.mat-table {
-    width: 100%;
-}
+.table-container { overflow: auto; background-color: #fff; padding: 4px 0; }
+table.mat-table { width: 100%; min-width: 960px; }
+th.mat-header-cell, td.mat-cell, td.mat-footer-cell { padding-right: 8px !important; }
 
 .overall-report {
     h2 { margin: 0; color: $sub-color; }

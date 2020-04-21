@@ -21,6 +21,7 @@ class AnnouncementTable extends Migration {
             $table->string(DISTRICT, 30)->nullable()->references(DISTRICT_NAME)->on(DB_CITY_TABLE);
             $table->float(MIN_PRICE)->nullable();
             $table->float(MAX_PRICE)->nullable();
+            $table->string(DESCRIPTION, 200)->nullable();
             $table->char(CURRENCY, 3)->default(TURKISH_LIRA);
             $table->char(SEX, 10)->nullable();
             $table->integer(STATUS)->default(ANNOUNCEMENT_STATUS_ACTIVE);

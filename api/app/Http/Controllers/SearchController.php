@@ -41,7 +41,9 @@ class SearchController extends ApiController {
             $data = array();
             foreach ($searchResultsFromDB->items() as $item) {
                 $searchResult = $this->prepareTutorSearchResult($item, $request);
-                array_push($data, $searchResult);
+                if ($searchResult) {
+                    array_push($data, $searchResult);
+                }
             }
             return $this->respondWithPagination('', $searchResultsFromDB, $data);
         } else {
@@ -110,7 +112,9 @@ class SearchController extends ApiController {
             $data = array();
             foreach ($recommendedTutorsFromDB as $recommendTutorFromDB) {
                 $searchResult = $this->prepareTutorSearchResult($recommendTutorFromDB);
-                array_push($data, $searchResult);
+                if ($searchResult) {
+                    array_push($data, $searchResult);
+                }
             }
             return $this->respondCreated('', $data);
         } else {

@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { OfferService } from '../../services/offer/offer.service';
-import { UserService } from '../../services/user/user.service';
 import { UtilityService } from '../../services/utility/utility.service';
 import { IHttpResponse } from '../../interfaces/i-http-response';
 import { UserType } from '../../interfaces/user-type';
-import { TYPES } from '../../constants/types.constant';
 import { setOffersCount } from '../../store/actions/offers-count.action';
 import { first } from 'rxjs/operators';
 
@@ -21,7 +19,7 @@ export class ApplicationComponent implements OnInit {
     buttons = [];
 
     constructor(private store: Store<{offersCount: number, user: UserType}>,
-                private offerService: OfferService, private userService: UserService) {
+                private offerService: OfferService) {
         store.pipe(select('offersCount')).subscribe(data => {
             setTimeout(() => this.offersCount = data, 0);
         });
@@ -29,7 +27,7 @@ export class ApplicationComponent implements OnInit {
 
     async ngOnInit() {
         await this.getUser();
-        this.prepareButtons();
+        this.buttons = UtilityService.prepareNavButtons(this.user);
         await this.fetchReceivedOffersCount();
     }
 
@@ -43,20 +41,5 @@ export class ApplicationComponent implements OnInit {
             this.store.dispatch(setOffersCount({ offersCount: response.data }));
         });
     };
-
-    private prepareButtons() {
-        const home = {routerLink: '/app/home', icon: 'home', title: 'Ana Sayfa'};
-        const offers = {routerLink: '/app/offers', icon: 'offers', title: 'Teklifler', badgeOffersCount: true};
-        const tutoredStudents = {routerLink: '/app/tutored-students', icon: 'students', title: 'Öğrencilerim'};
-        const paidService = {routerLink: '/app/paid-service', icon: 'star', title: 'Hizmetler'};
-        const lectures = {routerLink: '/app/lectures', icon: 'paperclip', title: 'Derslerim'};
-        const suitability = {routerLink: '/app/suitability', icon: 'sliders', title: 'Uygunluk'};
-        const settings = {routerLink: '/app/settings', icon: 'settings', title: 'Ayarlar'};
-        if (this.user.type === TYPES.TUTOR) {
-            this.buttons = [home, offers, paidService, lectures, suitability, settings];
-        } else if (this.user.type === TYPES.TUTORED) {
-            this.buttons = [home, offers, tutoredStudents, settings];
-        }
-    }
 
 }

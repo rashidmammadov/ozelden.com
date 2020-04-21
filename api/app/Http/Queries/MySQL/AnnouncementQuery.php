@@ -45,6 +45,7 @@ class AnnouncementQuery extends Query {
                 DISTRICT => $announcement[DISTRICT],
                 MIN_PRICE => $announcement[MIN_PRICE],
                 MAX_PRICE => $announcement[MAX_PRICE],
+                DESCRIPTION => $announcement[DESCRIPTION],
                 CURRENCY => !empty($announcement[CURRENCY]) ? $announcement[CURRENCY] : TURKISH_LIRA,
                 SEX => $announcement[SEX],
                 STATUS => !empty($announcement[STATUS]) ? $announcement[STATUS] : ANNOUNCEMENT_STATUS_ACTIVE,

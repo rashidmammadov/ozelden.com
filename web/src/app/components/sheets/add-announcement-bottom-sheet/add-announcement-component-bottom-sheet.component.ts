@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef} from '@angular/material/bottom-sheet';
+import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { Store } from '@ngrx/store';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AnnouncementService } from '../../../services/announcement/announcement.service';
@@ -33,6 +33,7 @@ export class AddAnnouncementComponentBottomSheet implements OnInit {
         district: new FormControl(''),
         min_price: new FormControl(''),
         max_price: new FormControl(''),
+        description: new FormControl(''),
         sex: new FormControl('')
     });
 
@@ -61,11 +62,11 @@ export class AddAnnouncementComponentBottomSheet implements OnInit {
     addAnnouncement = async () => {
         this.store.dispatch(loading());
         const result = await this.announcementService.send(this.setAnnouncementRequestParams());
+        this.store.dispatch(loaded());
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             ToastService.show(response.message);
             this.close(undefined as MouseEvent);
         });
-        this.store.dispatch(loaded());
     };
 
     close(event: MouseEvent): void {
@@ -102,6 +103,7 @@ export class AddAnnouncementComponentBottomSheet implements OnInit {
             'lecture_theme': controls.lecture_theme.value || 'Tüm Konular',
             'min_price': controls.min_price.value,
             'max_price': controls.max_price.value,
+            'description': controls.description.value,
             'sex': controls.sex.value
         }
     }

@@ -5,7 +5,7 @@
     </p>
 </div>
 <mat-dialog-content align="center">
-    <form ngNoForm fxLayout="column" [formGroup]="offerForm" fxLayoutGap="16px">
+    <form ngNoForm fxLayout="column" [formGroup]="offerForm" fxLayoutGap="8px">
         <mat-form-field appearance="outline">
             <mat-label>Ders Almak İsteyen</mat-label>
             <mat-select formControlName="student_id">
@@ -40,6 +40,12 @@
                 <input matInput placeholder="İstenen Teklif (₺)" [type]="'number'" min="1" formControlName="offer">
             </mat-form-field>
         </div>
+        <mat-form-field appearance="outline" fxFlex.gt-md>
+            <mat-label>Teklif Detayı (İsteğe Bağlı)</mat-label>
+            <textarea matInput placeholder="Örnek: Dersi internet üzerinden almak istiyorum"
+                      formControlName="description" maxlength="200"></textarea>
+            <mat-hint align="end">{{offerForm.controls.description?.value?.length || 0}} / 200</mat-hint>
+        </mat-form-field>
     </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

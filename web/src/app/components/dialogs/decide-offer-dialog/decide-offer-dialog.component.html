@@ -9,6 +9,10 @@
 </div>
 <mat-dialog-content>
     <div fxLayout="column" fxLayoutGap="16px">
+        <div *ngIf="data.description" align="center">
+            <span>Açıklama</span>
+            <p class="mat-small">{{data.description}}</p>
+        </div>
         <div fxLayout="column" fxLayoutAlign="center center">
             <span class="offer-status" [ngClass]="{'button-green': data.status === 1, 'button-red': data.status === 99}">
                 {{TYPES.OFFER_STATUS[data.status]}}

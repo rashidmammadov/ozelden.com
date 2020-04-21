@@ -15,6 +15,7 @@ export interface OfferType {
     tutor_lecture?: TutorLectureType;
     offer: number;
     currency?: string;
+    description?: string;
     status: number;
     offer_type?: string;
     updated_at?: string;

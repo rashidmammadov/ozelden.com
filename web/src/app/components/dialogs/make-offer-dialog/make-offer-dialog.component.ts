@@ -25,7 +25,8 @@ export class MakeOfferDialogComponent implements OnInit {
         student_id: new FormControl(''),
         receiver_id: new FormControl('', [Validators.required]),
         tutor_lecture_id: new FormControl('', [Validators.required]),
-        offer: new FormControl('', [Validators.required])
+        offer: new FormControl('', [Validators.required]),
+        description: new FormControl()
     });
 
     constructor(public dialogRef: MatDialogRef<MakeOfferDialogComponent>,
@@ -89,6 +90,7 @@ export class MakeOfferDialogComponent implements OnInit {
             'student_id': controls.student_id.value,
             'tutor_lecture_id': controls.tutor_lecture_id.value,
             'offer': controls.offer.value,
+            'description': controls.description.value
         }
     }
 

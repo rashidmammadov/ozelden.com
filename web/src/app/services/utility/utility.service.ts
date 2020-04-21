@@ -6,10 +6,12 @@ import { ErrorResponse } from '../../models/error-response';
 import { IHttpResponse } from '../../interfaces/i-http-response';
 import { ToastService } from '../toast/toast.service';
 import { Observable, of } from 'rxjs';
+import { UserType } from '../../interfaces/user-type';
 import { catchError } from 'rxjs/operators';
 import { APP } from '../../constants/app.constant';
 import { DATE_TIME } from '../../constants/date-time.constant';
 import { MESSAGES } from '../../constants/messages.constant';
+import { TYPES } from '../../constants/types.constant';
 
 @Injectable({
     providedIn: 'root'
@@ -63,6 +65,23 @@ export class UtilityService {
             result.base64 = base64;
         }
         return result;
+    }
+
+    public static prepareNavButtons(user: UserType) {
+        let buttons = [];
+        const home = {routerLink: '/app/home', icon: 'home', title: 'Ana Sayfa'};
+        const offers = {routerLink: '/app/offers', icon: 'offers', title: 'Teklifler', badgeOffersCount: true};
+        const tutoredStudents = {routerLink: '/app/tutored-students', icon: 'students', title: 'Öğrencilerim'};
+        const paidService = {routerLink: '/app/paid-service', icon: 'star', title: 'Hizmetler'};
+        const lectures = {routerLink: '/app/lectures', icon: 'paperclip', title: 'Derslerim'};
+        const suitability = {routerLink: '/app/suitability', icon: 'sliders', title: 'Uygunluk'};
+        const settings = {routerLink: '/app/settings', icon: 'settings', title: 'Ayarlar'};
+        if (user && user.type === TYPES.TUTOR) {
+            buttons = [home, offers, paidService, lectures, suitability, settings];
+        } else if (user && user.type === TYPES.TUTORED) {
+            buttons = [home, offers, tutoredStudents, settings];
+        }
+        return buttons;
     }
 
     public static pipeHttpResponse(response: Observable<IHttpResponse>): Promise<ErrorResponse | IHttpResponse> {

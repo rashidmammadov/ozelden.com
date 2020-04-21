@@ -11,7 +11,7 @@ class Announcement extends Model {
 
     protected $fillable = [
         ANNOUNCEMENT_ID, TUTORED_ID, STUDENT_ID, LECTURE_AREA, LECTURE_THEME, CITY, DISTRICT, MIN_PRICE, MAX_PRICE,
-        CURRENCY, SEX, STATUS
+        DESCRIPTION, CURRENCY, SEX, STATUS
     ];
 
     public function tutoredId() {

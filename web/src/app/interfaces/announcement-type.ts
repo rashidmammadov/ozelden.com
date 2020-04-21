@@ -8,6 +8,7 @@ export interface AnnouncementType {
     district?: string;
     min_price?: number;
     max_price?: number;
+    description?: string;
     currency?: string;
     sex?: string;
     status: number;

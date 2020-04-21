@@ -101,7 +101,8 @@ class SearchQuery extends Query {
                 })
                 ->select('*', DB_ANNOUNCEMENT_TABLE.'.'.CITY,
                         DB_ANNOUNCEMENT_TABLE.'.'.DISTRICT,
-                        DB_ANNOUNCEMENT_TABLE.'.'.UPDATED_AT)
+                        DB_ANNOUNCEMENT_TABLE.'.'.UPDATED_AT,
+                        DB_ANNOUNCEMENT_TABLE.'.'.DESCRIPTION)
                 ->orderBy(DB_ANNOUNCEMENT_TABLE.'.'.UPDATED_AT, 'desc')
                 ->paginate($itemPerPage);
             return $query;

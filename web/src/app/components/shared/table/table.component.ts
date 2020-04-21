@@ -1,4 +1,14 @@
-import { Component, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild,
+  EventEmitter,
+  HostListener
+} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -15,9 +25,10 @@ export class TableComponent implements OnInit, OnChanges {
     @Input() public data;
     @Input() public columns: TableColumnType[];
     @Input() public pagination: PaginationType;
-    @Output() public pageChanged = new EventEmitter<number>()
+    @Output() public pageChanged = new EventEmitter<number>();
     displayedColumns: string[] = [];
     dataSource;
+    width: number;
 
     // @ViewChild(MatSort, { static: true }) sort: MatSort;
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -25,6 +36,7 @@ export class TableComponent implements OnInit, OnChanges {
     constructor() { }
 
     ngOnInit(): void {
+        this.width = this.getTableWidth();
         this.displayedColumns = [];
         this.columns.forEach(column => { this.displayedColumns.push(column.value); });
     }
@@ -37,8 +49,17 @@ export class TableComponent implements OnInit, OnChanges {
         }
     }
 
+    @HostListener('window:resize', ['$event'])
+    onResize() {
+        this.width = this.getTableWidth();
+    }
+
     changePage(page: number) {
         this.pageChanged.emit(page);
+    }
+
+    private getTableWidth(): number {
+        return ((window.innerWidth >= 960 ? (window.innerWidth - 96) : window.innerWidth ) - 32);
     }
 
 }

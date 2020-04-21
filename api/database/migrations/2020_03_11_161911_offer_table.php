@@ -19,6 +19,7 @@ class OfferTable extends Migration {
             $table->integer(TUTOR_LECTURE_ID)->references(TUTOR_LECTURE_ID)->on(DB_TUTOR_LECTURE_TABLE);
             $table->float(OFFER)->nullable();
             $table->char(CURRENCY, 3)->default(TURKISH_LIRA);
+            $table->string(DESCRIPTION, 200)->nullable();
             $table->integer(STATUS)->default(OFFER_STATUS_WAITING);
             $table->timestamps();
         });

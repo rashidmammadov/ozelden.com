@@ -125,6 +125,7 @@ class OfferQuery extends Query {
                 TUTOR_LECTURE_ID => $offer[TUTOR_LECTURE_ID],
                 OFFER => $offer[OFFER],
                 CURRENCY => !empty($offer[CURRENCY]) ? $offer[CURRENCY] : TURKISH_LIRA,
+                DESCRIPTION => $offer[DESCRIPTION],
                 STATUS => !empty($offer[STATUS]) ? $offer[STATUS] : OFFER_STATUS_WAITING,
             ]);
             return $query;

@@ -16,6 +16,7 @@ class OfferModel {
     private $tutorLecture;
     private $offer;
     private $currency;
+    private $description;
     private $status;
     private $offerType;
     private $updatedAt;
@@ -34,6 +35,7 @@ class OfferModel {
 //            $this->setTutorLecture($parameters[TUTOR_LECTURE]);
             $this->setOffer($parameters[OFFER]);
             $this->setCurrency($parameters[CURRENCY]);
+            $this->setDescription($parameters[DESCRIPTION]);
             $this->setStatus($parameters[STATUS]);
 //            $this->setOfferType($parameters[OFFER_TYPE]);
             $this->setUpdatedAt($parameters[UPDATED_AT]);
@@ -54,6 +56,7 @@ class OfferModel {
             TUTOR_LECTURE => $this->getTutorLecture(),
             OFFER => $this->getOffer(),
             CURRENCY => $this->getCurrency(),
+            DESCRIPTION => $this->getDescription(),
             STATUS => $this->getStatus(),
             OFFER_TYPE => $this->getOfferType(),
             UPDATED_AT => $this->getUpdatedAt()
@@ -154,6 +157,15 @@ class OfferModel {
 
     public function setCurrency($currency): void {
         $this->currency = $currency;
+    }
+
+
+    public function getDescription() {
+        return $this->description;
+    }
+
+    public function setDescription($description): void {
+        $this->description = $description;
     }
 
     public function getStatus() {

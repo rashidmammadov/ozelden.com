@@ -15,6 +15,7 @@ class AnnouncementModel {
     private $district;
     private $minPrice;
     private $maxPrice;
+    private $description;
     private $currency;
     private $sex;
     private $status;
@@ -30,6 +31,7 @@ class AnnouncementModel {
             $this->setDistrict($parameters[DISTRICT]);
             $this->setMinPrice($parameters[MIN_PRICE]);
             $this->setMaxPrice($parameters[MAX_PRICE]);
+            $this->setDescription($parameters[DESCRIPTION]);
             $this->setCurrency($parameters[CURRENCY]);
             $this->setSex($parameters[SEX]);
             $this->setStatus($parameters[STATUS]);
@@ -49,6 +51,7 @@ class AnnouncementModel {
             DISTRICT => $this->getDistrict(),
             MIN_PRICE => $this->getMinPrice(),
             MAX_PRICE => $this->getMaxPrice(),
+            DESCRIPTION => $this->getDescription(),
             CURRENCY => $this->getCurrency(),
             SEX => $this->getSex(),
             STATUS => $this->getStatus()
@@ -141,6 +144,14 @@ class AnnouncementModel {
 
     public function setMaxPrice($maxPrice): void {
         $this->maxPrice = $maxPrice;
+    }
+
+    public function getDescription() {
+        return $this->description;
+    }
+
+    public function setDescription($description): void {
+        $this->description = $description;
     }
 
     public function getCurrency() {

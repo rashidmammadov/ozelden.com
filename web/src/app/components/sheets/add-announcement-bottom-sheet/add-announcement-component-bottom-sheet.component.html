@@ -44,6 +44,12 @@
                 </mat-select>
                 <mat-hint><b>Öğrencilerim</b> sayfasından öğrenci (velisi olarak) ekleyebilirsiniz</mat-hint>
             </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex.gt-md>
+                <mat-label>İlan Detayı (İsteğe Bağlı)</mat-label>
+                <textarea matInput placeholder="Örnek: Sadece pazar sabahları müsait oluyorum"
+                          formControlName="description" maxlength="200"></textarea>
+                <mat-hint align="end">{{announcementForm.controls.description?.value?.length || 0}} / 200</mat-hint>
+            </mat-form-field>
         </form>
     </div>
     <div fxLayoutAlign="end" fxLayoutGap="8px">
