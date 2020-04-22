@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { EditStudentDialogComponent } from '../dialogs/edit-student-dialog/edit-student-dialog.component';
+import { GoogleAnalyticsService } from '../../services/google-analytics/google-analytics.service';
 import { StudentService } from '../../services/student/student.service';
 import { ToastService } from '../../services/toast/toast.service';
 import { UtilityService } from '../../services/utility/utility.service';
@@ -36,6 +37,7 @@ export class TutoredStudentsComponent implements OnInit {
 
     private addNewStudent = async (student: StudentType) => {
         this.store.dispatch(loading());
+        GoogleAnalyticsService.addStudent(student);
         const result = await this.studentService.addTutoredStudent(student);
         let students = [...this.students];
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {

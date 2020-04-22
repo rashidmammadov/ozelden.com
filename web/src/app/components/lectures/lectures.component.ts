@@ -10,6 +10,7 @@ import { MissingFieldsType } from '../../interfaces/missing-fields-type';
 import { TableColumnType } from '../../interfaces/table-column-type';
 import { TutorLectureType } from '../../interfaces/tutor-lecture-type';
 import { IHttpResponse } from '../../interfaces/i-http-response';
+import { GoogleAnalyticsService } from '../../services/google-analytics/google-analytics.service';
 import { LectureService } from '../../services/lecture/lecture.service';
 import { UserService } from '../../services/user/user.service';
 import { UtilityService } from '../../services/utility/utility.service';
@@ -72,6 +73,7 @@ export class LecturesComponent implements OnInit {
         if (this.lectureForm.valid) {
             let lecturesList: TutorLectureType[] = [...this.tutorLectures];
             this.store.dispatch(loading());
+            GoogleAnalyticsService.addLecture(this.setLectureRequestParams());
             const result = await this.lectureService.addTutorLecture(this.setLectureRequestParams());
             UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
                 lecturesList.push(response.data);
@@ -124,11 +126,12 @@ export class LecturesComponent implements OnInit {
     public deleteLecture = async (tutor_lecture_id: number) => {
         let lecturesList: TutorLectureType[] = [...this.tutorLectures];
         this.store.dispatch(loading());
+        GoogleAnalyticsService.deleteLecture(tutor_lecture_id);
         const result = await this.lectureService.deleteTutorLecture(tutor_lecture_id);
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             ToastService.show(response.message);
             lecturesList = lecturesList.filter(lecture => lecture.tutor_lecture_id !== tutor_lecture_id);
-            this.userService.updateMissingFields('lecture', true);
+            !lecturesList.length && this.userService.updateMissingFields('lecture', true);
         });
         this.store.dispatch(loaded());
         this.tutorLectures = lecturesList;

@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { AuthService} from "../../services/auth/auth.service";
 import { Cookie } from '../../services/cookie/cookie.service';
+import { GoogleAnalyticsService } from '../../services/google-analytics/google-analytics.service';
 import { IHttpResponse } from '../../interfaces/i-http-response';
 import { UserService } from '../../services/user/user.service';
 import { UtilityService } from '../../services/utility/utility.service';
@@ -35,6 +36,7 @@ export class LoginComponent {
     public login = async () => {
         if (this.loginForm.valid) {
             this.store.dispatch(loading());
+            GoogleAnalyticsService.login(this.setLoginRequestParams());
             const result = await this.authService.login(this.setLoginRequestParams());
             UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
                 this.user = response.data;

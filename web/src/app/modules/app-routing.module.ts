@@ -5,6 +5,7 @@ import { ApplicationComponent } from '../components/application/application.comp
 import { HomeComponent } from '../components/home/home.component';
 import { OffersComponent } from '../components/offers/offers.component';
 import { PaidServiceComponent } from '../components/paid-service/paid-service.component';
+import { PdplComponent } from '../components/pdpl/pdpl.component';
 import { ProfileComponent } from '../components/profile/profile.component';
 import { LandingComponent } from '../components/landing/landing.component';
 import { LecturesComponent } from '../components/lectures/lectures.component';
@@ -33,6 +34,10 @@ const routes: Routes = [
         path: 'register',
         component: RegisterComponent,
         canActivate: [AuthGuard]
+    },
+    {
+        path: 'kvkk',
+        component: PdplComponent,
     },
     {
         path: 'app',

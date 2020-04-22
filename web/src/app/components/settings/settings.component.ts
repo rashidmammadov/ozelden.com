@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Cookie } from '../../services/cookie/cookie.service';
+import { GoogleAnalyticsService } from '../../services/google-analytics/google-analytics.service';
 import { ProfileService } from '../../services/profile/profile.service';
 import { UtilityService } from '../../services/utility/utility.service';
 import { UserService } from '../../services/user/user.service';
@@ -65,6 +66,7 @@ export class SettingsComponent implements OnInit {
 
     uploadProfilePicture = async (file) => {
         this.store.dispatch(loading());
+        GoogleAnalyticsService.updateProfilePicture();
         const result = await this.profileService.uploadPicture(UtilityService.parseBase64(file, 'image'));
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             ToastService.show(response.message);
@@ -84,6 +86,7 @@ export class SettingsComponent implements OnInit {
     updatePassword = async () => {
         if (this.passwordForm.valid) {
             this.store.dispatch(loading());
+            GoogleAnalyticsService.updatePassword();
             const result = await this.userService.updatePassword(this.setPasswordFormData());
             UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
                 Cookie.delete(APP.COOKIE_KEY);
@@ -201,6 +204,7 @@ export class SettingsComponent implements OnInit {
 
     private updateProfile = async () => {
         if (this.profileForm.valid && this.isProfileFormChanged()) {
+            GoogleAnalyticsService.updateProfileSettings(this.setProfileRequestParams());
             const result = await this.profileService.update(this.setProfileRequestParams());
             UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
                 ToastService.show(response.message);
@@ -210,6 +214,7 @@ export class SettingsComponent implements OnInit {
 
     private updateUser = async () => {
         if (this.userForm.valid && this.isUserFormChanged()) {
+            GoogleAnalyticsService.updateUserSettings(this.setUserRequestParams());
             const result = await this.userService.update(this.setUserRequestParams());
             UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
                 const controls = this.userForm.controls;

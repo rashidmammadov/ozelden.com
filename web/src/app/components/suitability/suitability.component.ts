@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { first } from 'rxjs/operators';
 import { IHttpResponse } from '../../interfaces/i-http-response';
+import { GoogleAnalyticsService } from '../../services/google-analytics/google-analytics.service';
 import { SuitabilityService} from '../../services/suitability/suitability.service';
 import { ToastService } from '../../services/toast/toast.service';
 import { UserService } from '../../services/user/user.service';
@@ -46,6 +47,7 @@ export class SuitabilityComponent implements OnInit {
         let params = {};
         params[type] = this[type];
         this.store.dispatch(loading());
+        GoogleAnalyticsService.updateSuitability(type, params);
         const result = await this.suitabilityService.update(type, params);
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             ToastService.show(response.message);

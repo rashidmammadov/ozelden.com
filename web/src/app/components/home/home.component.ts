@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { Store } from '@ngrx/store';
+import { GoogleAnalyticsService } from '../../services/google-analytics/google-analytics.service';
 import { UtilityService } from '../../services/utility/utility.service';
 import { ReportService } from '../../services/report/report.service';
 import { SearchService } from '../../services/search/search.service';
@@ -105,6 +106,7 @@ export class HomeComponent implements OnInit {
             this.searchResult = [];
         }
         this.store.dispatch(loading());
+        GoogleAnalyticsService.search(this.setSearchRequestParams());
         const result = await this.searchService.get(this.page, this.setSearchRequestParams());
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             this.changeMode = changeMode;

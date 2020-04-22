@@ -59,7 +59,7 @@ export class TableComponent implements OnInit, OnChanges {
     }
 
     private getTableWidth(): number {
-        return ((window.innerWidth >= 960 ? (window.innerWidth - 96) : window.innerWidth ) - 32);
+        return ((window.innerWidth >= 960 ? (window.innerWidth - 100) : window.innerWidth ) - 32);
     }
 
 }

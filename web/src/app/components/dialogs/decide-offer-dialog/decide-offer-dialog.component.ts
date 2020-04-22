@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { IHttpResponse } from '../../../interfaces/i-http-response';
+import { GoogleAnalyticsService } from '../../../services/google-analytics/google-analytics.service';
 import { OfferService } from '../../../services/offer/offer.service';
 import { PaidService } from '../../../services/paid/paid.service';
 import { UtilityService } from '../../../services/utility/utility.service';
@@ -30,6 +31,7 @@ export class DecideOfferDialogComponent implements OnInit {
                 private offerService: OfferService, private paidService: PaidService) { }
 
     async ngOnInit() {
+        GoogleAnalyticsService.checkOfferStatus(this.data.offer_id);
         await this.fetchPaidServices();
         await this.getUser();
     }
@@ -37,6 +39,7 @@ export class DecideOfferDialogComponent implements OnInit {
     makeDecideForOffer = async (decision: number) => {
         let offersCount = await this.store.select('offersCount').pipe(first()).toPromise();
         this.store.dispatch(loading());
+        GoogleAnalyticsService.decideOffer(this.data.offer_id, TYPES.OFFER_STATUS[decision]);
         const result = await this.offerService.updateOfferStatus(this.data.offer_id, { status: decision });
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             this.store.dispatch(setOffersCount({ offersCount: (offersCount - 1) }));

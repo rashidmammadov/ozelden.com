@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { GoogleAnalyticsService } from '../../../services/google-analytics/google-analytics.service';
 import { OfferService } from '../../../services/offer/offer.service';
 import { LectureService } from '../../../services/lecture/lecture.service';
 import { PaidService } from '../../../services/paid/paid.service';
@@ -41,6 +42,7 @@ export class MakeOfferDialogComponent implements OnInit {
 
     sendOffer = async () => {
         this.store.dispatch(loading());
+        GoogleAnalyticsService.sendOffer(this.setOfferRequestParams());
         const result = await this.offerService.send(this.setOfferRequestParams());
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             ToastService.show(response.message);

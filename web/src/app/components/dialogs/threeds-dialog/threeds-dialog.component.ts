@@ -1,6 +1,7 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { GoogleAnalyticsService } from '../../../services/google-analytics/google-analytics.service';
 
 @Component({
     selector: 'app-threeds-dialog',
@@ -17,6 +18,7 @@ export class ThreedsDialogComponent implements OnInit {
     ngOnInit(): void {
         this.trustedHTML = this.sanitizer.bypassSecurityTrustHtml(this.data);
         setTimeout(() => this.setIframe(this.iframe));
+        GoogleAnalyticsService.confirm3DSSecurity();
     }
 
     private setIframe(iframe: ElementRef): void {

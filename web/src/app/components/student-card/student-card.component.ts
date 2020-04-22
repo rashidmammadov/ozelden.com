@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 import { EditStudentDialogComponent } from '../dialogs/edit-student-dialog/edit-student-dialog.component';
+import { GoogleAnalyticsService } from '../../services/google-analytics/google-analytics.service';
 import { StudentService } from '../../services/student/student.service';
 import { ToastService } from '../../services/toast/toast.service';
 import { UtilityService } from '../../services/utility/utility.service';
@@ -61,6 +62,7 @@ export class StudentCardComponent implements OnInit {
 
     private updateStudent = async (student: StudentType) => {
         this.store.dispatch(loading());
+        GoogleAnalyticsService.updateStudent(student);
         const result = await this.studentService.updateTutoredStudent(student);
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             student.file && student.file.base64 && (this.data.picture = student.file.base64);

@@ -4,13 +4,14 @@ import { Store } from '@ngrx/store';
 import { AskOfferDialogComponent } from '../dialogs/ask-offer-dialog/ask-offer-dialog.component';
 import { MakeOfferDialogComponent } from '../dialogs/make-offer-dialog/make-offer-dialog.component';
 import { ActivatedRoute } from '@angular/router';
+import { GoogleAnalyticsService } from '../../services/google-analytics/google-analytics.service';
 import { UtilityService } from '../../services/utility/utility.service';
 import { first } from 'rxjs/operators';
+import { InfoType } from '../../interfaces/info-type';
 import { UserProfileType } from '../../interfaces/user-profile-type';
 import { UserType } from '../../interfaces/user-type';
 import { DATE_TIME } from '../../constants/date-time.constant';
 import { TYPES } from '../../constants/types.constant';
-import {InfoType} from "../../interfaces/info-type";
 
 @Component({
     selector: 'app-profile',
@@ -57,6 +58,7 @@ export class ProfileComponent implements OnInit {
             this.prepareAge();
             this.prepareStatisticsRegisterDate();
             this.prepareTutorSuitabilities();
+            GoogleAnalyticsService.watchProfile(this.profile.id, this.profile.type, (this.profile.name + ' ' + this.profile.surname));
         }
     };
 

@@ -8,6 +8,7 @@ import { UserType } from '../../interfaces/user-type';
 import { AuthService } from '../../services/auth/auth.service';
 import { Cookie } from '../../services/cookie/cookie.service';
 import { DataService } from '../../services/data/data.service';
+import { GoogleAnalyticsService } from '../../services/google-analytics/google-analytics.service';
 import { IHttpResponse } from '../../interfaces/i-http-response';
 import { UtilityService } from '../../services/utility/utility.service';
 import { set } from '../../store/actions/user.action';
@@ -43,7 +44,8 @@ export class RegisterComponent implements OnInit {
         birthday: new FormControl('', [Validators.required]),
         city: new FormControl('', [Validators.required]),
         district: new FormControl('', [Validators.required]),
-        address: new FormControl('', [Validators.required])
+        address: new FormControl('', [Validators.required]),
+        pdpl: new FormControl(false, [Validators.requiredTrue])
     });
 
     constructor(private dataService: DataService, private store: Store<{cities: CityType[], progress: boolean, user: UserType}>,
@@ -62,6 +64,7 @@ export class RegisterComponent implements OnInit {
     public register = async () => {
         if (this.registerForm.valid) {
             this.store.dispatch(loading());
+            GoogleAnalyticsService.register(this.setRegisterRequestParams());
             const result = await this.authService.register(this.setRegisterRequestParams());
             UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
                 this.user = response.data;

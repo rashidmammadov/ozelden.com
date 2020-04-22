@@ -8,6 +8,7 @@ import { IHttpResponse } from '../interfaces/i-http-response';
 import { UserType } from '../interfaces/user-type';
 import { APP } from '../constants/app.constant';
 import { set } from '../store/actions/user.action';
+import {GoogleAnalyticsService} from "../services/google-analytics/google-analytics.service";
 
 @Injectable({
     providedIn: 'root'
@@ -26,6 +27,7 @@ export class AuthGuard implements CanActivate {
             const result = await this.authService.check();
             UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
                 let user: UserType = response.data;
+                GoogleAnalyticsService.setEventAction(`${user.email} (${user.name} ${user.surname} - ${user.type})`);
                 if (accessToken !== user.remember_token) {
                     Cookie.delete(APP.COOKIE_KEY);
                     Cookie.set(APP.COOKIE_KEY, user.remember_token);

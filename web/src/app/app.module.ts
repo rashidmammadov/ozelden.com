@@ -24,6 +24,7 @@ import { HomeComponent } from './components/home/home.component';
 import { GridListComponent } from './components/shared/grid-list/grid-list.component';
 import { OffersComponent } from './components/offers/offers.component';
 import { PaidServiceComponent } from './components/paid-service/paid-service.component';
+import { PdplComponent } from './components/pdpl/pdpl.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PieChartComponent } from './components/graphs/pie-chart/pie-chart.component';
 import { LandingComponent } from './components/landing/landing.component';
@@ -45,6 +46,7 @@ import { WarningMessagesComponent } from './components/shared/warning-messages/w
 import { CookieService } from 'ngx-cookie-service';
 import { Cookie } from './services/cookie/cookie.service';
 import { DataService } from './services/data/data.service';
+import { GoogleAnalyticsService } from './services/google-analytics/google-analytics.service';
 import { GraphService } from './services/graph/graph.service';
 import { ToastService } from './services/toast/toast.service';
 import { UtilityService } from './services/utility/utility.service';
@@ -80,6 +82,7 @@ export function fetchStaticData(dataService: DataService) {
         GridListComponent,
         OffersComponent,
         PaidServiceComponent,
+        PdplComponent,
         PieChartComponent,
         ProfileComponent,
         LandingComponent,
@@ -136,6 +139,7 @@ export function fetchStaticData(dataService: DataService) {
 export class AppModule {
     constructor(private injector: Injector) {
         Cookie.injector = injector;
+        GoogleAnalyticsService.injector = injector;
         GraphService.injector = injector;
         UtilityService.injector = injector;
         ToastService.injector = injector;

@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Store} from '@ngrx/store';
 import { DepositDialogComponent } from '../dialogs/deposit-dialog/deposit-dialog.component';
 import { ThreedsDialogComponent } from '../dialogs/threeds-dialog/threeds-dialog.component';
+import { GoogleAnalyticsService } from '../../services/google-analytics/google-analytics.service';
 import { PaidService } from '../../services/paid/paid.service';
 import { UtilityService } from '../../services/utility/utility.service';
 import { IHttpResponse } from '../../interfaces/i-http-response';
@@ -80,6 +81,7 @@ export class PaidServiceComponent implements OnInit {
                 UtilityService.millisecondsToDate(this.activePaidService.boost, DATE_TIME.FORMAT.DATE);
             this.activePaidService.readableRecommend =
                 UtilityService.millisecondsToDate(this.activePaidService.recommend, DATE_TIME.FORMAT.DATE);
+            GoogleAnalyticsService.checkActivePaidServices(this.activePaidService);
         });
         this.store.dispatch(loaded());
     };

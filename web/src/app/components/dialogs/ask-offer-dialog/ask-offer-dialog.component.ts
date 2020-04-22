@@ -13,6 +13,7 @@ import { TutorLectureType } from '../../../interfaces/tutor-lecture-type';
 import { UserType } from '../../../interfaces/user-type';
 import { loaded, loading } from '../../../store/actions/progress.action';
 import { first } from 'rxjs/operators';
+import {GoogleAnalyticsService} from "../../../services/google-analytics/google-analytics.service";
 
 @Component({
     selector: 'app-ask-offer-dialog',
@@ -45,6 +46,7 @@ export class AskOfferDialogComponent implements OnInit {
 
     askOffer = async () => {
         this.store.dispatch(loading());
+        GoogleAnalyticsService.askOffer(this.setOfferRequestParams());
         const result = await this.offerService.send(this.setOfferRequestParams());
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             ToastService.show(response.message);

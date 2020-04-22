@@ -125,8 +125,12 @@
                           </mat-error>
                       </mat-form-field>
 
+                      <div class="pdpl-container" fxLayout="row" fxLayoutGap="8px">
+                          <mat-checkbox formControlName="pdpl"></mat-checkbox>
+                          <a class="a-link" target="_blank" href="/kvkk">KVKK Politikası</a>'nı okudum kabul ediyorum.
+                      </div>
                       <button mat-flat-button color="primary" type="sumbit" mat-button (click)="register()"
-                              [disabled]="!registerForm.valid">Kayıt Ol</button>
+                              [disabled]="registerForm.invalid">Kayıt Ol</button>
                 </form>
             </mat-card-content>
         </mat-card>

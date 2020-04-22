@@ -2,16 +2,18 @@ import { Component } from '@angular/core';
 import { UserType } from 'src/app/interfaces/user-type';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { AuthService } from '../../services/auth/auth.service';
 import { Cookie } from '../../services/cookie/cookie.service';
+import { GoogleAnalyticsService } from '../../services/google-analytics/google-analytics.service';
 import { UtilityService } from '../../services/utility/utility.service';
 import { ToastService } from '../../services/toast/toast.service';
 import { IHttpResponse } from '../../interfaces/i-http-response';
 import { set } from '../../store/actions/user.action';
 import { APP } from '../../constants/app.constant';
 
+declare let ga: Function;
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -40,11 +42,19 @@ export class AppComponent {
         store.pipe(select('offersCount')).subscribe(data => {
             setTimeout(() => this.offersCount = data, 0);
         });
+        router.events.subscribe(event => {
+            if (event instanceof NavigationEnd) {
+                ga('set', 'page', event.urlAfterRedirects);
+                ga('send', 'pageview');
+            }
+        });
         this.setSvgIcons();
     }
 
     logout = async () => {
         this.progress = true;
+        GoogleAnalyticsService.logout();
+        GoogleAnalyticsService.setEventAction('Anonymous');
         const result = await this.authService.logout();
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             Cookie.delete(APP.COOKIE_KEY);

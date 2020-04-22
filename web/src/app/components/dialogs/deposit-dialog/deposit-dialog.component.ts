@@ -1,6 +1,7 @@
-import {Component, Inject} from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { GoogleAnalyticsService } from '../../../services/google-analytics/google-analytics.service';
 import { REGEX } from '../../../constants/regex.constant';
 
 @Component({
@@ -31,6 +32,7 @@ export class DepositDialogComponent {
     deposit() {
         const controls = this.depositForm.controls;
         if (this.depositForm.valid) {
+            GoogleAnalyticsService.buyPaidServicePackage(this.data);
             this.dialog.close({
                 price: controls.price.value,
                 packages: controls.packages.value,

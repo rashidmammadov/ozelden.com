@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DecideOfferDialogComponent } from '../dialogs/decide-offer-dialog/decide-offer-dialog.component';
 import { IHttpResponse } from '../../interfaces/i-http-response';
+import { GoogleAnalyticsService } from '../../services/google-analytics/google-analytics.service';
 import { OfferService } from '../../services/offer/offer.service';
 import { OfferType } from '../../interfaces/offer-type';
 import { PaginationType } from '../../interfaces/pagination-type';
@@ -15,7 +17,6 @@ import { DATE_TIME } from '../../constants/date-time.constant';
 import { TYPES } from '../../constants/types.constant';
 import { loaded, loading } from '../../store/actions/progress.action';
 import { first } from 'rxjs/operators';
-import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-offers',
@@ -82,6 +83,7 @@ export class OffersComponent implements OnInit {
 
     private fetchOffers = async (page: number) => {
         this.store.dispatch(loading());
+        GoogleAnalyticsService.fetchOffers(page);
         const result = await this.offerService.get(page);
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             this.offers = response.data;
