@@ -14,14 +14,14 @@
             <p class="mat-small">{{data.description}}</p>
         </div>
         <div fxLayout="column" fxLayoutAlign="center center">
-            <span class="offer-status" [ngClass]="{'button-green': data.status === 1, 'button-red': data.status === 99}">
+            <span class="offer-status" [ngClass]="{'button-green': data.status.toString() === '1', 'button-red': data.status.toString() === '99'}">
                 {{TYPES.OFFER_STATUS[data.status]}}
             </span>
-            <span *ngIf="user && user.type === TYPES.TUTOR && user.id === data.receiver.id && data.status === 0">
+            <span *ngIf="user && user.type === TYPES.TUTOR && user.id.toString() === data.receiver.id.toString() && data.status.toString() === '0'">
                 Kalan teklif hakkınız: <b>{{remainingBids}}</b>
             </span>
         </div>
-        <div *ngIf="user && user.id.toFixed() === data.receiver.id.toFixed()">
+        <div *ngIf="user && user.id.toString() === data.receiver.id.toString()">
             <p class="small">* Bu teklifi onaylarsanız kullanıcı sizin iletişim bilgilerinize ulaşabilecek.</p>
             <p *ngIf="user.type === TYPES.TUTOR" class="small">* Bu teklifi onaylamak için hesabınızda teklif hakkı bulunması gerekiyor.</p>
             <p *ngIf="user.type === TYPES.TUTOR" class="small">* <b>Hizmetler</b> sayfasından daha fazla teklif hakkı ekleyebilirsiniz.</p>
@@ -29,12 +29,12 @@
     </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button *ngIf="user && user.id.toFixed() === data.receiver.id.toFixed()" class="button-green" mat-raised-button
-            (click)="makeDecideForOffer(1)" [disabled]="data.status !== 0">
+    <button *ngIf="user && user.id.toString() === data.receiver.id.toString()" class="button-green" mat-raised-button
+            (click)="makeDecideForOffer(1)" [disabled]="data.status.toString() !== '0'">
         <mat-icon svgIcon="like"></mat-icon> Onayla
     </button>
-    <button *ngIf="user && user.id.toFixed() === data.receiver.id.toFixed()" class="button-red" mat-raised-button
-            (click)="makeDecideForOffer(99)" [disabled]="data.status !== 0">
+    <button *ngIf="user && user.id.toString() === data.receiver.id.toString()" class="button-red" mat-raised-button
+            (click)="makeDecideForOffer(99)" [disabled]="data.status.toString() !== '0'">
         <mat-icon svgIcon="dislike"></mat-icon> Reddet
     </button>
     <button mat-button mat-raised-button [mat-dialog-close]="false">Kapat</button>

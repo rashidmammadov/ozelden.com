@@ -25,6 +25,7 @@ import { GridListComponent } from './components/shared/grid-list/grid-list.compo
 import { OffersComponent } from './components/offers/offers.component';
 import { PaidServiceComponent } from './components/paid-service/paid-service.component';
 import { PdplComponent } from './components/pdpl/pdpl.component';
+import { ProductsComponent } from './components/products/products.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PieChartComponent } from './components/graphs/pie-chart/pie-chart.component';
 import { LandingComponent } from './components/landing/landing.component';
@@ -83,6 +84,7 @@ export function fetchStaticData(dataService: DataService) {
         OffersComponent,
         PaidServiceComponent,
         PdplComponent,
+        ProductsComponent,
         PieChartComponent,
         ProfileComponent,
         LandingComponent,

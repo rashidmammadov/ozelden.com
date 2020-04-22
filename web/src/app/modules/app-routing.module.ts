@@ -6,6 +6,7 @@ import { HomeComponent } from '../components/home/home.component';
 import { OffersComponent } from '../components/offers/offers.component';
 import { PaidServiceComponent } from '../components/paid-service/paid-service.component';
 import { PdplComponent } from '../components/pdpl/pdpl.component';
+import { ProductsComponent } from '../components/products/products.component';
 import { ProfileComponent } from '../components/profile/profile.component';
 import { LandingComponent } from '../components/landing/landing.component';
 import { LecturesComponent } from '../components/lectures/lectures.component';
@@ -38,6 +39,10 @@ const routes: Routes = [
     {
         path: 'kvkk',
         component: PdplComponent,
+    },
+    {
+        path: 'products',
+        component: ProductsComponent,
     },
     {
         path: 'app',
