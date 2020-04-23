@@ -12,6 +12,7 @@ import { ToastService } from '../../services/toast/toast.service';
 import { IHttpResponse } from '../../interfaces/i-http-response';
 import { set } from '../../store/actions/user.action';
 import { APP } from '../../constants/app.constant';
+import { environment } from '../../../environments/environment';
 
 declare let ga: Function;
 @Component({
@@ -43,7 +44,7 @@ export class AppComponent {
             setTimeout(() => this.offersCount = data, 0);
         });
         router.events.subscribe(event => {
-            if (event instanceof NavigationEnd) {
+            if (environment.production && event instanceof NavigationEnd) {
                 ga('set', 'page', event.urlAfterRedirects);
                 ga('send', 'pageview');
             }

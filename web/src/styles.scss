@@ -60,6 +60,7 @@ p.small { font-size: 12px; color: #909090; margin: 4px; }
 .green { color: #458B00; }
 .logo img { height: 28px; width: auto; }
 .app-container { /**height: calc(100% - 96px); overflow-y: auto;*/ padding: 80px 16px 16px 16px; }
+.payment-container { width: 100%; .payment-icons { width: 100%; height: auto; } }
 .mat-bottom-sheet-container-large { max-width: 512px !important; }
 .mat-card { height: fit-content !important; }
 .mat-card-header-text { margin: 0 !important; }

@@ -91,7 +91,7 @@ export class PaidServiceComponent implements OnInit {
         const result = await this.paidService.deposit(params);
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
             this.dialog
-                .open(ThreedsDialogComponent, { width: '500px', disableClose: true, data: response.data })
+                .open(ThreedsDialogComponent, { width: '90%', disableClose: true, data: response.data })
                 .afterClosed().toPromise().then(() => location.reload());
         });
         this.store.dispatch(loaded());

@@ -1,6 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { ANALYTICS } from '../../constants/analytics.constant';
 import { PaidServiceType } from '../../interfaces/paid-service-type';
+import { environment } from '../../../environments/environment';
 
 declare let ga: Function;
 @Injectable({
@@ -108,12 +109,14 @@ export class GoogleAnalyticsService {
     }
 
     public static eventTrack(eventCategory: string, eventLabel: string = null, eventValue: number = null) {
-        ga('send', 'event', {
-            eventCategory: eventCategory,
-            eventAction: GoogleAnalyticsService.eventAction,
-            eventLabel: eventLabel,
-            eventValue: eventValue
-        });
+        if (environment.production) {
+            ga('send', 'event', {
+              eventCategory: eventCategory,
+              eventAction: GoogleAnalyticsService.eventAction,
+              eventLabel: eventLabel,
+              eventValue: eventValue
+            });
+        }
     }
 
     static get eventAction(): string {
