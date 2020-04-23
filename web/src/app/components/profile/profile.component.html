@@ -33,11 +33,11 @@
                 <mat-chip matTooltip="Telefon" [class.blur-filter]="!profile.phone">{{'+90' + (profile.phone || '5000000000')}}</mat-chip>
                 <mat-chip matTooltip="Email" [class.blur-filter]="!profile.email">{{profile.email || 'info@ozelden.com'}}</mat-chip>
             </mat-chip-list>
-            <button *ngIf="user && user.type === TYPES.TUTORED && user.type !== profile.type && user.id !== profile.id"
+            <button *ngIf="user && user.type === TYPES.TUTORED && user.type !== profile.type && user.id.toString() !== profile.id.toString()"
                     class="m-top-16" mat-raised-button (click)="openAskOfferDialog()">Teklif Al</button>
-            <button *ngIf="user && user.type === TYPES.TUTOR && user.type !== profile.type && user.id !== profile.id"
+            <button *ngIf="user && user.type === TYPES.TUTOR && user.type !== profile.type && user.id.toString() !== profile.id.toString()"
                     class="m-top-16" mat-raised-button (click)="openMakeOfferDialog()">Teklif Gönder</button>
-            <p *ngIf="!profile.phone && !profile.email && user.type !== profile.type && user.id !== profile.id" class="light-gray">
+            <p *ngIf="!profile.phone && !profile.email && user.type !== profile.type && user.id.toString() !== profile.id.toString()" class="light-gray">
                 İletişim biliglerine ulaşabilmeniz için kullanıcı ile aranızda en az bir tane onaylanmış teklif olması lazım.
             </p>
         </mat-card>
