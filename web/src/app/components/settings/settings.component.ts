@@ -64,6 +64,12 @@ export class SettingsComponent implements OnInit {
         this.prepareProfileForm();
     }
 
+    changeCity() {
+        if (this.profileForm.controls.city.valid) {
+            this.profileForm.controls.district.setValue(this.profileForm.controls.city.value?.districts[0]);
+        }
+    }
+
     uploadProfilePicture = async (file) => {
         this.store.dispatch(loading());
         GoogleAnalyticsService.updateProfilePicture();

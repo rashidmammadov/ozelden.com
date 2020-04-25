@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Cookie } from '../cookie/cookie.service';
 import { ErrorResponse } from '../../models/error-response';
 import { IHttpResponse } from '../../interfaces/i-http-response';
+import { GoogleAnalyticsService } from '../google-analytics/google-analytics.service';
 import { ToastService } from '../toast/toast.service';
 import { Observable, of } from 'rxjs';
 import { UserType } from '../../interfaces/user-type';
@@ -42,9 +43,11 @@ export class UtilityService {
         } else if ((result as IHttpResponse).status === 'success') {
             successCallback(result);
         } else if ((result as IHttpResponse).status === 'error') {
-            ToastService.show((result as IHttpResponse).message)
+            ToastService.show((result as IHttpResponse).message);
+            GoogleAnalyticsService.errorResponse((result as IHttpResponse).message)
         } else if (result instanceof ErrorResponse) {
             ToastService.show(result.message || MESSAGES.ERROR.INTERNAL_ERROR);
+            GoogleAnalyticsService.errorResponse(result.message || MESSAGES.ERROR.INTERNAL_ERROR);
             if (result.status_code === 401) {
                 Cookie.delete(APP.COOKIE_KEY);
                 UtilityService.injector.get(Router).navigateByUrl('login');

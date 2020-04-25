@@ -9,6 +9,7 @@ export const ANALYTICS = {
         'CONFIRM_3DS_SECURITY': 'Confirm 3DS Security',
         'DECIDE_OFFER': 'Decide Offer',
         'DELETE_LECTURE': 'Delete Lecture',
+        'ERROR_RESPONSE': 'Error Response',
         'FETCH_OFFERS': 'Fetch Offers',
         'LOGIN': 'Login',
         'LOGOUT': 'Logout',

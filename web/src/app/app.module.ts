@@ -9,12 +9,14 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 
 import { AppComponent } from './components/app/app.component';
+import { AboutComponent } from './components/about/about.component';
 import { ApplicationComponent } from './components/application/application.component';
 import { AddAnnouncementComponentBottomSheet } from './components/sheets/add-announcement-bottom-sheet/add-announcement-component-bottom-sheet.component';
 import { AskOfferDialogComponent } from './components/dialogs/ask-offer-dialog/ask-offer-dialog.component';
 import { BarChartHorizontalComponent } from './components/graphs/bar-chart-horizontal/bar-chart-horizontal.component';
 import { CarouselComponent } from './components/shared/carousel/carousel.component';
 import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
+import { ContractComponent } from './components/contract/contract.component';
 import { DecideOfferDialogComponent } from './components/dialogs/decide-offer-dialog/decide-offer-dialog.component';
 import { DepositDialogComponent } from './components/dialogs/deposit-dialog/deposit-dialog.component';
 import { EditStudentDialogComponent } from './components/dialogs/edit-student-dialog/edit-student-dialog.component';
@@ -68,12 +70,14 @@ export function fetchStaticData(dataService: DataService) {
 @NgModule({
     declarations: [
         AppComponent,
+        AboutComponent,
         ApplicationComponent,
         AddAnnouncementComponentBottomSheet,
         AskOfferDialogComponent,
         BarChartHorizontalComponent,
         CarouselComponent,
         ConfirmDialogComponent,
+        ContractComponent,
         DecideOfferDialogComponent,
         DepositDialogComponent,
         EditStudentDialogComponent,

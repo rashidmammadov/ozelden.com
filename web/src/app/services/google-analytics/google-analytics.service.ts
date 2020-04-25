@@ -54,6 +54,10 @@ export class GoogleAnalyticsService {
         GoogleAnalyticsService.eventTrack(ANALYTICS.CATEGORY.DELETE_LECTURE, `lecture id: ${lectureId}`);
     }
 
+    public static errorResponse(error) {
+        GoogleAnalyticsService.eventTrack(ANALYTICS.CATEGORY.ERROR_RESPONSE, JSON.stringify(error));
+    }
+
     public static fetchOffers(page: number) {
         GoogleAnalyticsService.eventTrack(ANALYTICS.CATEGORY.FETCH_OFFERS, `page: ${page}`);
     }

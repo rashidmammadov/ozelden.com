@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { Store } from '@ngrx/store';
 import { GoogleAnalyticsService } from '../../services/google-analytics/google-analytics.service';
+import { ProfileService } from '../../services/profile/profile.service';
 import { UtilityService } from '../../services/utility/utility.service';
 import { ReportService } from '../../services/report/report.service';
 import { SearchService } from '../../services/search/search.service';
@@ -10,6 +11,7 @@ import { AddAnnouncementComponentBottomSheet } from '../sheets/add-announcement-
 import { CityType } from '../../interfaces/city-type';
 import { IHttpResponse } from '../../interfaces/i-http-response';
 import { InfoType } from '../../interfaces/info-type';
+import { ProfileType } from '../../interfaces/profile-type';
 import { OverallReportType } from '../../interfaces/overall-report-type';
 import { LectureType } from '../../interfaces/lecture-type';
 import { UserType } from '../../interfaces/user-type';
@@ -36,6 +38,7 @@ export class HomeComponent implements OnInit {
     ordersMap = {};
     changeMode: boolean = true;
     user: UserType;
+    profile: ProfileType;
     maxPosition = 0;
     page: number = 1;
     loaded: number = 0;
@@ -56,13 +59,14 @@ export class HomeComponent implements OnInit {
 
     constructor(private store: Store<{cities: CityType[], lectures: LectureType[], progress: boolean, user: UserType}>,
                 private searchService: SearchService, private bottomSheet: MatBottomSheet,
-                private reportService: ReportService) {
+                private reportService: ReportService, private profileService: ProfileService) {
         SELECTORS.GENDERS.forEach(gender => { this.gendersMap[gender.value] = gender.name; });
         SELECTORS.ORDERS.forEach(gender => { this.ordersMap[gender.value] = gender.name; });
     }
 
     async ngOnInit() {
         await this.getUser();
+        await this.fetchProfile();
         await this.getCities();
         await this.getLectures();
         await this.search(true, true);
@@ -70,9 +74,13 @@ export class HomeComponent implements OnInit {
 
     async getCities() {
         this.cities = await this.store.select('cities').pipe(first()).toPromise();
-        if (this.cities) {
-            this.searchForm.controls.city.setValue(this.cities[34]);
-            this.changeCity();
+        if (this.cities && this.profile && this.profile.city) {
+            const city = this.cities.find((city) => city.city_name === this.profile.city);
+            if (city) {
+                this.searchForm.controls.city.setValue(city);
+                this.searchForm.controls.district.setValue(this.profile.district);
+                // this.changeCity();
+            }
         }
     }
 
@@ -145,6 +153,15 @@ export class HomeComponent implements OnInit {
 
     private getUser = async () => {
         this.user = await this.store.select('user').pipe(first()).toPromise();
+    };
+
+    private fetchProfile = async () => {
+        this.store.dispatch(loading());
+        const result = await this.profileService.get();
+        UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
+            this.profile = response.data;
+        });
+        this.store.dispatch(loaded());
     };
 
     private setRecommendRequestParams() {

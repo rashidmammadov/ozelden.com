@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { AboutComponent } from '../components/about/about.component';
 import { ApplicationComponent } from '../components/application/application.component';
+import { ContractComponent } from '../components/contract/contract.component';
 import { HomeComponent } from '../components/home/home.component';
 import { OffersComponent } from '../components/offers/offers.component';
 import { PaidServiceComponent } from '../components/paid-service/paid-service.component';
@@ -35,6 +37,14 @@ const routes: Routes = [
         path: 'register',
         component: RegisterComponent,
         canActivate: [AuthGuard]
+    },
+    {
+        path: 'about-us',
+        component: AboutComponent,
+    },
+    {
+        path: 'contract',
+        component: ContractComponent,
     },
     {
         path: 'kvkk',

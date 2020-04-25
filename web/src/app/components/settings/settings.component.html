@@ -138,7 +138,7 @@
                         <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px" fxLayoutGap.lt-md="8px">
                             <mat-form-field fxFlex.gt-md appearance="outline">
                                 <mat-label>İl</mat-label>
-                                <mat-select formControlName="city">
+                                <mat-select formControlName="city" (selectionChange)="changeCity()">
                                     <mat-option *ngFor="let city of cities" [value]="city">
                                         {{city.city_name}}
                                     </mat-option>

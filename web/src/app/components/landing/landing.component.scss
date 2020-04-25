@@ -70,6 +70,11 @@
     .mat-icon { height: 16px; width: 16px; margin: 16px; }
 }
 
+.logo-pack {
+    padding: 8px 8px 4px 8px; border-radius: 4px; max-width: 250px; background-color: #fff; margin: 8px 8px 4px calc(50% - 125px);
+    img { width: 100%; height: auto; }
+}
+
 .slide-in {
     -webkit-animation-name: slideIn;
     animation-name: slideIn;
