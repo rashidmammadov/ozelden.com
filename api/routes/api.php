@@ -28,6 +28,8 @@ Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
             'cache: '.$cache;
     });*/
 
+    Route::get('/scrape', 'Scrape@get');
+
     Route::post('/announcements', 'AnnouncementController@set');
 
     Route::delete('/auth', 'UserController@logout');
