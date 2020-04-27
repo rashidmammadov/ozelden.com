@@ -6,6 +6,7 @@ use App\Http\Queries\MySQL\FinanceQuery;
 use App\Http\Queries\MySQL\PaidServiceQuery;
 use App\Http\Utilities\CustomDate;
 use App\Http\Utilities\Email;
+use App\Http\Utilities\Iyzico;
 use App\Http\Utilities\Packages;
 use Illuminate\Support\Facades\Log;
 
@@ -82,6 +83,8 @@ class PaidServiceModel {
                 }
                 $paidServiceModel->setRecommend($updatedRecommend);
             }
+            $iyzico = new Iyzico();
+            $iyzico->approvalRequest($paymentItem->getPaymentTransactionId());
             $finance = new FinanceModel();
             $finance->setUserId($userId);
             $finance->setReferenceCode($paymentItem->getPaymentTransactionId());

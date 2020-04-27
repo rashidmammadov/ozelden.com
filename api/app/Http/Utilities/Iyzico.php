@@ -7,6 +7,7 @@ use App\Http\Models\ProfileModel;
 use App\Http\Models\UserModel;
 use Illuminate\Support\Facades\Log;
 use Iyzipay\Model\Address;
+use Iyzipay\Model\Approval;
 use Iyzipay\Model\BasketItem;
 use Iyzipay\Model\BasketItemType;
 use Iyzipay\Model\Buyer;
@@ -19,6 +20,7 @@ use Iyzipay\Model\SubMerchant;
 use Iyzipay\Model\ThreedsInitialize;
 use Iyzipay\Model\ThreedsPayment;
 use Iyzipay\Options;
+use Iyzipay\Request\CreateApprovalRequest;
 use Iyzipay\Request\CreatePaymentRequest;
 use Iyzipay\Request\CreateSubMerchantRequest;
 use Iyzipay\Request\CreateThreedsPaymentRequest;
@@ -39,6 +41,20 @@ class Iyzico {
         $this->options->setApiKey(env('IYZICO_API_KEY'));
         $this->options->setSecretKey(env('IYZICO_SECRET_KEY'));
         $this->options->setBaseUrl(env('IYZICO_BASE_URL'));
+    }
+
+    public function approvalRequest($transactionId) {
+        $request = new CreateApprovalRequest();
+        $request->setLocale(Locale::TR);
+        $request->setConversationId("4");
+        $request->setPaymentTransactionId($transactionId);
+
+        $approval = Approval::create($request, $this->getOptions());
+        if ($approval->getErrorCode()) {
+            Log::error('IYZICO says: approval has error ' . $approval->getErrorMessage());
+        } else {
+            Log::info('IYZICO says: approved operation ' . $transactionId);
+        }
     }
 
     public function confirmPayment($response) {
