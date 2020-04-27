@@ -15,11 +15,14 @@ use Iyzipay\Model\Locale;
 use Iyzipay\Model\PaymentCard;
 use Iyzipay\Model\PaymentChannel;
 use Iyzipay\Model\PaymentGroup;
+use Iyzipay\Model\SubMerchant;
 use Iyzipay\Model\ThreedsInitialize;
 use Iyzipay\Model\ThreedsPayment;
 use Iyzipay\Options;
 use Iyzipay\Request\CreatePaymentRequest;
+use Iyzipay\Request\CreateSubMerchantRequest;
 use Iyzipay\Request\CreateThreedsPaymentRequest;
+use Iyzipay\Model\SubMerchantType;
 
 class Iyzico {
 
@@ -97,12 +100,15 @@ class Iyzico {
         $basketItems = array();
         foreach ($paymentDetail[PACKAGES] as $packageKey) {
             $package = Packages::getPackage($packageKey);
+            $subMerchantPrice = (($package[PRICE] * 10) / 100);
             $basketItem = new BasketItem();
             $basketItem->setId($package[KEY]);
             $basketItem->setName($package[KEY]);
             $basketItem->setCategory1("Paid Services");
             $basketItem->setItemType(BasketItemType::VIRTUAL);
             $basketItem->setPrice($package[PRICE]);
+            $basketItem->setSubMerchantKey(env('IYZICO_SUB_MERCHANT_KEY'));
+            $basketItem->setSubMerchantPrice($subMerchantPrice);
             array_push($basketItems, $basketItem);
         }
         return $basketItems;
@@ -176,6 +182,33 @@ class Iyzico {
         $paymentCard->setCvc($card[CVC]);
         $paymentCard->setRegisterCard(0);
         return $paymentCard;
+    }
+
+    /**
+     * Create default sub merchant.
+     */
+    public function setDefaultSubMerchant() {
+        $request = new CreateSubMerchantRequest();
+        $request->setLocale(Locale::TR);
+        $request->setConversationId("4");
+        $request->setSubMerchantExternalId("4");
+        $request->setSubMerchantType(SubMerchantType::PERSONAL);
+        $request->setAddress("Ergene Mah. 523 Sk. Ahmet Göçmen Apt. No: 14/22 Daire: 4");
+        $request->setContactName("Canan");
+        $request->setContactSurname("Özbaykal");
+        $request->setEmail("cananozbaykal@hotmail.com");
+        $request->setGsmNumber("+905079991213");
+        $request->setName("Canan Özbaykal");
+        $request->setIban("TR040003200000000064041577");
+        $request->setIdentityNumber("23105759642");
+        $request->setCurrency(Currency::TL);
+
+        $subMerchant = SubMerchant::create($request, $this->getOptions());
+        if ($subMerchant->getErrorCode()) {
+            Log::error('IYZICO says: ' . $subMerchant->getErrorMessage());
+        } else {
+            Log::info('IYZICO says sub merchant key is: ' . $subMerchant->getSubMerchantKey());
+        }
     }
 
     private function mdStatusMessage($mdStatus) {
