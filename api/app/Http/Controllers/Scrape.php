@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Log;
 
 class Scrape extends ApiController {
 
-    private $dataKey = '6A7035736566737030317A6B3565677A676A7476337864727C3336313736307C3133363438377C307C30';
+    private $dataKey = '6A7035736566737030317A6B3565677A676A7476337864727C3336313736307C3437373933307C307C30';
 
     public function get() {
         Log::info('Scrape started');
@@ -19,11 +19,14 @@ class Scrape extends ApiController {
             $pageContent = $this->sendGETRequest($path, $index);
             if ($pageContent && strpos($pageContent, 'request error: ') === false) {
                 $page = gzdecode($pageContent);
-                if (strpos($pageContent, 'row clickable narrow-gutter profile-list-item plain-item grid-item') !== false) {
-                    $this->getProfiles($page, $path, $index);
-                } else {
-                    $this->getGroups($page);
+                if (strpos($pageContent, 'phonenumberhidden') !== false && strpos($pageContent, 'data-key') !== false) {
+
                 }
+//                if (strpos($pageContent, 'row clickable narrow-gutter profile-list-item plain-item grid-item') !== false) {
+                    $this->getProfiles($page, $path, $index);
+//                } else {
+//                    $this->getGroups($page);
+//                }
             } else {
                 Log::error(json_encode($pageContent));
             }
@@ -118,15 +121,15 @@ class Scrape extends ApiController {
             curl_close($ch);
         }
         if (empty($data) || !is_callable('curl_init')) {
-            $opts = array( 'https' => array('header' => 'Connection: close'));
+            $opts = array('https' => array());
             $context = stream_context_create($opts);
-            $headers = get_headers($url);
-            $httpcode = substr($headers[0], 9, 3);
-            if ($httpcode == '200')
+//            $headers = get_headers($url);
+//            $httpcode = substr($headers[0], 9, 3);
+//            if ($httpcode == '200')
                 $data = file_get_contents($url, false, $context);
-            else {
-                $data = 'request error: ' . $httpcode;
-            }
+//            else {
+//                $data = 'request error: ' . $httpcode;
+//            }
         }
         return $data;
     }
@@ -137,7 +140,7 @@ class Scrape extends ApiController {
             foreach ($matches[1] as $match) {
                 $profileUrl = $match;
                 $this->distribute('POST', $profileUrl, 0);
-                sleep(2.5);
+                sleep(4);
             }
         }
         if ($index < 1000) {
