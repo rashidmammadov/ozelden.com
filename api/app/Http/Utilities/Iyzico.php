@@ -230,7 +230,7 @@ class Iyzico {
     private function mdStatusMessage($mdStatus) {
         $message = '';
         if (number_format($mdStatus) == 0) {
-            $message = '3-D Secure imzası geçersiz veya doğrulama';
+            $message = '3-D Secure imzası geçersiz veya doğrulama hatası';
         } else if (number_format($mdStatus) == 2) {
             $message = 'Kart sahibi veya bankası sisteme kayıtlı değil';
         } else if (number_format($mdStatus) == 3) {
