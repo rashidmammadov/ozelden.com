@@ -131,7 +131,6 @@ class Scrape extends ApiController {
         preg_match_all('/<div[^>]+data-key="?([^"\s]+)"?\s*/', $page, $matches);
         if ($matches && $matches[1]) {
             $key = strval($matches[1][0]);
-            Log::info($key);
             $pageContent = $this->sendPOSTRequest($path, $key);
             if ($pageContent && strpos($pageContent, 'request error: ') === false) {
                 $phone = $pageContent;
