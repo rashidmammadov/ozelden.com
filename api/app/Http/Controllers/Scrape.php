@@ -10,9 +10,8 @@ class Scrape extends ApiController {
 
     public function get() {
         Log::info('Scrape started');
-//        $this->distribute('GET','/ders-veren/odtu-mezunu-elek-elektronik-muhendisi-mustafa-y-173722', 0, 'key');
-//        $this->distribute('GET','/ders-veren/akademisyen-bilgisayar-muhendisligi-zahid-g-8861', 0, 'key');
-        $this->getGroups('/ders-verenler');
+//        $this->getGroups('/ders-verenler');
+        $this->distribute('GET', '/arama', 771, 'profile');
     }
 
     private function distribute($method, $path, $index, $operation) {
@@ -32,25 +31,29 @@ class Scrape extends ApiController {
     }
 
     private function sendGETRequest($path, $index) {
-        $url = 'https://www.ozelders.com' . $path . ($index > 0 ? ('/' . $index) : '');
+        $query = $path . '?bulundugusehir=all' . ($index > 1 ? ('&page=' . $index) : '');
+        $url = 'https://www.ogretmenburada.com/' . $query;
         if (is_callable('curl_init')) {
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-                'Accept-Encoding: gzip, deflate, br',
-                'Accept-Language: en-US,en;q=0.9,tr;q=0.8,az;q=0.7',
-                'Cache-Control: no-cache',
-                'Connection: keep-alive',
-                'Cookie: _ufpx8576=; _ga=GA1.2.1184402087.1581196763; __zlcmid=weitmhkdPURx1G; _gid=GA1.2.1143066787.1587841421; _utdx4123=izmir; ASP.NET_SessionId=m40burd0b1wtdzr31tllebgw; _utfx3876=F409BE3718D185A7F0C54EED4EF695DC53AA61ACB391EBF88D19ABE534D1AE24D1F9EB3AB02D1F0A216507A1945BBEE90FE0F289B12C915C35691EEC70E3024BB59390ADE8B17DD6B6892B88C0AB8C2AC8D149087E5066F5A55C814672CCB5CD13FA93DA125CA0BE5F2B0A1F46A35AD9958ACEFAEB286BD0EA3BD66F0CDA2E11057E56BC33500E4E4A145EDDD639438B; ARRAffinity=3899a4c246ab409ce24157990cab89a709e4705f2b410d297e106a90486cd1f4; _gat=1',
-                'Host: www.ozelders.com',
-                'Pragma: no-cache',
-                'Sec-Fetch-Dest: document',
-                'Sec-Fetch-Mode: navigate',
-                'Sec-Fetch-Site: none',
-                'Sec-Fetch-User: ?1',
-                'Upgrade-Insecure-Requests: 1',
-                'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36'
+                ':authority: www.ogretmenburada.com',
+                ':method: GET',
+                ':path: ' . $query,
+                ':scheme: https',
+                'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+                'accept-encoding: gzip, deflate, br',
+                'accept-language: en-US,en;q=0.9,tr;q=0.8,az;q=0.7',
+                'cache-control: no-cach',
+                'cookie: _ga=GA1.2.775342426.1588085636; _gid=GA1.2.1759355638.1588085636; XSRF-TOKEN=eyJpdiI6IkJ2YkJrK0tQXC9XcFdHK2NyQlNNYmVBPT0iLCJ2YWx1ZSI6ImlwVFZkNHZFR3ROT2FzeTJuYUhJaDBoOXBRZ0tPMUxNZzBoaDhORUZtYUltVzExOTltaDkzekhBd1pyemlNYnYiLCJtYWMiOiJlZWIxZWE0MDNiNGVmYmUyNTE2YjRhZjQzZmI4NjcwMGUwYmJkNzU4NzNhMWUxY2Q2YzE0MmUzYzFjZDYxMzA1In0%3D; laravel_session=eyJpdiI6InRGcmcreWVTZzVkMjJzSWtKdm5idEE9PSIsInZhbHVlIjoiTGhDQ2tyOEhHcDVBWmlKTkVcL1lNNWNkWXJvYWxxUkRGK1RsQ0FKOG9FMG5vdXlKdkUwbHJ0cVJIRE90dElVXC80IiwibWFjIjoiMWFiNzcwYjM0OTk5NTg0NGJkNzk0ZTlmYmUwYzc3MTQyMjI5ZmM3OWUyZDhhZDI3MzU3NmFjN2I0YTk1YTlmOCJ9',
+                'pragma: no-cache',
+                'referer: https://www.ogretmenburada.com/arama',
+                'sec-fetch-dest: document',
+                'sec-fetch-mode: navigate',
+                'sec-fetch-site: same-origin',
+                'sec-fetch-user: ?1',
+                'upgrade-insecure-requests: 1',
+                'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36',
             ));
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
@@ -88,7 +91,7 @@ class Scrape extends ApiController {
                 'Connection: keep-alive',
                 'Content-Length: ' . $contentLength,
                 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8',
-                'Cookie: _ufpx8576=; _ga=GA1.2.1184402087.1581196763; __zlcmid=weitmhkdPURx1G; _gid=GA1.2.1143066787.1587841421; _utdx4123=izmir; ASP.NET_SessionId=m40burd0b1wtdzr31tllebgw; _utfx3876=F409BE3718D185A7F0C54EED4EF695DC53AA61ACB391EBF88D19ABE534D1AE24D1F9EB3AB02D1F0A216507A1945BBEE90FE0F289B12C915C35691EEC70E3024BB59390ADE8B17DD6B6892B88C0AB8C2AC8D149087E5066F5A55C814672CCB5CD13FA93DA125CA0BE5F2B0A1F46A35AD9958ACEFAEB286BD0EA3BD66F0CDA2E11057E56BC33500E4E4A145EDDD639438B; ARRAffinity=3899a4c246ab409ce24157990cab89a709e4705f2b410d297e106a90486cd1f4; _gat=1',
+                'Cookie: _ufpx8576=; _ga=GA1.2.1184402087.1581196763; __zlcmid=weitmhkdPURx1G; _gid=GA1.2.1143066787.1587841421; _utdx4123=izmir; ASP.NET_SessionId=m40burd0b1wtdzr31tllebgw; ARRAffinity=3899a4c246ab409ce24157990cab89a709e4705f2b410d297e106a90486cd1f4; ARRAffinity=994c9a1290f56e3419907c0d851b75a5fb9d4b08761051d88f004f0533341f7b; _utfx3876=1BC73456A49E48034E7A5CEB17F5542F2CE6314968D289A888B49642F8E63213ECA4CD7F64B3CDAEA13AD53D8728529D2DBA4C71EAC83D2B97CB712298D1C6F14E17FCC4F7A13F663A4FAAACF3F31CA7F6C8888CEDC4D07306A35B1DBAA142A024B2ACDEBBFE00EADA6C8B764E795A8871EA5195D4E70F05C7E79720730BA8AB95AD04E79393E30AA09FAF95C8A20C1E; _gat=',
                 'Host: www.ozelders.com',
                 'Pragma: no-cache',
                 'Referer: https://www.ozelders.com' . $path,
@@ -128,33 +131,42 @@ class Scrape extends ApiController {
 
     private function getKey($page, $path) {
         /** data key is different with fetched */
-        preg_match_all('/<div[^>]+data-key="?([^"\s]+)"?\s*/', $page, $matches);
+//        preg_match_all('/<div[^>]+data-key="?([^"\s]+)"?\s*/', $page, $matches);
+        preg_match_all('/data-tel="(.*?)"/', $page, $matches);
         if ($matches && $matches[1]) {
-            $key = strval($matches[1][0]);
-            $pageContent = $this->sendPOSTRequest($path, $key);
-            if ($pageContent && strpos($pageContent, 'request error: ') === false) {
-                $phone = $pageContent;
-                $result = array('path' => $path, 'phone' => $phone);
-                Log::info(json_encode($result));
-            } else {
-                Log::error(json_encode($pageContent));
+            $result = $path;
+            foreach ($matches[1] as $phone) {
+                if ($phone && $phone !== '0545 220 3344') {
+                    $result = array('path' => $path, 'phone' => $phone);
+                }
             }
+            Log::info(json_encode($result));
+//            $key = strval($matches[1][0]);
+//            $pageContent = $this->sendPOSTRequest($path, $key);
+//            if ($pageContent && strpos($pageContent, 'request error: ') === false) {
+//                $phone = $pageContent;
+//                $result = array('path' => $path, 'phone' => $phone);
+//                Log::info(json_encode($result));
+//            } else {
+//                Log::error(json_encode($pageContent));
+//            }
         }
     }
 
     private function getProfiles($page, $path, $index) {
-        preg_match_all('/<div[^>]+data-url="?([^"\s]+)"?\s*/', $page, $matches);
+//        preg_match_all('/<div[^>]+data-url="?([^"\s]+)"?\s*/', $page, $matches);
+        preg_match_all('/<a[^>]+href="?([^"\s]+)"?\s*/', $page, $matches);
         if ($matches && $matches[1]) {
-            $profileUrl = $matches[1][0];
-            $this->distribute('GET', $profileUrl, 0, 'key');
             foreach ($matches[1] as $match) {
-                $profileUrl = $match;
-                $this->distribute('GET', $profileUrl, 0, 'key');
-                sleep(3);
+                if (strpos($match, '/ogretmen/') !== false) {
+                    $profileUrl = $match;
+                    $this->distribute('GET', $profileUrl, 0, 'key');
+                    sleep(2);
+                }
             }
         }
-        if ($index < 1000) {
-            $next = $index + 20;
+        if ($index < 900) {
+            $next = $index + 1;
             $this->distribute('GET', $path, $next, 'profile');
         }
     }
