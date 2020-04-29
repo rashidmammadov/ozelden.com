@@ -14,9 +14,9 @@
     <h3 style="color: #722947;">Merhaba, Hoş geldiniz!</h3>
     <p>Sevgili <b>{{$name}} {{$surname}}</b> hemen ozelden.com`a gir ve istediğin özel dersi {{$type == 'tutor' ? 'vermeye' : 'almaya'}} başla.
     </p>
-    <p>Giriş için aşağıdaki bilgileri kullanabilirsin: </p>
-    <p><b>Email:</b> {{$email}}</p>
-    <p><b>Şifre:</b> {{$password}}</p>
+<!--    <p>Giriş için aşağıdaki bilgileri kullanabilirsin: </p>-->
+<!--    <p><b>Email:</b> {{$email}}</p>-->
+<!--    <p><b>Şifre:</b> {{$password}}</p>-->
     <a href="https://ozelden.com" style="background: #d3a67d; color: #fff; border: 0; padding: 8px 32px; border-radius: 4px; font-weight: 600; cursor: pointer; text-decoration: none;">Giriş Yap</a>
 </div>
 <div align="center" style="background: #722947; width: auto; margin: 0 5%; padding: 8px; border-radius: 0 0 8px 8px;">
