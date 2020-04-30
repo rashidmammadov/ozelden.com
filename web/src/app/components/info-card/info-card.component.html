@@ -1,6 +1,6 @@
 <mat-card *ngIf="data" [id]="'info-card-' + data.id" class="info-card mat-elevation-z4">
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
-        <div class="general" fxLayout="column" fxLayoutAlign="center center" fxFlex.gt-md="45">
+        <div class="general" fxLayout="column" fxLayoutAlign="start center" fxFlex.gt-md="45">
             <div [routerLink]="['/app/profile', data.id]" class="link" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="16px">
                 <mat-icon *ngIf="data.sex" class="gender" [svgIcon]="data.sex"
                           [matTooltip]="data.sex === 'female' ? 'Kadın' : 'Erkek'"></mat-icon>
