@@ -70,7 +70,7 @@ export class SearchComponent implements OnInit {
     async getCities() {
         this.cities = await this.store.select('cities').pipe(first()).toPromise();
         if (this.cities) {
-            this.searchForm.controls.city.setValue(this.cities[34]);
+            this.searchForm.controls.city.setValue(this.cities[33]);
         }
     }
 
