@@ -60,7 +60,9 @@ export class AskOfferDialogComponent implements OnInit {
     }
 
     setOffer(lecture: TutorLectureType) {
-        this.offerForm.controls.offer.setValue(lecture.price);
+        if (lecture) {
+            this.offerForm.controls.offer.setValue(lecture.price);
+        }
     }
 
     private fetchStudents = async () => {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MetaService } from '../../services/meta/meta.service';
 
 @Component({
     selector: 'app-contract',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContractComponent implements OnInit {
 
-    constructor() { }
+    constructor(private metaService: MetaService) {
+        metaService.updateOgMetaTags('ozelden.com - Mesafeli Satış Sözleşmesi');
+    }
 
     ngOnInit(): void {
     }

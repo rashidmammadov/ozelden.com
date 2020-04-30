@@ -36,6 +36,7 @@ import { LoginComponent } from './components/login/login.component';
 import { MakeOfferDialogComponent } from './components/dialogs/make-offer-dialog/make-offer-dialog.component';
 import { MissingFieldsComponent } from './components/shared/missing-fields/missing-fields.component';
 import { RegisterComponent } from './components/register/register.component';
+import { SearchComponent } from './components/search/search.component';
 import { SelectDateAsListComponent } from './components/shared/select-date-as-list/select-date-as-list.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SuitabilityComponent } from './components/suitability/suitability.component';
@@ -97,6 +98,7 @@ export function fetchStaticData(dataService: DataService) {
         MakeOfferDialogComponent,
         MissingFieldsComponent,
         RegisterComponent,
+        SearchComponent,
         SelectDateAsListComponent,
         SettingsComponent,
         SuitabilityComponent,

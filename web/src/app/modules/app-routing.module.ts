@@ -14,6 +14,7 @@ import { LandingComponent } from '../components/landing/landing.component';
 import { LecturesComponent } from '../components/lectures/lectures.component';
 import { LoginComponent } from '../components/login/login.component';
 import { RegisterComponent } from '../components/register/register.component';
+import { SearchComponent } from '../components/search/search.component';
 import { SettingsComponent } from '../components/settings/settings.component';
 import { SuitabilityComponent } from '../components/suitability/suitability.component';
 import { TutoredStudentsComponent } from '../components/tutored-students/tutored-students.component';
@@ -93,6 +94,16 @@ const routes: Routes = [
                 resolve: { profile: ProfileResolver }
             }
         ]
+    },
+    {
+        path: ':lecture_area/:lecture_theme',
+        canActivate: [AuthGuard],
+        component: SearchComponent
+    },
+    {
+        path: ':lecture_area',
+        canActivate: [AuthGuard],
+        component: SearchComponent
     }
 ];
 

@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UtilityService } from '../../services/utility/utility.service';
+import { MetaService } from '../../services/meta/meta.service';
 import { SearchService } from '../../services/search/search.service';
+import { UtilityService } from '../../services/utility/utility.service';
 import { IHttpResponse } from '../../interfaces/i-http-response';
 import { InfoType } from '../../interfaces/info-type';
 
@@ -16,7 +17,9 @@ export class LandingComponent implements OnInit, OnDestroy {
     interval;
     recommends: InfoType[] = [];
 
-    constructor(private searchService: SearchService) { }
+    constructor(private searchService: SearchService, private metService: MetaService) {
+        metService.updateOgMetaTags();
+    }
 
     async ngOnInit() {
         this.lectures = ['Bilgisayar', 'Matematik', 'Yabancı Dil', 'Sanat', 'Türkçe', 'Spor'];

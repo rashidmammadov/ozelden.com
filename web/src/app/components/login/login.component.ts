@@ -7,6 +7,7 @@ import { AuthService} from "../../services/auth/auth.service";
 import { Cookie } from '../../services/cookie/cookie.service';
 import { GoogleAnalyticsService } from '../../services/google-analytics/google-analytics.service';
 import { IHttpResponse } from '../../interfaces/i-http-response';
+import { MetaService } from '../../services/meta/meta.service';
 import { UserService } from '../../services/user/user.service';
 import { UtilityService } from '../../services/utility/utility.service';
 import { ToastService } from '../../services/toast/toast.service';
@@ -31,7 +32,10 @@ export class LoginComponent {
     });
 
     constructor(private authService: AuthService, private router: Router, private dialog: MatDialog,
-                private store: Store<{progress: boolean, user: UserType}>, private userService: UserService) { }
+                private store: Store<{progress: boolean, user: UserType}>, private userService: UserService,
+                private metaService: MetaService) {
+        metaService.updateOgMetaTags('ozelden.com - Giriş');
+    }
 
     public login = async () => {
         if (this.loginForm.valid) {

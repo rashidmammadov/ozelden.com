@@ -9,8 +9,9 @@ import { AuthService } from '../../services/auth/auth.service';
 import { Cookie } from '../../services/cookie/cookie.service';
 import { DataService } from '../../services/data/data.service';
 import { GoogleAnalyticsService } from '../../services/google-analytics/google-analytics.service';
-import { IHttpResponse } from '../../interfaces/i-http-response';
+import { MetaService } from '../../services/meta/meta.service';
 import { UtilityService } from '../../services/utility/utility.service';
+import { IHttpResponse } from '../../interfaces/i-http-response';
 import { set } from '../../store/actions/user.action';
 import { loaded, loading } from '../../store/actions/progress.action';
 import { APP } from '../../constants/app.constant';
@@ -49,7 +50,9 @@ export class RegisterComponent implements OnInit {
     });
 
     constructor(private dataService: DataService, private store: Store<{cities: CityType[], progress: boolean, user: UserType}>,
-                private authService: AuthService, private router: Router) { }
+                private authService: AuthService, private router: Router, private metaService: MetaService) {
+        metaService.updateOgMetaTags('ozelden.com - Kayıt');
+    }
 
     ngOnInit() {
         setTimeout(() => this.getCities());
