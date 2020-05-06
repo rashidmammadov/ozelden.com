@@ -4,7 +4,10 @@
             <h1><span class="animated lecture">{{lectures[0]}}</span><br/>
                 özel ders almanın<br/>
                 en akıllı yolu</h1>
-            <button mat-raised-button [routerLink]="'/login'" color="primary">Hemen Katıl</button>
+          <div fxLayoutGap="16px">
+              <a mat-raised-button [routerLink]="'/register'" color="primary">Hemen Katıl</a>
+              <a mat-raised-button [routerLink]="'/register'" color="accent">Öğretmen Ol</a>
+          </div>
         </div>
         <div fxHide.lt-md class="header-image" fxFlex.gt-md>
             <img alt="özel ders" src="./assets/landing/graduation.svg">
@@ -14,7 +17,7 @@
         <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="32px" fxFlexAlign="center center">
             <mat-card class="info-card mat-elevation-z4" fxFlex.gt-md>
                 <div class="icon" fxLayout="column" fxLayoutAlign="center center"><mat-icon svgIcon="shield"></mat-icon></div>
-                <h3>Güvenli</h3>
+                <h4>Güvenli</h4>
                 <div class="divider"></div>
                 <p>İleri düzey yapay zeka güvenlik metodları ve şifrelemeler ile verileriniz güven altında</p>
             </mat-card>
@@ -80,7 +83,7 @@
                     <h3>Ders Almaya Başlayın</h3>
                     <p>Ders veren ile teklif ve istediğiniz ders üzerinden anlaşma sağladıktan sonra derslerinizi
                         almaya başlayabilirsiniz.</p>
-                    <button mat-raised-button [routerLink]="'/register'" color="primary">Şimdi Kaydol</button>
+                    <a mat-raised-button [routerLink]="'/register'" color="primary">Şimdi Kaydol</a>
                 </div>
             </div>
         </div>
