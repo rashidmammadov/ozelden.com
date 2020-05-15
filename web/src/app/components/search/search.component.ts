@@ -12,7 +12,7 @@ import { InfoType } from '../../interfaces/info-type';
 import { LectureType } from '../../interfaces/lecture-type';
 import { first } from 'rxjs/operators';
 import { TYPES } from '../../constants/types.constant';
-import { loaded, loading} from '../../store/actions/progress.action';
+import { loaded, loading } from '../../store/actions/progress.action';
 
 @Component({
     selector: 'app-search',
@@ -94,7 +94,7 @@ export class SearchComponent implements OnInit {
 
     private updateMetaTag() {
         const controls = this.searchForm.controls;
-        const title = `${controls.city.value.city_name} ${controls.lecture_area.value || ''} ${controls.lecture_theme.value || ''} özel ders verenler`;
+        const title = `${controls.lecture_area.value || ''} ${controls.lecture_theme.value || ''} özel ders verenler`;
         this.metaService.updateOgMetaTags(title);
     }
 

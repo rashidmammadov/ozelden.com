@@ -28,6 +28,8 @@
               "src/5qfaxnjkg79o2rsw4iiojkd8tyjbmk.html",
               "src/favicon.ico",
               "src/assets",
+              "src/OneSignalSDKUpdaterWorker.js",
+              "src/OneSignalSDKWorker.js",
               "src/robots.txt",
               "src/sitemap.xml"
             ],
