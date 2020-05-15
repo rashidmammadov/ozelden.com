@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { GoogleAnalyticsService } from '../../../services/google-analytics/google-analytics.service';
 import { OneSignalService } from '../../../services/one-signal/one-signal.service';
 import { UtilityService } from '../../../services/utility/utility.service';
 import { ToastService } from '../../../services/toast/toast.service';
@@ -54,6 +55,7 @@ export class OneSignalDialogComponent implements OnInit {
     private static addToSubscribers = async () => {
         const result = await OneSignalDialogComponent.service.add(OneSignalDialogComponent.oneSignal);
         UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
+            GoogleAnalyticsService.subscribeNotifications();
             ToastService.show(response.message);
             OneSignalDialogComponent.dialog.close();
         });

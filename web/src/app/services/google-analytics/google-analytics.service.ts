@@ -82,6 +82,10 @@ export class GoogleAnalyticsService {
         GoogleAnalyticsService.eventTrack(ANALYTICS.CATEGORY.SEND_OFFER, JSON.stringify(offer));
     }
 
+    public static subscribeNotifications() {
+        GoogleAnalyticsService.eventTrack(ANALYTICS.CATEGORY.SUBSCRIBE);
+    }
+
     public static updatePassword() {
         GoogleAnalyticsService.eventTrack(ANALYTICS.CATEGORY.UPDATE_PASSWORD);
     }

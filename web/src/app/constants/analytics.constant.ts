@@ -16,6 +16,7 @@ export const ANALYTICS = {
         'REGISTER': 'Register',
         'SEARCH': 'Search',
         'SEND_OFFER': 'Send Offer',
+        'SUBSCRIBE': 'Subscribe Notifications',
         'UPDATE_SUITABILITY': 'Update Suitability',
         'UPDATE_PASSWORD': 'Update Password',
         'UPDATE_STUDENT': 'Update Student',
