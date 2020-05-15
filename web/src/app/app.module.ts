@@ -25,6 +25,7 @@ import { InfoCardComponent } from './components/info-card/info-card.component';
 import { HomeComponent } from './components/home/home.component';
 import { GridListComponent } from './components/shared/grid-list/grid-list.component';
 import { OffersComponent } from './components/offers/offers.component';
+import { OneSignalDialogComponent } from './components/dialogs/one-signal-dialog/one-signal-dialog.component';
 import { PaidServiceComponent } from './components/paid-service/paid-service.component';
 import { PdplComponent } from './components/pdpl/pdpl.component';
 import { ProductsComponent } from './components/products/products.component';
@@ -87,6 +88,7 @@ export function fetchStaticData(dataService: DataService) {
         HomeComponent,
         GridListComponent,
         OffersComponent,
+        OneSignalDialogComponent,
         PaidServiceComponent,
         PdplComponent,
         ProductsComponent,

@@ -28,7 +28,7 @@ class UserModel {
             $this->setSex($parameters[SEX]);
             $this->setState($parameters[STATE]);
             $this->setRememberToken($parameters[REMEMBER_TOKEN]);
-            $this->setOneSignalDeviceId($parameters[ONESIGNAL_DEVICE_ID]);
+            $this->setOneSignalDeviceId($parameters[ONE_SIGNAL_DEVICE_ID]);
         }
     }
 
@@ -44,7 +44,7 @@ class UserModel {
             SEX => $this->getSex(),
             STATE => $this->getState(),
             REMEMBER_TOKEN => $this->getRememberToken(),
-            ONESIGNAL_DEVICE_ID => $this->getOneSignalDeviceId()
+            ONE_SIGNAL_DEVICE_ID => $this->getOneSignalDeviceId()
         );
     }
 

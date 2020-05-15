@@ -175,6 +175,11 @@ p.small { font-size: 12px; color: #909090; margin: 4px; }
 table.mat-table { width: 100%; min-width: 960px; }
 th.mat-header-cell, td.mat-cell, td.mat-footer-cell { padding-right: 8px !important; }
 
+.onesignal-customlink-subscribe {
+    text-transform: capitalize !important;
+    font-weight: 200 !important;
+}
+
 .overall-report {
     h2 { margin: 0; color: $sub-color; }
 }

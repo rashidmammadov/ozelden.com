@@ -87,7 +87,7 @@ class UserQuery extends Query {
                 IDENTITY_NUMBER => $user[IDENTITY_NUMBER],
                 PASSWORD => \Hash::make($user[PASSWORD]),
                 SEX => $user[SEX],
-                ONESIGNAL_DEVICE_ID => $user[ONESIGNAL_DEVICE_ID]
+                ONE_SIGNAL_DEVICE_ID => $user[ONE_SIGNAL_DEVICE_ID]
             ]);
             return $query;
         } catch (QueryException $e) {

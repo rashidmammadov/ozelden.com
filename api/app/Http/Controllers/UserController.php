@@ -78,8 +78,8 @@ class UserController extends ApiController {
             $user = UserQuery::getUserByEmail($request[EMAIL]);
             if ($user) {
                 /** add one signal device id **/
-                if ($request[ONESIGNAL_DEVICE_ID]) {
-                    $user[ONESIGNAL_DEVICE_ID] = $request[ONESIGNAL_DEVICE_ID];
+                if ($request[ONE_SIGNAL_DEVICE_ID]) {
+                    $user[ONE_SIGNAL_DEVICE_ID] = $request[ONE_SIGNAL_DEVICE_ID];
                     $user->save();
                 }
                 $remember_token = $user[REMEMBER_TOKEN];

@@ -16,7 +16,7 @@ class User extends Authenticatable implements JWTSubject {
      * @var array
      */
     protected $fillable = [
-        IDENTIFIER, TYPE, NAME, SURNAME, BIRTHDAY, EMAIL, IDENTITY_NUMBER, PASSWORD, SEX, STATE, ONESIGNAL_DEVICE_ID
+        IDENTIFIER, TYPE, NAME, SURNAME, BIRTHDAY, EMAIL, IDENTITY_NUMBER, PASSWORD, SEX, STATE, ONE_SIGNAL_DEVICE_ID
     ];
 
     /**
@@ -92,5 +92,9 @@ class User extends Authenticatable implements JWTSubject {
 
     public function offer() {
         return $this->hasMany('App\Offer');
+    }
+
+    public function oneSignal() {
+        return $this->hasMany('App\OneSignal');
     }
 }

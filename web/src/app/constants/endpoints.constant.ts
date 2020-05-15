@@ -21,6 +21,7 @@ export const ENDPOINTS = {
     SUITABILITIES: (type?: string) => `${PREFIX}suitabilities` + (type ? `/${type}` : ''),
     TUTOR_LECTURES: (id?: number) => `${PREFIX}tutor_lectures` + (id ? `/${id}` : ''),
     OFFERS: (page?: number, offer_id?: number) => `${PREFIX}offers` + (page ? `?page=${page}` : '') + (offer_id ? `/${offer_id}` : ''),
+    ONE_SIGNAL: () => `${PREFIX}one_signal`,
     UPDATE_PASSWORD: () => `${PREFIX}update_password`,
     USER: () => `${PREFIX}user`,
 

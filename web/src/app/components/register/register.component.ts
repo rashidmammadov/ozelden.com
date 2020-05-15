@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -23,7 +23,7 @@ import { TYPES } from '../../constants/types.constant';
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit, AfterViewInit {
+export class RegisterComponent implements OnInit {
 
     public cities: CityType[] = [];
     public userTypes: object[] = [
@@ -56,49 +56,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {
         setTimeout(() => this.getCities());
-    }
-
-    ngAfterViewInit(): void {
-        // @ts-ignore
-        let OneSignal = window.OneSignal || [];
-        OneSignal.push(function() {
-            OneSignal.init({
-                appId: "34a6f634-b8ae-4caa-9871-881eaea3c68c",
-                notifyButton: { enable: true, },
-                subdomainName: "ozelden",
-                promptOptions: {
-                    customlink: {
-                        enabled: true, /* Required to use the Custom Link */
-                        style: "button", /* Has value of 'button' or 'link' */
-                        size: "medium", /* One of 'small', 'medium', or 'large' */
-                        color: {
-                            button: '#E12D30', /* Color of the button background if style = "button" */
-                            text: '#FFFFFF', /* Color of the prompt's text */
-                        },
-                        text: {
-                            subscribe: "Subscribe to push notifications", /* Prompt's text when not subscribed */
-                            unsubscribe: "Unsubscribe from push notifications", /* Prompt's text when subscribed */
-                            explanation: "Get updates from all sorts of things that matter to you", /* Optional text appearing before the prompt button */
-                        },
-                        unsubscribeEnabled: true, /* Controls whether the prompt is visible after subscription */
-                    }
-                }
-            });
-
-            OneSignal.getUserId(function(userId) {
-                console.log('user id', userId); // doesn't get this far
-            });
-
-            // OneSignal.on('subscriptionChange', function (isSubscribed) {
-            //     console.log('is subscribed', isSubscribed);
-            //     OneSignal.push(function() {
-            //         console.log('attempt to get id'); // doesn't get this far
-            //         OneSignal.getUserId(function(userId) {
-            //             console.log('user id', userId); // doesn't get this far
-            //         });
-            //     });
-            // });
-        });
     }
 
     setBirthday(date) {
