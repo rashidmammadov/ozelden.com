@@ -55,6 +55,46 @@ export class ApplicationComponent implements OnInit {
         OneSignal.push(function() {
             OneSignal.init({
                 appId: '34a6f634-b8ae-4caa-9871-881eaea3c68c',
+                notifyButton: {
+                    enable: true,
+                    size: 'medium',
+                    theme: 'default',
+                    position: 'bottom-left',
+                    prenotify: true,
+                    showCredit: false,
+                    text: {
+                      'tip.state.unsubscribed': 'Bildirimleri aç',
+                      'tip.state.subscribed': 'Bildirimler açık',
+                      'tip.state.blocked': 'Bildirimler engellendi',
+                      'message.prenotify': 'Bildirimleri açmak için tıklayın',
+                      'message.action.subscribed': 'Bildirimleri takip ediliyor',
+                      'message.action.resubscribed': 'Bildirimler açık',
+                      'message.action.unsubscribed': 'Artık bildirim almayacaksınız',
+                      'dialog.main.title': 'Bildirimleri kontrol et',
+                      'dialog.main.button.subscribe': 'Bildirimleri aç',
+                      'dialog.main.button.unsubscribe': 'Bildirimleri kapat',
+                      'dialog.blocked.title': 'Bildirimlerden bloku kaldırın',
+                      'dialog.blocked.message': 'Bildirimler için bu adımları takip edin'
+                    },
+                    colors: {
+                      'circle.background': '#722947',
+                      'circle.foreground': 'white',
+                      'badge.background': '#722947',
+                      'badge.foreground': 'white',
+                      'badge.bordercolor': 'white',
+                      'pulse.color': 'white',
+                      'dialog.button.background.hovering': '#722947',
+                      'dialog.button.background.active': '#722947',
+                      'dialog.button.background': '#722947',
+                      'dialog.button.foreground': 'white'
+                    },
+                    displayPredicate: function() {
+                        return OneSignal.isPushNotificationsEnabled()
+                          .then(function(isPushEnabled) {
+                              return !isPushEnabled;
+                          });
+                    }
+                },
                 subdomainName: 'ozelden',
                 promptOptions: {
                     customlink: {
