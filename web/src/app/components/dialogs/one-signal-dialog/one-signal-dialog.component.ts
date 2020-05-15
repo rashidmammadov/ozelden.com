@@ -25,26 +25,30 @@ export class OneSignalDialogComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // @ts-ignore
-        let OneSignal = window.OneSignal || [];
-        OneSignal.push(function() {
-            OneSignal.isPushNotificationsEnabled(function(subscribing) {
-                if (subscribing) {
-                    OneSignalDialogComponent.dialog.close();
-                }
-            });
+        if (window.location.href.startsWith('https://ozelden.com')) {
+            // @ts-ignore
+            let OneSignal = window.OneSignal || [];
+            OneSignal.push(function() {
+                OneSignal.isPushNotificationsEnabled(function(subscribing) {
+                    if (subscribing) {
+                        OneSignalDialogComponent.dialog.close();
+                    }
+                });
 
-            OneSignal.on('subscriptionChange', function (isSubscribed) {
-                if (isSubscribed) {
-                    OneSignal.push(function () {
-                        OneSignal.getUserId(function (userId) {
-                            OneSignalDialogComponent.oneSignal.one_signal_device_id = userId;
-                            OneSignalDialogComponent.addToSubscribers();
+                OneSignal.on('subscriptionChange', function (isSubscribed) {
+                    if (isSubscribed) {
+                        OneSignal.push(function () {
+                            OneSignal.getUserId(function (userId) {
+                                OneSignalDialogComponent.oneSignal.one_signal_device_id = userId;
+                                OneSignalDialogComponent.addToSubscribers();
+                            });
                         });
-                    });
-                }
+                    }
+                });
             });
-        });
+        } else {
+            OneSignalDialogComponent.dialog.close();
+        }
     }
 
     private static addToSubscribers = async () => {

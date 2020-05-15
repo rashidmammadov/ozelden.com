@@ -21,10 +21,15 @@ export class MetaService {
 
     public updateOgMetaTags(title?: string) {
         this.pageTitle.setTitle(title || MetaService.title);
+        this.meta.updateTag(MetaService.getDescriptionTag(title));
         this.meta.updateTag(MetaService.getOgUrlTag(`${MetaService.url}${this.router.url}`));
         this.meta.updateTag(MetaService.getOgTitleTag(title));
         this.meta.updateTag(MetaService.getOgDescriptionTag());
         this.meta.updateTag(MetaService.getOgImageTag());
+    }
+
+    private static getDescriptionTag(title?: string) {
+        return {name: 'Description', content: title || MetaService.description}
     }
 
     private static getOgUrlTag(url?: string) {
