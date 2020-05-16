@@ -5,6 +5,7 @@
 export const environment = {
     production: false,
     api: 'http://localhost:8000/api/v1/',
+    oneSignalAppId: '2d951886-3733-4ef4-b9dd-b61e75ad658b'
 };
 
 /*

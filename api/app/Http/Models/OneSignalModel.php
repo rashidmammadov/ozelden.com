@@ -10,7 +10,7 @@ class OneSignalModel {
     private $ip;
     private $status;
 
-    public function __construct($parameters) {
+    public function __construct($parameters = null) {
         if ($parameters) {
             $this->setUserId($parameters[USER_ID]);
             $this->setOneSignalDeviceId($parameters[ONE_SIGNAL_DEVICE_ID]);
