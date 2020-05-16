@@ -78,7 +78,7 @@ export class HomeComponent implements OnInit {
             const city = this.cities.find((city) => city.city_name === this.profile.city);
             if (city) {
                 this.searchForm.controls.city.setValue(city);
-                this.searchForm.controls.district.setValue(this.profile.district);
+                this.searchForm.controls.district.setValue('Hepsi');
                 // this.changeCity();
             }
         }
