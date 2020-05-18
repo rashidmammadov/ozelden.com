@@ -1,15 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { select, Store } from '@ngrx/store';
-import { GoogleAnalyticsService } from '../../services/google-analytics/google-analytics.service';
 import { OfferService } from '../../services/offer/offer.service';
-import { OneSignalService } from '../../services/one-signal/one-signal.service';
 import { MetaService } from '../../services/meta/meta.service';
 import { UtilityService } from '../../services/utility/utility.service';
-import { ToastService } from '../../services/toast/toast.service';
 import { OneSignalDialogComponent } from '../dialogs/one-signal-dialog/one-signal-dialog.component';
 import { IHttpResponse } from '../../interfaces/i-http-response';
-import { OneSignalType } from '../../interfaces/one-signal-type';
 import { UserType } from '../../interfaces/user-type';
 import { setOffersCount } from '../../store/actions/offers-count.action';
 import { first } from 'rxjs/operators';
@@ -25,15 +21,11 @@ export class ApplicationComponent implements OnInit {
     user: UserType;
     offersCount: number = 0;
     buttons = [];
-    private static oneSignal: OneSignalType = {} as OneSignalType;
     private static oneSignalDialog;
-    private static oneSignalService;
 
     constructor(private store: Store<{offersCount: number, user: UserType}>, private dialog: MatDialog,
-                private offerService: OfferService, private metaService: MetaService,
-                private oneSignalService: OneSignalService) {
+                private offerService: OfferService, private metaService: MetaService) {
         ApplicationComponent.oneSignalDialog = dialog;
-        ApplicationComponent.oneSignalService = oneSignalService;
         metaService.updateOgMetaTags();
         store.pipe(select('offersCount')).subscribe(data => {
             setTimeout(() => this.offersCount = data, 0);
@@ -97,7 +89,6 @@ export class ApplicationComponent implements OnInit {
                         'dialog.button.background': '#722947',
                         'dialog.button.foreground': 'white'
                     },
-                    unsubscribeEnabled: false,
                     displayPredicate: function() {
                         return OneSignal.isPushNotificationsEnabled()
                             .then(function(isPushEnabled) {
@@ -109,29 +100,9 @@ export class ApplicationComponent implements OnInit {
             });
             OneSignal.isPushNotificationsEnabled(function(subscribing) {
                 if (!subscribing) {
-                    ApplicationComponent.oneSignalDialog.open(OneSignalDialogComponent, { width: '500px', disableClose: false });
+                    ApplicationComponent.oneSignalDialog.open(OneSignalDialogComponent, { width: '500px', disableClose: true });
                 }
             });
-
-            OneSignal.on('subscriptionChange', function (isSubscribed) {
-                if (isSubscribed) {
-                    OneSignal.push(function () {
-                        OneSignal.getUserId(function (userId) {
-                            ApplicationComponent.oneSignal.one_signal_device_id = userId;
-                            ApplicationComponent.oneSignal.device_type = navigator.userAgent;
-                            ApplicationComponent.addToSubscribers();
-                        });
-                    });
-                }
-            });
-        });
-    }
-
-    private static addToSubscribers = async () => {
-        const result = await ApplicationComponent.oneSignalService.add(ApplicationComponent.oneSignal);
-        UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
-            GoogleAnalyticsService.subscribeNotifications();
-            ToastService.show(response.message);
         });
     }
 
