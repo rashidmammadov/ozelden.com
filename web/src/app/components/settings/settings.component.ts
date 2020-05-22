@@ -49,7 +49,10 @@ export class SettingsComponent implements OnInit {
         city: new FormControl('', [Validators.required]),
         district: new FormControl('', [Validators.required]),
         address: new FormControl('', [Validators.required]),
-        description: new FormControl('')
+        description: new FormControl(''),
+        hangouts_account: new FormControl(),
+        skype_account: new FormControl(),
+        zoom_account: new FormControl()
     });
 
     constructor(private store: Store<{cities: CityType[], progress: boolean, user: UserType}>,
@@ -144,6 +147,9 @@ export class SettingsComponent implements OnInit {
             let controls = this.profileForm.controls;
             controls.profession.setValue(this.profile.profession);
             controls.phone.setValue(this.profile.phone);
+            controls.hangouts_account.setValue(this.profile.hangouts_account);
+            controls.skype_account.setValue(this.profile.skype_account);
+            controls.zoom_account.setValue(this.profile.zoom_account);
             if (this.cities) {
                 const city = this.cities.find((city: CityType) => city.city_name === this.profile.city);
                 if (city) {
@@ -161,6 +167,9 @@ export class SettingsComponent implements OnInit {
         return !(controls.description.value === this.profile.description &&
             controls.profession.value === this.profile.profession &&
             controls.phone.value === this.profile.phone &&
+            controls.hangouts_account.value === this.profile.hangouts_account &&
+            controls.skype_account.value === this.profile.skype_account &&
+            controls.zoom_account.value === this.profile.zoom_account &&
             controls.city.value?.city_name === this.profile.city &&
             controls.district.value === this.profile.district &&
             controls.address.value === this.profile.address);
@@ -190,6 +199,9 @@ export class SettingsComponent implements OnInit {
             'description': controls.description.value,
             'profession': controls.profession.value,
             'phone': controls.phone.value,
+            'hangouts_account': controls.hangouts_account?.value,
+            'skype_account': controls.skype_account?.value,
+            'zoom_account': controls.zoom_account?.value,
             'city': controls.city.value?.city_name,
             'district': controls.district.value,
             'address': controls.address.value

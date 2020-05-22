@@ -20,6 +20,9 @@ class ProfileTable extends Migration {
             $table->string(CITY, 20)->nullable();
             $table->string(DISTRICT, 30)->nullable();
             $table->string(ADDRESS, 200)->nullable();
+            $table->string(HANGOUTS_ACCOUNT, 250)->nullable();
+            $table->string(SKYPE_ACCOUNT, 250)->nullable();
+            $table->string(ZOOM_ACCOUNT, 250)->nullable();
             $table->char(LANGUAGE, 2)->nullable()->default(COUNTRY_TURKEY_CODE);
             $table->timestamps();
         });

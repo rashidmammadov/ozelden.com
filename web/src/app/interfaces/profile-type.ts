@@ -8,5 +8,8 @@ export interface ProfileType {
     city: string;
     district: string;
     address?: string;
+    hangouts_account?: string;
+    skype_account?: string;
+    zoom_account?: string;
     language: string;
 }

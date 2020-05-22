@@ -81,8 +81,10 @@ export class AppComponent {
             'free-trial',
             'good',
             'group-discount',
+            'hangouts',
             'heart',
             'home',
+            'hyperlink',
             'info',
             'instagram',
             'left-chevron',
@@ -90,6 +92,7 @@ export class AppComponent {
             'left-quote',
             'like',
             'log-out',
+            'mail',
             'male',
             'map-pin',
             'menu',
@@ -100,6 +103,7 @@ export class AppComponent {
             'offers',
             'package-discount',
             'paperclip',
+            'phone',
             'pie-chart',
             'price-tag',
             'ranking-tag',
@@ -110,6 +114,7 @@ export class AppComponent {
             'search',
             'settings',
             'shield',
+            'skype',
             'sliders',
             'star',
             'student-tag',
@@ -121,7 +126,8 @@ export class AppComponent {
             'user-plus',
             'x',
             'x-circle',
-            'youtube'
+            'youtube',
+            'zoom'
         ];
         let path: string = 'assets/icons/';
         svgArray.forEach((svg: string) => {

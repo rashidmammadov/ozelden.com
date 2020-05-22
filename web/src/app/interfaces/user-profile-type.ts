@@ -11,6 +11,9 @@ export interface UserProfileType {
     surname: string;
     phone?: string;
     email?: string;
+    hangouts_account?: string;
+    skype_account?: string;
+    zoom_account?: string;
     boost?: boolean;
     recommend?: boolean;
     profession?: string;

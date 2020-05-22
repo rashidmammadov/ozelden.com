@@ -11,6 +11,9 @@ class UserProfileModel {
     private $surname;
     private $phone;
     private $email;
+    private $hangoutsAccount;
+    private $skypeAccount;
+    private $zoomAccount;
     private $boost;
     private $recommend;
     private $profession;
@@ -49,6 +52,9 @@ class UserProfileModel {
             SURNAME => $this->getSurname(),
             PHONE => $this->getPhone(),
             EMAIL => $this->getEmail(),
+            HANGOUTS_ACCOUNT => $this->getHangoutsAccount(),
+            SKYPE_ACCOUNT => $this->getSkypeAccount(),
+            ZOOM_ACCOUNT => $this->getZoomAccount(),
             BOOST => $this->getBoost(),
             RECOMMEND => $this->getRecommend(),
             PROFESSION => $this->getProfession(),
@@ -119,6 +125,30 @@ class UserProfileModel {
 
     public function setEmail($email): void {
         $this->email = $email;
+    }
+
+    public function getHangoutsAccount() {
+        return $this->hangoutsAccount;
+    }
+
+    public function setHangoutsAccount($hangoutsAccount): void {
+        $this->hangoutsAccount = $hangoutsAccount;
+    }
+
+    public function getSkypeAccount() {
+        return $this->skypeAccount;
+    }
+
+    public function setSkypeAccount($skypeAccount): void {
+        $this->skypeAccount = $skypeAccount;
+    }
+
+    public function getZoomAccount() {
+        return $this->zoomAccount;
+    }
+
+    public function setZoomAccount($zoomAccount): void {
+        $this->zoomAccount = $zoomAccount;
     }
 
     public function getBoost() {

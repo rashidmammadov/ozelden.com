@@ -135,6 +135,38 @@
                             </mat-form-field>
                         </div>
 
+                        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px" fxLayoutGap.lt-md="0">
+                            <mat-form-field fxFlex.gt-md appearance="outline">
+                                <mat-label>Google Hangouts</mat-label>
+                                <mat-icon class="small-icon" svgIcon="hangouts" matPrefix></mat-icon>
+                                <input matInput placeholder="Google Hangouts" formControlName="hangouts_account">
+                                <mat-hint><a target="_blank" href="https://hangouts.google.com/start">
+                                    <mat-icon svgIcon="hyperlink">
+                                    </mat-icon> bağlantısından edinin</a>
+                                </mat-hint>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex.gt-md appearance="outline">
+                                <mat-label>Skype</mat-label>
+                                <mat-icon class="small-icon" svgIcon="skype" matPrefix></mat-icon>
+                                <input matInput placeholder="Skype" formControlName="skype_account">
+                                <mat-hint><a target="_blank" href="https://www.skype.com/tr/free-conference-call/">
+                                    <mat-icon svgIcon="hyperlink">
+                                    </mat-icon> bağlantısından edinin</a>
+                                </mat-hint>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex.gt-md appearance="outline">
+                                <mat-label>Zoom</mat-label>
+                                <mat-icon class="small-icon" svgIcon="zoom" matPrefix></mat-icon>
+                                <input matInput placeholder="Zoom" formControlName="zoom_account">
+                                <mat-hint><a target="_blank" href="https://zoom.us/">
+                                    <mat-icon svgIcon="hyperlink">
+                                    </mat-icon> bağlantısından edinin</a>
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+
                         <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px" fxLayoutGap.lt-md="8px">
                             <mat-form-field fxFlex.gt-md appearance="outline">
                                 <mat-label>İl</mat-label>

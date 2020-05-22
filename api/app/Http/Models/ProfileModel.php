@@ -13,6 +13,9 @@ class ProfileModel {
     private $city;
     private $district;
     private $address;
+    private $hangoutsAccount;
+    private $skypeAccount;
+    private $zoomAccount;
     private $language;
 
     public function __construct($parameters = null) {
@@ -26,6 +29,9 @@ class ProfileModel {
             $this->setCity($parameters[CITY]);
             $this->setDistrict($parameters[DISTRICT]);
             $this->setAddress($parameters[ADDRESS]);
+            $this->setHangoutsAccount($parameters[HANGOUTS_ACCOUNT]);
+            $this->setSkypeAccount($parameters[SKYPE_ACCOUNT]);
+            $this->setZoomAccount($parameters[ZOOM_ACCOUNT]);
             $this->setLanguage($parameters[LANGUAGE]);
         }
     }
@@ -41,6 +47,9 @@ class ProfileModel {
             CITY => $this->getCity(),
             DISTRICT => $this->getDistrict(),
             ADDRESS => $this->getAddress(),
+            HANGOUTS_ACCOUNT => $this->getHangoutsAccount(),
+            SKYPE_ACCOUNT => $this->getSkypeAccount(),
+            ZOOM_ACCOUNT => $this->getZoomAccount(),
             LANGUAGE => $this->getLanguage()
         );
     }
@@ -116,6 +125,30 @@ class ProfileModel {
 
     public function setAddress($address): void {
         $this->address = $address;
+    }
+
+    public function getHangoutsAccount() {
+        return $this->hangoutsAccount;
+    }
+
+    public function setHangoutsAccount($hangoutsAccount): void {
+        $this->hangoutsAccount = $hangoutsAccount;
+    }
+
+    public function getSkypeAccount() {
+        return $this->skypeAccount;
+    }
+
+    public function setSkypeAccount($skypeAccount): void {
+        $this->skypeAccount = $skypeAccount;
+    }
+
+    public function getZoomAccount() {
+        return $this->zoomAccount;
+    }
+
+    public function setZoomAccount($zoomAccount): void {
+        $this->zoomAccount = $zoomAccount;
     }
 
     public function getLanguage() {

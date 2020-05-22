@@ -30,8 +30,26 @@
             </p>
             <p class="mat-small">İletişim Bilgileri</p>
             <mat-chip-list aria-label="Lectures">
-                <mat-chip matTooltip="Telefon" [class.blur-filter]="!profile.phone">{{'+90' + (profile.phone || '5000000000')}}</mat-chip>
-                <mat-chip matTooltip="Email" [class.blur-filter]="!profile.email">{{profile.email || 'info@ozelden.com'}}</mat-chip>
+                <mat-chip matTooltip="Telefon">
+                    <mat-icon class="small-icon" svgIcon="phone"></mat-icon>
+                    &nbsp;<span [class.blur-filter]="!profile.phone">{{'+90' + (profile.phone || '5000000000')}}</span>
+                </mat-chip>
+                <mat-chip matTooltip="Email">
+                    <mat-icon class="small-icon" svgIcon="mail"></mat-icon>
+                    &nbsp;<span [class.blur-filter]="!profile.email">{{profile.email || 'info@ozelden.com'}}</span>
+                </mat-chip>
+                <mat-chip *ngIf="profile.hangouts_account" matTooltip="Google Hangouts">
+                    <mat-icon class="small-icon" svgIcon="hangouts"></mat-icon>
+                    &nbsp;<span [class.blur-filter]="!profile.hangouts_account">{{profile.hangouts_account || 'hangouts account'}}</span>
+                </mat-chip>
+                <mat-chip *ngIf="profile.skype_account" matTooltip="Skype">
+                    <mat-icon class="small-icon" svgIcon="skype"></mat-icon>
+                    &nbsp;<span [class.blur-filter]="!profile.skype_account">{{profile.skype_account || 'skype account'}}</span>
+                </mat-chip>
+                <mat-chip *ngIf="profile.zoom_account" matTooltip="Zoom">
+                    <mat-icon class="small-icon" svgIcon="zoom"></mat-icon>
+                    &nbsp;<span [class.blur-filter]="!profile.email">{{profile.zoom_account || 'zoom account'}}</span>
+                </mat-chip>
             </mat-chip-list>
             <button *ngIf="user && user.type === TYPES.TUTORED && user.type !== profile.type && user.id.toString() !== profile.id.toString()"
                     class="m-top-16" mat-raised-button (click)="openAskOfferDialog()">Teklif Al</button>

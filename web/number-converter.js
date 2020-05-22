@@ -6,7 +6,7 @@ let rawData = [];
 fs.readFile( './phone-numbers.json', 'utf-8', function(err, data) {
     console.log(`(${new Date()}) open crawlered-numbers.json`);
     rawData = JSON.parse(data);
-    const index = 40;
+    const index = 60;
     const limit = 25;
     const result = rawData.slice((index * limit), (index * limit) + limit);
     result.forEach((d) => finalData.push(d.phone));

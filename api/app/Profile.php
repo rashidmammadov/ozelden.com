@@ -10,7 +10,8 @@ class Profile extends Model {
     protected $primaryKey = USER_ID;
 
     protected $fillable = [
-        USER_ID, PICTURE, PHONE, PROFESSION, DESCRIPTION, COUNTRY, CITY, DISTRICT, ADDRESS, LANGUAGE
+        USER_ID, PICTURE, PHONE, PROFESSION, DESCRIPTION, HANGOUTS_ACCOUNT, SKYPE_ACCOUNT, ZOOM_ACCOUNT,
+        COUNTRY, CITY, DISTRICT, ADDRESS, LANGUAGE
     ];
 
     public function user() {

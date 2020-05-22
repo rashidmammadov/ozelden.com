@@ -68,6 +68,9 @@ class ProfileController extends ApiController {
                 if ($relation) {
                     $profile->setPhone($profileFromDB[PHONE]);
                     $profile->setEmail($profileFromDB[EMAIL]);
+                    $profile->setHangoutsAccount($profileFromDB[HANGOUTS_ACCOUNT]);
+                    $profile->setSkypeAccount($profileFromDB[SKYPE_ACCOUNT]);
+                    $profile->setZoomAccount($profileFromDB[ZOOM_ACCOUNT]);
                 }
             } catch (JWTException $e) {
                 Log::error($e->getMessage());
@@ -92,6 +95,9 @@ class ProfileController extends ApiController {
 
                     $profile->setPhone($profileFromDB[PHONE]);
                     $profile->setEmail($profileFromDB[EMAIL]);
+                    $profile->setHangoutsAccount($profileFromDB[HANGOUTS_ACCOUNT]);
+                    $profile->setSkypeAccount($profileFromDB[SKYPE_ACCOUNT]);
+                    $profile->setZoomAccount($profileFromDB[ZOOM_ACCOUNT]);
                 }
 
                 /** @var  $average */

@@ -85,6 +85,9 @@ class ProfileQuery extends Query {
                 CITY => !empty($profile[CITY]) ? $profile[CITY] : null,
                 DISTRICT => !empty($profile[DISTRICT]) ? $profile[DISTRICT] : null,
                 ADDRESS => !empty($profile[ADDRESS]) ? $profile[ADDRESS] : null,
+                HANGOUTS_ACCOUNT => !empty($profile[HANGOUTS_ACCOUNT]) ? $profile[HANGOUTS_ACCOUNT] : null,
+                SKYPE_ACCOUNT => !empty($profile[SKYPE_ACCOUNT]) ? $profile[SKYPE_ACCOUNT] : null,
+                ZOOM_ACCOUNT => !empty($profile[ZOOM_ACCOUNT]) ? $profile[ZOOM_ACCOUNT] : null,
                 LANGUAGE => !empty($profile[LANGUAGE]) ? $profile[LANGUAGE] : COUNTRY_TURKEY_CODE
             ]);
             return $query;
@@ -110,6 +113,9 @@ class ProfileQuery extends Query {
                     CITY => !empty($profile[CITY]) ? $profile[CITY] : null,
                     DISTRICT => !empty($profile[DISTRICT]) ? $profile[DISTRICT] : null,
                     ADDRESS => !empty($profile[ADDRESS]) ? $profile[ADDRESS] : null,
+                    HANGOUTS_ACCOUNT => !empty($profile[HANGOUTS_ACCOUNT]) ? $profile[HANGOUTS_ACCOUNT] : null,
+                    SKYPE_ACCOUNT => !empty($profile[SKYPE_ACCOUNT]) ? $profile[SKYPE_ACCOUNT] : null,
+                    ZOOM_ACCOUNT => !empty($profile[ZOOM_ACCOUNT]) ? $profile[ZOOM_ACCOUNT] : null,
                     LANGUAGE => !empty($profile[LANGUAGE]) ? $profile[LANGUAGE] : COUNTRY_TURKEY_CODE
                 ]);
             return true;
