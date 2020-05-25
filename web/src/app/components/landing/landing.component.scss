@@ -50,6 +50,15 @@
             .description { padding: 16px; max-width: 400px; }
         }
     }
+    .top-city {
+        height: 128px !important; background-size: cover; color: #fff;
+    }
+    .top-lecture {
+        height: 128px !important;
+        color: #fff;
+        background-size: cover;
+        background: linear-gradient(rgba(85, 85, 85, 0.5), rgba(85, 85, 85, 0.5)), url('https://images.ozelden.com/resources/lecture_theme.jpg') center center;
+    }
 }
 
 .footer {

@@ -19,4 +19,8 @@ export class ReportService {
         });
         return UtilityService.pipeHttpResponse(this.http.get<IHttpResponse>(ENDPOINTS.REPORTS(type, encodeURI(queryParams.join('&')))));
     }
+
+    overview(): Promise<ErrorResponse | IHttpResponse> {
+        return UtilityService.pipeHttpResponse(this.http.get<IHttpResponse>(ENDPOINTS.OVERVIEW_REPORTS()));
+    }
 }

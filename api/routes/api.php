@@ -56,6 +56,7 @@ Route::group(['middleware' => 'cors', 'prefix' => '/v1'], function () {
 
     Route::get('/reports', 'ReportController@get');
     Route::get('/reports/{type}', 'ReportController@get');
+    Route::get('/overview_reports', 'ReportController@overview');
 
     Route::get('/recommended', 'SearchController@getRecommendedTutors');
     Route::get('/search', 'SearchController@get');

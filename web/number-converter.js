@@ -6,10 +6,15 @@ let rawData = [];
 fs.readFile( './phone-numbers.json', 'utf-8', function(err, data) {
     console.log(`(${new Date()}) open crawlered-numbers.json`);
     rawData = JSON.parse(data);
-    const index = 60;
-    const limit = 25;
-    const result = rawData.slice((index * limit), (index * limit) + limit);
-    result.forEach((d) => finalData.push(d.phone));
+    // const index = 60;
+    // const limit = 25;
+    // const result = rawData.slice((index * limit), (index * limit) + limit);
+    // result.forEach((d) => finalData.push(d.phone));
+    rawData.forEach((d) => {
+        // if (d.phone.startsWith('050') || d.phone.startsWith('055')) {
+            finalData.push(d.phone);
+        // }
+    });
 
     fs.writeFile('./bucket-phone-numbers.txt', finalData.join('\n'), (err) => {
         if (err) throw err;

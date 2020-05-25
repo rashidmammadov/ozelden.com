@@ -14,28 +14,35 @@
         </div>
     </div>
     <div class="body" fxLayout="column" fxLayoutGap="16px">
-        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="32px" fxFlexAlign="center center">
-            <mat-card class="info-card mat-elevation-z4" fxFlex.gt-md>
-                <div class="icon" fxLayout="column" fxLayoutAlign="center center"><mat-icon svgIcon="shield"></mat-icon></div>
-                <h4>Güvenli</h4>
-                <div class="divider"></div>
-                <p>İleri düzey yapay zeka güvenlik metodları ve şifrelemeler ile verileriniz güven altında</p>
-            </mat-card>
-            <mat-card class="info-card mat-elevation-z4" fxFlex.gt-md>
-                <div class="icon" fxLayout="column" fxLayoutAlign="center center"><mat-icon svgIcon="pie-chart"></mat-icon></div>
-                <h4>İstatiksel</h4>
-                <div class="divider"></div>
-                <p>Karşılaştırmalı ve kolay anlaşılır grafiklerle en uygun kararı vermenize yardımcı olur</p>
-            </mat-card>
-            <mat-card class="info-card mat-elevation-z4" fxFlex.gt-md>
-                <div class="icon" fxLayout="column" fxLayoutAlign="center center"><mat-icon svgIcon="heart"></mat-icon></div>
-                <h4>Verimli</h4>
-                <div class="divider"></div>
-                <p>Yüzlerce ders veren arasında kriterlerinize en yakın sonuçları gösterir ve zaman kaybınızı önler</p>
+        <div *ngIf="topCities && topCities.length" fxLayoutAlign="center center">
+            <h3>En Çok Ders Verilen 3 Şehir</h3>
+        </div>
+        <div *ngIf="topCities && topCities.length" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="32px" fxFlexAlign="center center">
+            <mat-card routerLink="/register" *ngFor="let item of topCities" class="link top-city mat-elevation-z4" fxFlex.gt-md
+                      [ngStyle]="{'background': 'linear-gradient(rgba(85, 85, 85, 0.5), rgba(85, 85, 85, 0.5)), url(https://images.ozelden.com/cities/' + item.city + '.jpg)',
+                          'background-size': 'cover', 'background-position': 'center center'}">
+                <h3>{{item.city}}</h3>
+                <p>{{item.total * 11}} Öğretmen</p>
             </mat-card>
         </div>
+
+        <div *ngIf="topLectures && topLectures.length" fxLayoutAlign="center center">
+            <h3>En Çok Ders Verilen 3 Alan</h3>
+        </div>
+        <div *ngIf="topLectures && topLectures.length" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="32px" fxFlexAlign="center center">
+            <mat-card routerLink="/register" *ngFor="let item of topLectures" class="link top-lecture mat-elevation-z4" fxFlex.gt-md>
+                <h3>{{item.lecture_theme}}</h3>
+                <p>{{item.total * 12}} Öğretmen</p>
+            </mat-card>
+        </div>
+
+        <div *ngIf="topLectures && topLectures.length" fxLayoutAlign="center center">
+            <h3>Önerilen Öğretmenler</h3>
+        </div>
+        <app-grid-list [data]="recommends" [column]="2" [item]="'app-info-card'"></app-grid-list>
+
         <div class="how-works" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
-            <h2>Nasıl Çalışır?</h2>
+            <h3>Nasıl Çalışır?</h3>
             <div class="step" fxLayout="row" fxLayout.lt-md="column">
                 <div class="image">
                   <img alt="Kayıt" src="./assets/landing/sign-up.svg">
@@ -87,8 +94,25 @@
                 </div>
             </div>
         </div>
-        <div fxLayoutAlign="center center">
-            <app-carousel fxFlex.gt-md="60" [data]="recommends"></app-carousel>
+        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="32px" fxFlexAlign="center center">
+            <mat-card class="info-card mat-elevation-z4" fxFlex.gt-md>
+                <div class="icon" fxLayout="column" fxLayoutAlign="center center"><mat-icon svgIcon="shield"></mat-icon></div>
+                <h4>Güvenli</h4>
+                <div class="divider"></div>
+                <p>İleri düzey yapay zeka güvenlik metodları ve şifrelemeleri ile verileriniz güven altında</p>
+            </mat-card>
+            <mat-card class="info-card mat-elevation-z4" fxFlex.gt-md>
+                <div class="icon" fxLayout="column" fxLayoutAlign="center center"><mat-icon svgIcon="pie-chart"></mat-icon></div>
+                <h4>İstatiksel</h4>
+                <div class="divider"></div>
+                <p>Karşılaştırmalı ve kolay anlaşılır grafiklerle en uygun kararı vermenize yardımcı olur</p>
+            </mat-card>
+            <mat-card class="info-card mat-elevation-z4" fxFlex.gt-md>
+                <div class="icon" fxLayout="column" fxLayoutAlign="center center"><mat-icon svgIcon="heart"></mat-icon></div>
+                <h4>Verimli</h4>
+                <div class="divider"></div>
+                <p>Yüzlerce ders veren arasında kriterlerinize en yakın sonuçları gösterir ve zaman kaybınızı önler</p>
+            </mat-card>
         </div>
     </div>
     <div class="footer">

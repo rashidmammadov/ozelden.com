@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MetaService } from '../../services/meta/meta.service';
+import { ReportService } from '../../services/report/report.service';
 import { SearchService } from '../../services/search/search.service';
 import { UtilityService } from '../../services/utility/utility.service';
 import { IHttpResponse } from '../../interfaces/i-http-response';
@@ -16,20 +17,31 @@ export class LandingComponent implements OnInit, OnDestroy {
     index: number = 0;
     interval;
     recommends: InfoType[] = [];
+    topCities: [{city: string, total: number; style: string}];
+    topLectures = [];
 
-    constructor(private searchService: SearchService, private metService: MetaService) {
+    constructor(private searchService: SearchService, private metService: MetaService, private reportService: ReportService) {
         metService.updateOgMetaTags();
     }
 
     async ngOnInit() {
         this.lectures = ['Bilgisayar', 'Matematik', 'Yabancı Dil', 'Sanat', 'Türkçe', 'Spor'];
         this.interval = setInterval(() => this.slideLectures(), 2000);
+        await this.fetchOverviewReports();
         await this.fetchRecommended();
     }
 
     ngOnDestroy(): void {
         clearInterval(this.interval);
     }
+
+    private fetchOverviewReports = async () => {
+        const result = await this.reportService.overview();
+        UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
+            this.topCities = response.data.top_cities;
+            this.topLectures = response.data.top_lectures;
+        });
+    };
 
     private fetchRecommended = async () => {
         const result = await this.searchService.recommended();

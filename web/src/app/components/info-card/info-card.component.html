@@ -1,7 +1,7 @@
-<mat-card *ngIf="data" [id]="'info-card-' + data.id" class="info-card mat-elevation-z4">
+<mat-card *ngIf="data" [id]="'info-card-' + data.id" class="link info-card mat-elevation-z4" [routerLink]="['/app/profile', data.id]">
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
         <div class="general" fxLayout="column" fxLayoutAlign="start center" fxFlex.gt-md="45">
-            <div [routerLink]="['/app/profile', data.id]" class="link" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="16px">
+            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="16px">
                 <mat-icon *ngIf="data.sex" class="gender" [svgIcon]="data.sex"
                           [matTooltip]="data.sex === 'female' ? 'Kadın' : 'Erkek'"></mat-icon>
                 <img [alt]="data.name + ' ' + data.surname" mat-card-avatar
@@ -9,7 +9,7 @@
                 <span *ngIf="data.age" class="age" [matTooltip]="data.age + ' yaş'">{{data.age}}<br>yaş</span>
             </div>
             <p *ngIf="data.profession" class="title" matTooltip="Meslek">{{data.profession}}</p>
-            <p [routerLink]="['/app/profile', data.id]" class="link full-name" fxLayout="row"
+            <p class="full-name" fxLayout="row"
                 fxLayoutAlign="center center" fxLayoutGap="8px">
                 <span>{{data.name}} {{data.surname}}</span>
                 <mat-icon *ngIf="data.recommend" matTooltip="Önerilen" svgIcon="recommend"></mat-icon>
@@ -66,19 +66,25 @@
                 <div *ngIf="data.lectures">
                     <p class="label">Dersler</p>
                     <mat-chip-list aria-label="Lectures">
-                        <mat-chip *ngFor="let lecture of data.lectures"
+                        <mat-chip *ngFor="let lecture of data.lectures.slice(0, 4)"
                                   [matTooltip]="lecture.lecture_theme + ' (' + lecture.lecture_area + ')'">
                             {{lecture.lecture_theme}} ({{lecture.lecture_area}})
                             <span *ngIf="lecture.price" class="additional">{{lecture.price}} ₺</span>
+                        </mat-chip>
+                        <mat-chip *ngIf="data.lectures.length > 4" [routerLink]="['/app/profile', data.id]">
+                            {{data.lectures.length - 4}} ders daha
                         </mat-chip>
                     </mat-chip-list>
                 </div>
                 <div *ngIf="data.regions">
                     <p class="label">İl/İlçeler</p>
                     <mat-chip-list aria-label="Regions">
-                        <mat-chip *ngFor="let region of data.regions"
+                        <mat-chip *ngFor="let region of data.regions.slice(0, 4)"
                                   [matTooltip]="region.city + '/' + region.district">
                             {{region.city}}/{{region.district}}
+                        </mat-chip>
+                        <mat-chip *ngIf="data.regions.length > 4" [routerLink]="['/app/profile', data.id]">
+                            {{data.regions.length - 4}} bölge daha
                         </mat-chip>
                     </mat-chip-list>
                 </div>

@@ -43,6 +43,20 @@ class ReportController extends ApiController {
         }
     }
 
+    /**
+     * Handle request to get top 3 cities and lectures.
+     * @return mixed
+     */
+    public function overview() {
+        $topThreeCities = ReportQuery::getTopThreeCities();
+        $topThreeLectures = ReportQuery::getTopThreeLectures();
+        $data = array(
+            TOP_CITIES => $topThreeCities,
+            TOP_LECTURES => $topThreeLectures
+        );
+        return $this->respondCreated('', $data);
+    }
+
     private function getAveragePrice($query) {
         return $query->select(DB_SUITABLE_REGION_TABLE.'.'.TUTOR_ID, DB_TUTOR_LECTURE_TABLE.'.'.PRICE)
             ->distinct(DB_SUITABLE_REGION_TABLE.'.'.TUTOR_ID)
