@@ -62,6 +62,6 @@ const JSON2XML = (loc) => {
     return '\n<url>' +
           '\n<loc>https://ozelden.com/' + loc + '</loc>' +
           '\n<lastmod>' + millisecondsToString() + '</lastmod>' +
-          '\n<changefreq>daily</changefreq>' +
+          '\n<changefreq>weekly</changefreq>' +
       '\n</url>'
 };
