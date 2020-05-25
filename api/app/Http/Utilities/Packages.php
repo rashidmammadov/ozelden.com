@@ -19,14 +19,18 @@ class Packages {
             array(KEY => 'BOOST3', PRICE => 6, VALUE => 3, GROUP => 'BOOST'),
             array(KEY => 'BOOST7', PRICE => 9, VALUE => 7, GROUP => 'BOOST'),
             array(KEY => 'BOOST15', PRICE => 12, VALUE => 15, GROUP => 'BOOST'),
-            array(KEY => 'BOOST30', PRICE => 15, VALUE => 30, GROUP => 'BOOST')
+            array(KEY => 'BOOST30', PRICE => 15, VALUE => 30, GROUP => 'BOOST'),
+            array(KEY => 'BOOST180', PRICE => 60, VALUE => 180, GROUP => 'BOOST'),
+            array(KEY => 'BOOST365', PRICE => 90, VALUE => 365, GROUP => 'BOOST')
         ),
         RECOMMEND => array(
             array(KEY => 'RECOMMEND1', PRICE => 6, VALUE => 1, GROUP => 'RECOMMEND'),
             array(KEY => 'RECOMMEND3', PRICE => 12, VALUE => 3, GROUP => 'RECOMMEND'),
             array(KEY => 'RECOMMEND7', PRICE => 18, VALUE => 7, GROUP => 'RECOMMEND'),
             array(KEY => 'RECOMMEND15', PRICE => 24, VALUE => 15, GROUP => 'RECOMMEND'),
-            array(KEY => 'RECOMMEND30', PRICE => 30, VALUE => 30, GROUP => 'RECOMMEND')
+            array(KEY => 'RECOMMEND30', PRICE => 30, VALUE => 30, GROUP => 'RECOMMEND'),
+            array(KEY => 'RECOMMEND180', PRICE => 120, VALUE => 180, GROUP => 'RECOMMEND'),
+            array(KEY => 'RECOMMEND365', PRICE => 180, VALUE => 365, GROUP => 'RECOMMEND')
         )
     );
 

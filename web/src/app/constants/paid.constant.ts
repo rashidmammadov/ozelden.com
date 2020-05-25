@@ -14,6 +14,8 @@ export const PAID = {
         { key: 'BOOST7', price: 9, value: 7 },
         { key: 'BOOST15', price: 12, value: 15 },
         { key: 'BOOST30', price: 15, value: 30 },
+        { key: 'BOOST180', price: 60, value: 180 },
+        { key: 'BOOST365', price: 90, value: 365 }
     ],
     RECOMMEND: [
         { key: 'RECOMMEND1', price: 6, value: 1 },
@@ -21,5 +23,7 @@ export const PAID = {
         { key: 'RECOMMEND7', price: 18, value: 7 },
         { key: 'RECOMMEND15', price: 24, value: 15 },
         { key: 'RECOMMEND30', price: 30, value: 30 },
+        { key: 'RECOMMEND180', price: 120, value: 180 },
+        { key: 'RECOMMEND365', price: 180, value: 365 },
     ]
 };

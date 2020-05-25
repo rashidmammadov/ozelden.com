@@ -156,7 +156,9 @@ class Iyzico {
         $buyer->setName($user->getName());
         $buyer->setSurname($user->getSurname());
         $buyer->setEmail($user->getEmail());
-        $buyer->setIdentityNumber($user->getIdentityNumber());
+        // TODO: check for unique id.
+//        $buyer->setIdentityNumber($user->getIdentityNumber());
+        $buyer->setIdentityNumber('11111111111');
         $buyer->setGsmNumber($profile->getPhone());
         $buyer->setRegistrationAddress($profile->getAddress());
         $buyer->setIp($ipAddress);
