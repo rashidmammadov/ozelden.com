@@ -65,7 +65,7 @@ class ProfileController extends ApiController {
                 $user = JWTAuth::parseToken()->authenticate();
                 $currentUserId = $user[IDENTIFIER];
                 $relation = TutorStudentQuery::checkRelationIfExist($id, $currentUserId);
-                if ($relation) {
+                if ($relation || $id == $currentUserId) {
                     $profile->setPhone($profileFromDB[PHONE]);
                     $profile->setEmail($profileFromDB[EMAIL]);
                     $profile->setHangoutsAccount($profileFromDB[HANGOUTS_ACCOUNT]);

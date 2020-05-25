@@ -55,8 +55,16 @@
                     class="m-top-16" mat-raised-button (click)="openAskOfferDialog()">Teklif Al</button>
             <button *ngIf="user && user.type === TYPES.TUTOR && user.type !== profile.type && user.id.toString() !== profile.id.toString()"
                     class="m-top-16" mat-raised-button (click)="openMakeOfferDialog()">Teklif Gönder</button>
-            <p *ngIf="!profile.phone && !profile.email && user.type !== profile.type && user.id.toString() !== profile.id.toString()" class="light-gray">
-                İletişim biliglerine ulaşabilmeniz için kullanıcı ile aranızda en az bir tane onaylanmış teklif olması lazım.
+            <br/>
+            <p *ngIf="!profile.phone && !profile.email && user.type !== profile.type && user.id.toString() !== profile.id.toString()" class="mat-small">
+                * İletişim biliglerine ulaşabilmeniz için kullanıcı ile aranızda en az bir tane <b>onaylanmış teklif</b> olması lazım.
+            </p>
+            <p *ngIf="user.id.toString() === profile.id.toString() && !profile.recommend" class="mat-small">
+                * İletişim biliglerinizi sadece aranızda <b>onaylanmış teklif</b> olan kullanıcılar görebilir.
+            </p>
+            <p *ngIf="user.id.toString() === profile.id.toString() && user.type === TYPES.TUTOR && !profile.recommend" class="mat-small">
+                * İletişim bilgilerinize ders alanların teklif almadan direkt ulaşabilmesi için <b class="link" routerLink="/app/paid-service">Hizmetler</b>
+                sayfasından 6 ₺'den başlayan <b>Önerilme</b> paketini satınalabilirsiniz.
             </p>
         </mat-card>
     </div>

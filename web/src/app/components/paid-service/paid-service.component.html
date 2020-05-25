@@ -47,7 +47,7 @@
             </mat-card-content>
             <mat-divider></mat-divider>
             <mat-card-actions fxLayoutAlign="space-between center">
-                <p><b>Toplam Ücret: {{totalPrice}} ₺</b> (KDV Dahil)</p>
+              <p><b>Toplam Ücret: <s *ngIf="totalPrice > 0">{{totalPrice * 1.5}} ₺</s> {{totalPrice}} ₺</b> (KDV Dahil)</p>
                 <button mat-button mat-raised-button color="primary" [disabled]="!totalPrice" (click)="openDepositDialog()">Ödeme Yap</button>
             </mat-card-actions>
         </mat-card>
