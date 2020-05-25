@@ -164,7 +164,7 @@ class UserController extends ApiController {
             TYPE => 'required|max:10',
             PASSWORD => 'required|min:6|confirmed',
             PASSWORD_CONFIRMATION => 'required|min:6',
-            IDENTITY_NUMBER => 'required|max:11',
+//            IDENTITY_NUMBER => 'required|max:11',
             SEX => 'required|max:10',
             BIRTHDAY => 'required',
             CITY => 'required',
@@ -240,7 +240,7 @@ class UserController extends ApiController {
                 NAME => 'required|max:100',
                 SURNAME => 'required|max:100',
                 EMAIL => 'required|email|max:100',
-                IDENTITY_NUMBER => 'required|max:11',
+//                IDENTITY_NUMBER => 'required|max:11',
                 SEX => 'required|max:10',
                 BIRTHDAY => 'required'
             );

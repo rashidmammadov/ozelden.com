@@ -84,7 +84,7 @@ class UserQuery extends Query {
                 SURNAME => $user[SURNAME],
                 BIRTHDAY => $user[BIRTHDAY],
                 EMAIL => $user[EMAIL],
-                IDENTITY_NUMBER => $user[IDENTITY_NUMBER],
+//                IDENTITY_NUMBER => $user[IDENTITY_NUMBER],
                 PASSWORD => \Hash::make($user[PASSWORD]),
                 SEX => $user[SEX],
                 ONE_SIGNAL_DEVICE_ID => $user[ONE_SIGNAL_DEVICE_ID]

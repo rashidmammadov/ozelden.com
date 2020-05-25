@@ -33,7 +33,7 @@ export class SettingsComponent implements OnInit {
         name: new FormControl('', [Validators.required]),
         surname: new FormControl('', [Validators.required]),
         email: new FormControl('', [Validators.required, Validators.email]),
-        identity_number: new FormControl('', [Validators.required]),
+        // identity_number: new FormControl('', [Validators.required]),
         sex: new FormControl('', [Validators.required]),
         birthday: new FormControl('', [Validators.required]),
     });
@@ -136,7 +136,7 @@ export class SettingsComponent implements OnInit {
             controls.name.setValue(this.user.name);
             controls.surname.setValue(this.user.surname);
             controls.email.setValue(this.user.email);
-            controls.identity_number.setValue(this.user.identity_number);
+            // controls.identity_number.setValue(this.user.identity_number);
             controls.sex.setValue(this.user.sex);
             controls.birthday.setValue(this.user.birthday);
         }
@@ -180,7 +180,7 @@ export class SettingsComponent implements OnInit {
         return !(controls.name.value === this.user.name &&
             controls.surname.value === this.user.surname &&
             controls.email.value === this.user.email &&
-            controls.identity_number.value === this.user.identity_number &&
+            // controls.identity_number.value === this.user.identity_number &&
             controls.sex.value === this.user.sex &&
             controls.birthday.value === this.user.birthday);
     }
@@ -214,7 +214,7 @@ export class SettingsComponent implements OnInit {
             'name': controls.name.value,
             'surname': controls.surname.value,
             'email': controls.email.value,
-            'identity_number': controls.identity_number.value,
+            // 'identity_number': controls.identity_number.value,
             'sex': controls.sex.value,
             'birthday': controls.birthday.value
         }
@@ -239,7 +239,7 @@ export class SettingsComponent implements OnInit {
                 this.user.name = controls.name.value;
                 this.user.surname = controls.surname.value;
                 this.user.email = controls.email.value;
-                this.user.identity_number = controls.identity_number.value;
+                // this.user.identity_number = controls.identity_number.value;
                 this.user.sex = controls.sex.value;
                 this.user.birthday = controls.birthday.value;
                 this.store.dispatch(set({user: this.user}));
