@@ -68,6 +68,7 @@ export class OffersComponent implements OnInit {
     pagination: PaginationType = {} as PaginationType;
     page: number = 1;
     offers: OfferType[] = [];
+    TYPES = TYPES;
 
     constructor(private offerService: OfferService, private dialog: MatDialog,
                 private store: Store<{progress: boolean, user: UserType}>, private router: Router) { }

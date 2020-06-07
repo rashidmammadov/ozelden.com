@@ -116,6 +116,7 @@
             </p>
             <app-grid-list [data]="searchResult" [column]="1" [item]="'app-info-card'"></app-grid-list>
             <app-warning-messages *ngIf="!searchResult || !searchResult.length"
+                                  [boostMessage]="user && user.type === TYPES.TUTOR"
                                   [message]="'NO_RESULT_WITH_GIVEN_FILTERS'"></app-warning-messages>
         </div>
         <div fxLayout="column" fxFlex.gt-md="50" fxLayoutGap="16px">
@@ -156,7 +157,8 @@
             </p>
             <app-grid-list [data]="searchResult" [column]="1" [item]="'app-info-card'"></app-grid-list>
             <app-warning-messages *ngIf="!searchResult || !searchResult.length"
-                                [message]="'NO_RESULT_WITH_GIVEN_FILTERS'"></app-warning-messages>
+                                  [boostMessage]="user && user.type === TYPES.TUTOR"
+                                  [message]="'NO_RESULT_WITH_GIVEN_FILTERS'"></app-warning-messages>
         </div>
     </div>
 

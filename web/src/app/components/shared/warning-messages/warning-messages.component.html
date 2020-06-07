@@ -1,3 +1,12 @@
 <div *ngIf="message" class="warning-box">
-    <p>{{messages[message]}}</p>
+    <p>{{messages[message]}}.
+        <span *ngIf="!!boostMessage">
+            Ders alanların size ilk sıralarda ulaşması için hesabınızı günlük 1,5 ₺'den başlayan fiyatlarla
+            <button color="primary" routerLink="/app/paid-service" mat-stroked-button>öne çıkarın</button>
+        </span>
+        <span *ngIf="!!recommendMessage">
+            Ders alanlara kendinizi önermek ve daha çok teklif almak için günlük 3 ₺'den başlayan fiyatlarla hesabınızı
+            <button color="primary" routerLink="/app/paid-service" mat-stroked-button>önerilen yapın</button>
+        </span>
+    </p>
 </div>

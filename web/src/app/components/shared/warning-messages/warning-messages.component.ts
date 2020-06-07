@@ -9,6 +9,8 @@ import { MESSAGES } from '../../../constants/messages.constant';
 export class WarningMessagesComponent {
 
     @Input() message: string;
+    @Input() boostMessage: boolean;
+    @Input() recommendMessage: boolean;
     messages = MESSAGES.ERROR;
 
     constructor() { }
