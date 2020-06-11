@@ -12,6 +12,7 @@ class StudentModel {
     private $surname;
     private $birthday;
     private $sex;
+    private $parent;
 
     public function __construct($parameters = null) {
         if ($parameters) {
@@ -35,7 +36,8 @@ class StudentModel {
             NAME => $this->getName(),
             SURNAME => $this->getSurname(),
             BIRTHDAY => $this->getBirthday(),
-            SEX => $this->getSex()
+            SEX => $this->getSex(),
+            PARENT => $this->getParent()
         );
     }
 
@@ -101,6 +103,14 @@ class StudentModel {
 
     public function setSex($sex): void {
         $this->sex = $sex;
+    }
+
+    public function getParent() {
+        return $this->parent;
+    }
+
+    public function setParent($parent): void {
+        $this->parent = $parent;
     }
 
 }

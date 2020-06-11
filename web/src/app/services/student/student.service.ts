@@ -20,6 +20,10 @@ export class StudentService {
         return UtilityService.pipeHttpResponse(this.http.delete<IHttpResponse>(ENDPOINTS.STUDENTS(studentId)));
     }
 
+    getTutorStudents(): Promise<ErrorResponse | IHttpResponse> {
+        return UtilityService.pipeHttpResponse(this.http.get<IHttpResponse>(ENDPOINTS.STUDENTS()));
+    }
+
     getTutoredStudents(): Promise<ErrorResponse | IHttpResponse> {
         return UtilityService.pipeHttpResponse(this.http.get<IHttpResponse>(ENDPOINTS.STUDENTS()));
     }

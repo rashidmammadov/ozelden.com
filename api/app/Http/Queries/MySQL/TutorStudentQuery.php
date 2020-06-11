@@ -57,6 +57,27 @@ class TutorStudentQuery extends Query {
     public static function get($tutorId) {
         try {
             $query = TutorStudent::where(TUTOR_ID, EQUAL_SIGN, $tutorId)
+                ->leftJoin(DB_USERS_TABLE.' as '.PARENT, function ($join) {
+                    $join->on(PARENT.'.'.IDENTIFIER, EQUAL_SIGN, DB_TUTOR_STUDENT_TABLE.'.'.USER_ID);
+                })
+                ->leftJoin(DB_PROFILE_TABLE.' as '.PARENT_PROFILE, function ($join) {
+                    $join->on(PARENT_PROFILE.'.'.USER_ID, EQUAL_SIGN, DB_TUTOR_STUDENT_TABLE.'.'.USER_ID);
+                })
+                ->leftJoin(DB_STUDENT_TABLE.' as '.STUDENT, function ($join) {
+                    $join->on(STUDENT.'.'.STUDENT_ID, EQUAL_SIGN, DB_TUTOR_STUDENT_TABLE.'.'.STUDENT_ID);
+                })
+                ->select('*',
+                    PARENT_PROFILE.'.'.PICTURE.' as '.PARENT.'_'.PICTURE,
+                    PARENT.'.'.NAME.' as '.PARENT.'_'.NAME,
+                    PARENT.'.'.SURNAME.' as '.PARENT.'_'.SURNAME,
+                    PARENT.'.'.BIRTHDAY.' as '.PARENT.'_'.BIRTHDAY,
+                    PARENT.'.'.SEX.' as '.PARENT.'_'.SEX,
+                    STUDENT.'.'.PICTURE.' as '.STUDENT.'_'.PICTURE,
+                    STUDENT.'.'.NAME.' as '.STUDENT.'_'.NAME,
+                    STUDENT.'.'.SURNAME.' as '.STUDENT.'_'.SURNAME,
+                    STUDENT.'.'.BIRTHDAY.' as '.STUDENT.'_'.BIRTHDAY,
+                    STUDENT.'.'.SEX.' as '.STUDENT.'_'.SEX
+                )
                 ->get();
             return $query;
         } catch (QueryException $e) {

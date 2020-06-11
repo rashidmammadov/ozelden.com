@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Models\ParentModel;
 use App\Http\Models\StudentModel;
 use App\Http\Queries\MySQL\StudentQuery;
+use App\Http\Queries\MySQL\TutorStudentQuery;
 use App\Http\Utilities\Picture;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Validator;
@@ -45,7 +48,43 @@ class StudentController extends ApiController {
     public function get() {
         try {
             $user = JWTAuth::parseToken()->authenticate();
-            if ($user[TYPE] == TUTORED) {
+            if ($user[TYPE] == TUTOR) {
+                $tutorId = $user[IDENTIFIER];
+                $studentsFromDB = TutorStudentQuery::get($tutorId);
+                if ($studentsFromDB) {
+                    $students = array();
+                    foreach ($studentsFromDB as $studentFromDB) {
+                        $student = new StudentModel();
+                        if ($studentFromDB[STUDENT_ID]) {
+                            $parent = new ParentModel();
+                            $parent->setParentId($studentFromDB[USER_ID]);
+                            $parent->setPicture($studentFromDB[PARENT.'_'.PICTURE]);
+                            $parent->setName($studentFromDB[PARENT.'_'.NAME]);
+                            $parent->setSurname($studentFromDB[PARENT.'_'.SURNAME]);
+
+                            $student->setStudentId($studentFromDB[STUDENT_ID]);
+                            $student->setParentId($studentFromDB[USER_ID]);
+                            $student->setPicture($studentFromDB[STUDENT.'_'.PICTURE]);
+                            $student->setName($studentFromDB[STUDENT.'_'.NAME]);
+                            $student->setSurname($studentFromDB[STUDENT.'_'.SURNAME]);
+                            $student->setBirthday($studentFromDB[STUDENT.'_'.BIRTHDAY]);
+                            $student->setSex($studentFromDB[STUDENT.'_'.SEX]);
+                            $student->setParent($parent->get());
+                        } else {
+                            $student->setStudentId($studentFromDB[USER_ID]);
+                            $student->setPicture($studentFromDB[PARENT.'_'.PICTURE]);
+                            $student->setName($studentFromDB[PARENT.'_'.NAME]);
+                            $student->setSurname($studentFromDB[PARENT.'_'.SURNAME]);
+                            $student->setBirthday($studentFromDB[PARENT.'_'.BIRTHDAY]);
+                            $student->setSex($studentFromDB[PARENT.'_'.SEX]);
+                        }
+                        array_push($students, $student->get());
+                    }
+                    return $this->respondCreated('', array_unique($students, SORT_REGULAR));
+                } else {
+                    return $this->respondWithError(SOMETHING_WRONG_WITH_DB);
+                }
+            } else if ($user[TYPE] == TUTORED) {
                 $parentId = $user[IDENTIFIER];
                 $studentsFromDB = StudentQuery::getParentAllStudents($parentId);
                 if ($studentsFromDB) {

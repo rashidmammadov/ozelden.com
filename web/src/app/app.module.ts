@@ -44,6 +44,7 @@ import { SuitabilityComponent } from './components/suitability/suitability.compo
 import { StudentCardComponent } from './components/student-card/student-card.component';
 import { TableComponent } from './components/shared/table/table.component';
 import { ThreedsDialogComponent } from './components/dialogs/threeds-dialog/threeds-dialog.component';
+import { TutorStudentsComponent } from './components/tutor-students/tutor-students.component';
 import { TutoredStudentsComponent } from './components/tutored-students/tutored-students.component';
 import { UploadFileComponent } from './components/shared/upload-file/upload-file.component';
 import { WarningMessagesComponent } from './components/shared/warning-messages/warning-messages.component';
@@ -107,6 +108,7 @@ export function fetchStaticData(dataService: DataService) {
         StudentCardComponent,
         TableComponent,
         ThreedsDialogComponent,
+        TutorStudentsComponent,
         TutoredStudentsComponent,
         UploadFileComponent,
         WarningMessagesComponent

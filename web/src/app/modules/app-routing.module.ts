@@ -17,6 +17,7 @@ import { RegisterComponent } from '../components/register/register.component';
 import { SearchComponent } from '../components/search/search.component';
 import { SettingsComponent } from '../components/settings/settings.component';
 import { SuitabilityComponent } from '../components/suitability/suitability.component';
+import { TutorStudentsComponent } from '../components/tutor-students/tutor-students.component';
 import { TutoredStudentsComponent } from '../components/tutored-students/tutored-students.component';
 
 import { AuthGuard } from '../guards/auth.guard';
@@ -83,6 +84,10 @@ const routes: Routes = [
             {
                 path: 'suitability',
                 component: SuitabilityComponent
+            },
+            {
+                path: 'tutor-students',
+                component: TutorStudentsComponent
             },
             {
                 path: 'tutored-students',

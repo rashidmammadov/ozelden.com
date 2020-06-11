@@ -1,3 +1,5 @@
+import { ParentType } from './parent-type';
+
 export interface StudentType {
     student_id: number;
     type: string;
@@ -9,4 +11,5 @@ export interface StudentType {
     sex: string;
     file?: any;
     age?: number | string | Date;
+    parent?: ParentType;
 }

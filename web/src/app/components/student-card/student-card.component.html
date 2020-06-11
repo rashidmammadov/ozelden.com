@@ -5,12 +5,17 @@
                       [matTooltip]="data.sex === 'female' ? 'Kadın' : 'Erkek'"></mat-icon>
             <img [alt]="data.name + ' ' + data.surname" mat-card-avatar
                  [src]="data.picture || './assets/images/logo-mini.png'"/>
+            <img class="parent-image" *ngIf="data.parent" [alt]="data.parent.name + ' ' + data.parent.surname" mat-card-avatar
+                 [src]="data.parent.picture || './assets/images/logo-mini.png'"/>
             <span *ngIf="data.age" class="age" [matTooltip]="data.age + ' yaş'">{{data.age}}<br>yaş</span>
         </div>
         <p class="full-name">{{data.name}} {{data.surname}}</p>
-        <div fxLayout="row" fxLayoutGap="16px">
-            <button mat-raised-button mat-stroked-button (click)="openEditDialog()">Düzenle</button>
-<!--            <button class="button-red" mat-raised-button mat-stroked-button (click)="openDeleteDialog()">Kaldır</button>-->
+        <p *ngIf="data.parent" [routerLink]="'/app/profile/' + data.parent.parent_id" class="link parent-full-name">
+            Veli: {{data.parent.name}} {{data.parent.surname}}
+        </p>
+        <div fxLayout="row" fxLayoutGap="16px" *ngIf="operations">
+            <button *ngIf="operations.edit" mat-raised-button mat-stroked-button (click)="openEditDialog()">Düzenle</button>
+            <button *ngIf="operations.delete" class="button-red" mat-raised-button mat-stroked-button (click)="openDeleteDialog()">Kaldır</button>
         </div>
     </div>
 </mat-card>

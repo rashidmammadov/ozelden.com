@@ -10,8 +10,11 @@ import { UtilityService } from '../../services/utility/utility.service';
 import { ConfirmDialogType } from '../../interfaces/confirm-dialog-type';
 import { IHttpResponse } from '../../interfaces/i-http-response';
 import { StudentType } from '../../interfaces/student-type';
+import { UserType } from '../../interfaces/user-type';
 import { loaded, loading } from '../../store/actions/progress.action';
 import { DATE_TIME } from '../../constants/date-time.constant';
+import { first } from 'rxjs/operators';
+import {TYPES} from "../../constants/types.constant";
 
 @Component({
     selector: 'app-student-card',
@@ -20,13 +23,26 @@ import { DATE_TIME } from '../../constants/date-time.constant';
 })
 export class StudentCardComponent implements OnInit {
     @Input() public data: StudentType;
+    user: UserType;
+    operations = {
+        delete: false,
+        edit: false
+    };
 
-    constructor(private dialog: MatDialog, private store: Store<{progress: boolean}>,
+    constructor(private dialog: MatDialog, private store: Store<{progress: boolean, user: UserType}>,
                 private studentService: StudentService) { }
 
-    ngOnInit(): void {
+    async ngOnInit() {
+        await this.fetchUser();
         this.data && this.data.birthday && (this.data.age = UtilityService.millisecondsToDate(this.data.birthday, DATE_TIME.FORMAT.TOTAL_YEARS));
+        if (this.user && this.user.type === TYPES.TUTORED) {
+            this.operations.edit = true;
+        }
     }
+
+    private fetchUser = async () => {
+        this.user = await this.store.select('user').pipe(first()).toPromise();
+    };
 
     public openDeleteDialog() {
         const dialogData: ConfirmDialogType = {
@@ -51,13 +67,13 @@ export class StudentCardComponent implements OnInit {
     }
 
     private deleteStudent = async () => {
-        // this.store.dispatch(loading());
-        // const result = await this.studentService.deleteTutoredStudent(this.data.student_id);
-        // UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
-        //     this.data = null;
-        //     ToastService.show(response.message);
-        // });
-        // this.store.dispatch(loaded());
+        this.store.dispatch(loading());
+        const result = await this.studentService.deleteTutoredStudent(this.data.student_id);
+        UtilityService.handleResponseFromService(result, (response: IHttpResponse) => {
+            this.data = null;
+            ToastService.show(response.message);
+        });
+        this.store.dispatch(loaded());
     };
 
     private updateStudent = async (student: StudentType) => {

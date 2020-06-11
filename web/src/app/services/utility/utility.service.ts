@@ -74,13 +74,14 @@ export class UtilityService {
         let buttons = [];
         const home = {routerLink: '/app/home', icon: 'home', title: 'Ana Sayfa'};
         const offers = {routerLink: '/app/offers', icon: 'offers', title: 'Teklifler', badgeOffersCount: true};
+        const tutorStudents = {routerLink: '/app/tutor-students', icon: 'students', title: 'Öğrencilerim'};
         const tutoredStudents = {routerLink: '/app/tutored-students', icon: 'students', title: 'Öğrencilerim'};
         const paidService = {routerLink: '/app/paid-service', icon: 'star', title: 'Hizmetler'};
         const lectures = {routerLink: '/app/lectures', icon: 'paperclip', title: 'Derslerim'};
         const suitability = {routerLink: '/app/suitability', icon: 'sliders', title: 'Uygunluk'};
         const settings = {routerLink: '/app/settings', icon: 'settings', title: 'Ayarlar'};
         if (user && user.type === TYPES.TUTOR) {
-            buttons = [home, offers, paidService, lectures, suitability, settings];
+            buttons = [home, offers, tutorStudents, paidService, lectures, suitability, settings];
         } else if (user && user.type === TYPES.TUTORED) {
             buttons = [home, offers, tutoredStudents, settings];
         }
