@@ -23,7 +23,7 @@
     "@angular/platform-browser-dynamic": "~9.0.0",
     "@angular/router": "^9.0.1",
     "@ngrx/store": "^8.6.0",
-    "d3": "^5.15.1",
+    "d3": "^7.6.1",
     "ng-hammerjs": "^2.0.8",
     "ngx-cookie-service": "^2.3.0",
     "rxjs": "~6.5.4",
